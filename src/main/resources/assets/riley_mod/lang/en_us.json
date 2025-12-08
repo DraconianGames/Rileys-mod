@@ -1,0 +1,19 @@
+{
+  "item.riley_mod.stardust": "Stardust",
+  "item.riley_mod.funtium_mix": "Funtium Mix",
+  "item.riley_mod.funtium_plate": "Funtium Plate",
+  "item.riley_mod.funtium_ore": "Funtium Ore",
+
+  "item.riley_mod.funtium_sword": "Funtium Sword",
+  "item.riley_mod.funtium_pickaxe": "Funtium Pickaxe",
+  "item.riley_mod.funtium_axe": "Funtium Axe",
+  "item.riley_mod.funtium_shovel": "Funtium Shovel",
+  "item.riley_mod.funtium_hoe": "Funtium Hoe",
+
+  "block.riley_mod.funtium_block": "Funtium Block",
+  "block.riley_mod.activacted_funtium": "Activated Funtium",
+
+  "block.riley_mod.funtium_ore_block": "Funtium Ore Block",
+
+  "creativetab.funtium_tab": "Funtium Tab"
+}

@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"texture_size": [32, 32],
+	"textures": {
+		"0": "riley_mod:item/funtium_hoe_3d",
+		"particle": "riley_mod:item/funtium_hoe_3d"
+	},
+	"elements": [
+		{
+			"from": [7, 0, 9],
+			"to": [9, 23, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 9]},
+			"faces": {
+				"north": {"uv": [0, 0, 1, 11.5], "texture": "#0"},
+				"east": {"uv": [1, 0, 2, 11.5], "texture": "#0"},
+				"south": {"uv": [2, 0, 3, 11.5], "texture": "#0"},
+				"west": {"uv": [3, 0, 4, 11.5], "texture": "#0"},
+				"up": {"uv": [7, 2, 6, 1], "texture": "#0"},
+				"down": {"uv": [7, 2, 6, 3], "texture": "#0"}
+			}
+		},
+		{
+			"from": [6, 22, 1],
+			"to": [10, 23, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 22, 7]},
+			"faces": {
+				"north": {"uv": [6, 3, 8, 3.5], "texture": "#0"},
+				"east": {"uv": [6, 0, 10, 0.5], "texture": "#0"},
+				"south": {"uv": [6, 3.5, 8, 4], "texture": "#0"},
+				"west": {"uv": [6, 0.5, 10, 1], "texture": "#0"},
+				"up": {"uv": [6, 4, 4, 0], "texture": "#0"},
+				"down": {"uv": [6, 4, 4, 8], "texture": "#0"}
+			}
+		}
+	],
+	"display": {},
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

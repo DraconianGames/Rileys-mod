@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 9000,
+  "experience": 23.0,
+  "group":"activacted_funtium",
+  "ingredient": {
+    "item": "riley_mod:funtium_block"
+  },
+  "result": "riley_mod:activacted_funtium"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {"item":"riley_mod:activacted_funtium"},
+    {"item":"riley_mod:activacted_funtium"},
+    {"item":"riley_mod:stardust"},
+    {"item":"riley_mod:stardust"}
+  ],
+  "result": {
+    "item": "riley_mod:funtium_mix",
+    "count": 1
+  }
+}

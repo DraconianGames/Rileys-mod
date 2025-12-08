@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {
+      "item": "riley_mod:funtium_block"
+    }
+  ],
+  "result": {
+  "item": "riley_mod:funtium_plate",
+    "count": 9
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "group":"funtium_plate",
+  "ingredient": {
+    "item": "riley_mod:funtium_ore"
+  },
+  "result": "riley_mod:funtium_plate"
+}
