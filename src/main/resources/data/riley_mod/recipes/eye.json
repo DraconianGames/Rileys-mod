@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {"item": "minecraft:obsidian"},
+    "B": {"item": "riley_mod:activacted_funtium"},
+    "C": {"item": "minecraft:glowstone_dust"}
+  },
+  "pattern": [
+    "CAC",
+    "ABA",
+    "CAC"
+  ],
+  "result": {
+    "count": 1,
+    "item": "riley_mod:eye"
+  }
+}

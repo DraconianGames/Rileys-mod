@@ -22,6 +22,7 @@ public class ModCreativeModTabs {
                         output.accept(Moditems.FUNTIUM_MIX.get());
                         output.accept(Moditems.FUNTIUM_PLATE.get());
                         output.accept(Moditems.FUNTIUM_ORE.get());
+                        output.accept(Moditems.EYE.get());
 
                         output.accept(Moditems.FUNTIUM_SWORD.get());
                         output.accept(Moditems.FUNTIUM_PICKAXE.get());

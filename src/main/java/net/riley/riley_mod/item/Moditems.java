@@ -20,6 +20,8 @@ public class Moditems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_ORE = ITEMS.register("funtium_ore",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EYE = ITEMS.register("eye",
+            () -> new Item(new Item.Properties()));
     //Tools
     public static final RegistryObject<Item> FUNTIUM_SWORD = ITEMS.register("funtium_sword",
             () -> new SwordItem(ModToolTiers.FUNTIUM,4,3,new Item.Properties()));
