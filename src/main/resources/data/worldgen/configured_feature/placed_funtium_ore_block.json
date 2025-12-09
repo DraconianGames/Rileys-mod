@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-        "Name": "riley_mod:funtium_ore_block"
+        "name": "riley_mod:funtium_ore_block"
       },
         "target": {
           "predicate_type": "minecraft:tag_match",
