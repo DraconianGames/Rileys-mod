@@ -34,6 +34,13 @@ public class ModCreativeModTabs {
                         output.accept(ModBlocks.FUNTIUM_BLOCK.get());
                         output.accept(ModBlocks.ACTIVACTED_FUNTIUM.get());
                         output.accept(ModBlocks.FUNTIUM_ORE_BLOCK.get());
+
+                        output.accept(ModBlocks.ABYSS_LOG.get());
+                        output.accept(ModBlocks.STRIPPED_ABYSS_LOG.get());
+                        output.accept(ModBlocks.ABYSS_WOOD.get());
+                        output.accept(ModBlocks.STRIPPED_ABYSS_WOOD.get());
+                        output.accept(ModBlocks.ABYSS_PLANKS.get());
+                        output.accept(ModBlocks.ABYSS_LEAVES.get());
                     })
                     .build());
     

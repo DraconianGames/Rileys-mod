@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "riley_mod:block/abyss_wood",
+    "side": "riley_mod:block/abyss_wood"
+  }
+}
