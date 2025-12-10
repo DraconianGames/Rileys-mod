@@ -6,10 +6,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DropExperienceBlock;
-import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.custom.ModFlammableRotatedPillarBlock;
 import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.worldgen.tree.AbyssTreeGrower;
 
 import java.util.function.Supplier;
 
@@ -80,6 +78,8 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
                     return 30;
                 }
             });
+    public static final RegistryObject<Block> ABYSS_SAPLING = registerBlock("abyss_sapling",
+            () -> new SaplingBlock(new AbyssTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
 
 
