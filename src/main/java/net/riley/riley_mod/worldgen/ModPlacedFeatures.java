@@ -30,7 +30,7 @@ public class ModPlacedFeatures {
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(80))));
 
         register(context, ABYSS_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ABYSS_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(20, 0.1f, 6),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(9, 0.1f, 3),
                         ModBlocks.ABYSS_SAPLING.get()));
     }
 

@@ -1,7 +1,7 @@
-// 1.20.1	2025-12-12T14:45:14.9046707	Registries
+// 1.20.1	2025-12-12T15:07:02.6101821	Registries
 44846c510b534d90ff90dd0bfbc13d64e327e80d data/riley_mod/forge/biome_modifier/add_funtium_ore.json
 e0a1cb4264d66e48f76e8a46101b268ea16a83f8 data/riley_mod/forge/biome_modifier/add_tree_abyss.json
 9562380a4bdc2ed90a1d1854a2d03dec12042dd5 data/riley_mod/worldgen/configured_feature/abyss.json
 889a1866649729cddbedb72e8ca344bc53c64835 data/riley_mod/worldgen/configured_feature/funtium_ore_block.json
-4512f38258569fc8739e730f3bb379f6e5febfeb data/riley_mod/worldgen/placed_feature/abyss_placed.json
+bcb2971c74407cb6415a46e50d03aceeee469a92 data/riley_mod/worldgen/placed_feature/abyss_placed.json
 011e1c0389bc7c025b60d28a6c81e12aaa759128 data/riley_mod/worldgen/placed_feature/funtium_ore_placed.json

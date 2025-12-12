@@ -4,6 +4,7 @@ package net.riley.riley_mod.datagen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -28,11 +29,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.ABYSS_PLANKS);
         blockWithItem(ModBlocks.ABYSS_SAPLING);
 
+
+        leavesBlock(ModBlocks.ABYSS_LEAVES);
+        logBlock(((RotatedPillarBlock) ModBlocks.ABYSS_LOG.get()));
+        axisBlock(((RotatedPillarBlock) ModBlocks.ABYSS_WOOD.get()), blockTexture(ModBlocks.ABYSS_LOG.get()), blockTexture(ModBlocks.ABYSS_LOG.get()));
+
+        axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ABYSS_LOG.get()), blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()),
+                new ResourceLocation(RileyMod.MODID, "block/stripped_abyss_log_top"));
+        axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ABYSS_WOOD.get()), blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()),
+                blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()));
+
         blockItem(ModBlocks.ABYSS_LOG);
         blockItem(ModBlocks.ABYSS_WOOD);
         blockItem(ModBlocks.STRIPPED_ABYSS_LOG);
         blockItem(ModBlocks.STRIPPED_ABYSS_WOOD);
-        leavesBlock(ModBlocks.ABYSS_LEAVES);
 
     }
     private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
