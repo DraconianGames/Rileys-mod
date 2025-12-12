@@ -26,15 +26,17 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(ModBlocks.FUNTIUM_BLOCK.get());
-        this.dropSelf(ModBlocks.FUNTIUM_ORE_BLOCK.get());
         this.dropSelf(ModBlocks.ACTIVACTED_FUNTIUM.get());
         this.dropSelf(ModBlocks.ABYSS_LOG.get());
         this.dropSelf(ModBlocks.ABYSS_PLANKS.get());
-        this.dropSelf(ModBlocks.ABYSS_LEAVES.get());
         this.dropSelf(ModBlocks.ABYSS_WOOD.get());
         this.dropSelf(ModBlocks.STRIPPED_ABYSS_WOOD.get());
         this.dropSelf(ModBlocks.STRIPPED_ABYSS_LOG.get());
         this.dropSelf(ModBlocks.ABYSS_SAPLING.get());
+        this.add(ModBlocks.FUNTIUM_ORE_BLOCK.get(),
+                block -> createCopperLikeOreDrops(ModBlocks.FUNTIUM_ORE_BLOCK.get(), Moditems.FUNTIUM_ORE.get()));
+        this.add(ModBlocks.ABYSS_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {
