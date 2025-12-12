@@ -1,9 +1,9 @@
 {
-  "feature": "riley_mod:configured_funtium_ore_block",
+  "feature": "riley_mod:funtium_ore_block",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 9
+      "count": 12
     },
     {
       "type": "minecraft:in_square"
@@ -16,7 +16,7 @@
           "absolute": 80
         },
         "min_inclusive": {
-          "absolute": -60
+          "absolute": -64
         }
       }
     },

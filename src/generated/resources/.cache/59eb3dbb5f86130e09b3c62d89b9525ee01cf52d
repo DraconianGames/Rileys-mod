@@ -1,10 +1,11 @@
-// 1.20.1	2025-12-12T09:56:36.9275878	Loot Tables
+// 1.20.1	2025-12-12T14:32:48.6524218	Loot Tables
 5fbd60c2342517457575b2752e748d6fb4543cdc data/riley_mod/loot_tables/blocks/abyss_leaves.json
 4299e3d64474a8e8d32130386906ebb8ae2bb259 data/riley_mod/loot_tables/blocks/abyss_log.json
 40c7fafa9f51af0dd98b0c535876658257da4478 data/riley_mod/loot_tables/blocks/abyss_planks.json
 56aaa7161d161dc37c2e458655a6b0e18a0b730c data/riley_mod/loot_tables/blocks/abyss_sapling.json
 af1b12f19252943f1add278032f9f98450970335 data/riley_mod/loot_tables/blocks/abyss_wood.json
 cd226cbb8ad1e26f8d56a6b5288dbcdad22e55c1 data/riley_mod/loot_tables/blocks/activacted_funtium.json
+854714340f0e18df086f7e5c21fd23d2d110ff18 data/riley_mod/loot_tables/blocks/deepslate_funtium_ore.json
 a9b6ec746cd39c86807d879708da0c9374f7a99d data/riley_mod/loot_tables/blocks/funtium_block.json
 8e7e44d1c34a5a3dea971961bd3d457ccee4a22b data/riley_mod/loot_tables/blocks/funtium_ore_block.json
 7f65ec048b7906f1f0203412f0e07fc6b8bea2b4 data/riley_mod/loot_tables/blocks/stripped_abyss_log.json

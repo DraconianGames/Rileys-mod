@@ -35,6 +35,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.ABYSS_SAPLING.get());
         this.add(ModBlocks.FUNTIUM_ORE_BLOCK.get(),
                 block -> createCopperLikeOreDrops(ModBlocks.FUNTIUM_ORE_BLOCK.get(), Moditems.FUNTIUM_ORE.get()));
+        this.add(ModBlocks.DEEPSLATE_FUNTIUM_ORE.get(),
+                block -> createCopperLikeOreDrops(ModBlocks.DEEPSLATE_FUNTIUM_ORE.get(), Moditems.FUNTIUM_ORE.get()));
         this.add(ModBlocks.ABYSS_LEAVES.get(), block ->
                 createLeavesDrops(block, ModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
     }

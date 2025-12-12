@@ -33,7 +33,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> FUNTIUM_ORE_BLOCK = registerBlock("funtium_ore_block",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
-
+    public static final RegistryObject<Block> DEEPSLATE_FUNTIUM_ORE = registerBlock("deepslate_funtium_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
 //wood
     public static final RegistryObject<Block> ABYSS_LOG = registerBlock("abyss_log",
             () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));

@@ -22,6 +22,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         blockWithItem(ModBlocks.FUNTIUM_ORE_BLOCK);
+        blockWithItem(ModBlocks.DEEPSLATE_FUNTIUM_ORE);
         blockWithItem(ModBlocks.FUNTIUM_BLOCK);
         blockWithItem(ModBlocks.ACTIVACTED_FUNTIUM);
         blockWithItem(ModBlocks.ABYSS_PLANKS);
