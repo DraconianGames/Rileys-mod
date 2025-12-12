@@ -27,7 +27,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockWithItem(ModBlocks.FUNTIUM_BLOCK);
         blockWithItem(ModBlocks.ACTIVACTED_FUNTIUM);
         blockWithItem(ModBlocks.ABYSS_PLANKS);
-        blockWithItem(ModBlocks.ABYSS_SAPLING);
+
 
 
         leavesBlock(ModBlocks.ABYSS_LEAVES);
@@ -43,7 +43,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.ABYSS_WOOD);
         blockItem(ModBlocks.STRIPPED_ABYSS_LOG);
         blockItem(ModBlocks.STRIPPED_ABYSS_WOOD);
-
+        saplingBlock(ModBlocks.ABYSS_SAPLING);
+    }
+    private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
     }
     private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(),

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ABYSS_KEY = registerKey("abyss");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_FUNTIUM_ORE_KEY = registerKey("funtium_ore_block");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_FUNTIUM_ORE_KEY = registerKey("funtium_ore");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 
@@ -35,7 +35,7 @@ public class ModConfiguredFeatures {
                 new ForkingTrunkPlacer(5, 7, 5),
 
                 BlockStateProvider.simple(ModBlocks.ABYSS_LEAVES.get()),
-                new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 4),
+                new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), 4),
 
                 new TwoLayersFeatureSize(0, 0, 0)).build());
 

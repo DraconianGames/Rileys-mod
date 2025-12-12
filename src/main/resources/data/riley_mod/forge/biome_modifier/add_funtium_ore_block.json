@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "riley_mod:placed_funtium_ore_block",
-  "step": "underground_ores"
-}
