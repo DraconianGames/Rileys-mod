@@ -1,0 +1,22 @@
+{
+
+  "structures": [
+    {
+      "structure": "riley_mod:avalon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "salt": 6428759364,
+
+
+    "spacing": 20,
+
+
+    "separation": 6,
+
+
+    "type": "minecraft:random_spread"
+  }
+}
