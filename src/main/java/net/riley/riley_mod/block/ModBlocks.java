@@ -2,6 +2,7 @@ package net.riley.riley_mod.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -80,8 +81,21 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
                     return 30;
                 }
             });
+    public static final RegistryObject<Block> ABYSS_WOOD_STAIRS = registerBlock("abyss_wood_stairs",
+            () -> new StairBlock(() -> ModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
+                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> ABYSS_WOOD_SLAB = registerBlock("abyss_wood_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+
     public static final RegistryObject<Block> ABYSS_SAPLING = registerBlock("abyss_sapling",
             () -> new SaplingBlock(new AbyssTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+
+    public static final RegistryObject<Block> ABYSS_WOOD_FENCE = registerBlock("abyss_wood_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+    public static final RegistryObject<Block> ABYSS_WOOD_FENCE_GATE = registerBlock("abyss_wood_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
+    public static final RegistryObject<Block> ABYSS_WOOD_WALL = registerBlock("abyss_wood_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
 
 
 

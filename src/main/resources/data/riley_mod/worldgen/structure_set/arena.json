@@ -1,0 +1,22 @@
+{
+
+  "structures": [
+    {
+      "structure": "riley_mod:arena",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "salt": 6423871568,
+
+
+    "spacing": 20,
+
+
+    "separation": 6,
+
+
+    "type": "minecraft:random_spread"
+  }
+}

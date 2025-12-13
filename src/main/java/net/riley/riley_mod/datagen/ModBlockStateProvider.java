@@ -3,8 +3,7 @@ package net.riley.riley_mod.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -44,6 +43,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.STRIPPED_ABYSS_LOG);
         blockItem(ModBlocks.STRIPPED_ABYSS_WOOD);
         saplingBlock(ModBlocks.ABYSS_SAPLING);
+
+        stairsBlock(((StairBlock) ModBlocks.ABYSS_WOOD_STAIRS.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
+        slabBlock(((SlabBlock) ModBlocks.ABYSS_WOOD_SLAB.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
+        
+
+        fenceBlock(((FenceBlock) ModBlocks.ABYSS_WOOD_FENCE.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
+        fenceGateBlock(((FenceGateBlock) ModBlocks.ABYSS_WOOD_FENCE_GATE.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
+        wallBlock(((WallBlock) ModBlocks.ABYSS_WOOD_WALL.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
+
+        
     }
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlock(blockRegistryObject.get(),

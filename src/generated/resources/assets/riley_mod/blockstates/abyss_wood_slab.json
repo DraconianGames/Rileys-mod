@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "riley_mod:block/abyss_wood_slab"
+    },
+    "type=double": {
+      "model": "riley_mod:block/abyss_planks"
+    },
+    "type=top": {
+      "model": "riley_mod:block/abyss_wood_slab_top"
+    }
+  }
+}

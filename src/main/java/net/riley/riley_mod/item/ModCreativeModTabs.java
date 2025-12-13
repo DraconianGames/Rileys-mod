@@ -43,6 +43,13 @@ public class ModCreativeModTabs {
                         output.accept(ModBlocks.ABYSS_PLANKS.get());
                         output.accept(ModBlocks.ABYSS_LEAVES.get());
                         output.accept(ModBlocks.ABYSS_SAPLING.get());
+
+                        output.accept(ModBlocks.ABYSS_WOOD_FENCE.get());
+                        output.accept(ModBlocks.ABYSS_WOOD_SLAB.get());
+                        output.accept(ModBlocks.ABYSS_WOOD_WALL.get());
+                        output.accept(ModBlocks.ABYSS_WOOD_FENCE_GATE.get());
+                        output.accept(ModBlocks.ABYSS_WOOD_STAIRS.get());
+
                     })
                     .build());
     
