@@ -10,6 +10,8 @@ import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.worldgen.ModBiomeModifiers;
 import net.riley.riley_mod.worldgen.ModConfiguredFeatures;
 import net.riley.riley_mod.worldgen.ModPlacedFeatures;
+import net.riley.riley_mod.worldgen.biome.ModBiomes;
+
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -19,6 +21,7 @@ public class ModWorldGenProvider extends DatapackBuiltinEntriesProvider {
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap)
             .add(ForgeRegistries.Keys.BIOME_MODIFIERS, ModBiomeModifiers::bootstrap);
+            .add(Registries.BIOME,ModBiomes::bootstrap);
 
     public ModWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of(RileyMod.MODID));

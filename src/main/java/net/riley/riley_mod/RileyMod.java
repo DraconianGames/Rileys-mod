@@ -16,6 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.riley.riley_mod.block.ModBlocks;
 import net.riley.riley_mod.item.ModCreativeModTabs;
 import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.worldgen.biome.ModTerrablender;
 import org.slf4j.Logger;
 
 import static net.riley.riley_mod.RileyMod.MODID;
@@ -37,6 +38,7 @@ public class RileyMod
 
         Moditems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModTerrablender.registerBiomes();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
