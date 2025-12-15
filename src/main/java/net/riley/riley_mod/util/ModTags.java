@@ -10,6 +10,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.riley.riley_mod.RileyMod;
@@ -30,5 +31,6 @@ public class ModTags {
             return ItemTags.create(new ResourceLocation(RileyMod.MODID, name));
         }
     }
+
 }
 
