@@ -35,7 +35,7 @@ public class ModConfiguredFeatures {
                 new ForkingTrunkPlacer(5, 7, 5),
 
                 BlockStateProvider.simple(ModBlocks.ABYSS_LEAVES.get()),
-                new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), 3),
+                new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(1), 3),
 
                 new TwoLayersFeatureSize(0, 0, 0)).build());
 
@@ -52,7 +52,7 @@ public class ModConfiguredFeatures {
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(RileyMod.MODID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE,ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,

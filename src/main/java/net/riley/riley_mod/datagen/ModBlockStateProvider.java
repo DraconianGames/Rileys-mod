@@ -34,7 +34,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         axisBlock(((RotatedPillarBlock) ModBlocks.ABYSS_WOOD.get()), blockTexture(ModBlocks.ABYSS_LOG.get()), blockTexture(ModBlocks.ABYSS_LOG.get()));
 
         axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ABYSS_LOG.get()), blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()),
-                new ResourceLocation(RileyMod.MODID, "block/stripped_abyss_log_top"));
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "block/stripped_abyss_log_top"));
         axisBlock(((RotatedPillarBlock) ModBlocks.STRIPPED_ABYSS_WOOD.get()), blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()),
                 blockTexture(ModBlocks.STRIPPED_ABYSS_LOG.get()));
 
@@ -44,6 +44,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         blockItem(ModBlocks.STRIPPED_ABYSS_WOOD);
         saplingBlock(ModBlocks.ABYSS_SAPLING);
 
+        blockWithItem(ModBlocks.ABYSS_PORTAL);
         stairsBlock(((StairBlock) ModBlocks.ABYSS_WOOD_STAIRS.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
         slabBlock(((SlabBlock) ModBlocks.ABYSS_WOOD_SLAB.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()), blockTexture(ModBlocks.ABYSS_PLANKS.get()));
         

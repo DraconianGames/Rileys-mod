@@ -53,9 +53,10 @@ public class ModBiomes {
         BiomeDefaultFeatures.addFerns(biomeBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
         BiomeDefaultFeatures.addExtraGold(biomeBuilder);
+        BiomeDefaultFeatures.addIcebergs(biomeBuilder);
         BiomeDefaultFeatures.addExtraEmeralds(biomeBuilder);
 
-        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
+        //biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
@@ -68,12 +69,12 @@ public class ModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(290500)
-                        .waterFogColor(701012)
-                        .skyColor(0x30c89)
-                        .grassColorOverride(580000)
-                        .foliageColorOverride(580000)
-                        .fogColor(0x22a1e6)
+                        .waterColor(740303)
+                        .waterFogColor(900000)
+                        .skyColor(0x30c00)
+                        .grassColorOverride(440000)
+                        .foliageColorOverride(411818)
+                        .fogColor(0x30c00)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -100,9 +101,10 @@ public class ModBiomes {
         BiomeDefaultFeatures.addFerns(biomeBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
         BiomeDefaultFeatures.addExtraGold(biomeBuilder);
+        BiomeDefaultFeatures.addIcebergs(biomeBuilder);
         BiomeDefaultFeatures.addExtraEmeralds(biomeBuilder);
 
-        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
+        //biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
@@ -115,12 +117,12 @@ public class ModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(290500)
-                        .waterFogColor(701012)
-                        .skyColor(0x30c89)
-                        .grassColorOverride(580000)
-                        .foliageColorOverride(580000)
-                        .fogColor(0x22a1e6)
+                        .waterColor(740303)
+                        .waterFogColor(900000)
+                        .skyColor(0x30c00)
+                        .grassColorOverride(440000)
+                        .foliageColorOverride(411818)
+                        .fogColor(0x30c00)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();

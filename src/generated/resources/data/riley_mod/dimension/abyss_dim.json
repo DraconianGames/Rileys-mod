@@ -1,0 +1,36 @@
+{
+  "type": "riley_mod:abyss_dim_type",
+  "generator": {
+    "type": "minecraft:noise",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "riley_mod:abyss_forest_biome",
+          "parameters": {
+            "continentalness": 1.0,
+            "depth": 1.0,
+            "erosion": 0.0,
+            "humidity": 0.2,
+            "offset": 0.0,
+            "temperature": 0.3,
+            "weirdness": -2.0
+          }
+        },
+        {
+          "biome": "riley_mod:abyss_plains",
+          "parameters": {
+            "continentalness": 1.0,
+            "depth": 1.0,
+            "erosion": 0.0,
+            "humidity": 0.2,
+            "offset": 0.0,
+            "temperature": 0.4,
+            "weirdness": -2.0
+          }
+        }
+      ]
+    },
+    "settings": "minecraft:overworld"
+  }
+}

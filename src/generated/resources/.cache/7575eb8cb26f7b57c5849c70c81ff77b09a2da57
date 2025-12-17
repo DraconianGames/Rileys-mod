@@ -1,7 +1,8 @@
-// 1.20.1	2025-12-13T11:38:48.3510785	Block States: riley_mod
+// 1.20.1	2025-12-17T13:55:13.4933833	Block States: riley_mod
 347d5e1c44f3e380a1217dd18df3c3cd2909b792 assets/riley_mod/blockstates/abyss_leaves.json
 c7d5c62eab3aa904a473d730308ad86b2cfffbf7 assets/riley_mod/blockstates/abyss_log.json
 949607e1ebbc7b05f256a9bfd9931228fd216881 assets/riley_mod/blockstates/abyss_planks.json
+72ed68369b462e74b0457e2b29ddc36e3ecce7cf assets/riley_mod/blockstates/abyss_portal.json
 e3de5b7c192828e19f004428b1120dcfdd33717f assets/riley_mod/blockstates/abyss_sapling.json
 d9b3476b68e2cb537e65cf9b69593d3986e7cbf2 assets/riley_mod/blockstates/abyss_wood.json
 57e9b5daa51507b0cc3d2373e1ffa32879f21f13 assets/riley_mod/blockstates/abyss_wood_fence.json
@@ -19,6 +20,7 @@ af3a38e03c50f60f91c1832fec9750b73b7b8fe9 assets/riley_mod/models/block/abyss_lea
 2cbe91096b39b667857d19963b1e20a1f51dc92f assets/riley_mod/models/block/abyss_log.json
 d5204c22278e2b0e535d338d611273a63a8e4f74 assets/riley_mod/models/block/abyss_log_horizontal.json
 0d8acd6ac50d79ae784a088ed40c07c583468ab6 assets/riley_mod/models/block/abyss_planks.json
+ab43a1d9d53d1a3c6ac11976c8be2e4d48b5dbbc assets/riley_mod/models/block/abyss_portal.json
 625c8ac91a9dc2e94c95624a680168bec3c88bb3 assets/riley_mod/models/block/abyss_sapling.json
 81e369a2fefe1f4bc87caaeed8d570eee2c634b0 assets/riley_mod/models/block/abyss_wood.json
 243155e62226cd171a23c5071dde1a90cc4cb180 assets/riley_mod/models/block/abyss_wood_fence_gate.json
@@ -47,6 +49,7 @@ c3599332f6e102fb0e9a3ab4c0a90310ddc16334 assets/riley_mod/models/block/stripped_
 6b1c01d3a5aab9d781c05a7b86fdd9a13acdc48b assets/riley_mod/models/item/abyss_leaves.json
 8c4147826c1281ca63136d69ad6119bc340e9bba assets/riley_mod/models/item/abyss_log.json
 1fc01324595d041f076f416f0e9dcaf53dd2be0b assets/riley_mod/models/item/abyss_planks.json
+9f8f13b526e73269102ac05a6a1c5f03f74738d0 assets/riley_mod/models/item/abyss_portal.json
 4be03be2c8d18cf0a2b628f7a5cbfc168ae8003a assets/riley_mod/models/item/abyss_wood.json
 78baee09c5ed17356bc515ebf54dccb1b14d0b37 assets/riley_mod/models/item/activacted_funtium.json
 363e2b50f0945891c7de2a22b63687ce8ef5010f assets/riley_mod/models/item/deepslate_funtium_ore.json

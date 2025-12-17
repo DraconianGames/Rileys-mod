@@ -8,18 +8,18 @@
   },
   "downfall": 0.8,
   "effects": {
-    "fog_color": 2269670,
-    "foliage_color": 580000,
-    "grass_color": 580000,
+    "fog_color": 199680,
+    "foliage_color": 411818,
+    "grass_color": 440000,
     "mood_sound": {
       "block_search_extent": 8,
       "offset": 2.0,
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000
     },
-    "sky_color": 199817,
-    "water_color": 290500,
-    "water_fog_color": 701012
+    "sky_color": 199680,
+    "water_color": 740303,
+    "water_fog_color": 900000
   },
   "features": [
     [],
@@ -28,7 +28,9 @@
       "minecraft:lake_lava_surface"
     ],
     [
-      "minecraft:amethyst_geode"
+      "minecraft:amethyst_geode",
+      "minecraft:iceberg_packed",
+      "minecraft:iceberg_blue"
     ],
     [
       "minecraft:monster_room",
@@ -74,7 +76,6 @@
       "minecraft:glow_lichen",
       "minecraft:forest_flowers",
       "minecraft:patch_large_fern",
-      "minecraft:trees_plains",
       "minecraft:brown_mushroom_normal",
       "minecraft:red_mushroom_normal",
       "minecraft:patch_sugar_cane",

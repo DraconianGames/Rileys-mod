@@ -16,6 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.custom.ModFlammableRotatedPillarBlock;
+import net.riley.riley_mod.block.custom.ModPortalBlock;
 import net.riley.riley_mod.item.Moditems;
 import net.riley.riley_mod.worldgen.tree.AbyssTreeGrower;
 
@@ -96,6 +97,9 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
     public static final RegistryObject<Block> ABYSS_WOOD_WALL = registerBlock("abyss_wood_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+
+    public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
+            () -> new ModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));
 
 
 
