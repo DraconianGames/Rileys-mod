@@ -15,6 +15,6 @@ public class ModToolTiers {
     public static final Tier FUNTIUM = TierSortingRegistry.registerTier(
             new ForgeTier(5,3000,40f,100f,30,
                     ModTags.Blocks.Needs_Funtium_TOOL, () -> Ingredient.of(Moditems.FUNTIUM_PLATE.get())),
-            new ResourceLocation(RileyMod.MODID, "funtium"), List.of(Tiers.NETHERITE), List.of());
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "funtium"), List.of(Tiers.NETHERITE), List.of());
 
 }

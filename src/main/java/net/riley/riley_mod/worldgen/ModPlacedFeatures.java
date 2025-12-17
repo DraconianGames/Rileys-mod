@@ -27,7 +27,7 @@ public class ModPlacedFeatures {
 
         register(context, FUNTIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_FUNTIUM_ORE_KEY),
                 ModOrePlacement.commonOrePlacement(12,
-                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(80))));
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(24))));
 
         register(context, ABYSS_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.ABYSS_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(9, 0.1f, 3),
@@ -36,7 +36,7 @@ public class ModPlacedFeatures {
 
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
-        return ResourceKey.create(Registries.PLACED_FEATURE, new ResourceLocation(RileyMod.MODID, name));
+        return ResourceKey.create(Registries.PLACED_FEATURE,ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
     }
 
     private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, Holder<ConfiguredFeature<?, ?>> configuration,

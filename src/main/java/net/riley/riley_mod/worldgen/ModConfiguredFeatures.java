@@ -35,7 +35,7 @@ public class ModConfiguredFeatures {
                 new ForkingTrunkPlacer(5, 7, 5),
 
                 BlockStateProvider.simple(ModBlocks.ABYSS_LEAVES.get()),
-                new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), 4),
+                new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(0), 3),
 
                 new TwoLayersFeatureSize(0, 0, 0)).build());
 

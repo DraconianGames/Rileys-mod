@@ -23,14 +23,13 @@ public class ModTags {
         public static final TagKey<Block>Needs_Funtium_TOOL = tag("needs_funtium_tool");
 
     private static TagKey<Block> tag(String name) {
-        return BlockTags.create(new ResourceLocation(RileyMod.MODID, name));
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
     }
 }
     public static class Items {
         public static TagKey<Item> tag(String name) {
-            return ItemTags.create(new ResourceLocation(RileyMod.MODID, name));
+            return ItemTags.create(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
         }
     }
-
 }
 
