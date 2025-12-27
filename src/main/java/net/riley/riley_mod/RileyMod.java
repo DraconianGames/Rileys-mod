@@ -1,7 +1,6 @@
 package net.riley.riley_mod;
 //what
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -13,9 +12,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.riley.riley_mod.block.ModBlocks;
-import net.riley.riley_mod.item.ModCreativeModTabs;
-import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.item.RileyModCreativeModTabs;
+import net.riley.riley_mod.item.RileyModItems;
 
 import org.slf4j.Logger;
 
@@ -34,10 +33,10 @@ public class RileyMod
     {
         IEventBus modEventBus = context.getModEventBus();
 
-        ModCreativeModTabs.register(modEventBus);
+        RileyModCreativeModTabs.register(modEventBus);
 
-        Moditems.register(modEventBus);
-        ModBlocks.register(modEventBus);
+        RileyModItems.register(modEventBus);
+        RileyModBlocks.register(modEventBus);
 
 
         // Register the commonSetup method for modloading

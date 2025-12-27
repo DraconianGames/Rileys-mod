@@ -15,14 +15,14 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.custom.ModFlammableRotatedPillarBlock;
-import net.riley.riley_mod.block.custom.ModPortalBlock;
-import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.block.custom.RileyModFlammableRotatedPillarBlock;
+import net.riley.riley_mod.block.custom.RileyModPortalBlock;
+import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.worldgen.tree.AbyssTreeGrower;
 
 import java.util.function.Supplier;
 
-public class ModBlocks {
+public class RileyModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, RileyMod.MODID);
 //blocks
@@ -40,13 +40,13 @@ public class ModBlocks {
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
 //wood
     public static final RegistryObject<Block> ABYSS_LOG = registerBlock("abyss_log",
-            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
+            () -> new RileyModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
     public static final RegistryObject<Block> ABYSS_WOOD = registerBlock("abyss_wood",
-            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
+            () -> new RileyModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
     public static final RegistryObject<Block> STRIPPED_ABYSS_LOG = registerBlock("stripped_abyss_log",
-            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
+            () -> new RileyModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
     public static final RegistryObject<Block> STRIPPED_ABYSS_WOOD = registerBlock("stripped_abyss_wood",
-            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
+            () -> new RileyModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
 //leaves+planks
 public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_planks",
         () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS)) {
@@ -83,7 +83,7 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
                 }
             });
     public static final RegistryObject<Block> ABYSS_WOOD_STAIRS = registerBlock("abyss_wood_stairs",
-            () -> new StairBlock(() -> ModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
+            () -> new StairBlock(() -> RileyModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_SLAB = registerBlock("abyss_wood_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
@@ -99,7 +99,7 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
-            () -> new ModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));
+            () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));
 
 
 
@@ -112,7 +112,7 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
     }
 
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
-        return Moditems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return RileyModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register(IEventBus eventBus) {

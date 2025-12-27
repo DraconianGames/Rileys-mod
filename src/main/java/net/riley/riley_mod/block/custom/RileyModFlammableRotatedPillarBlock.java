@@ -8,12 +8,12 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
-import net.riley.riley_mod.block.ModBlocks;
+import net.riley.riley_mod.block.RileyModBlocks;
 
 import javax.annotation.Nullable;
 
-public class ModFlammableRotatedPillarBlock extends RotatedPillarBlock {
-    public ModFlammableRotatedPillarBlock(Properties pProperties) {
+public class RileyModFlammableRotatedPillarBlock extends RotatedPillarBlock {
+    public RileyModFlammableRotatedPillarBlock(Properties pProperties) {
         super(pProperties);
     }
     @Override
@@ -33,12 +33,12 @@ public class ModFlammableRotatedPillarBlock extends RotatedPillarBlock {
     @Override
     public @Nullable BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
         if(context.getItemInHand().getItem() instanceof AxeItem) {
-            if(state.is(ModBlocks.ABYSS_LOG.get())) {
-                return ModBlocks.STRIPPED_ABYSS_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            if(state.is(RileyModBlocks.ABYSS_LOG.get())) {
+                return RileyModBlocks.STRIPPED_ABYSS_LOG.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
 
-            if(state.is(ModBlocks.ABYSS_WOOD.get())) {
-                return ModBlocks.STRIPPED_ABYSS_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
+            if(state.is(RileyModBlocks.ABYSS_WOOD.get())) {
+                return RileyModBlocks.STRIPPED_ABYSS_WOOD.get().defaultBlockState().setValue(AXIS, state.getValue(AXIS));
             }
         }
 

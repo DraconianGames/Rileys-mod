@@ -7,16 +7,16 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.util.ITeleporter;
-import net.riley.riley_mod.block.ModBlocks;
-import net.riley.riley_mod.block.custom.ModPortalBlock;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.RileyModPortalBlock;
 
 import java.util.function.Function;
 
-public class ModTeleporter implements ITeleporter {
+public class RileyModTeleporter implements ITeleporter {
     public static BlockPos thisPos = BlockPos.ZERO;
     public static boolean insideDimension = true;
 
-    public ModTeleporter(BlockPos pos, boolean insideDim) {
+    public RileyModTeleporter(BlockPos pos, boolean insideDim) {
         thisPos = pos;
         insideDimension = insideDim;
     }
@@ -48,13 +48,13 @@ public class ModTeleporter implements ITeleporter {
             boolean doSetBlock = true;
             for (BlockPos checkPos : BlockPos.betweenClosed(destinationPos.below(10).west(10),
                     destinationPos.above(10).east(10))) {
-                if (destinationWorld.getBlockState(checkPos).getBlock() instanceof ModPortalBlock) {
+                if (destinationWorld.getBlockState(checkPos).getBlock() instanceof RileyModPortalBlock) {
                     doSetBlock = false;
                     break;
                 }
             }
             if (doSetBlock) {
-                destinationWorld.setBlock(destinationPos, ModBlocks.ABYSS_PORTAL.get().defaultBlockState(), 3);
+                destinationWorld.setBlock(destinationPos, RileyModBlocks.ABYSS_PORTAL.get().defaultBlockState(), 3);
             }
         }
 

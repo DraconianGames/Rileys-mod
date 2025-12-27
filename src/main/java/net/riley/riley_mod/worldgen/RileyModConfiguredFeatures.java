@@ -18,11 +18,11 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlace
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.ModBlocks;
+import net.riley.riley_mod.block.RileyModBlocks;
 
 import java.util.List;
 
-public class ModConfiguredFeatures {
+public class RileyModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ABYSS_KEY = registerKey("abyss");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_FUNTIUM_ORE_KEY = registerKey("funtium_ore");
 
@@ -31,10 +31,10 @@ public class ModConfiguredFeatures {
 
 
         register(context, ABYSS_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(ModBlocks.ABYSS_LOG.get()),
+                BlockStateProvider.simple(RileyModBlocks.ABYSS_LOG.get()),
                 new ForkingTrunkPlacer(5, 7, 5),
 
-                BlockStateProvider.simple(ModBlocks.ABYSS_LEAVES.get()),
+                BlockStateProvider.simple(RileyModBlocks.ABYSS_LEAVES.get()),
                 new FancyFoliagePlacer(ConstantInt.of(4), ConstantInt.of(1), 3),
 
                 new TwoLayersFeatureSize(0, 0, 0)).build());
@@ -44,8 +44,8 @@ public class ModConfiguredFeatures {
 
 
         List<OreConfiguration.TargetBlockState> overworldSapphireOres = List.of(OreConfiguration.target(stoneReplaceable,
-                        ModBlocks.FUNTIUM_ORE_BLOCK.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_FUNTIUM_ORE.get().defaultBlockState()));
+                        RileyModBlocks.FUNTIUM_ORE_BLOCK.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get().defaultBlockState()));
 
         register(context, OVERWORLD_FUNTIUM_ORE_KEY, Feature.ORE, new OreConfiguration(overworldSapphireOres, 9));
 

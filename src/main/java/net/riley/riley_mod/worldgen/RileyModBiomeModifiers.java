@@ -14,7 +14,7 @@ import net.riley.riley_mod.RileyMod;
 
 
 
-public class ModBiomeModifiers {
+public class RileyModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_FUNTIUM_ORE = registerKey("add_funtium_ore");
     public static final ResourceKey<BiomeModifier> ADD_TREE_ABYSS = registerKey("add_tree_abyss");
 
@@ -24,12 +24,12 @@ public class ModBiomeModifiers {
 
         context.register(ADD_FUNTIUM_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.FUNTIUM_ORE_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(RileyModPlacedFeatures.FUNTIUM_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_TREE_ABYSS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_FOREST),
-                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.ABYSS_PLACED_KEY)),
+                HolderSet.direct(placedFeatures.getOrThrow(RileyModPlacedFeatures.ABYSS_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
     }
 

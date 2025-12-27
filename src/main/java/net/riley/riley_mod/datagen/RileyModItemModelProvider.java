@@ -10,32 +10,32 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.ModBlocks;
-import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.item.RileyModItems;
 
-public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+public class RileyModItemModelProvider extends ItemModelProvider {
+    public RileyModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, RileyMod.MODID, existingFileHelper);
     }
 
     @Override
     protected void registerModels() {
-        simpleItem(Moditems.EYE);
-        simpleItem(Moditems.FUNTIUM_ORE);
-        simpleItem(Moditems.FUNTIUM_MIX);
-        simpleItem(Moditems.STARDUST);
-        simpleItem(Moditems.FUNTIUM_PLATE);
+        simpleItem(RileyModItems.EYE);
+        simpleItem(RileyModItems.FUNTIUM_ORE);
+        simpleItem(RileyModItems.FUNTIUM_MIX);
+        simpleItem(RileyModItems.STARDUST);
+        simpleItem(RileyModItems.FUNTIUM_PLATE);
 
-        saplingItem(ModBlocks.ABYSS_SAPLING);
+        saplingItem(RileyModBlocks.ABYSS_SAPLING);
 
-        fenceItem(ModBlocks.ABYSS_WOOD_FENCE, ModBlocks.ABYSS_PLANKS);
+        fenceItem(RileyModBlocks.ABYSS_WOOD_FENCE, RileyModBlocks.ABYSS_PLANKS);
         
-        wallItem(ModBlocks.ABYSS_WOOD_WALL, ModBlocks.ABYSS_PLANKS);
+        wallItem(RileyModBlocks.ABYSS_WOOD_WALL, RileyModBlocks.ABYSS_PLANKS);
 
-        evenSimplerBlockItem(ModBlocks.ABYSS_WOOD_STAIRS);
-        evenSimplerBlockItem(ModBlocks.ABYSS_WOOD_SLAB);
+        evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_STAIRS);
+        evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_SLAB);
         
-        evenSimplerBlockItem(ModBlocks.ABYSS_WOOD_FENCE_GATE);
+        evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_FENCE_GATE);
     }
     private ItemModelBuilder saplingItem(RegistryObject<Block> item) {
         return withExistingParent(item.getId().getPath(),

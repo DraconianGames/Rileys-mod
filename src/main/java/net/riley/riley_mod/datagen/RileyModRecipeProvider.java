@@ -12,9 +12,9 @@ import net.riley.riley_mod.RileyMod;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
+public class RileyModRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    public ModRecipeProvider(PackOutput pOutput) {
+    public RileyModRecipeProvider(PackOutput pOutput) {
         super(pOutput);
     }
 

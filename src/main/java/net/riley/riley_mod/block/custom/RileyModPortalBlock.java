@@ -12,11 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.riley.riley_mod.worldgen.dimension.ModDimensions;
-import net.riley.riley_mod.worldgen.portal.ModTeleporter;
+import net.riley.riley_mod.worldgen.dimension.RileyModDimensions;
+import net.riley.riley_mod.worldgen.portal.RileyModTeleporter;
 
-public class ModPortalBlock extends Block {
-    public ModPortalBlock(Properties pProperties) {
+public class RileyModPortalBlock extends Block {
+    public RileyModPortalBlock(Properties pProperties) {
         super(pProperties);
     }
 
@@ -33,15 +33,15 @@ public class ModPortalBlock extends Block {
     private void handleAbyssPortal(Entity player, BlockPos pPos) {
         if (player.level() instanceof ServerLevel serverlevel) {
             MinecraftServer minecraftserver = serverlevel.getServer();
-            ResourceKey<Level> resourcekey = player.level().dimension() == ModDimensions.ABYSSDIM_LEVEL_KEY ?
-                    Level.OVERWORLD : ModDimensions.ABYSSDIM_LEVEL_KEY;
+            ResourceKey<Level> resourcekey = player.level().dimension() == RileyModDimensions.ABYSSDIM_LEVEL_KEY ?
+                    Level.OVERWORLD : RileyModDimensions.ABYSSDIM_LEVEL_KEY;
 
             ServerLevel portalDimension = minecraftserver.getLevel(resourcekey);
             if (portalDimension != null && !player.isPassenger()) {
-                if(resourcekey == ModDimensions.ABYSSDIM_LEVEL_KEY) {
-                    player.changeDimension(portalDimension, new ModTeleporter(pPos, true));
+                if(resourcekey == RileyModDimensions.ABYSSDIM_LEVEL_KEY) {
+                    player.changeDimension(portalDimension, new RileyModTeleporter(pPos, true));
                 } else {
-                    player.changeDimension(portalDimension, new ModTeleporter(pPos, false));
+                    player.changeDimension(portalDimension, new RileyModTeleporter(pPos, false));
                 }
             }
         }

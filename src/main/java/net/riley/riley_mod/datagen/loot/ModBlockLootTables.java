@@ -1,10 +1,8 @@
 package net.riley.riley_mod.datagen.loot;
 
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -13,8 +11,8 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
-import net.riley.riley_mod.block.ModBlocks;
-import net.riley.riley_mod.item.Moditems;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.item.RileyModItems;
 
 import java.util.Set;
 
@@ -25,27 +23,27 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        this.dropSelf(ModBlocks.FUNTIUM_BLOCK.get());
-        this.dropSelf(ModBlocks.ACTIVACTED_FUNTIUM.get());
-        this.dropSelf(ModBlocks.ABYSS_LOG.get());
-        this.dropSelf(ModBlocks.ABYSS_PLANKS.get());
-        this.dropSelf(ModBlocks.ABYSS_WOOD.get());
-        this.dropSelf(ModBlocks.STRIPPED_ABYSS_WOOD.get());
-        this.dropSelf(ModBlocks.STRIPPED_ABYSS_LOG.get());
-        this.dropSelf(ModBlocks.ABYSS_SAPLING.get());
-        this.add(ModBlocks.FUNTIUM_ORE_BLOCK.get(),
-                block -> createCopperLikeOreDrops(ModBlocks.FUNTIUM_ORE_BLOCK.get(), Moditems.FUNTIUM_ORE.get()));
-        this.add(ModBlocks.DEEPSLATE_FUNTIUM_ORE.get(),
-                block -> createCopperLikeOreDrops(ModBlocks.DEEPSLATE_FUNTIUM_ORE.get(), Moditems.FUNTIUM_ORE.get()));
-        this.add(ModBlocks.ABYSS_LEAVES.get(), block ->
-                createLeavesDrops(block, ModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-        this.dropSelf(ModBlocks.ABYSS_WOOD_STAIRS.get());
-        this.dropSelf(ModBlocks.ABYSS_WOOD_FENCE.get());
-        this.dropSelf(ModBlocks.ABYSS_WOOD_FENCE_GATE.get());
-        this.dropSelf(ModBlocks.ABYSS_WOOD_WALL.get());
+        this.dropSelf(RileyModBlocks.FUNTIUM_BLOCK.get());
+        this.dropSelf(RileyModBlocks.ACTIVACTED_FUNTIUM.get());
+        this.dropSelf(RileyModBlocks.ABYSS_LOG.get());
+        this.dropSelf(RileyModBlocks.ABYSS_PLANKS.get());
+        this.dropSelf(RileyModBlocks.ABYSS_WOOD.get());
+        this.dropSelf(RileyModBlocks.STRIPPED_ABYSS_WOOD.get());
+        this.dropSelf(RileyModBlocks.STRIPPED_ABYSS_LOG.get());
+        this.dropSelf(RileyModBlocks.ABYSS_SAPLING.get());
+        this.add(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(),
+                block -> createCopperLikeOreDrops(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(), RileyModItems.FUNTIUM_ORE.get()));
+        this.add(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(),
+                block -> createCopperLikeOreDrops(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(), RileyModItems.FUNTIUM_ORE.get()));
+        this.add(RileyModBlocks.ABYSS_LEAVES.get(), block ->
+                createLeavesDrops(block, RileyModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.dropSelf(RileyModBlocks.ABYSS_WOOD_STAIRS.get());
+        this.dropSelf(RileyModBlocks.ABYSS_WOOD_FENCE.get());
+        this.dropSelf(RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get());
+        this.dropSelf(RileyModBlocks.ABYSS_WOOD_WALL.get());
 
-        this.add(ModBlocks.ABYSS_WOOD_SLAB.get(),
-                block -> createSlabItemTable(ModBlocks.ABYSS_WOOD_SLAB.get()));
+        this.add(RileyModBlocks.ABYSS_WOOD_SLAB.get(),
+                block -> createSlabItemTable(RileyModBlocks.ABYSS_WOOD_SLAB.get()));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {
@@ -58,6 +56,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+        return RileyModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
 }
