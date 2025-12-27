@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,11 @@ public class RileyModItemTagGenerator extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
 
-
+        this.tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(RileyModItems.FUNTIUM_HELMET.get(),
+                        RileyModItems.FUNTIUM_CHESTPLATE.get(),
+                        RileyModItems.FUNTIUM_LEGGINGS.get(),
+                        RileyModItems.FUNTIUM_BOOTS.get());
 
         this.tag(ItemTags.LOGS_THAT_BURN)
                 .add(RileyModBlocks.ABYSS_LOG.get().asItem())

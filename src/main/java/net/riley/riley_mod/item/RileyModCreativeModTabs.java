@@ -30,6 +30,11 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.FUNTIUM_SHOVEL.get());
                         output.accept(RileyModItems.FUNTIUM_HOE.get());
 
+                        output.accept(RileyModItems.FUNTIUM_HELMET.get());
+                        output.accept(RileyModItems.FUNTIUM_CHESTPLATE.get());
+                        output.accept(RileyModItems.FUNTIUM_LEGGINGS.get());
+                        output.accept(RileyModItems.FUNTIUM_BOOTS.get());
+
 
                         output.accept(RileyModBlocks.FUNTIUM_BLOCK.get());
                         output.accept(RileyModBlocks.ACTIVACTED_FUNTIUM.get());
