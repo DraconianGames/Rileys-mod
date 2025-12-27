@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.item.custom.RileyModArmorItem;
 
 public class RileyModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -35,13 +36,13 @@ public class RileyModItems {
             () -> new HoeItem(RileyModToolTiers.FUNTIUM,0,0,new Item.Properties()));
 
     public static final RegistryObject<Item> FUNTIUM_HELMET = ITEMS.register("funtium_helmet",
-            () -> new ArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_CHESTPLATE = ITEMS.register("funtium_chestplate",
-            () -> new ArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_LEGGINGS = ITEMS.register("funtium_leggings",
-            () -> new ArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_BOOTS = ITEMS.register("funtium_boots",
-            () -> new ArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
