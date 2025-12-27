@@ -26,5 +26,13 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.ABYSS_WOOD_FENCE_GATE.get());
         this.tag(BlockTags.WALLS)
                 .add(ModBlocks.ABYSS_WOOD_WALL.get());
+        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.ABYSS_LOG.get())
+                .add(ModBlocks.ABYSS_WOOD.get())
+                .add(ModBlocks.STRIPPED_ABYSS_LOG.get())
+                .add(ModBlocks.STRIPPED_ABYSS_WOOD.get());
+
+        this.tag(BlockTags.PLANKS)
+                .add(ModBlocks.ABYSS_PLANKS.get());
     }
 }

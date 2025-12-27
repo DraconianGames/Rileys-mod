@@ -24,6 +24,13 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 
 
 
+        this.tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.ABYSS_LOG.get().asItem())
+                .add(ModBlocks.ABYSS_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_ABYSS_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_ABYSS_WOOD.get().asItem());
 
+        this.tag(ItemTags.PLANKS)
+                .add(ModBlocks.ABYSS_PLANKS.get().asItem());
     }
 }

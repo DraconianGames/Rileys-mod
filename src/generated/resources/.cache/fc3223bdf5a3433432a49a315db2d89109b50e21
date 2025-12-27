@@ -1,4 +1,6 @@
-// 1.20.1	2025-12-17T14:00:52.8575196	Tags for minecraft:block mod id riley_mod
+// 1.20.1	2025-12-26T19:27:10.6600639	Tags for minecraft:block mod id riley_mod
 29b8f0674de8c6babed6e01cf01715e5f112b066 data/minecraft/tags/blocks/fences.json
 bbebfccb841a76212ae849ce18d5358478eadaf3 data/minecraft/tags/blocks/fence_gates.json
+fecdd646039d74d3e3ee3c1b86cf47018fd598f3 data/minecraft/tags/blocks/logs_that_burn.json
+656c6985b5dbb34a76b26bd0fb2cec4e626d89ab data/minecraft/tags/blocks/planks.json
 7e413050bb7a720e78571d1b2409439e6ba3b1b0 data/minecraft/tags/blocks/walls.json

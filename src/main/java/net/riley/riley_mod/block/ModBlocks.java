@@ -84,19 +84,19 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             });
     public static final RegistryObject<Block> ABYSS_WOOD_STAIRS = registerBlock("abyss_wood_stairs",
             () -> new StairBlock(() -> ModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
-                    BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+                    BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_SLAB = registerBlock("abyss_wood_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> ABYSS_SAPLING = registerBlock("abyss_sapling",
             () -> new SaplingBlock(new AbyssTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE = registerBlock("abyss_wood_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE_GATE = registerBlock("abyss_wood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
     public static final RegistryObject<Block> ABYSS_WOOD_WALL = registerBlock("abyss_wood_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
             () -> new ModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));
