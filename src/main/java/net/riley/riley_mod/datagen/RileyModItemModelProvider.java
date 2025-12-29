@@ -47,6 +47,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.FUNTIUM_MIX);
         simpleItem(RileyModItems.STARDUST);
         simpleItem(RileyModItems.FUNTIUM_PLATE);
+        simpleItem(RileyModItems.ICE_CHUNK);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 

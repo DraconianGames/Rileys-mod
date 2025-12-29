@@ -4,6 +4,13 @@
   "item.riley_mod.funtium_plate": "Funtium Plate",
   "item.riley_mod.funtium_ore": "Funtium Ore",
   "item.riley_mod.eye": "Eye",
+  "item.riley_mod.ice_chunk": "Ice Chunk",
+
+  "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
+  "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
+  "item.minecraft.splash_potion.effect.freeze_potion": "Splash Potion of Freeze",
+  "item.minecraft.lingering_potion.effect.freeze_potion": "Lingering Potion of Freeze",
+  "effect.riley_mod.freeze": "Freeze",
 
   "item.riley_mod.funtium_sword": "Funtium Sword",
   "item.riley_mod.funtium_pickaxe": "Funtium Pickaxe",

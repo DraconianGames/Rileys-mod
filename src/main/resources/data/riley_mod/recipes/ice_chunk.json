@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {
+      "item": "minecraft:blue_ice"
+    }
+  ],
+  "result": {
+  "item": "riley_mod:ice_chunk",
+    "count": 3
+  }
+}

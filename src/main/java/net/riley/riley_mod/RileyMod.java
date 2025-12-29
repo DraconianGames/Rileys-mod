@@ -13,9 +13,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
 
+import net.riley.riley_mod.potion.RileyModPotions;
 import org.slf4j.Logger;
 
 import static net.riley.riley_mod.RileyMod.MODID;
@@ -34,6 +36,9 @@ public class RileyMod
         IEventBus modEventBus = context.getModEventBus();
 
         RileyModCreativeModTabs.register(modEventBus);
+
+        RileyModEffects.register(modEventBus);
+        RileyModPotions.register(modEventBus);
 
         RileyModItems.register(modEventBus);
         RileyModBlocks.register(modEventBus);

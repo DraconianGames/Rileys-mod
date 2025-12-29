@@ -13,6 +13,7 @@ public class RileyModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, RileyMod.MODID);
 
+
     public static final RegistryObject<Item> STARDUST = ITEMS.register("stardust",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject <Item> FUNTIUM_MIX = ITEMS.register("funtium_mix",
@@ -22,6 +23,8 @@ public class RileyModItems {
     public static final RegistryObject<Item> FUNTIUM_ORE = ITEMS.register("funtium_ore",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));
     //Tools
     public static final RegistryObject<Item> FUNTIUM_SWORD = ITEMS.register("funtium_sword",
