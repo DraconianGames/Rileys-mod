@@ -3,6 +3,7 @@ package net.riley.riley_mod;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -13,9 +14,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.worldgen.processor.RileyModStructureProcessors;
 
 import net.riley.riley_mod.potion.RileyModPotions;
 import org.slf4j.Logger;
@@ -34,6 +37,7 @@ public class RileyMod
     public RileyMod(FMLJavaModLoadingContext context)
     {
         IEventBus modEventBus = context.getModEventBus();
+
 
         RileyModCreativeModTabs.register(modEventBus);
 
@@ -55,10 +59,15 @@ public class RileyMod
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
+        // register brewing recipes on the main thread
+        event.enqueueWork(() -> {
+            BrewingRecipeRegistry.addRecipe(new FreezeBrewingRecipe());
+        });
 
     }
 

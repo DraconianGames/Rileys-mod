@@ -17,7 +17,7 @@
         "location": "riley_mod:arena",
 
 
-        "processors": "minecraft:empty",
+        "processors": "riley_mod:arena_support",
 
 
         "projection": "rigid",
