@@ -18,7 +18,7 @@ import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
-import net.riley.riley_mod.worldgen.processor.RileyModStructureProcessors;
+
 
 import net.riley.riley_mod.potion.RileyModPotions;
 import org.slf4j.Logger;
