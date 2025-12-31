@@ -42,8 +42,16 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get());
         this.dropSelf(RileyModBlocks.ABYSS_WOOD_WALL.get());
 
+        this.dropSelf(RileyModBlocks.STRUCTURE_BRICK_STAIRS.get());
+        this.dropSelf(RileyModBlocks.STRUCTURE_BRICK_FENCE.get());
+        this.dropSelf(RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get());
+        this.dropSelf(RileyModBlocks.STRUCTURE_BRICK_WALL.get());
+        this.dropSelf(RileyModBlocks.STRUCTURE_BRICK.get());
+
         this.add(RileyModBlocks.ABYSS_WOOD_SLAB.get(),
                 block -> createSlabItemTable(RileyModBlocks.ABYSS_WOOD_SLAB.get()));
+        this.add(RileyModBlocks.STRUCTURE_BRICK_SLAB.get(),
+                block -> createSlabItemTable(RileyModBlocks.STRUCTURE_BRICK_SLAB.get()));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {

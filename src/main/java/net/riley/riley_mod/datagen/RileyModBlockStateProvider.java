@@ -26,6 +26,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.FUNTIUM_BLOCK);
         blockWithItem(RileyModBlocks.ACTIVACTED_FUNTIUM);
         blockWithItem(RileyModBlocks.ABYSS_PLANKS);
+        blockWithItem(RileyModBlocks.STRUCTURE_BRICK);
 
 
 
@@ -47,12 +48,15 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.ABYSS_PORTAL);
         stairsBlock(((StairBlock) RileyModBlocks.ABYSS_WOOD_STAIRS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         slabBlock(((SlabBlock) RileyModBlocks.ABYSS_WOOD_SLAB.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
-        
-
         fenceBlock(((FenceBlock) RileyModBlocks.ABYSS_WOOD_FENCE.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         fenceGateBlock(((FenceGateBlock) RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         wallBlock(((WallBlock) RileyModBlocks.ABYSS_WOOD_WALL.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
 
+        stairsBlock(((StairBlock) RileyModBlocks.STRUCTURE_BRICK_STAIRS.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
+        slabBlock(((SlabBlock) RileyModBlocks.STRUCTURE_BRICK_SLAB.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
+        fenceBlock(((FenceBlock) RileyModBlocks.STRUCTURE_BRICK_FENCE.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
+        fenceGateBlock(((FenceGateBlock) RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
+        wallBlock(((WallBlock) RileyModBlocks.STRUCTURE_BRICK_WALL.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
         
     }
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {

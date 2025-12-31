@@ -30,6 +30,8 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> ACTIVACTED_FUNTIUM = registerBlock("activacted_funtium",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(60).explosionResistance(9000)));
+    public static final RegistryObject<Block> STRUCTURE_BRICK = registerBlock("structure_brick",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS).strength(60).explosionResistance(9000)));
 
 //ores
     public static final RegistryObject<Block> FUNTIUM_ORE_BLOCK = registerBlock("funtium_ore_block",
@@ -94,9 +96,22 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE = registerBlock("abyss_wood_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE_GATE = registerBlock("abyss_wood_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_OPEN));
     public static final RegistryObject<Block> ABYSS_WOOD_WALL = registerBlock("abyss_wood_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
+
+    public static final RegistryObject<Block> STRUCTURE_BRICK_STAIRS = registerBlock("structure_brick_stairs",
+            () -> new StairBlock(() -> RileyModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
+                    BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
+    public static final RegistryObject<Block> STRUCTURE_BRICK_SLAB = registerBlock("structure_brick_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
+    public static final RegistryObject<Block> STRUCTURE_BRICK_FENCE = registerBlock("structure_brick_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
+    public static final RegistryObject<Block> STRUCTURE_BRICK_FENCE_GATE = registerBlock("structure_brick_fence_gate",
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_OPEN));
+    public static final RegistryObject<Block> STRUCTURE_BRICK_WALL = registerBlock("structure_brick_wall",
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
+
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
             () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));

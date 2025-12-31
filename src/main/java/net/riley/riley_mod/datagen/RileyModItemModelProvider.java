@@ -57,8 +57,16 @@ public class RileyModItemModelProvider extends ItemModelProvider {
 
         evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_STAIRS);
         evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_SLAB);
-        
         evenSimplerBlockItem(RileyModBlocks.ABYSS_WOOD_FENCE_GATE);
+
+        fenceItem(RileyModBlocks.STRUCTURE_BRICK_FENCE, RileyModBlocks.STRUCTURE_BRICK);
+
+        wallItem(RileyModBlocks.STRUCTURE_BRICK_WALL, RileyModBlocks.STRUCTURE_BRICK);
+
+        evenSimplerBlockItem(RileyModBlocks.STRUCTURE_BRICK_STAIRS);
+        evenSimplerBlockItem(RileyModBlocks.STRUCTURE_BRICK_SLAB);
+        evenSimplerBlockItem(RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE);
+
 
         trimmedArmorItem(RileyModItems.FUNTIUM_HELMET);
         trimmedArmorItem(RileyModItems.FUNTIUM_CHESTPLATE);

@@ -41,12 +41,12 @@ public class RileyMod
 
         RileyModCreativeModTabs.register(modEventBus);
 
-        RileyModEffects.register(modEventBus);
-        RileyModPotions.register(modEventBus);
+
 
         RileyModItems.register(modEventBus);
         RileyModBlocks.register(modEventBus);
-
+        RileyModEffects.register(modEventBus);
+        RileyModPotions.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

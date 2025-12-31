@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-13T11:38:48.3530907	Loot Tables
+// 1.20.1	2025-12-30T11:07:18.0387065	Loot Tables
 5fbd60c2342517457575b2752e748d6fb4543cdc data/riley_mod/loot_tables/blocks/abyss_leaves.json
 4299e3d64474a8e8d32130386906ebb8ae2bb259 data/riley_mod/loot_tables/blocks/abyss_log.json
 40c7fafa9f51af0dd98b0c535876658257da4478 data/riley_mod/loot_tables/blocks/abyss_planks.json
@@ -15,3 +15,9 @@ a9b6ec746cd39c86807d879708da0c9374f7a99d data/riley_mod/loot_tables/blocks/funti
 8e7e44d1c34a5a3dea971961bd3d457ccee4a22b data/riley_mod/loot_tables/blocks/funtium_ore_block.json
 7f65ec048b7906f1f0203412f0e07fc6b8bea2b4 data/riley_mod/loot_tables/blocks/stripped_abyss_log.json
 2b98809870df78dcb3ab6fd31d9c271aab832162 data/riley_mod/loot_tables/blocks/stripped_abyss_wood.json
+b5a2145dbd4e723ac2eb54eadd3fe6a3b276eb09 data/riley_mod/loot_tables/blocks/structure_brick.json
+c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/structure_brick_fence.json
+0c6e8ef9a151f553ef57b8703aa575e66b4bd9af data/riley_mod/loot_tables/blocks/structure_brick_fence_gate.json
+95315fbf246c49d70ae74cb167e46f58045a3630 data/riley_mod/loot_tables/blocks/structure_brick_slab.json
+63ca2f45ec18017c187090ca08536a99f3627ecf data/riley_mod/loot_tables/blocks/structure_brick_stairs.json
+563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json

@@ -55,6 +55,13 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD_STAIRS.get());
                         output.accept(RileyModBlocks.ABYSS_PORTAL.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK_FENCE.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK_SLAB.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK_WALL.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get());
+                        output.accept(RileyModBlocks.STRUCTURE_BRICK_STAIRS.get());
+
 
                     })
                     .build());
