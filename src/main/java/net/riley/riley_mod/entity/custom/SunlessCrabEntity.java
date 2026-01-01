@@ -121,7 +121,7 @@ setupAminationStates();
                 .add(Attributes.MOVEMENT_SPEED, .2D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
-                .add(Attributes.ATTACK_DAMAGE,10f);
+                .add(Attributes.ATTACK_DAMAGE,100f);
     }
 
     @Override
