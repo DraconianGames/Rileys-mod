@@ -1,0 +1,110 @@
+package net.riley.riley_mod.entity.custom;
+
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.item.RileyModItems;
+import org.jetbrains.annotations.Nullable;
+
+public class SunlessCrabEntity extends Animal {
+    public SunlessCrabEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
+
+    public final AnimationState idleAnimationState = new AnimationState();
+    private int idleAminationTimeout = 0;
+
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if(this.level().isClientSide()) {
+setupAminationStates();
+        }
+    }
+
+    private void setupAminationStates() {
+        if(this.idleAminationTimeout <- 0) {
+            this.idleAminationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationState.start(this.tickCount);
+        } else {
+        --this.idleAminationTimeout;
+        }
+
+    }
+
+    @Override
+    protected void updateWalkAnimation(float pPartialTick) {
+        float f;
+        if(this.getPose()==Pose.STANDING) {
+            f = Math.min(pPartialTick * 6f, 1f);
+        }else{
+            f=0f;
+        }
+        this.walkAnimation.update(f,.2f);
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1,new BreedGoal(this,2D));
+        this.goalSelector.addGoal(2,new TemptGoal(this,2D, Ingredient.of(Items.AMETHYST_SHARD),false));
+        this.goalSelector.addGoal(3,new FollowParentGoal(this,2D));
+        this.goalSelector.addGoal(4,new RandomStrollGoal(this,1D));
+        this.goalSelector.addGoal(5,new LookAtPlayerGoal(this, Player.class,5f));
+        this.goalSelector.addGoal(6,new RandomLookAroundGoal(this));
+
+
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Animal.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 200D)
+                .add(Attributes.FOLLOW_RANGE,30D)
+                .add(Attributes.MOVEMENT_SPEED, .2D)
+                .add(Attributes.ARMOR_TOUGHNESS, .3f)
+                .add(Attributes.ATTACK_KNOCKBACK,3f)
+                .add(Attributes.ATTACK_DAMAGE,10f);
+    }
+
+    @Override
+    public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return RileyModEntities.SUNLESS_CRAB.get().create(pLevel);
+    }
+
+    @Override
+    public boolean isFood(ItemStack pStack) {
+        return pStack.is(Items.AMETHYST_SHARD);
+    }
+
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return SoundEvents.STRIDER_AMBIENT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.SPIDER_HURT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getDeathSound() {
+        return SoundEvents.BLAZE_DEATH;
+    }
+}

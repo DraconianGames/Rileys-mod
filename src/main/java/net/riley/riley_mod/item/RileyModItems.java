@@ -2,11 +2,13 @@ package net.riley.riley_mod.item;
 
 
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.item.custom.RileyModArmorItem;
 
 public class RileyModItems {
@@ -46,7 +48,10 @@ public class RileyModItems {
             () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_BOOTS = ITEMS.register("funtium_boots",
             () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.BOOTS, new Item.Properties()));
-
+//spawn egg
+    public static final RegistryObject<Item> SUNLESS_CRAB_SPAWN_EGG = ITEMS.register("sunless_crab_spawn_egg",
+        () -> new ForgeSpawnEggItem(RileyModEntities.SUNLESS_CRAB,651212 ,8620202,
+                new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

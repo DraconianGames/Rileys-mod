@@ -1,6 +1,7 @@
 package net.riley.riley_mod;
 //what
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -16,6 +17,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
+import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.entity.client.SunlessCrabRenderer;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
 
@@ -44,6 +47,7 @@ public class RileyMod
 
 
         RileyModItems.register(modEventBus);
+        RileyModEntities.register(modEventBus);
         RileyModBlocks.register(modEventBus);
         RileyModEffects.register(modEventBus);
         RileyModPotions.register(modEventBus);
@@ -89,7 +93,7 @@ public class RileyMod
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            EntityRenderers.register(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabRenderer::new);
         }
     }
 }

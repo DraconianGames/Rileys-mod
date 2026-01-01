@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-30T11:07:18.0485614	Item Models: riley_mod
+// 1.20.1	2025-12-31T22:49:07.7331759	Item Models: riley_mod
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
 c4d2d5e0e7c8c94280f423134adc3242f691ff4e assets/riley_mod/models/item/abyss_wood_fence_gate.json
@@ -60,3 +60,4 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 0e0622c735584df2f917a151ed5c337f60ce1546 assets/riley_mod/models/item/structure_brick_slab.json
 2ba903f8028a8a6adc4e4d7cf20c9e882828ebec assets/riley_mod/models/item/structure_brick_stairs.json
 e5a442996617a2304b1da22f61ab82fb6c856d5a assets/riley_mod/models/item/structure_brick_wall.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/sunless_crab_spawn_egg.json
