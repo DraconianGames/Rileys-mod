@@ -182,6 +182,7 @@ public class SunlessCrabModel<T extends Entity> extends HierarchicalModel<T> {
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 		this.animateWalk(RileyModAnimationDefinitions.SUNLESS_CRAB_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
 		this.animate(((SunlessCrabEntity) entity).idleAnimationState, RileyModAnimationDefinitions.SUNLESS_CRAB_IDLE,ageInTicks, 1f);
+		this.animate(((SunlessCrabEntity) entity).attackAnimationState, RileyModAnimationDefinitions.SUNLESS_CRAB_ATTACK,ageInTicks, 1f);
 	}
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
 		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -30.0F, 30.0F);
