@@ -43,7 +43,7 @@ public class RileyModDimensions {
                 256, // logicalHeight
                 BlockTags.INFINIBURN_OVERWORLD, // infiniburn
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS, // effectsLocation
-                1.0f, // ambientLight
+                0.0f, // ambientLight
                 new DimensionType.MonsterSettings(true, true, ConstantInt.of(0), 0)));
     }
 
