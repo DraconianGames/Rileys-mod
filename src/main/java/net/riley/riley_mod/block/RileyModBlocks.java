@@ -122,8 +122,6 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
-
-
     }
 
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {

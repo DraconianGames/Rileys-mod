@@ -67,3 +67,4 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         return RileyModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }
 }
+//Figure out entity loot tables
