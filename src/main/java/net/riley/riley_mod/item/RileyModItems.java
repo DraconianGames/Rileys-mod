@@ -52,6 +52,9 @@ public class RileyModItems {
     public static final RegistryObject<Item> SUNLESS_CRAB_SPAWN_EGG = ITEMS.register("sunless_crab_spawn_egg",
         () -> new ForgeSpawnEggItem(RileyModEntities.SUNLESS_CRAB,651212 ,8620202,
                 new Item.Properties()));
+    public static final RegistryObject<Item> RAPTER_SPAWN_EGG = ITEMS.register("rapter_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.RAPTER,265487 ,836475,
+                    new Item.Properties()));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

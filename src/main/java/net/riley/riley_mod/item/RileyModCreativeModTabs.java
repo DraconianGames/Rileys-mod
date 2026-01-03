@@ -24,6 +24,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.FUNTIUM_ORE.get());
                         output.accept(RileyModItems.EYE.get());
                         output.accept(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.get());
+                        output.accept(RileyModItems.RAPTER_SPAWN_EGG.get());
 
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());
                         output.accept(RileyModItems.FUNTIUM_PICKAXE.get());

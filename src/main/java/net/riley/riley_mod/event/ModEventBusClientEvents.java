@@ -5,6 +5,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.client.RapterModel;
 import net.riley.riley_mod.entity.client.RileyModModelLayers;
 import net.riley.riley_mod.entity.client.SunlessCrabModel;
 
@@ -14,5 +15,6 @@ public class ModEventBusClientEvents {
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
         event.registerLayerDefinition(RileyModModelLayers.SUNLESS_CRAB_LAYER, SunlessCrabModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.RAPTER_LAYER, RapterModel::createBodyLayer);
     }
 }

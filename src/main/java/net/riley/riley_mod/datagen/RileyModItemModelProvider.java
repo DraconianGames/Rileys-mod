@@ -52,6 +52,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 
         withExistingParent(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.RAPTER_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
 
         fenceItem(RileyModBlocks.ABYSS_WOOD_FENCE, RileyModBlocks.ABYSS_PLANKS);
         

@@ -7,6 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.custom.RapterEntity;
 import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 
 public class RileyModEntities {
@@ -16,6 +17,10 @@ public class RileyModEntities {
 public static final RegistryObject<EntityType<SunlessCrabEntity>> SUNLESS_CRAB =
         ENTITY_TYPES.register("sunless_crab",()-> EntityType.Builder.of(SunlessCrabEntity::new, MobCategory.CREATURE)
                 .sized(2.5f,2.5f).build("sunless_crab"));
+
+public static final RegistryObject<EntityType<RapterEntity>> RAPTER =
+        ENTITY_TYPES.register("rapter",()-> EntityType.Builder.of(RapterEntity::new,MobCategory.CREATURE)
+                .sized(1f,1f).build("rapter"));
 
 
     public static void register(IEventBus eventBus){

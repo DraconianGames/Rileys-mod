@@ -24,6 +24,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new RileyModRecipeProvider(packOutput));
         generator.addProvider(event.includeServer(), RileyModLootTableProvider.create(packOutput));
 
+
         generator.addProvider(event.includeClient(), new RileyModBlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new RileyModItemModelProvider(packOutput, existingFileHelper));
 

@@ -16,8 +16,8 @@ import net.riley.riley_mod.item.RileyModItems;
 
 import java.util.Set;
 
-public class ModBlockLootTables extends BlockLootSubProvider {
-    public ModBlockLootTables() {
+public class RileyModBlockLootTables extends BlockLootSubProvider {
+    public RileyModBlockLootTables() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 

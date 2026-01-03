@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,16 +22,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.riley.riley_mod.entity.RileyModEntities;
-import net.riley.riley_mod.entity.ai.SunlessCrabAttackGoal;
-import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.entity.ai.RapterAttackGoal;
 import org.jetbrains.annotations.Nullable;
 
-public class SunlessCrabEntity extends Animal {
+public class RapterEntity extends Animal {
     private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(SunlessCrabEntity.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.BOOLEAN);
 
 
-    public SunlessCrabEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public RapterEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -53,14 +51,14 @@ setupAminationStates();
 
     private void setupAminationStates() {
         if(this.idleAminationTimeout <- 0) {
-            this.idleAminationTimeout = this.random.nextInt(40) + 80;
+            this.idleAminationTimeout = this.random.nextInt(20) + 80;
             this.idleAnimationState.start(this.tickCount);
         } else {
         --this.idleAminationTimeout;
         }
 
         if (this.isAttacking() && attackAminationTimeout<=0) {
-            attackAminationTimeout = 80; //leangth in ticks of the animation
+            attackAminationTimeout = 15; //leangth in ticks of the animation
             attackAnimationState.start(this.tickCount);
         } else {
             --this.attackAminationTimeout;
@@ -99,10 +97,10 @@ setupAminationStates();
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new SunlessCrabAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new RapterAttackGoal(this, 1.0D, true));
 
         this.goalSelector.addGoal(2,new BreedGoal(this,2D));
-        this.goalSelector.addGoal(3,new TemptGoal(this,2D, Ingredient.of(Items.AMETHYST_SHARD),false));
+        this.goalSelector.addGoal(3,new TemptGoal(this,2D, Ingredient.of(Items.COOKED_RABBIT),false));
         this.goalSelector.addGoal(4,new FollowParentGoal(this,2D));
         this.goalSelector.addGoal(5,new RandomStrollGoal(this,1D));
         this.goalSelector.addGoal(6,new LookAtPlayerGoal(this, Player.class,5f));
@@ -116,22 +114,22 @@ setupAminationStates();
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 200D)
+                .add(Attributes.MAX_HEALTH, 30D)
                 .add(Attributes.FOLLOW_RANGE,30D)
-                .add(Attributes.MOVEMENT_SPEED, .2D)
+                .add(Attributes.MOVEMENT_SPEED, .5D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
-                .add(Attributes.ATTACK_DAMAGE,100f);
+                .add(Attributes.ATTACK_DAMAGE,60f);
     }
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return RileyModEntities.SUNLESS_CRAB.get().create(pLevel);
+        return RileyModEntities.RAPTER.get().create(pLevel);
     }
 
     @Override
     public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.AMETHYST_SHARD);
+        return pStack.is(Items.COOKED_RABBIT);
     }
 
     @Override
@@ -141,11 +139,11 @@ setupAminationStates();
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.PARROT_HURT;
+        return SoundEvents.SPIDER_HURT;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.PARROT_DEATH;
+        return SoundEvents.BLAZE_DEATH;
     }
 }

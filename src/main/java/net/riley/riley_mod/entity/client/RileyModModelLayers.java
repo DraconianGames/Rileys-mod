@@ -7,5 +7,7 @@ import net.riley.riley_mod.RileyMod;
 public class RileyModModelLayers {
     public static final ModelLayerLocation SUNLESS_CRAB_LAYER = new ModelLayerLocation(
             new ResourceLocation(RileyMod.MODID, "sunless_crab_layer"),"main");
+    public static final ModelLayerLocation RAPTER_LAYER = new ModelLayerLocation(
+            new ResourceLocation(RileyMod.MODID, "rapter_layer"),"main");
 
 }
