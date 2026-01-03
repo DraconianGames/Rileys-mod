@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "#minecraft:is_forest",
+  "biomes": "#riley_mod:has_abyss_tree",
   "features": "riley_mod:abyss_placed",
   "step": "vegetal_decoration"
 }

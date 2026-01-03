@@ -30,6 +30,8 @@ public class DataGenerators {
 
         RileyModBlockTagGenerator blockTagGenerator = generator.addProvider(event.includeServer(),
                 new RileyModBlockTagGenerator(packOutput, lookupProvider, existingFileHelper));
+        RileyModBiomeTagGenerator biomeTagGenerator = generator.addProvider(event.includeServer(),
+                new RileyModBiomeTagGenerator(packOutput, lookupProvider, existingFileHelper));
         generator.addProvider(event.includeServer(), new RileyModItemTagGenerator(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper));
 
         generator.addProvider(event.includeServer(), new RileyModWorldGenProvider(packOutput, lookupProvider));

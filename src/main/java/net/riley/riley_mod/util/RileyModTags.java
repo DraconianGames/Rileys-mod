@@ -1,14 +1,17 @@
 package net.riley.riley_mod.util;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 
 
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.riley.riley_mod.RileyMod;
 
@@ -26,6 +29,13 @@ public class RileyModTags {
     public static class Items {
         public static TagKey<Item> tag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
+        }
+    }
+    public static class Biomes {
+        public static final TagKey<Biome>HAS_ABYSS_TREE = tag("has_abyss_tree");
+
+        private static TagKey<Biome> tag(String name) {
+            return TagKey.create(Registries.BIOME,ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
         }
     }
 }

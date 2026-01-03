@@ -106,7 +106,7 @@ setupAminationStates();
         this.goalSelector.addGoal(6,new LookAtPlayerGoal(this, Player.class,5f));
         this.goalSelector.addGoal(7,new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
 
 
 
@@ -116,7 +116,7 @@ setupAminationStates();
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 30D)
                 .add(Attributes.FOLLOW_RANGE,30D)
-                .add(Attributes.MOVEMENT_SPEED, .5D)
+                .add(Attributes.MOVEMENT_SPEED, .3D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
                 .add(Attributes.ATTACK_DAMAGE,60f);

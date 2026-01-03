@@ -11,7 +11,7 @@ import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.common.world.ForgeBiomeModifiers;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.riley.riley_mod.RileyMod;
-
+import net.riley.riley_mod.util.RileyModTags;
 
 
 public class RileyModBiomeModifiers {
@@ -28,7 +28,7 @@ public class RileyModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_TREE_ABYSS, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_FOREST),
+                biomes.getOrThrow(RileyModTags.Biomes.HAS_ABYSS_TREE),
                 HolderSet.direct(placedFeatures.getOrThrow(RileyModPlacedFeatures.ABYSS_PLACED_KEY)),
                 GenerationStep.Decoration.VEGETAL_DECORATION));
     }

@@ -103,7 +103,7 @@ public class RileyModBiomes {
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
         BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
-        biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, RileyModPlacedFeatures.ABYSS_PLACED_KEY);
+
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
