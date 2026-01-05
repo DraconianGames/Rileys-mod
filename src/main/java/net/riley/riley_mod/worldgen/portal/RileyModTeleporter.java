@@ -60,16 +60,15 @@ public class RileyModTeleporter implements ITeleporter {
         Direction.Axis axis = portalState.hasProperty(RileyModPortalBlock.AXIS) ? portalState.getValue(RileyModPortalBlock.AXIS) : Direction.Axis.X;
 
         double destX = destinationPos.getX() + 0.5D;
+        double destY = destinationPos.getY();
         double destZ = destinationPos.getZ() + 0.5D;
 
-        if (axis == Direction.Axis.X) {
-            destZ += 1.5D;
-        } else {
-            destX += 1.5D;
-        }
+        // We no longer add 1.5D to X or Z.
+        // The +0.5D above already centers them perfectly inside the block.
 
-        entity.teleportTo(destX, destinationPos.getY(), destZ);
+        entity.teleportTo(destX, destY, destZ);
         entity.setPortalCooldown();
+        entity.getPersistentData().putBoolean("RileyModWaitingToLeavePortal", true);
 
         return entity;
     }
