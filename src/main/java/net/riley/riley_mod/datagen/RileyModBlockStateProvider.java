@@ -1,6 +1,7 @@
 package net.riley.riley_mod.datagen;
 
 
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
@@ -11,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.RileyModPortalBlock;
 
 
 public class RileyModBlockStateProvider extends BlockStateProvider {
@@ -45,7 +47,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockItem(RileyModBlocks.STRIPPED_ABYSS_WOOD);
         saplingBlock(RileyModBlocks.ABYSS_SAPLING);
 
-        blockWithItem(RileyModBlocks.ABYSS_PORTAL);
+        makeAbyssPortal(RileyModBlocks.ABYSS_PORTAL.get());
         stairsBlock(((StairBlock) RileyModBlocks.ABYSS_WOOD_STAIRS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         slabBlock(((SlabBlock) RileyModBlocks.ABYSS_WOOD_SLAB.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         fenceBlock(((FenceBlock) RileyModBlocks.ABYSS_WOOD_FENCE.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
@@ -58,6 +60,26 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         fenceGateBlock(((FenceGateBlock) RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
         wallBlock(((WallBlock) RileyModBlocks.STRUCTURE_BRICK_WALL.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
         
+    }
+    private void makeAbyssPortal(Block block) {
+        // This creates the thin model (4 pixels thick on the Z axis)
+        ModelFile portalModel = models().withExistingParent("abyss_portal", "block/block")
+                .texture("particle", modLoc("block/abyss_portal"))
+                .texture("portal", modLoc("block/abyss_portal"))
+                .element()
+                .from(0f, 0f, 6f)
+                .to(16f, 16f, 10f)
+                .face(Direction.NORTH).uvs(0f, 0f, 16f, 16f).texture("#portal").end()
+                .face(Direction.SOUTH).uvs(0f, 0f, 16f, 16f).texture("#portal").end()
+                .end();
+
+        // This sets up the variants for X and Z axis
+        getVariantBuilder(block).partialState()
+                .with(RileyModPortalBlock.AXIS, Direction.Axis.X)
+                .modelForState().modelFile(portalModel).addModel()
+                .partialState()
+                .with(RileyModPortalBlock.AXIS, Direction.Axis.Z)
+                .modelForState().modelFile(portalModel).rotationY(90).addModel();
     }
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlock(blockRegistryObject.get(),

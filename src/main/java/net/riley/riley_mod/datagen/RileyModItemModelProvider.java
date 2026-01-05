@@ -77,8 +77,14 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(RileyModItems.FUNTIUM_CHESTPLATE);
         trimmedArmorItem(RileyModItems.FUNTIUM_LEGGINGS);
         trimmedArmorItem(RileyModItems.FUNTIUM_BOOTS);
-    }
 
+        flatBlockItem(RileyModBlocks.ABYSS_PORTAL);
+    }
+    private ItemModelBuilder flatBlockItem(RegistryObject<Block> block) {
+        return withExistingParent(block.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(RileyMod.MODID, "block/" + block.getId().getPath()));
+    }
     // Shoutout to El_Redstoniano for making this
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {
         final String MOD_ID = RileyMod.MODID;

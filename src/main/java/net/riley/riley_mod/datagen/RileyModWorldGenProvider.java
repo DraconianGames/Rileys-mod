@@ -20,11 +20,11 @@ import java.util.concurrent.CompletableFuture;
 public class RileyModWorldGenProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.DIMENSION_TYPE, RileyModDimensions::bootstrapType)
+            .add(Registries.BIOME, RileyModBiomes::boostrap)
+            .add(Registries.LEVEL_STEM, RileyModDimensions::bootstrapStem)
             .add(Registries.CONFIGURED_FEATURE, RileyModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, RileyModPlacedFeatures::bootstrap)
-            .add(ForgeRegistries.Keys.BIOME_MODIFIERS, RileyModBiomeModifiers::bootstrap)
-            .add(Registries.BIOME, RileyModBiomes::boostrap)
-            .add(Registries.LEVEL_STEM, RileyModDimensions::bootstrapStem);
+            .add(ForgeRegistries.Keys.BIOME_MODIFIERS, RileyModBiomeModifiers::bootstrap);
 
 
     public RileyModWorldGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {

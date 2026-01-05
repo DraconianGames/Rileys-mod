@@ -1,6 +1,29 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "faces": {
+        "north": {
+          "texture": "#portal"
+        },
+        "south": {
+          "texture": "#portal"
+        }
+      },
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ]
+    }
+  ],
   "textures": {
-    "all": "riley_mod:block/abyss_portal"
+    "particle": "riley_mod:block/abyss_portal",
+    "portal": "riley_mod:block/abyss_portal"
   }
 }

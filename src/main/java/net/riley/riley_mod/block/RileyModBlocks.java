@@ -114,8 +114,10 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
 
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
-            () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noLootTable().noOcclusion().noCollission()));
-
+            () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
+                    .noCollission()
+                    .noOcclusion() // This is critical for the "thin" look
+                    .noLootTable()));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {

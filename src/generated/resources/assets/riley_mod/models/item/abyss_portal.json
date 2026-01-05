@@ -1,3 +1,6 @@
 {
-  "parent": "riley_mod:block/abyss_portal"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "riley_mod:block/abyss_portal"
+  }
 }

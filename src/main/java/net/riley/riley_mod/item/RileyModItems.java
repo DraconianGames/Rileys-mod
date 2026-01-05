@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.item.custom.RileyModArmorItem;
+import net.riley.riley_mod.item.custom.RileyModPortalItem;
 
 public class RileyModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -25,7 +26,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> FUNTIUM_ORE = ITEMS.register("funtium_ore",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
-            () -> new Item(new Item.Properties()));
+            () -> new RileyModPortalItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CLAW = ITEMS.register("claw",

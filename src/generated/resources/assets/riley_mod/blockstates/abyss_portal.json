@@ -1,7 +1,11 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
       "model": "riley_mod:block/abyss_portal"
+    },
+    "axis=z": {
+      "model": "riley_mod:block/abyss_portal",
+      "y": 90
     }
   }
 }
