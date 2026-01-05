@@ -18,6 +18,7 @@ import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.entity.client.NightTerrorRenderer;
 import net.riley.riley_mod.entity.client.RapterRenderer;
 import net.riley.riley_mod.entity.client.SunlessCrabRenderer;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
@@ -96,6 +97,7 @@ public class RileyMod
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabRenderer::new);
             EntityRenderers.register(RileyModEntities.RAPTER.get(), RapterRenderer::new);
+            EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
         }
     }
 }

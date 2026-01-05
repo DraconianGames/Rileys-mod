@@ -7,15 +7,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +19,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.entity.ai.HuntVanillaLandMobs;
 import net.riley.riley_mod.entity.ai.SunlessCrabAttackGoal;
-import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class SunlessCrabEntity extends Animal {
@@ -99,7 +95,7 @@ setupAminationStates();
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new SunlessCrabAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new SunlessCrabAttackGoal(this, 1.6D, true));
 
         this.goalSelector.addGoal(2,new BreedGoal(this,2D));
         this.goalSelector.addGoal(3,new TemptGoal(this,2D, Ingredient.of(Items.AMETHYST_SHARD),false));
@@ -109,7 +105,8 @@ setupAminationStates();
         this.goalSelector.addGoal(7,new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this, SunlessCrabEntity.class));
+        this.targetSelector.addGoal(3, new HuntVanillaLandMobs<>(this, LivingEntity.class, true));
 
 
     }

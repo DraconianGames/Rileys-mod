@@ -7,6 +7,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.client.NightTerrorModel;
+import net.riley.riley_mod.entity.custom.NightTerrorEntity;
 import net.riley.riley_mod.entity.custom.RapterEntity;
 import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 
@@ -21,6 +23,9 @@ public static final RegistryObject<EntityType<SunlessCrabEntity>> SUNLESS_CRAB =
 public static final RegistryObject<EntityType<RapterEntity>> RAPTER =
         ENTITY_TYPES.register("rapter",()-> EntityType.Builder.of(RapterEntity::new,MobCategory.CREATURE)
                 .sized(1f,1f).build("rapter"));
+public static final RegistryObject<EntityType<NightTerrorEntity>> NIGHT_TERROR =
+        ENTITY_TYPES.register("night_terror",()-> EntityType.Builder.of(NightTerrorEntity::new,MobCategory.CREATURE)
+                .sized(2f,1.3f).build("night_terror"));
 
 
     public static void register(IEventBus eventBus){

@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-03T10:55:17.1187698	Loot Tables
+// 1.20.1	2026-01-04T19:40:51.7659199	Loot Tables
 5fbd60c2342517457575b2752e748d6fb4543cdc data/riley_mod/loot_tables/blocks/abyss_leaves.json
 4299e3d64474a8e8d32130386906ebb8ae2bb259 data/riley_mod/loot_tables/blocks/abyss_log.json
 40c7fafa9f51af0dd98b0c535876658257da4478 data/riley_mod/loot_tables/blocks/abyss_planks.json
@@ -22,5 +22,6 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 63ca2f45ec18017c187090ca08536a99f3627ecf data/riley_mod/loot_tables/blocks/structure_brick_stairs.json
 563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json
 87eb5312838e20e33d2ed252d480e8847f05613a data/riley_mod/loot_tables/chests/arena.json
+26cd7af903198c682fff4fcc08254647979d1bf4 data/riley_mod/loot_tables/entities/night_terror.json
 008abd2e736fd2140f524dbb0db2fc2b83b4337a data/riley_mod/loot_tables/entities/rapter.json
 c59ec739726641b63f5ce43f0a1c145dc41acf3c data/riley_mod/loot_tables/entities/sunless_crab.json

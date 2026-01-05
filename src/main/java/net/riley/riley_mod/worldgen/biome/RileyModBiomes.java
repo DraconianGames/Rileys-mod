@@ -34,9 +34,9 @@ public class RileyModBiomes {
     }
     public static Biome abyssPlainsBiome(BootstapContext<Biome> context){
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.SUNLESS_CRAB.get(), 3, 3, 7));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.SUNLESS_CRAB.get(), 50, 3, 7));
         spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.RAPTER.get(), 70, 8, 13));
-
+        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.NIGHT_TERROR.get(), 80,1,3 ));
 
 
 
