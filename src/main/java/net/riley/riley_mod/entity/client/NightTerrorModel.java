@@ -6,6 +6,7 @@ package net.riley.riley_mod.entity.client;// Made with Blockbench 5.0.7
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.util.Mth;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -105,6 +106,13 @@ public class NightTerrorModel<T extends Entity> extends HierarchicalModel<T> {
 
 		this.animate(nightTerror.flyAnimationState, RileyModNightTerrorAnimationDefinitions.NIGHT_TERROR_FLY, ageInTicks, 1f);
 		this.animate(nightTerror.flyAttackAnimationState, RileyModNightTerrorAnimationDefinitions.NIGHT_TERROR_ATTACK, ageInTicks, 1f);
+		// PITCH
+		this.night_terror.xRot = entity.getXRot() * ((float)Math.PI / 180F);
+
+		// BANKING (Turn Tilt)
+		float turnSpeed = Mth.wrapDegrees(nightTerror.yBodyRot - nightTerror.yBodyRotO);
+		float tiltAmount = Mth.clamp(turnSpeed * 2.0F, -30.0F, 30.0F);
+		this.night_terror.zRot = -tiltAmount * ((float)Math.PI / 180F);
 	}
 
 

@@ -4,6 +4,8 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
@@ -23,6 +25,8 @@ import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.client.NightTerrorRenderer;
 import net.riley.riley_mod.entity.client.RapterRenderer;
 import net.riley.riley_mod.entity.client.SunlessCrabRenderer;
+import net.riley.riley_mod.entity.client.WhaleHunterRenderer;
+import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
 
@@ -75,7 +79,9 @@ public class RileyMod
         // register brewing recipes on the main thread
         event.enqueueWork(() -> {
             BrewingRecipeRegistry.addRecipe(new FreezeBrewingRecipe());
+
         });
+
 
     }
 
@@ -100,6 +106,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabRenderer::new);
             EntityRenderers.register(RileyModEntities.RAPTER.get(), RapterRenderer::new);
             EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
+            EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
         }
     }

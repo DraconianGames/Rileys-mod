@@ -26,6 +26,4 @@ public class SunlessCrabRenderer extends MobRenderer<SunlessCrabEntity,SunlessCr
 
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
-        }
-
-
+}

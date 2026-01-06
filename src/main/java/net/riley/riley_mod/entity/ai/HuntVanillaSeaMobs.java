@@ -29,7 +29,11 @@ public class HuntVanillaSeaMobs<T extends LivingEntity> extends NearestAttackabl
                     target instanceof Frog;
 
 
-            return isHuntableType && (target instanceof AgeableMob ageable && !ageable.isBaby());
+            if (target instanceof AgeableMob ageable) {
+                return isHuntableType && !ageable.isBaby();
+            }
+
+            return isHuntableType;
 
         });
     }

@@ -37,6 +37,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.util.Mth;
 
 
 
@@ -123,6 +124,8 @@ public class NightTerrorEntity extends TamableAnimal{
 
         if(this.level().isClientSide()) {
             setupAminationStates();
+            float targetPitch = (float)(Mth.atan2(-this.getDeltaMovement().y, this.getDeltaMovement().horizontalDistance()) * (180F / (float)Math.PI));
+            this.setXRot(Mth.rotLerp(0.1F, this.getXRot(), targetPitch));
         } else {
             // Server-side logic
             handleCombatTimer();

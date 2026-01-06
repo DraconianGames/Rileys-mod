@@ -12,6 +12,7 @@ import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.custom.NightTerrorEntity;
 import net.riley.riley_mod.entity.custom.RapterEntity;
 import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
+import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 
 @Mod.EventBusSubscriber(modid = RileyMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 
@@ -21,6 +22,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabEntity.createAttributes().build());
         event.put(RileyModEntities.RAPTER.get(), RapterEntity.createAttributes().build());
         event.put(RileyModEntities.NIGHT_TERROR.get(), NightTerrorEntity.createAttributes().build());
+        event.put(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
@@ -29,8 +31,15 @@ public class ModEventBusEvents {
                 SpawnPlacements.Type.NO_RESTRICTIONS,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 NightTerrorEntity::checkNightTerrorSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.REPLACE
+                SpawnPlacementRegisterEvent.Operation.OR // Changed from REPLACE if it was erroring
+        );
+
+        event.register(
+                RileyModEntities.WHALE_HUNTER.get(),
+                SpawnPlacements.Type.IN_WATER,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                WhaleHunterEntity::checkWhaleHunterSpawnRules,
+                SpawnPlacementRegisterEvent.Operation.OR // Removed Strategy.AND
         );
     }
-
 }
