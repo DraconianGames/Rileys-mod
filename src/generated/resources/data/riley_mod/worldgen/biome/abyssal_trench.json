@@ -83,22 +83,15 @@
     "misc": [],
     "monster": [],
     "underground_water_creature": [],
-    "water_ambient": [
-      {
-        "type": "minecraft:glow_squid",
-        "maxCount": 8,
-        "minCount": 4,
-        "weight": 80
-      }
-    ],
+    "water_ambient": [],
     "water_creature": [
       {
         "type": "riley_mod:whalehunter",
-        "maxCount": 4,
+        "maxCount": 2,
         "minCount": 1,
         "weight": 100
       }
     ]
   },
-  "temperature": 0.5
+  "temperature": 0.8
 }

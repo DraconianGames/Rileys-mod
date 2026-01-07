@@ -37,8 +37,8 @@ public class RileyModDimensions {
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
         context.register(ABYSS_NOISE_SETTINGS, new NoiseGeneratorSettings(
-                // minY: -128, height: 384 (Gives more depth than standard -64)
-                NoiseSettings.create(-128, 384, 1, 2),
+                // minY: -64, height: 384 (Standard Overworld size)
+                NoiseSettings.create(-64, 384, 1, 2),
                 Blocks.STONE.defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
                 NoiseGeneratorSettings.overworld(context, false, false).noiseRouter(),
@@ -49,15 +49,15 @@ public class RileyModDimensions {
         ));
     }
 //change 24000 to 12000 when satisfieded
-    public static void bootstrapType(BootstapContext<DimensionType> context) {
-        context.register(ABYSSDIM_TYPE, new DimensionType(
-                OptionalLong.of(24000),
-                false, false, false, false,
-                1.0, true, true,
-                -128, // Start deeper
-                384,  // Maintain height
-                384,
-                BlockTags.INFINIBURN_OVERWORLD,
+public static void bootstrapType(BootstapContext<DimensionType> context) {
+    context.register(ABYSSDIM_TYPE, new DimensionType(
+            OptionalLong.of(24000),
+            false, false, false, false,
+            1.0, true, true,
+            -64,  // Standard Overworld min height
+            384,  // Standard Overworld total height
+            384,
+            BlockTags.INFINIBURN_OVERWORLD,
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS,
                 0.0f,
                 new DimensionType.MonsterSettings(true, true, ConstantInt.of(0), 0)));
@@ -73,12 +73,14 @@ public class RileyModDimensions {
         // Trench -> Ocean -> Beach -> Forest -> Plains -> Peaks
         MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(
                 new Climate.ParameterList<>(List.of(
-                        Pair.of(Climate.parameters(0.0F, 0.0F, -1.8F, -1.0F, 0.0F, 1.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSSAL_TRENCH)),
-                        Pair.of(Climate.parameters(0.0F, 0.0F, -1.1F, -0.2F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_OCEAN)),
-                        Pair.of(Climate.parameters(0.5F, 0.0F, -0.15F, 0.0F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_BEACH)),
-                        Pair.of(Climate.parameters(0.5F, 0.4F, 0.1F, 0.0F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_FOREST_BIOME)),
-                        Pair.of(Climate.parameters(0.2F, 0.1F, 0.4F, 0.5F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_PLAINS)),
-                        Pair.of(Climate.parameters(0.0F, 0.5F, 1.1F, -1.1F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.OBSIDIAN_PEAKS))
+                        Pair.of(Climate.parameters(0.0F, 0.0F, -1.1F, 0.9F, 0.0F, 0.8F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSSAL_TRENCH)),
+                        // Ocean: Standard Ocean (-0.6 Continentalness) + Flat Erosion (0.5)
+                        Pair.of(Climate.parameters(0.5F, 0.0F, -0.6F, 0.5F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_OCEAN)),
+                        // Beach: Thin strip (-0.15 to -0.1 Continentalness)
+                        Pair.of(Climate.parameters(0.5F, 0.0F, -0.12F, 0.2F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_BEACH)),
+                        Pair.of(Climate.parameters(0.8F, 0.4F, 0.5F, 0.0F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_FOREST_BIOME)),
+                        Pair.of(Climate.parameters(0.2F, 0.1F, 0.8F, 0.5F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSS_PLAINS)),
+                        Pair.of(Climate.parameters(0.0F, 0.5F, 1F, -1.1F, 0.0F, 0.0F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.OBSIDIAN_PEAKS))
                 ))
         );
 

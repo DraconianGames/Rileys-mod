@@ -139,8 +139,7 @@ public class RileyModBiomes {
     public static Biome abyssalTrench(BootstapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         // Spawns plenty of Whale Hunters and Glow Squids in the dark depths
-        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.WHALE_HUNTER.get(), 100, 1, 4));
-        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.GLOW_SQUID, 80, 4, 8));
+        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.WHALE_HUNTER.get(), 100, 1, 2));
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
@@ -153,15 +152,14 @@ public class RileyModBiomes {
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
                 .downfall(0.5f)
-                .temperature(0.5f) // Increased temperature to prevent ice formation
+                .temperature(0.8f) // Increased temperature to prevent ice formation
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x000011)
-                        .waterFogColor(0x000005)
+                        .waterColor(0x0a0a1a)
+                        .waterFogColor(0x050510)
                         .skyColor(0x000000)
                         .fogColor(0x000000)
-                        // ENSURE NO AMBIENT PARTICLES ARE ADDED HERE
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -186,7 +184,7 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x1a0d00)
+                        .waterColor(0x0a0a1a)
                         .waterFogColor(0x0d0600)
                         .skyColor(0x050505)
                         .fogColor(0x111111)

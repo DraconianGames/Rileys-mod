@@ -1,9 +1,9 @@
-// 1.20.1	2026-01-06T22:15:14.4103002	Registries
-bf580b69863eb833cfa189e996c8418f28f14ef7 data/riley_mod/dimension/abyss_dim.json
-38119063a1fdfa4cce56bbb6366f35694d34fc9e data/riley_mod/dimension_type/abyss_dim_type.json
+// 1.20.1	2026-01-07T13:28:45.4655565	Registries
+70089b6ea8cb8b4ced1f6d5a936c768efe80c0fc data/riley_mod/dimension/abyss_dim.json
+6557b1315c1273a011dfd044916034bb9d560940 data/riley_mod/dimension_type/abyss_dim_type.json
 44846c510b534d90ff90dd0bfbc13d64e327e80d data/riley_mod/forge/biome_modifier/add_funtium_ore.json
 067d652287541dd7a81e953bf36c06f4ab4f399d data/riley_mod/forge/biome_modifier/add_tree_abyss.json
-bdd8155204eb42d3f44eebbcfe1269ad15848e71 data/riley_mod/worldgen/biome/abyssal_trench.json
+b26fe9da04f1ef4916ad146f0db700fc9d6e2033 data/riley_mod/worldgen/biome/abyssal_trench.json
 cbbdd7e09470e2d8f3678d87c9cc4506b266f79e data/riley_mod/worldgen/biome/abyss_beach.json
 6638bf4e420cf4419b7eae769b012332460d3f8b data/riley_mod/worldgen/biome/abyss_forest_biome.json
 1fadeedfe8746f4e73ba088d971f38e6527af775 data/riley_mod/worldgen/biome/abyss_ocean.json
@@ -11,6 +11,6 @@ cbbdd7e09470e2d8f3678d87c9cc4506b266f79e data/riley_mod/worldgen/biome/abyss_bea
 fbec13a4d10b909ac41eb908e25664bac83fdf9b data/riley_mod/worldgen/biome/obsidian_peaks.json
 9c2bb2605bcf54c2f40fa8b20a6016cf151fb856 data/riley_mod/worldgen/configured_feature/abyss.json
 889a1866649729cddbedb72e8ca344bc53c64835 data/riley_mod/worldgen/configured_feature/funtium_ore.json
-476315bad9722774d4924a88aa9d898769550afa data/riley_mod/worldgen/noise_settings/abyss_noise_settings.json
+c22835ac164204d34094924394b3d1830f2a772a data/riley_mod/worldgen/noise_settings/abyss_noise_settings.json
 bcb2971c74407cb6415a46e50d03aceeee469a92 data/riley_mod/worldgen/placed_feature/abyss_placed.json
 773a606e66b206e21e5ecafa3048242a4f962ef2 data/riley_mod/worldgen/placed_feature/funtium_ore_placed.json
