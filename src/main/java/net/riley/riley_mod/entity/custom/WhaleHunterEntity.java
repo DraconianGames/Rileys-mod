@@ -8,31 +8,21 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.phys.Vec3;
-import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.HuntVanillaSeaMobs;
 import net.riley.riley_mod.entity.ai.WhaleHunterAttackGoal;
 import net.riley.riley_mod.entity.ai.WhaleHunterWanderGoal;
-import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
 public class WhaleHunterEntity extends WaterAnimal {
@@ -61,9 +51,10 @@ public class WhaleHunterEntity extends WaterAnimal {
         this.goalSelector.addGoal(0, new WhaleHunterAttackGoal(this, 1.4D, true));
         this.goalSelector.addGoal(4, new WhaleHunterWanderGoal(this, 1.0D, 10));
 
-        this.targetSelector.addGoal(1, new HuntVanillaSeaMobs<>(this, LivingEntity.class, true));
+        this.targetSelector.addGoal(2, new HuntVanillaSeaMobs<>(this, LivingEntity.class, true));
 
-        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+
     }
     public static boolean checkWhaleHunterSpawnRules(EntityType<WhaleHunterEntity> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         return pPos.getY() < 50 && pLevel.getFluidState(pPos).is(net.minecraft.tags.FluidTags.WATER);
@@ -76,6 +67,44 @@ public class WhaleHunterEntity extends WaterAnimal {
     @Override
     public void tick() {
         super.tick();
+        if (!this.level().isClientSide && this.isEffectiveAi() && this.tickCount % 5 == 0) {
+            java.util.List<Boat> boats = this.level().getEntitiesOfClass(Boat.class, this.getBoundingBox().inflate(16.0D));
+
+            Boat closestBoat = null;
+            double closestDistance = Double.MAX_VALUE;
+
+            if (!boats.isEmpty()) {
+                // DISTRACTION FIX: If there are boats, ignore current living targets (fish/mobs)
+                // This forces the whale to focus on the wood until it's all gone.
+                if (this.getTarget() != null) {
+                    this.setTarget(null);
+                }
+
+                for (Boat boat : boats) {
+                    if (boat.isInWater()) {
+                        double dist = this.distanceToSqr(boat);
+
+                        // 1. Attack logic: Smash ANY boat we are currently touching
+                        if (this.getBoundingBox().inflate(1.5D).intersects(boat.getBoundingBox())) {
+                            this.doHurtTarget(boat);
+                        }
+
+                        // 2. Navigation logic: Find the closest boat to head towards
+                        if (dist < closestDistance) {
+                            closestDistance = dist;
+                            closestBoat = boat;
+                        }
+                    }
+                }
+            }
+
+            // Move towards the single closest boat
+            if (closestBoat != null) {
+                this.moveControl.setWantedPosition(closestBoat.getX(), closestBoat.getY(), closestBoat.getZ(), 1.4D);
+                this.getLookControl().setLookAt(closestBoat, 30.0F, 30.0F);
+            }
+        }
+
         if (this.isEffectiveAi() && this.isInWater()) {
             this.setNoGravity(true); // Stop standard gravity from pulling it down/making it bob
         } else {
@@ -101,13 +130,14 @@ public class WhaleHunterEntity extends WaterAnimal {
             this.moveRelative(this.getSpeed(), pTravelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
 
-            // Reduce horizontal and vertical momentum more strictly
             Vec3 delta = this.getDeltaMovement();
-            this.setDeltaMovement(delta.x * 0.8D, delta.y * 0.5D, delta.z * 0.8D);
 
-            // If not actively moving up, apply a constant sinking weight
-            if (this.getDeltaMovement().y <= 0) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.02D, 0.0D));
+            // If the AI is NOT trying to move vertically (y is near 0), apply sinking
+            // This prevents the "sink" from fighting the "swim up"
+            if (Math.abs(pTravelVector.y) < 0.005D && delta.y <= 0) {
+                this.setDeltaMovement(delta.x * 0.8D, delta.y - 0.02D, delta.z * 0.8D);
+            } else {
+                this.setDeltaMovement(delta.scale(0.8D)); // General friction
             }
         } else {
             super.travel(pTravelVector);
@@ -176,17 +206,36 @@ public class WhaleHunterEntity extends WaterAnimal {
     }
     @Override
     public boolean doHurtTarget(Entity pEntity) {
+        this.setAttacking(true);
+        this.attackAminationTimeout = 15;
+
+        // Special handling for Boats
+        if (pEntity instanceof Boat boat) {
+            // Smash the boat (100 damage is plenty)
+            boolean destroyed = boat.hurt(this.damageSources().mobAttack(this), 100.0F);
+            if (destroyed) {
+                this.playSound(SoundEvents.ZOMBIE_ATTACK_WOODEN_DOOR, 1.0F, 0.5F);
+            }
+            return destroyed;
+        }
+
+
         boolean flag = super.doHurtTarget(pEntity);
+
         if (flag && pEntity instanceof LivingEntity living) {
-            // If the hit kills the prey, we discard it immediately to skip drops
-            if (living.getHealth() <= 0 || living.isDeadOrDying()) {
-                living.discard(); // The prey vanishes, dropping nothing
-                // Play a munching sound
-                this.playSound(net.minecraft.sounds.SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+            // Check if the attack was lethal
+            if (living.isDeadOrDying() || living.getHealth() <= 0.0F) {
+                // Play a munching sound to indicate consumption
+                this.playSound(SoundEvents.GENERIC_EAT, 1.0F, 1.0F);
+
+                // On the server, discard the entity immediately so it doesn't trigger death drops
+                if (!this.level().isClientSide) {
+                    living.discard();
+                }
             }
         }
         return flag;
-    }//don't work
+    }
 
     @Override
     public void aiStep() {
@@ -214,5 +263,6 @@ public class WhaleHunterEntity extends WaterAnimal {
                 .add(Attributes.ATTACK_DAMAGE, 60f)
                 .add(Attributes.ATTACK_KNOCKBACK, 3f);
     }
+
 
 }

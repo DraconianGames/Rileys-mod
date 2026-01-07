@@ -18,10 +18,24 @@ public class RileyModBiomes {
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_forest_biome"));
     public static final ResourceKey<Biome> ABYSS_PLAINS = ResourceKey.create(Registries.BIOME,
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"abyss_plains"));
+    public static final ResourceKey<Biome> ABYSSAL_TRENCH = ResourceKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyssal_trench"));
+    public static final ResourceKey<Biome> OBSIDIAN_PEAKS = ResourceKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "obsidian_peaks"));
+    public static final ResourceKey<Biome> ABYSS_BEACH = ResourceKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_beach"));
+    public static final ResourceKey<Biome> ABYSS_OCEAN = ResourceKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_ocean"));
+
 
     public static void boostrap(BootstapContext<Biome> context) {
         context.register(ABYSS_FOREST_BIOME, abyssForestBiome(context));
         context.register(ABYSS_PLAINS, abyssPlainsBiome(context));
+        context.register(ABYSSAL_TRENCH, abyssalTrench(context));
+        context.register(OBSIDIAN_PEAKS, obsidianPeaks(context));
+        context.register(ABYSS_BEACH, abyssBeach(context));
+        context.register(ABYSS_OCEAN, abyssOcean(context));
+
     }
 
     public static void globalOverworldGeneration(BiomeGenerationSettings.Builder builder) {
@@ -50,7 +64,7 @@ public class RileyModBiomes {
         BiomeDefaultFeatures.addFerns(biomeBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
         BiomeDefaultFeatures.addExtraGold(biomeBuilder);
-        BiomeDefaultFeatures.addIcebergs(biomeBuilder);
+
         BiomeDefaultFeatures.addExtraEmeralds(biomeBuilder);
 
         //biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
@@ -96,7 +110,7 @@ public class RileyModBiomes {
         BiomeDefaultFeatures.addFerns(biomeBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
         BiomeDefaultFeatures.addExtraGold(biomeBuilder);
-        BiomeDefaultFeatures.addIcebergs(biomeBuilder);
+
         BiomeDefaultFeatures.addExtraEmeralds(biomeBuilder);
 
         //biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
@@ -120,6 +134,87 @@ public class RileyModBiomes {
                         .fogColor(0x30c00)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
+                .build();
+    }
+    public static Biome abyssalTrench(BootstapContext<Biome> context) {
+        MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
+        // Spawns plenty of Whale Hunters and Glow Squids in the dark depths
+        spawnBuilder.addSpawn(MobCategory.WATER_CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.WHALE_HUNTER.get(), 100, 1, 4));
+        spawnBuilder.addSpawn(MobCategory.WATER_AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.GLOW_SQUID, 80, 4, 8));
+
+        BiomeGenerationSettings.Builder biomeBuilder =
+                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+
+        globalOverworldGeneration(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
+        // Add kelp and seagrass logic
+        BiomeDefaultFeatures.addColdOceanExtraVegetation(biomeBuilder);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .downfall(0.5f)
+                .temperature(0.5f) // Increased temperature to prevent ice formation
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(spawnBuilder.build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(0x000011)
+                        .waterFogColor(0x000005)
+                        .skyColor(0x000000)
+                        .fogColor(0x000000)
+                        // ENSURE NO AMBIENT PARTICLES ARE ADDED HERE
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                        .build())
+                .build();
+    }
+
+    public static Biome obsidianPeaks(BootstapContext<Biome> context) {
+        MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
+        // Night Terrors hunt in the high peaks
+        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.NIGHT_TERROR.get(), 100, 1, 2));
+
+        BiomeGenerationSettings.Builder biomeBuilder =
+                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+
+        globalOverworldGeneration(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
+        BiomeDefaultFeatures.addExtraEmeralds(biomeBuilder);
+
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true)
+                .downfall(1.0f) // High precipitation for snow/storms
+                .temperature(-0.8f) // Freezing peaks
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(spawnBuilder.build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(0x1a0d00)
+                        .waterFogColor(0x0d0600)
+                        .skyColor(0x050505)
+                        .fogColor(0x111111)
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                        .build())
+                .build();
+    }
+    public static Biome abyssBeach(BootstapContext<Biome> context) {
+        BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        globalOverworldGeneration(biomeBuilder);
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(true).downfall(0.8f).temperature(0.7f)
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(new MobSpawnSettings.Builder().build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(0x3f76e4).waterFogColor(0x050533).skyColor(0x30c00).fogColor(0x30c00).build())
+                .build();
+    }
+
+    public static Biome abyssOcean(BootstapContext<Biome> context) {
+        BiomeGenerationSettings.Builder biomeBuilder = new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        globalOverworldGeneration(biomeBuilder);
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false).downfall(0.5f).temperature(0.5f)
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(new MobSpawnSettings.Builder().build())
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .waterColor(0x0000FF).waterFogColor(0x050533).skyColor(0x000000).fogColor(0x000000).build())
                 .build();
     }
 }

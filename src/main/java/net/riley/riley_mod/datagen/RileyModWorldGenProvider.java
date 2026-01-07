@@ -21,6 +21,7 @@ public class RileyModWorldGenProvider extends DatapackBuiltinEntriesProvider {
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.DIMENSION_TYPE, RileyModDimensions::bootstrapType)
             .add(Registries.BIOME, RileyModBiomes::boostrap)
+            .add(Registries.NOISE_SETTINGS, RileyModDimensions::bootstrapNoise)
             .add(Registries.LEVEL_STEM, RileyModDimensions::bootstrapStem)
             .add(Registries.CONFIGURED_FEATURE, RileyModConfiguredFeatures::bootstrap)
             .add(Registries.PLACED_FEATURE, RileyModPlacedFeatures::bootstrap)

@@ -29,6 +29,8 @@ import net.riley.riley_mod.entity.client.WhaleHunterRenderer;
 import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
+import terrablender.api.Regions;
 
 
 import net.riley.riley_mod.potion.RileyModPotions;
@@ -51,6 +53,7 @@ public class RileyMod
 
 
         RileyModCreativeModTabs.register(modEventBus);
+
 
 
 
