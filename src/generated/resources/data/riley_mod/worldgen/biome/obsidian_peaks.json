@@ -85,7 +85,13 @@
         "type": "riley_mod:night_terror",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 100
+        "weight": 50
+      },
+      {
+        "type": "riley_mod:frost_hopper",
+        "maxCount": 5,
+        "minCount": 3,
+        "weight": 50
       }
     ],
     "misc": [],

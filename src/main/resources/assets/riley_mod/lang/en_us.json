@@ -11,6 +11,7 @@
   "item.riley_mod.rapter_spawn_egg": "Rapter Spawn Egg",
   "item.riley_mod.night_terror_spawn_egg": "Night Terror Spawn Egg",
   "item.riley_mod.whale_hunter_spawn_egg": "Whale Hunter Spawn Egg",
+  "item.riley_mod.frost_hopper_spawn_egg": "Frost Hopper Spawn Egg",
 
   "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
   "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
@@ -67,8 +68,11 @@
   "entity.riley_mod.rapter": "Rapter",
   "entity.riley_mod.whale_hunter": "Whale Hunter",
   "entity.riley_mod.night_terror": "Night Terror",
+  "entity.riley_mod.frost_hopper": "Frost Hopper",
 
   "creativetab.funtium_tab": "Funtium Tab",
+
+  "sounds.riley_mod.frost_hopper_battle_cry": "Frost Hopper Battle Cry",
 
 
   "item.riley_mod.night_star.tooltip": "May there be brighter days",

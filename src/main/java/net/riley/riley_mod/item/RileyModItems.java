@@ -68,6 +68,9 @@ public class RileyModItems {
     public static final RegistryObject<Item> WHALE_HUNTER_SPAWN_EGG = ITEMS.register("whale_hunter_spawn_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.WHALE_HUNTER,0x0a0303 ,0x4a7eff,
                     new Item.Properties()));
+    public static final RegistryObject<Item> FROST_HOPPER_SPAWN_EGG = ITEMS.register("frost_hopper_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.FROST_HOPPER,0xebfcff ,0x8dddeb,
+                    new Item.Properties()));
 //book
 public static final RegistryObject<Item> DARK_JOURNAL = ITEMS.register("dark_journal",
         () -> new net.riley.riley_mod.item.custom.JournalItem(new Item.Properties().stacksTo(1)));

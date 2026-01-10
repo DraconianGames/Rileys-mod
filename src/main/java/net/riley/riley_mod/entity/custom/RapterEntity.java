@@ -28,7 +28,7 @@ public class RapterEntity extends Animal {
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.BOOLEAN);
 
-
+//TODO add bleed effect
     public RapterEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -116,7 +116,7 @@ setupAminationStates();
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 30D)
+                .add(Attributes.MAX_HEALTH, 20D)
                 .add(Attributes.FOLLOW_RANGE,30D)
                 .add(Attributes.MOVEMENT_SPEED, .3D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)

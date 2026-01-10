@@ -10,18 +10,23 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.FrostHopperAttackGoal;
+import net.riley.riley_mod.sound.RileyModSounds;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostHopperEntity extends Animal {
     private static final EntityDataAccessor<Boolean> ATTACKING =
-            SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(FrostHopperEntity.class, EntityDataSerializers.BOOLEAN);
 
     public FrostHopperEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -33,11 +38,17 @@ public class FrostHopperEntity extends Animal {
     public int attackAminationTimeout = 0;
     public void playBattleCry() {
         this.level().playSound(null, this.getX(), this.getY(), this.getZ(),
-                SoundEvents.WOLF_HOWL, SoundSource.HOSTILE, 1.0F, 1.0F);
-        // Replace WOLF_HOWL with your preferred sound!
+                RileyModSounds.FROST_HOPPER_BATTLE_CRY.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
     }
 
-
+    @Override
+    public void setTarget(@Nullable LivingEntity pTarget) {
+        // Check if we are acquiring a NEW target (not just clearing the target)
+        if (pTarget != null && this.getTarget() == null) {
+            this.playBattleCry();
+        }
+        super.setTarget(pTarget);
+    }
     @Override
     public void tick() {
         super.tick();
@@ -57,6 +68,7 @@ public class FrostHopperEntity extends Animal {
         if (this.isAttacking() && attackAminationTimeout<=0) {
             attackAminationTimeout = 15; //leangth in ticks of the animation
             attackAnimationState.start(this.tickCount);
+
         } else {
             --this.attackAminationTimeout;
         }
@@ -94,6 +106,12 @@ public class FrostHopperEntity extends Animal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0,new FloatGoal(this));
         this.goalSelector.addGoal(2, new FrostHopperAttackGoal(this,1D,true));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1D, Ingredient.of(Items.COOKED_RABBIT), false));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1D));
+        this.goalSelector.addGoal(4,new FollowParentGoal(this,1D));
+        this.goalSelector.addGoal(5,new RandomStrollGoal(this,1D));
+        this.goalSelector.addGoal(6,new LookAtPlayerGoal(this, Player.class,5f));
+        this.goalSelector.addGoal(7,new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this, FrostHopperEntity.class));
@@ -121,6 +139,11 @@ public class FrostHopperEntity extends Animal {
         }
         return hurt;
     }
+    @Override
+    public boolean isFood(ItemStack pStack) {
+        return pStack.is(Items.COOKED_RABBIT);
+    }
+
 }
-//TODO add to journal, add spawn rules + egg
-//TODO change battle cry and add battle cry to rest of mobs
+
+//TODO add battle cry to rest of mobs

@@ -11,7 +11,7 @@ public class FrostHopperAttackGoal extends MeleeAttackGoal {
     private int attackDelay = 12;
     private int ticksUntilNextAttack= 3;
     private boolean shouldCountTillNextAttack = false;
-    private boolean hasCried = false; // Flag to track the battle cry
+
 
 
     public FrostHopperAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
@@ -25,12 +25,7 @@ public class FrostHopperAttackGoal extends MeleeAttackGoal {
     attackDelay = 12;
     ticksUntilNextAttack = 3;
 
-        // Play the cry only if it hasn't happened since the goal was last reset/started
 
-        if (!hasCried) {
-            entity.playBattleCry();
-            hasCried = true;
-        }
     }
 
     @Override
@@ -81,17 +76,6 @@ public class FrostHopperAttackGoal extends MeleeAttackGoal {
         super.tick();
         if(shouldCountTillNextAttack) {
             this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1,0);
-        }
-    }
-
-    @Override
-    public void stop() {
-        entity.setAttacking(false);
-        super.stop();
-        // Reset the flag if the mob loses interest or the target dies
-        // This ensures they cry again the next time they find a NEW target/start a new fight
-        if (this.mob.getTarget() == null) {
-            hasCried = false;
         }
     }
 }

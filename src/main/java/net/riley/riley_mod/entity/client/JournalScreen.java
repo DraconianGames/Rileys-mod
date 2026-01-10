@@ -44,10 +44,11 @@ public class JournalScreen extends Screen {
         super(Component.literal("Dark Journal"));
 
         // --- ADD YOUR ENTRIES HERE ---
-        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", "A land dwelling creature, the favorite prey of the Night Terror. They do like amethyst shards, and are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f));
+        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral. They hate Night Terrors", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f));
         ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f));
-        ALL_ENTRIES.add(new JournalEntry("Rapter", "A tiny little guy with a strong bite. Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),25.0f));
+        ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),25.0f));
         ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves a little crab.", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f));
+        ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Just like his evolutionary cousin Rapter", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f));
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));

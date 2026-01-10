@@ -274,3 +274,4 @@ public class NightTerrorEntity extends TamableAnimal{
         return pStack.is(RileyModItems.CLAW.get());
     }
 }
+//TODO add stinger attack. Poison effect.

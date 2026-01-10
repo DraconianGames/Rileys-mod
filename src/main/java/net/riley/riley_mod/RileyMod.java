@@ -26,6 +26,7 @@ import net.riley.riley_mod.entity.client.*;
 import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
 import terrablender.api.Regions;
 
@@ -57,7 +58,7 @@ public class RileyMod
 //TODO add a recipe for the dark journal
 // TODO add more stuff
 
-
+        RileyModSounds.register(modEventBus);
 
         RileyModItems.register(modEventBus);
         RileyModEntities.register(modEventBus);
