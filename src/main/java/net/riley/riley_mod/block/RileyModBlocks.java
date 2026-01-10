@@ -15,9 +15,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.custom.RileyModFlammableRotatedPillarBlock;
-import net.riley.riley_mod.block.custom.RileyModPortalBlock;
+import net.riley.riley_mod.block.custom.*;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.item.custom.NightStarBlockItem;
 import net.riley.riley_mod.worldgen.tree.AbyssTreeGrower;
 
 import java.util.function.Supplier;
@@ -32,7 +32,23 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).strength(60).explosionResistance(9000)));
     public static final RegistryObject<Block> STRUCTURE_BRICK = registerBlock("structure_brick",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.BRICKS).strength(60).explosionResistance(9000)));
+    public static final RegistryObject<Block> ABYSSAL_STONE = registerBlock("abyssal_stone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> ABYSSAL_COBBLESTONE = registerBlock("abyssal_cobblestone",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> BLACK_SAND = registerBlock("black_sand",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
+    public static final RegistryObject<Block> NIGHT_STAR = BLOCKS.register("night_star",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).lightLevel((state) -> 15)));
 
+
+//trophies
+public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("whale_hunter_trophy",
+        () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> TROPHY_FILLER = BLOCKS.register("trophy_filler",
+            () -> new TrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .noLootTable()
+                    .noOcclusion()));
 //ores
     public static final RegistryObject<Block> FUNTIUM_ORE_BLOCK = registerBlock("funtium_ore_block",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
@@ -40,6 +56,12 @@ public class RileyModBlocks {
     public static final RegistryObject<Block> DEEPSLATE_FUNTIUM_ORE = registerBlock("deepslate_funtium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
+
+//grass
+public static final RegistryObject<Block> ABYSSAL_GRASS = registerBlock("abyssal_grass",
+            () -> new AbyssalGrassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).randomTicks()));
+public static final RegistryObject<Block> ABYSSAL_DIRT = registerBlock("abyssal_dirt",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 //wood
     public static final RegistryObject<Block> ABYSS_LOG = registerBlock("abyss_log",
             () -> new RileyModFlammableRotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LOG).strength(3f)));
@@ -129,6 +151,8 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
         return RileyModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
+    public static final RegistryObject<Item> NIGHT_STAR_ITEM = RileyModItems.ITEMS.register("night_star",
+            () -> new NightStarBlockItem(NIGHT_STAR.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

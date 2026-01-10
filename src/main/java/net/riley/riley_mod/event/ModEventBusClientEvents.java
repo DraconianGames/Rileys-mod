@@ -16,5 +16,6 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.RAPTER_LAYER, RapterModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.NIGHT_TERROR_LAYER, NightTerrorModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.WHALE_HUNTER_LAYER, WhaleHunterModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.FROST_HOPPER_LAYER, FrostHopperModel::createBodyLayer);
     }
 }

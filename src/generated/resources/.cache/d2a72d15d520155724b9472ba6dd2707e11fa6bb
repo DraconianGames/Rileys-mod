@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-04T21:40:39.3766429	Item Models: riley_mod
+// 1.20.1	2026-01-08T14:40:19.2319197	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -56,6 +56,7 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 706fac02361c7b511bd7c63482c6b59ae8d9dd0d assets/riley_mod/models/item/funtium_ore.json
 7ee586a3127c26c4124084f90bb3f370f810232d assets/riley_mod/models/item/funtium_plate.json
 2a576c7e8507c46a3fb03b156b832df6e0e73ed5 assets/riley_mod/models/item/ice_chunk.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/night_terror_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/rapter_spawn_egg.json
 59d09b6444eebfe5a960872e7f1976e456637cf1 assets/riley_mod/models/item/stardust.json
 3b4860b8423b7a32dc008ae9e150910f7ac6418e assets/riley_mod/models/item/structure_brick_fence.json
@@ -65,3 +66,5 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 e5a442996617a2304b1da22f61ab82fb6c856d5a assets/riley_mod/models/item/structure_brick_wall.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/sunless_crab_spawn_egg.json
 9140144ec00f096cb57b866687a35996ee2e783f assets/riley_mod/models/item/tooth.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/whale_hunter_spawn_egg.json
+ded3ed6ba37a27bc3613831cf92e8d1bd0c12697 assets/riley_mod/models/item/whale_hunter_trophy.json

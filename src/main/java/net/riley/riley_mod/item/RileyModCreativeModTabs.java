@@ -27,6 +27,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.TOOTH.get());
                         output.accept(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.get());
                         output.accept(RileyModItems.RAPTER_SPAWN_EGG.get());
+                        output.accept(RileyModItems.NIGHT_TERROR_SPAWN_EGG.get());
+                        output.accept(RileyModItems.WHALE_HUNTER_SPAWN_EGG.get());
 
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());
                         output.accept(RileyModItems.FUNTIUM_PICKAXE.get());
@@ -65,6 +67,15 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.STRUCTURE_BRICK_WALL.get());
                         output.accept(RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get());
                         output.accept(RileyModBlocks.STRUCTURE_BRICK_STAIRS.get());
+                        output.accept(RileyModBlocks.ABYSSAL_DIRT.get());
+                        output.accept(RileyModBlocks.ABYSSAL_GRASS.get());
+                        output.accept(RileyModBlocks.ABYSSAL_COBBLESTONE.get());
+                        output.accept(RileyModBlocks.ABYSSAL_STONE.get());
+                        output.accept(RileyModBlocks.BLACK_SAND.get());
+
+                        output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
+                        output.accept(RileyModItems.DARK_JOURNAL.get());
+
 
 
                     })

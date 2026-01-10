@@ -8,10 +8,10 @@
   },
   "downfall": 0.5,
   "effects": {
-    "fog_color": 0,
-    "sky_color": 0,
-    "water_color": 255,
-    "water_fog_color": 329011
+    "fog_color": 2360838,
+    "sky_color": 2360838,
+    "water_color": 4002322,
+    "water_fog_color": 4002322
   },
   "features": [
     [],

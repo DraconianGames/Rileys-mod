@@ -47,5 +47,22 @@ public class RileyModBlockTagGenerator extends BlockTagsProvider {
 
         this.tag(BlockTags.PLANKS)
                 .add(RileyModBlocks.ABYSS_PLANKS.get());
+
+        this.tag(BlockTags.DIRT)
+                .add(RileyModBlocks.ABYSSAL_GRASS.get())
+                .add(RileyModBlocks.ABYSSAL_DIRT.get());
+
+        this.tag(BlockTags.SAND)
+                .add(RileyModBlocks.BLACK_SAND.get());
+
+        this.tag(BlockTags.MINEABLE_WITH_SHOVEL)
+                .add(RileyModBlocks.ABYSSAL_GRASS.get())
+                .add(RileyModBlocks.ABYSSAL_DIRT.get())
+                .add(RileyModBlocks.BLACK_SAND.get());
+
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(RileyModBlocks.STRUCTURE_BRICK.get())
+                .add(RileyModBlocks.ABYSSAL_STONE.get())
+                .add(RileyModBlocks.ABYSSAL_COBBLESTONE.get());
     }
 }

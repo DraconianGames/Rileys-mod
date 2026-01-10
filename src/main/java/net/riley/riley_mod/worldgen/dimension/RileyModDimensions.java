@@ -18,6 +18,7 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 import net.riley.riley_mod.RileyMod;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.world.level.block.Blocks;
+import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.worldgen.biome.RileyModBiomes;
 import java.util.List;
 import java.util.OptionalLong;
@@ -39,10 +40,10 @@ public class RileyModDimensions {
         context.register(ABYSS_NOISE_SETTINGS, new NoiseGeneratorSettings(
                 // minY: -64, height: 384 (Standard Overworld size)
                 NoiseSettings.create(-64, 384, 1, 2),
-                Blocks.STONE.defaultBlockState(),
+                RileyModBlocks.ABYSSAL_STONE.get().defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
                 NoiseGeneratorSettings.overworld(context, false, false).noiseRouter(),
-                SurfaceRuleData.overworldLike(true, false, false),
+                RileyModSurfaceRules.makeRules(),
                 List.of(),
                 63, // Keep sea level at 63
                 false, true, false, false

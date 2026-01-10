@@ -27,7 +27,6 @@ public class RileyModBiomes {
     public static final ResourceKey<Biome> ABYSS_OCEAN = ResourceKey.create(Registries.BIOME,
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_ocean"));
 
-
     public static void boostrap(BootstapContext<Biome> context) {
         context.register(ABYSS_FOREST_BIOME, abyssForestBiome(context));
         context.register(ABYSS_PLAINS, abyssPlainsBiome(context));
@@ -51,9 +50,6 @@ public class RileyModBiomes {
         spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.SUNLESS_CRAB.get(), 50, 3, 7));
         spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.RAPTER.get(), 70, 8, 13));
         spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(RileyModEntities.NIGHT_TERROR.get(), 80,1,3 ));
-
-
-
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
@@ -80,12 +76,12 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(740303)
-                        .waterFogColor(900000)
+                        .waterColor(0xab1f1f)
+                        .waterFogColor(0x821111)
                         .skyColor(0x30c00)
-                        .grassColorOverride(440000)
-                        .foliageColorOverride(411818)
-                        .fogColor(0x30c00)
+                        .grassColorOverride(0x290505)
+                        .foliageColorOverride(0x290505)
+                        .fogColor(0x360303)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -126,12 +122,12 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(740303)
-                        .waterFogColor(900000)
-                        .skyColor(0x30c00)
-                        .grassColorOverride(440000)
-                        .foliageColorOverride(411818)
-                        .fogColor(0x30c00)
+                        .waterColor(0x8a0f0f)
+                        .waterFogColor(0x6e0d0d)
+                        .skyColor(0x4f0707)
+                        .grassColorOverride(0x360505)
+                        .foliageColorOverride(0x360505)
+                        .fogColor(0x4f0707)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -156,10 +152,10 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x0a0a1a)
-                        .waterFogColor(0x050510)
-                        .skyColor(0x000000)
-                        .fogColor(0x000000)
+                        .waterColor(0x300909)
+                        .waterFogColor(0x300505)
+                        .skyColor(0x360505)
+                        .fogColor(0x360505)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -184,10 +180,11 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x0a0a1a)
-                        .waterFogColor(0x0d0600)
-                        .skyColor(0x050505)
-                        .fogColor(0x111111)
+                        .waterColor(0x1f0303)
+                        .waterFogColor(0x1f0303)
+                        .skyColor(0x1f0303)
+                        .fogColor(0x1f0303)
+                        .grassColorOverride(0x1f0303)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
@@ -200,7 +197,12 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(new MobSpawnSettings.Builder().build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x3f76e4).waterFogColor(0x050533).skyColor(0x30c00).fogColor(0x30c00).build())
+                        .waterColor(0xa30a0a)
+                        .waterFogColor(0xa30a0a)
+                        .skyColor(0x6e0202)
+                        .fogColor(0x6e0202)
+                        .grassColorOverride(0x570e0e)
+                        .build())
                 .build();
     }
 
@@ -212,7 +214,11 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(new MobSpawnSettings.Builder().build())
                 .specialEffects((new BiomeSpecialEffects.Builder())
-                        .waterColor(0x0000FF).waterFogColor(0x050533).skyColor(0x000000).fogColor(0x000000).build())
+                        .waterColor(0x3d1212)
+                        .waterFogColor(0x3d1212)
+                        .skyColor(0x240606)
+                        .fogColor(0x240606)
+                        .build())
                 .build();
     }
 }

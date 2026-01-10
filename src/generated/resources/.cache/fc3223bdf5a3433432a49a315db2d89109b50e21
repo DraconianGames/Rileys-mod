@@ -1,7 +1,11 @@
-// 1.20.1	2025-12-30T11:07:18.0306142	Tags for minecraft:block mod id riley_mod
+// 1.20.1	2026-01-07T14:40:09.3605233	Tags for minecraft:block mod id riley_mod
+fb510fb139741dfe2c9bf39e107bfcfc1471ac64 data/minecraft/tags/blocks/dirt.json
 3458633a1ed0a555a04bf5356b0038601920b294 data/minecraft/tags/blocks/fences.json
 a3fa2f55d656a32fa680d5cf104e1b5f8c055463 data/minecraft/tags/blocks/fence_gates.json
 fecdd646039d74d3e3ee3c1b86cf47018fd598f3 data/minecraft/tags/blocks/logs_that_burn.json
+669d225df5d5f806c2ca157d4f5af7921fc77695 data/minecraft/tags/blocks/mineable/pickaxe.json
+d9032bf1493a75cdc235cc84e39ba144c5530a16 data/minecraft/tags/blocks/mineable/shovel.json
 656c6985b5dbb34a76b26bd0fb2cec4e626d89ab data/minecraft/tags/blocks/planks.json
+e16efe7479a47b10edc0c2bcb5aa00fcc6897347 data/minecraft/tags/blocks/sand.json
 88cb7a7475a040e4a7bd485ba06ad26797007298 data/minecraft/tags/blocks/walls.json
 b7e5195e46b78f2044f950244f9743cd98bfb94d data/riley_mod/tags/blocks/needs_funtium_tool.json

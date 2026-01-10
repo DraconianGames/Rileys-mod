@@ -55,6 +55,8 @@ public class RileyModItemModelProvider extends ItemModelProvider {
 
         withExistingParent(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
         withExistingParent(RileyModItems.RAPTER_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.NIGHT_TERROR_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.WHALE_HUNTER_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
 
         fenceItem(RileyModBlocks.ABYSS_WOOD_FENCE, RileyModBlocks.ABYSS_PLANKS);
         
@@ -79,6 +81,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(RileyModItems.FUNTIUM_BOOTS);
 
         flatBlockItem(RileyModBlocks.ABYSS_PORTAL);
+        evenSimplerBlockItem2(RileyModBlocks.WHALE_HUNTER_TROPHY);
     }
     private ItemModelBuilder flatBlockItem(RegistryObject<Block> block) {
         return withExistingParent(block.getId().getPath(),
@@ -140,6 +143,11 @@ public class RileyModItemModelProvider extends ItemModelProvider {
     public void evenSimplerBlockItem(RegistryObject<Block> block) {
         this.withExistingParent(RileyMod.MODID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
                 modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
+    }
+    //top for datagen, bottom for existing models
+    public void evenSimplerBlockItem2(RegistryObject<Block> block) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
+                new ResourceLocation(RileyMod.MODID, "block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
     }
     public void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
         this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/fence_inventory"))

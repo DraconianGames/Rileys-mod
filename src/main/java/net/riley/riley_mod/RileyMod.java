@@ -1,5 +1,5 @@
 package net.riley.riley_mod;
-//what
+
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -22,10 +22,7 @@ import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
-import net.riley.riley_mod.entity.client.NightTerrorRenderer;
-import net.riley.riley_mod.entity.client.RapterRenderer;
-import net.riley.riley_mod.entity.client.SunlessCrabRenderer;
-import net.riley.riley_mod.entity.client.WhaleHunterRenderer;
+import net.riley.riley_mod.entity.client.*;
 import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
@@ -53,7 +50,12 @@ public class RileyMod
 
 
         RileyModCreativeModTabs.register(modEventBus);
-
+//TODO add new structure to nether for wither skeleton spawner.
+//TODO add new mobs to the obsidian peaks, beach, ocean, and plants.
+//TODO add mob that uses the freeze effect, add ice chunk to that mobs loot table
+//TODO add more effects that mobs can use
+//TODO add a recipe for the dark journal
+// TODO add more stuff
 
 
 
@@ -109,6 +111,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabRenderer::new);
             EntityRenderers.register(RileyModEntities.RAPTER.get(), RapterRenderer::new);
             EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
+            EntityRenderers.register(RileyModEntities.FROST_HOPPER.get(), FrostHopperRenderer::new);
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
         }

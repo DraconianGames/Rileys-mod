@@ -9,10 +9,13 @@ public class RileyModModelLayers {
             new ResourceLocation(RileyMod.MODID, "sunless_crab_layer"),"main");
     public static final ModelLayerLocation RAPTER_LAYER = new ModelLayerLocation(
             new ResourceLocation(RileyMod.MODID, "rapter_layer"),"main");
+    public static final ModelLayerLocation FROST_HOPPER_LAYER = new ModelLayerLocation(
+            new ResourceLocation(RileyMod.MODID, "frost_hopper_layer"),"main");
     public static final ModelLayerLocation NIGHT_TERROR_LAYER = new ModelLayerLocation(
             new ResourceLocation(RileyMod.MODID, "nightterror_layer"),"main");
     public static final ModelLayerLocation WHALE_HUNTER_LAYER = new ModelLayerLocation(
             new ResourceLocation(RileyMod.MODID, "whale_hunter_layer"),"main");
+
 
 
 }

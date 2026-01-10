@@ -9,10 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
-import net.riley.riley_mod.entity.custom.NightTerrorEntity;
-import net.riley.riley_mod.entity.custom.RapterEntity;
-import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
-import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
+import net.riley.riley_mod.entity.custom.*;
 
 @Mod.EventBusSubscriber(modid = RileyMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 
@@ -23,6 +20,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.RAPTER.get(), RapterEntity.createAttributes().build());
         event.put(RileyModEntities.NIGHT_TERROR.get(), NightTerrorEntity.createAttributes().build());
         event.put(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterEntity.createAttributes().build());
+        event.put(RileyModEntities.FROST_HOPPER.get(), FrostHopperEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {

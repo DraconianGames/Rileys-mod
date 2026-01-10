@@ -8,8 +8,8 @@ import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 
 public class SunlessCrabAttackGoal extends MeleeAttackGoal {
     private final SunlessCrabEntity entity;
-    private int attackDelay = 40;
-    private int ticksUntilNextAttack= 40;
+    private int attackDelay = 15;
+    private int ticksUntilNextAttack= 15;
     private boolean shouldCountTillNextAttack = false;
 
 
@@ -21,8 +21,8 @@ public class SunlessCrabAttackGoal extends MeleeAttackGoal {
     @Override
     public void start() {
         super.start();
-    attackDelay = 40;
-    ticksUntilNextAttack = 40;
+    attackDelay = 15;
+    ticksUntilNextAttack = 15;
     }
 
     @Override
@@ -38,6 +38,10 @@ public class SunlessCrabAttackGoal extends MeleeAttackGoal {
                 this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
                 performAttack(pEnemy);
             }
+            if(ticksUntilNextAttack <= 5) {
+                this.mob.getLookControl().setLookAt(pEnemy.getX(), pEnemy.getEyeY(), pEnemy.getZ());
+                performAttack(pEnemy);
+            }
         } else {
             resetAttackCooldown();
             shouldCountTillNextAttack = false;
@@ -50,7 +54,7 @@ public class SunlessCrabAttackGoal extends MeleeAttackGoal {
         return pDistToEnemySqr <= this.getAttackReachSqr(pEnemy);
     }
     protected void resetAttackCooldown() {
-        this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
+        this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay);
 
     }
     protected boolean isTimeToAttack() {

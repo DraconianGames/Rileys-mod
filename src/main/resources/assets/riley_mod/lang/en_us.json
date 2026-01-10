@@ -9,6 +9,8 @@
   "item.riley_mod.ice_chunk": "Ice Chunk",
   "item.riley_mod.sunless_crab_spawn_egg": "Sunless Crab Spawn Egg",
   "item.riley_mod.rapter_spawn_egg": "Rapter Spawn Egg",
+  "item.riley_mod.night_terror_spawn_egg": "Night Terror Spawn Egg",
+  "item.riley_mod.whale_hunter_spawn_egg": "Whale Hunter Spawn Egg",
 
   "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
   "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
@@ -25,6 +27,7 @@
   "item.riley_mod.funtium_helmet": "Funtium Helmet",
   "item.riley_mod.funtium_leggings": "Funtium Leggings",
   "item.riley_mod.funtium_boots": "Funtium Boots",
+  "item.riley_mod.dark_journal": "Dark Journal",
 
   "block.riley_mod.funtium_block": "Funtium Block",
   "block.riley_mod.activacted_funtium": "Activated Funtium",
@@ -45,7 +48,17 @@
   "block.riley_mod.structure_brick_stairs": "Structure brick Stairs",
   "block.riley_mod.structure_brick_slab": "Structure brick Slab",
   "block.riley_mod.abyss_sapling": "Abyss Sapling",
+  "block.riley_mod.black_sand": "Black Sand",
+  "block.riley_mod.abyssal_stone": "Abyssal Stone",
+  "block.riley_mod.abyssal_cobblestone": "Abyssal Cobblestone",
+  "block.riley_mod.abyssal_grass": "Abyssal Grass",
+  "block.riley_mod.abyssal_dirt": "Abyssal Dirt",
+  "block.riley_mod.night_star": "Night Star",
+  "block.riley_mod.whale_hunter_trophy": "Whale Hunter Trophy",
+  "block.riley_mod.abyss_leaves": "Abyss Leaves",
   "block.riley_mod.abyss_portal": "Abyss Portal",
+  "block.riley_mod.abyss_wood_wall": "Abyss Wood Wall",
+
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",
 "block.riley_mod.deepslate_funtium_ore": "Deepslate Funtium Ore Block",
@@ -55,5 +68,9 @@
   "entity.riley_mod.whale_hunter": "Whale Hunter",
   "entity.riley_mod.night_terror": "Night Terror",
 
-  "creativetab.funtium_tab": "Funtium Tab"
+  "creativetab.funtium_tab": "Funtium Tab",
+
+
+  "item.riley_mod.night_star.tooltip": "May there be brighter days",
+  "item.riley_mod.whale_hunter_trophy.tooltip": "You Monster, they were Neutral"
 }

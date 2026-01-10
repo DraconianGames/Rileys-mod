@@ -7,10 +7,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.entity.custom.NightTerrorEntity;
-import net.riley.riley_mod.entity.custom.RapterEntity;
-import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
-import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
+import net.riley.riley_mod.entity.custom.*;
 
 public class RileyModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -29,6 +26,10 @@ public static final RegistryObject<EntityType<NightTerrorEntity>> NIGHT_TERROR =
 public static final RegistryObject<EntityType<WhaleHunterEntity>> WHALE_HUNTER =
         ENTITY_TYPES.register("whalehunter",()-> EntityType.Builder.of(WhaleHunterEntity::new,MobCategory.WATER_CREATURE)
                 .sized(3f,1f).build("whalehunter"));
+    public static final RegistryObject<EntityType<FrostHopperEntity>> FROST_HOPPER =
+            ENTITY_TYPES.register("frost_hopper",()-> EntityType.Builder.of(FrostHopperEntity::new,MobCategory.CREATURE)
+                    .sized(1f,1f).build("frost_hopper"));
+
 
 
     public static void register(IEventBus eventBus){

@@ -38,6 +38,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.util.Mth;
+import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 
 
 
@@ -69,6 +70,9 @@ public class NightTerrorEntity extends TamableAnimal{
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false,
                 (entity) -> !this.isTame()));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, SunlessCrabEntity.class, 10, true, false,
+                (entity) -> !this.isTame()));
+
         this.targetSelector.addGoal(4, new HuntVanillaLandMobs<>(this, LivingEntity.class, true));
         this.targetSelector.addGoal(3, new HuntVanillaAirMobs<>(this, LivingEntity.class, true));
     }//change to not tamed

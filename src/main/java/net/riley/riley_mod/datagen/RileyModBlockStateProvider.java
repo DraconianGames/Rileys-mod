@@ -29,8 +29,14 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.ACTIVACTED_FUNTIUM);
         blockWithItem(RileyModBlocks.ABYSS_PLANKS);
         blockWithItem(RileyModBlocks.STRUCTURE_BRICK);
+        blockWithItem(RileyModBlocks.ABYSSAL_STONE);
+        blockWithItem(RileyModBlocks.ABYSSAL_COBBLESTONE);
+        blockWithItem(RileyModBlocks.BLACK_SAND);
+        blockWithItem(RileyModBlocks.ABYSSAL_DIRT);
+        blockWithItem(RileyModBlocks.NIGHT_STAR);
 
 
+        abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);
 
         leavesBlock(RileyModBlocks.ABYSS_LEAVES);
         logBlock(((RotatedPillarBlock) RileyModBlocks.ABYSS_LOG.get()));
@@ -93,6 +99,14 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
     private void blockItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockItem(blockRegistryObject.get(), new ModelFile.UncheckedModelFile(RileyMod.MODID +
                 ":block/" + ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath()));
+    }
+    private void abyssalGrassBlock(RegistryObject<Block> blockRegistryObject) {
+        ModelFile abyssalGrassModel = models().cubeBottomTop(blockRegistryObject.getId().getPath(),
+                modLoc("block/abyssal_grass_side"),  // Side texture
+                modLoc("block/abyssal_dirt"),        // Bottom texture
+                modLoc("block/abyssal_grass_top"));  // Top texture
+
+        simpleBlockWithItem(blockRegistryObject.get(), abyssalGrassModel);
     }
 
 

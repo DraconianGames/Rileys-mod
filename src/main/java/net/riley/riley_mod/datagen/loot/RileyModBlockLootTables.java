@@ -31,12 +31,25 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.STRIPPED_ABYSS_WOOD.get());
         this.dropSelf(RileyModBlocks.STRIPPED_ABYSS_LOG.get());
         this.dropSelf(RileyModBlocks.ABYSS_SAPLING.get());
+        this.dropSelf(RileyModBlocks.ABYSSAL_COBBLESTONE.get());
+        this.dropSelf(RileyModBlocks.ABYSSAL_DIRT.get());
+        this.dropSelf(RileyModBlocks.BLACK_SAND.get());
+        this.dropSelf(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
+        this.dropSelf(RileyModBlocks.NIGHT_STAR.get());
+
         this.add(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(),
                 block -> createCopperLikeOreDrops(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(), RileyModItems.FUNTIUM_ORE.get()));
         this.add(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(),
                 block -> createCopperLikeOreDrops(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(), RileyModItems.FUNTIUM_ORE.get()));
         this.add(RileyModBlocks.ABYSS_LEAVES.get(), block ->
                 createLeavesDrops(block, RileyModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+
+        this.add(RileyModBlocks.ABYSSAL_GRASS.get(),
+                block -> createSingleItemTableWithSilkTouch(block, RileyModBlocks.ABYSSAL_DIRT.get()));
+        this.add(RileyModBlocks.ABYSSAL_STONE.get(), block ->
+                createSingleItemTableWithSilkTouch(block, RileyModBlocks.ABYSSAL_COBBLESTONE.get()));
+
+
         this.dropSelf(RileyModBlocks.ABYSS_WOOD_STAIRS.get());
         this.dropSelf(RileyModBlocks.ABYSS_WOOD_FENCE.get());
         this.dropSelf(RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get());

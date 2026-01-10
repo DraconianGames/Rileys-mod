@@ -12,10 +12,12 @@ import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.item.custom.RileyModArmorItem;
 import net.riley.riley_mod.item.custom.RileyModPortalItem;
 
+
 public class RileyModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, RileyMod.MODID);
 
+    //guidebook
 
     public static final RegistryObject<Item> STARDUST = ITEMS.register("stardust",
             () -> new Item(new Item.Properties()));
@@ -55,11 +57,22 @@ public class RileyModItems {
             () -> new RileyModArmorItem(RileyModArmorMaterials.EYE, ArmorItem.Type.BOOTS, new Item.Properties()));
 //spawn egg
     public static final RegistryObject<Item> SUNLESS_CRAB_SPAWN_EGG = ITEMS.register("sunless_crab_spawn_egg",
-        () -> new ForgeSpawnEggItem(RileyModEntities.SUNLESS_CRAB,651212 ,8620202,
+        () -> new ForgeSpawnEggItem(RileyModEntities.SUNLESS_CRAB,0x0a0303 ,0x9c0000,
                 new Item.Properties()));
     public static final RegistryObject<Item> RAPTER_SPAWN_EGG = ITEMS.register("rapter_spawn_egg",
-            () -> new ForgeSpawnEggItem(RileyModEntities.RAPTER,265487 ,836475,
+            () -> new ForgeSpawnEggItem(RileyModEntities.RAPTER,0x0a0303 ,0x001957,
                     new Item.Properties()));
+    public static final RegistryObject<Item> NIGHT_TERROR_SPAWN_EGG = ITEMS.register("night_terror_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.NIGHT_TERROR,0x0a0303 ,0xd1d1d1,
+                    new Item.Properties()));
+    public static final RegistryObject<Item> WHALE_HUNTER_SPAWN_EGG = ITEMS.register("whale_hunter_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.WHALE_HUNTER,0x0a0303 ,0x4a7eff,
+                    new Item.Properties()));
+//book
+public static final RegistryObject<Item> DARK_JOURNAL = ITEMS.register("dark_journal",
+        () -> new net.riley.riley_mod.item.custom.JournalItem(new Item.Properties().stacksTo(1)));
+
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
