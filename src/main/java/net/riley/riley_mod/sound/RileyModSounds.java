@@ -18,6 +18,9 @@ public static final RegistryObject<SoundEvent> FROST_HOPPER_BATTLE_CRY = registe
 
 
 
+public static final RegistryObject<SoundEvent> NIGHT_TERROR_ROAR = registerSoundEvents("night_terror_roar");
+
+
 
 
 

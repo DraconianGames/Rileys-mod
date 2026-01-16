@@ -49,19 +49,18 @@ public class RileyModDimensions {
                 false, true, false, false
         ));
     }
-//change 24000 to 12000 when satisfieded
-public static void bootstrapType(BootstapContext<DimensionType> context) {
-    context.register(ABYSSDIM_TYPE, new DimensionType(
-            OptionalLong.of(24000),
-            false, false, false, false,
-            1.0, true, true,
-            -64,  // Standard Overworld min height
-            384,  // Standard Overworld total height
-            384,
-            BlockTags.INFINIBURN_OVERWORLD,
+    public static void bootstrapType(BootstapContext<DimensionType> context) {
+        context.register(ABYSSDIM_TYPE, new DimensionType(
+                OptionalLong.of(18000),
+                false, false, false, false,
+                1.0, true, true,
+                -64,
+                384,
+                384,
+                BlockTags.INFINIBURN_OVERWORLD,
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS,
                 0.0f,
-                new DimensionType.MonsterSettings(true, true, ConstantInt.of(0), 0)));
+                new DimensionType.MonsterSettings(false, true, ConstantInt.of(7), 0)));
     }
 
 

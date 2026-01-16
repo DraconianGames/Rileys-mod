@@ -18,6 +18,8 @@
   "item.minecraft.splash_potion.effect.freeze_potion": "Splash Potion of Freeze",
   "item.minecraft.lingering_potion.effect.freeze_potion": "Lingering Potion of Freeze",
   "effect.riley_mod.freeze": "Freeze",
+  "effect.riley_mod.bleed": "Bleed",
+  "effect.riley_mod.deaf": "Deaf",
 
   "item.riley_mod.funtium_sword": "Funtium Sword",
   "item.riley_mod.funtium_pickaxe": "Funtium Pickaxe",
@@ -73,6 +75,7 @@
   "creativetab.funtium_tab": "Funtium Tab",
 
   "sounds.riley_mod.frost_hopper_battle_cry": "Frost Hopper Battle Cry",
+  "sounds.riley_mod.night_terror_roar": "Night Terror Roar",
 
 
   "item.riley_mod.night_star.tooltip": "May there be brighter days",

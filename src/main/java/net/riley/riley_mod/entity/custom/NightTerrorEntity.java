@@ -4,6 +4,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -22,11 +23,15 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.riley.riley_mod.entity.ai.*;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.sound.RileyModSounds;
+import net.riley.riley_mod.util.RileyModTags;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -45,6 +50,10 @@ import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 public class NightTerrorEntity extends TamableAnimal{
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(NightTerrorEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ROARING =
+            SynchedEntityData.defineId(NightTerrorEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private int roarTicks = 0;
 
     public NightTerrorEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {super(pEntityType, pLevel);
         this.moveControl = new FlyingMoveControl(this, 20, true);
@@ -119,6 +128,7 @@ public class NightTerrorEntity extends TamableAnimal{
     public final AnimationState flyAttackAnimationState = new AnimationState();
     public int attackAminationTimeout = 0;
     public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState roarAnimationState = new AnimationState(); // Add this
     private int airTicks = 0;
     private int outOfCombatTicks = 0;
 
@@ -132,6 +142,7 @@ public class NightTerrorEntity extends TamableAnimal{
             this.setXRot(Mth.rotLerp(0.1F, this.getXRot(), targetPitch));
         } else {
             // Server-side logic
+            handleRoarLogic();
             handleCombatTimer();
             handleAutomaticHealing();
 
@@ -143,6 +154,47 @@ public class NightTerrorEntity extends TamableAnimal{
             }
         }
     }
+    @Override
+    public void setTarget(@Nullable LivingEntity pTarget) {
+        // Only start the roar if acquiring a NEW target and that target is a Player
+        if (pTarget instanceof Player && this.getTarget() == null) {
+            this.startRoar();
+        }
+        super.setTarget(pTarget);
+    }
+    private void handleRoarLogic() {
+        if (this.isRoaring()) {
+            this.roarTicks++;
+            // Assuming the roar sound/animation lasts 40 ticks (2 seconds)
+            if (this.roarTicks >= 40) {
+                applyDeafeningEffect();
+                this.setRoaring(false);
+                this.roarTicks = 0;
+            }
+        } else if (this.getTarget() != null && this.random.nextInt(200) == 0) {
+            // Random chance to roar while having a target
+            startRoar();
+        }
+    }
+    public void startRoar() {
+        if (!this.level().isClientSide()) {
+            this.setRoaring(true);
+            this.roarTicks = 0;
+            // Play your epic roar sound here
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(),
+                    RileyModSounds.NIGHT_TERROR_ROAR.get(), SoundSource.HOSTILE, 10.0F, 0.5F);
+        }//TODO make roar sound
+    }
+    private void applyDeafeningEffect() {
+        // 150 blocks to ensure it reaches the ground from the peaks
+        double range = 150.0D;
+
+        this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(range)).forEach(player -> {
+            // We removed hasLineOfSight because a roar this big should shake your bones even in a house!
+            player.addEffect(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0));
+        });
+    }
+
     private void handleCombatTimer() {
         // If it has a target or was recently hit, reset the timer
         if (this.getTarget() != null || this.getLastHurtByMob() != null) {
@@ -179,6 +231,18 @@ public class NightTerrorEntity extends TamableAnimal{
         if (!this.isAttacking()) {
             flyAttackAnimationState.stop();
         }
+        if (this.isRoaring()) {
+            this.roarAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.roarAnimationState.stop();
+        }
+    }
+    public void setRoaring(boolean roaring) {
+        this.entityData.set(ROARING, roaring);
+    }
+
+    public boolean isRoaring() {
+        return this.entityData.get(ROARING);
     }
     @Override
     protected void updateWalkAnimation(float pPartialTick) {
@@ -198,6 +262,7 @@ public class NightTerrorEntity extends TamableAnimal{
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
+        this.entityData.define(ROARING, false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -247,8 +312,16 @@ public class NightTerrorEntity extends TamableAnimal{
     protected void checkFallDamage(double pY, boolean pOnGround, net.minecraft.world.level.block.state.BlockState pState, net.minecraft.core.BlockPos pPos) {
     }
     public static boolean checkNightTerrorSpawnRules(EntityType<NightTerrorEntity> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        // Only spawn if it's at least Y=100 and the block is air
-        return pPos.getY() >= 100 && pLevel.isEmptyBlock(pPos);
+        // Check if the block below is in our custom 'spawnable' tag
+        if (!pLevel.getBlockState(pPos.below()).is(RileyModTags.Blocks.ABYSS_SPAWNABLE_ON)) {
+            return false;
+        }
+
+        boolean isHighEnough = pPos.getY() >= 100;
+        boolean hasSpace = pLevel.isEmptyBlock(pPos) && pLevel.isEmptyBlock(pPos.above(2));
+
+
+        return isHighEnough && hasSpace;
     }
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {

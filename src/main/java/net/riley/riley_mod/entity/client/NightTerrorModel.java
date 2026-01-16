@@ -106,6 +106,8 @@ public class NightTerrorModel<T extends Entity> extends HierarchicalModel<T> {
 
 		this.animate(nightTerror.flyAnimationState, RileyModNightTerrorAnimationDefinitions.NIGHT_TERROR_FLY, ageInTicks, 1f);
 		this.animate(nightTerror.flyAttackAnimationState, RileyModNightTerrorAnimationDefinitions.NIGHT_TERROR_ATTACK, ageInTicks, 1f);
+		this.animate(nightTerror.roarAnimationState, RileyModNightTerrorAnimationDefinitions.NIGHT_TERROR_ROAR, ageInTicks, 1f); // Add this
+
 		// PITCH
 		this.night_terror.xRot = entity.getXRot() * ((float)Math.PI / 180F);
 

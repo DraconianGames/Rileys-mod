@@ -13,7 +13,11 @@ public class RileyModEffects {
             = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, RileyMod.MODID);
 
     public static final RegistryObject<MobEffect> FREEZE = MOB_EFFECTS.register("freeze",
-            () -> new FreezeEffect(MobEffectCategory.HARMFUL, 3124687));
+            () -> new FreezeEffect(MobEffectCategory.HARMFUL, 0x34aec7));
+    public static final RegistryObject<MobEffect> BLEED = MOB_EFFECTS.register("bleed",
+            () -> new BleedEffect(MobEffectCategory.HARMFUL, 0x780c0c));
+    public static final RegistryObject<MobEffect> DEAF = MOB_EFFECTS.register( "deaf",
+            () -> new DeafEffect(MobEffectCategory.HARMFUL, 0x780c0c));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

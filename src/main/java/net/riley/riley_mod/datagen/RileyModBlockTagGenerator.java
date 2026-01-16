@@ -3,6 +3,7 @@ package net.riley.riley_mod.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.riley.riley_mod.RileyMod;
@@ -19,6 +20,14 @@ public class RileyModBlockTagGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+
+
+        this.tag(BlockTags.ANIMALS_SPAWNABLE_ON)
+                .add(RileyModBlocks.ABYSSAL_GRASS.get())
+                .add(RileyModBlocks.ABYSSAL_DIRT.get())
+                .add(RileyModBlocks.ABYSSAL_STONE.get())
+                .add(RileyModBlocks.BLACK_SAND.get());
+
         this.tag(RileyModTags.Blocks.Needs_Funtium_TOOL)
                 .add(RileyModBlocks.STRUCTURE_BRICK_FENCE.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK_WALL.get())
@@ -44,6 +53,13 @@ public class RileyModBlockTagGenerator extends BlockTagsProvider {
                 .add(RileyModBlocks.ABYSS_WOOD.get())
                 .add(RileyModBlocks.STRIPPED_ABYSS_LOG.get())
                 .add(RileyModBlocks.STRIPPED_ABYSS_WOOD.get());
+
+        this.tag(RileyModTags.Blocks.ABYSS_SPAWNABLE_ON)
+                .add(RileyModBlocks.ABYSSAL_GRASS.get())
+                .add(RileyModBlocks.ABYSSAL_DIRT.get())
+                .add(RileyModBlocks.ABYSSAL_STONE.get())
+                .add(Blocks.SNOW)
+                .add(RileyModBlocks.BLACK_SAND.get());
 
         this.tag(BlockTags.PLANKS)
                 .add(RileyModBlocks.ABYSS_PLANKS.get());

@@ -26,10 +26,10 @@ public class ModEventBusEvents {
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
         event.register(
                 RileyModEntities.NIGHT_TERROR.get(),
-                SpawnPlacements.Type.NO_RESTRICTIONS,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.WORLD_SURFACE,
                 NightTerrorEntity::checkNightTerrorSpawnRules,
-                SpawnPlacementRegisterEvent.Operation.OR // Changed from REPLACE if it was erroring
+                SpawnPlacementRegisterEvent.Operation.OR
         );
 
         event.register(
@@ -38,6 +38,27 @@ public class ModEventBusEvents {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 WhaleHunterEntity::checkWhaleHunterSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR // Removed Strategy.AND
+        );
+        event.register(
+                RileyModEntities.FROST_HOPPER.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.WORLD_SURFACE,
+                FrostHopperEntity::checkFrostHopperSpawnRules,
+                SpawnPlacementRegisterEvent.Operation.OR
+        );
+        event.register(
+                RileyModEntities.SUNLESS_CRAB.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.WORLD_SURFACE,
+                SunlessCrabEntity::checkSunlessCrabSpawnRules,
+                SpawnPlacementRegisterEvent.Operation.OR
+        );
+        event.register(
+                RileyModEntities.RAPTER.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.WORLD_SURFACE,
+                RapterEntity::checkRapterSpawnRules,
+                SpawnPlacementRegisterEvent.Operation.OR
         );
     }
 }

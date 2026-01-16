@@ -21,6 +21,7 @@ public class RileyModTags {
 
     public static class Blocks {
         public static final TagKey<Block>Needs_Funtium_TOOL = tag("needs_funtium_tool");
+        public static final TagKey<Block> ABYSS_SPAWNABLE_ON = tag("abyss_spawnable_on");
 
     private static TagKey<Block> tag(String name) {
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));

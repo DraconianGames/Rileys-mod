@@ -4,5 +4,11 @@
     "sounds": [
       "riley_mod:frost_hopper_battle_cry"
     ]
+  },
+  "night_terror_roar": {
+    "subtitle": "sounds.riley_mod.night_terror_roar",
+    "sounds": [
+      "riley_mod:night_terror_roar"
+    ]
   }
 }

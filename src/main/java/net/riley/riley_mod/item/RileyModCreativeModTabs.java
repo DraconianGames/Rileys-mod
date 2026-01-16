@@ -30,6 +30,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.NIGHT_TERROR_SPAWN_EGG.get());
                         output.accept(RileyModItems.WHALE_HUNTER_SPAWN_EGG.get());
                         output.accept(RileyModItems.FROST_HOPPER_SPAWN_EGG.get());
+                        output.accept(RileyModBlocks.NIGHT_STAR.get());
 
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());
                         output.accept(RileyModItems.FUNTIUM_PICKAXE.get());
