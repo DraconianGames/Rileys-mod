@@ -3,6 +3,7 @@ package net.riley.riley_mod.entity.ai;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.ItemStack;
@@ -111,7 +112,13 @@ public class AbyssBreedGoal extends Goal {
 
             AgeableMob baby = this.mob.getBreedOffspring(serverLevel, this.partner);
             if (baby != null) {
-                // IMPORTANT: Set the baby to be a baby (negative age)
+                // If parents are tamed, make the baby tamed to the same owner
+                if (this.mob instanceof TamableAnimal tamableParent && tamableParent.isTame()) {
+                    if (baby instanceof TamableAnimal tamableBaby) {
+                        tamableBaby.setOwnerUUID(tamableParent.getOwnerUUID());
+                        tamableBaby.setTame(true);
+                    }
+                }
                 baby.setAge(-24000);
                 // Position the baby at the parent's location
                 baby.moveTo(this.mob.getX(), this.mob.getY(), this.mob.getZ(), 0.0F, 0.0F);

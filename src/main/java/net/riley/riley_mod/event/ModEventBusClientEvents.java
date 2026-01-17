@@ -12,10 +12,12 @@ public class ModEventBusClientEvents {
 @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event)
     {
+        event.registerLayerDefinition(RileyModModelLayers.TOOTHFAIRY_LAYER, ToothFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.SUNLESS_CRAB_LAYER, SunlessCrabModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.RAPTER_LAYER, RapterModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.NIGHT_TERROR_LAYER, NightTerrorModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.WHALE_HUNTER_LAYER, WhaleHunterModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.FROST_HOPPER_LAYER, FrostHopperModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.BONEFAIRY_LAYER, BoneFairyModel::createBodyLayer);
     }
 }

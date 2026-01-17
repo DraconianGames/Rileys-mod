@@ -117,6 +117,8 @@ public class RileyMod
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(RileyModEntities.SUNLESS_CRAB.get(), SunlessCrabRenderer::new);
             EntityRenderers.register(RileyModEntities.RAPTER.get(), RapterRenderer::new);
+            EntityRenderers.register(RileyModEntities.TOOTHFAIRY.get(), ToothFairyRenderer::new);
+            EntityRenderers.register(RileyModEntities.BONEFAIRY.get(), BoneFairyRenderer::new);
             EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
             EntityRenderers.register(RileyModEntities.FROST_HOPPER.get(), FrostHopperRenderer::new);
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);

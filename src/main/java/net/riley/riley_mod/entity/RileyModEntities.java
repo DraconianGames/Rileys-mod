@@ -30,7 +30,12 @@ public static final RegistryObject<EntityType<WhaleHunterEntity>> WHALE_HUNTER =
     public static final RegistryObject<EntityType<FrostHopperEntity>> FROST_HOPPER =
             ENTITY_TYPES.register("frost_hopper",()-> EntityType.Builder.of(FrostHopperEntity::new,MobCategory.MONSTER)
                     .sized(1f,1f).build("frost_hopper"));
-
+public static final RegistryObject<EntityType<ToothFairyEntity>> TOOTHFAIRY =
+        ENTITY_TYPES.register("toothfairy",()-> EntityType.Builder.of(ToothFairyEntity::new,MobCategory.CREATURE)
+                .sized(.25f,0.75f).build("toothfairy"));
+public static final RegistryObject<EntityType<BoneFairyEntity>> BONEFAIRY =
+        ENTITY_TYPES.register("bonefairy",()-> EntityType.Builder.of(BoneFairyEntity::new,MobCategory.CREATURE)
+                .sized(1f,2.5f).build("bonefairy"));
 
 
     public static void register(IEventBus eventBus){
