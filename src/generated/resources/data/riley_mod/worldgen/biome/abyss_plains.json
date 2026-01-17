@@ -95,13 +95,13 @@
         "type": "riley_mod:sunless_crab",
         "maxCount": 2,
         "minCount": 1,
-        "weight": 10
+        "weight": 80
       },
       {
         "type": "riley_mod:rapter",
         "maxCount": 5,
         "minCount": 3,
-        "weight": 10
+        "weight": 90
       },
       {
         "type": "riley_mod:night_terror",

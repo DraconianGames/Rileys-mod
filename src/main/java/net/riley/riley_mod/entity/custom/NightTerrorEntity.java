@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.effect.RileyModEffects;
@@ -65,7 +66,7 @@ public class NightTerrorEntity extends TamableAnimal{
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1,new BreedGoal(this,1D));
+        this.goalSelector.addGoal(1,new AbyssBreedGoal(this,1D, Ingredient.of(RileyModItems.CLAW.get())));
         this.goalSelector.addGoal(2, new NightTerrorTemptGoal(this, 1D, Ingredient.of(RileyModItems.CLAW.get()),false, 80.0D));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.2D, 10.0F, 2.0F, true));
         this.goalSelector.addGoal(1, new NightTerrorAvoidPlayerGoal(this, 1.4D));
@@ -89,30 +90,59 @@ public class NightTerrorEntity extends TamableAnimal{
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
 
-        // Logic for taming (e.g., using raw beef)
+        // 1. Check for Taming (Only if not tamed)
         if (itemstack.is(RileyModItems.CLAW.get()) && !this.isTame()) {
             if (this.level().isClientSide) {
                 return InteractionResult.CONSUME;
             } else {
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-
-                if (this.random.nextInt(3) == 0) { // 33% chance to tame
+                if (!pPlayer.getAbilities().instabuild) itemstack.shrink(1);
+                if (this.random.nextInt(3) == 0) {
                     this.tame(pPlayer);
                     this.navigation.stop();
                     this.setTarget(null);
-                    this.level().broadcastEntityEvent(this, (byte)7); // Hearts
+                    this.level().broadcastEntityEvent(this, (byte)7);
                 } else {
-                    this.level().broadcastEntityEvent(this, (byte)6); // Smoke/failed
+                    this.level().broadcastEntityEvent(this, (byte)6);
                 }
-
                 return InteractionResult.SUCCESS;
             }
         }
 
+        // 2. Check for Breeding (Only if tamed)
+        if (this.isTame() && this.isFood(itemstack)) {
+            int cooldown = this.getPersistentData().getInt("BreedCooldown");
+            int inLove = this.getPersistentData().getInt("InLove");
+
+            if (cooldown <= 0 && inLove <= 0) {
+                if (!pPlayer.getAbilities().instabuild) itemstack.shrink(1);
+                this.getPersistentData().putInt("InLove", 600);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+        }
+
         return super.mobInteract(pPlayer, pHand);
     }
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        // Custom NBT Timers for the AbyssBreedGoal
+        if (this.level().isClientSide) {
+            if (this.getPersistentData().getInt("InLove") > 0 && this.random.nextInt(7) == 0) {
+                this.level().addParticle(net.minecraft.core.particles.ParticleTypes.HEART,
+                        this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+            }
+        } else {
+            int inLove = this.getPersistentData().getInt("InLove");
+            if (inLove > 0) this.getPersistentData().putInt("InLove", inLove - 1);
+
+            int cooldown = this.getPersistentData().getInt("BreedCooldown");
+            if (cooldown > 0) this.getPersistentData().putInt("BreedCooldown", cooldown - 1);
+        }
+    }
+    public boolean isFood(ItemStack pStack) {
+        return pStack.is(RileyModItems.CLAW.get());}
 
     @Override
     protected PathNavigation createNavigation(Level pLevel) {
@@ -183,7 +213,7 @@ public class NightTerrorEntity extends TamableAnimal{
             // Play your epic roar sound here
             this.level().playSound(null, this.getX(), this.getY(), this.getZ(),
                     RileyModSounds.NIGHT_TERROR_ROAR.get(), SoundSource.HOSTILE, 10.0F, 0.5F);
-        }//TODO make roar sound
+        }
     }
     private void applyDeafeningEffect() {
         // 150 blocks to ensure it reaches the ground from the peaks
@@ -312,16 +342,17 @@ public class NightTerrorEntity extends TamableAnimal{
     protected void checkFallDamage(double pY, boolean pOnGround, net.minecraft.world.level.block.state.BlockState pState, net.minecraft.core.BlockPos pPos) {
     }
     public static boolean checkNightTerrorSpawnRules(EntityType<NightTerrorEntity> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
-        // Check if the block below is in our custom 'spawnable' tag
-        if (!pLevel.getBlockState(pPos.below()).is(RileyModTags.Blocks.ABYSS_SPAWNABLE_ON)) {
-            return false;
-        }
-
-        boolean isHighEnough = pPos.getY() >= 100;
-        boolean hasSpace = pLevel.isEmptyBlock(pPos) && pLevel.isEmptyBlock(pPos.above(2));
-
-
-        return isHighEnough && hasSpace;
+        // Broaden the rule: As long as the block below is not air or water, let it try.
+        return !pLevel.getBlockState(pPos.below()).isAir();
+    }
+    @Override
+    public boolean checkSpawnRules(LevelAccessor pLevel, MobSpawnType pSpawnReason) {
+        return true; // Bypass the internal "Monster must be in dark" check
+    }
+    // This overrides the internal collision check to be more forgiving for large flyers
+    @Override
+    public boolean checkSpawnObstruction(LevelReader pLevel) {
+        return true;
     }
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
@@ -342,9 +373,6 @@ public class NightTerrorEntity extends TamableAnimal{
 
         return offspring;
     }
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(RileyModItems.CLAW.get());
-    }
+
 }
 //TODO add stinger attack. Poison effect.

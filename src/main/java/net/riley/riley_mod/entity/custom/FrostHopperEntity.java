@@ -8,6 +8,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,16 +26,18 @@ import net.minecraft.world.level.LevelAccessor;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
+import net.riley.riley_mod.entity.ai.AbyssFollowParentGoal;
 import net.riley.riley_mod.entity.ai.FrostHopperAttackGoal;
 import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.util.RileyModTags;
 import org.jetbrains.annotations.Nullable;
 
-public class FrostHopperEntity extends Animal {
+public class FrostHopperEntity extends AgeableMob {
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(FrostHopperEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public FrostHopperEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public FrostHopperEntity(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -112,14 +116,28 @@ public class FrostHopperEntity extends Animal {
         this.goalSelector.addGoal(0,new FloatGoal(this));
         this.goalSelector.addGoal(2, new FrostHopperAttackGoal(this,1D,true));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1D, Ingredient.of(Items.COOKED_RABBIT), false));
-        this.goalSelector.addGoal(3, new BreedGoal(this, 1D));
-        this.goalSelector.addGoal(4,new FollowParentGoal(this,1D));
+        this.goalSelector.addGoal(3, new AbyssBreedGoal(this, 1D, Ingredient.of(Items.COOKED_RABBIT)));
+        this.goalSelector.addGoal(4,new AbyssFollowParentGoal(this,1D));
         this.goalSelector.addGoal(5,new RandomStrollGoal(this,1D));
         this.goalSelector.addGoal(6,new LookAtPlayerGoal(this, Player.class,5f));
         this.goalSelector.addGoal(7,new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this, FrostHopperEntity.class));
+    }
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        // Custom NBT Timer Logic (similar to Crab/Rapter)
+        if (!this.level().isClientSide) {
+            int inLove = this.getPersistentData().getInt("InLove");
+            if (inLove > 0) this.getPersistentData().putInt("InLove", inLove - 1);
+            int cooldown = this.getPersistentData().getInt("BreedCooldown");
+            if (cooldown > 0) this.getPersistentData().putInt("BreedCooldown", cooldown - 1);
+        } else if (this.getPersistentData().getInt("InLove") > 0 && this.random.nextInt(7) == 0) {
+            this.level().addParticle(net.minecraft.core.particles.ParticleTypes.HEART,
+                    this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+        }
     }
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
@@ -140,6 +158,24 @@ public class FrostHopperEntity extends Animal {
         return pLevel.getRawBrightness(pPos, 0) <= 8;
     }
     @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (this.isFood(itemstack)) {
+            int cooldown = this.getPersistentData().getInt("BreedCooldown");
+            if (cooldown > 0) return InteractionResult.PASS;
+
+            if (this.getPersistentData().getInt("InLove") <= 0) {
+                if (!pPlayer.getAbilities().instabuild) itemstack.shrink(1);
+                this.getPersistentData().putInt("InLove", 600);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
+    public boolean isFood(ItemStack pStack) {
+        return pStack.is(Items.COOKED_RABBIT);}
+    @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.FROST_HOPPER.get().create(pLevel);
     }
@@ -151,10 +187,6 @@ public class FrostHopperEntity extends Animal {
             livingTarget.addEffect(new MobEffectInstance(RileyModEffects.FREEZE.get(), 60, 0), this);
         }
         return hurt;
-    }
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.COOKED_RABBIT);
     }
 
 }

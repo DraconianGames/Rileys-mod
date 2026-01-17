@@ -47,8 +47,8 @@ public class RileyModBiomes {
     }
     public static Biome abyssPlainsBiome(BootstapContext<Biome> context){
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.SUNLESS_CRAB.get(), 10, 1, 2));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.RAPTER.get(), 10, 3, 5));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.SUNLESS_CRAB.get(), 80, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.RAPTER.get(), 90, 3, 5));
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.NIGHT_TERROR.get(), 10,1,3 ));
 
         BiomeGenerationSettings.Builder biomeBuilder =
@@ -165,7 +165,7 @@ public class RileyModBiomes {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         // Night Terrors hunt in the high peaks
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.NIGHT_TERROR.get(), 10, 1, 2));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.FROST_HOPPER.get(), 10, 3, 5));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.FROST_HOPPER.get(), 90, 3, 5));
 
         BiomeGenerationSettings.Builder biomeBuilder =
                 new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));

@@ -8,7 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.custom.*;
-//TODO fix rest of mobs. Crab and Whale are fine.
+
 
 public class RileyModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
@@ -16,7 +16,7 @@ public class RileyModEntities {
 
     public static final RegistryObject<EntityType<SunlessCrabEntity>> SUNLESS_CRAB =
             ENTITY_TYPES.register("sunless_crab",()-> EntityType.Builder.of(SunlessCrabEntity::new, MobCategory.MONSTER)
-                    .sized(2.5f,2.5f).build("sunless_crab"));
+                    .sized(2.5f,1.5f).build("sunless_crab"));
 
 public static final RegistryObject<EntityType<RapterEntity>> RAPTER =
         ENTITY_TYPES.register("rapter",()-> EntityType.Builder.of(RapterEntity::new,MobCategory.MONSTER)

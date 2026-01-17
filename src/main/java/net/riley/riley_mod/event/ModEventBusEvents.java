@@ -26,7 +26,7 @@ public class ModEventBusEvents {
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
         event.register(
                 RileyModEntities.NIGHT_TERROR.get(),
-                SpawnPlacements.Type.ON_GROUND,
+                SpawnPlacements.Type.NO_RESTRICTIONS, // This is essential for large flyers
                 Heightmap.Types.WORLD_SURFACE,
                 NightTerrorEntity::checkNightTerrorSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR

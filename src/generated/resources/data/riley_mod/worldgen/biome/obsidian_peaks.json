@@ -93,7 +93,7 @@
         "type": "riley_mod:frost_hopper",
         "maxCount": 5,
         "minCount": 3,
-        "weight": 10
+        "weight": 90
       }
     ],
     "underground_water_creature": [],
