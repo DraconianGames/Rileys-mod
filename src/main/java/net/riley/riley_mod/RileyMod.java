@@ -52,11 +52,17 @@ public class RileyMod
 
         RileyModCreativeModTabs.register(modEventBus);
 //TODO add new structure to nether for wither skeleton spawner.
-//TODO add new mobs to the obsidian peaks, beach, ocean, and plants.
+//TODO add new mobs to the ocean.
 //TODO add mob that uses the freeze effect, add ice chunk to that mobs loot table
 //TODO add more effects that mobs can use
 //TODO add a recipe for the dark journal
-// TODO add more stuff
+//TODO add tooth fairy and bone fairy. Evolution possible.
+//TODO Update block pages for book
+//TODO Evolution Ideas: potion effect, menu screen, kill counter, special food/item, special tree with fruit of evolution
+//TODO Make pets stay tamed for evolution.
+//TODO upgrade tree
+//TODO Block when activated spawns a boss
+//TODO remove crab hunting from night terror
 
         RileyModSounds.register(modEventBus);
 

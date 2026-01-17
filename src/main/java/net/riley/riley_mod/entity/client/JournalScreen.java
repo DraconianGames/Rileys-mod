@@ -13,19 +13,25 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Items;
+import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
 import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.resources.ResourceLocation;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.util.JournalEntry;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import net.minecraft.world.effect.MobEffectInstance;
+import net.riley.riley_mod.effect.RileyModEffects;
 public class JournalScreen extends Screen {
     private static final ResourceLocation GUI_TEXTURE =ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/journal_gui.png");
 
@@ -34,21 +40,31 @@ public class JournalScreen extends Screen {
     private JournalEntry selectedEntry = null;
     private final Map<EntityType<?>, LivingEntity> entityCache = new HashMap<>();
 
+    private int currentPage = 0;
+    private Button nextButton;
+    private Button prevButton;
+
     private EditBox searchBox;
     private JournalEntryList entryList;
     private AbstractSliderButton rotationSlider;
 
     private float entityRotation = 0.0f;
+    private double descriptionScroll = 0;
 
     public JournalScreen() {
         super(Component.literal("Dark Journal"));
 
         // --- ADD YOUR ENTRIES HERE ---
-        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral. They hate Night Terrors", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f));
-        ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f));
-        ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),25.0f));
-        ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves a little crab.", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f));
-        ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Just like his evolutionary cousin Rapter", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f));
+        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral. They hate Night Terrors", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f, Items.AMETHYST_SHARD
+                ,java.util.List.of()));
+        ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f,null,
+                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0), new MobEffectInstance(MobEffects.WITHER, 60, 0))));
+        ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),15.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
+                java.util.List.of(new MobEffectInstance(RileyModEffects.BLEED.get(), 100, 0))));
+        ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves a little crab.", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f, RileyModItems.CLAW.get(),
+                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0))));
+        ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Just like his evolutionary cousin Rapter", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
+                java.util.List.of(new MobEffectInstance(RileyModEffects.FREEZE.get(), 60, 0))));
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));
@@ -98,12 +114,25 @@ public class JournalScreen extends Screen {
                     if (entry.category() == cat) {
                         entryList.addLink(Component.literal(" - " + entry.title()), () -> {
                             selectedEntry = entry;
+                            currentPage = 0;
+                            descriptionScroll = 0;// Reset to first page
                         });
                     }
                 }
             }
         }
         this.addRenderableWidget(this.entryList);
+
+        this.prevButton = Button.builder(Component.literal("<"), b -> {
+            if (currentPage > 0) currentPage--;descriptionScroll = 0;
+        }).bounds(x + 145, y + 12, 20, 14).build(); // Moved to top
+
+        this.nextButton = Button.builder(Component.literal(">"), b -> {
+            if (currentPage < 1) currentPage++;
+        }).bounds(x + 215, y + 12, 20, 14).build(); // Moved to top
+
+        this.addRenderableWidget(this.prevButton);
+        this.addRenderableWidget(this.nextButton);
 
 
         this.rotationSlider = new AbstractSliderButton(x + 150, y + 160, 90, 12, Component.literal("Rotate"), entityRotation / 360.0f) {
@@ -146,43 +175,97 @@ public class JournalScreen extends Screen {
         int x = (this.width - 256) / 2;
         int y = (this.height - 180) / 2;
 
+        boolean hasEntity = (selectedEntry != null && selectedEntry.entityType() != null);
+
+        // Update widget visibility
         if (rotationSlider != null) {
-            rotationSlider.visible = (selectedEntry != null && selectedEntry.entityType() != null);
+            // Slider only visible on the model page (Page 1)
+            rotationSlider.visible = hasEntity && currentPage == 1;
         }
+        if (nextButton != null && prevButton != null) {
+            // Buttons only visible if the entry actually has a model to show
+            nextButton.visible = hasEntity && currentPage == 0;
+            prevButton.visible = hasEntity && currentPage == 1;
+        }
+
+
         // Draw Book Background
         RenderSystem.setShaderTexture(0, GUI_TEXTURE);
         graphics.blit(GUI_TEXTURE, x, y, 0, 0, 256, 180);
 
         // Render Right Page Content
         if (selectedEntry != null) {
-            graphics.drawString(this.font, selectedEntry.title(), x + 145, y + 25, 0x303030, false);
-            graphics.drawWordWrap(this.font, Component.literal(selectedEntry.content()), x + 145, y + 45, 90, 0x505050);
-            if (selectedEntry.entityType() != null) {
-                renderStatBlock(graphics, x + 145, y + 90, selectedEntry.entityType());
-            }
+            // Title is on both pages
+            graphics.drawString(this.font, selectedEntry.title(), x + 145, y + 28, 0x303030, false);
 
+            if (currentPage == 0 || !hasEntity) {
+                // PAGE 0: SCROLLABLE TEXT
+                int textX = x + 145;
+                int textY = y + 45;
+                int maxWidth = 90;
+                int maxHeight = 110; // Area available for text
+
+                // Scissor the area so text doesn't bleed out of the book
+                graphics.enableScissor(textX, textY, textX + maxWidth, textY + maxHeight);
+                graphics.drawWordWrap(this.font, Component.literal(selectedEntry.content()), textX, (int)(textY - descriptionScroll), maxWidth, 0x505050);
+                graphics.disableScissor();
+
+            } else if (currentPage == 1 && hasEntity) {
+                // PAGE 1: MODEL AND STATS
+                renderStatBlock(graphics, x + 145, y + 45, selectedEntry.entityType());
+
+                LivingEntity entity = getEntity(selectedEntry.entityType());
+
+                if (entity != null) {
+                    // --- TEMPTATION SECTION (Moved closer to stats) ---
+                    int currentY = y + 82; // Shifted up from 85
+                    if (selectedEntry.temptationItem() != null) {
+                        graphics.drawString(this.font, "Tempted by:", x + 145, currentY, 0x303030, false);
+                        graphics.renderItem(new net.minecraft.world.item.ItemStack(selectedEntry.temptationItem()), x + 205, currentY - 4);
+                        currentY += 18; // Advance Y for the next section
+                    } else {
+                        currentY += 5; // Small gap if no food
+                    }
+
+                    // --- EFFECT SECTION (Moved up) ---
+                    if (!selectedEntry.hitEffects().isEmpty()) {
+                        graphics.drawString(this.font, "Effects:", x + 145, currentY, 0x303030, false);
+                        int iconX = x + 145;
+                        int iconY = currentY + 10;
+                        int spacing = 20;
+
+                        for (int i = 0; i < selectedEntry.hitEffects().size(); i++) {
+                            MobEffectInstance instance = selectedEntry.hitEffects().get(i);
+                            net.minecraft.world.effect.MobEffect effect = instance.getEffect();
+                            int currentIconX = iconX + (i * spacing);
+
+                            net.minecraft.client.renderer.texture.TextureAtlasSprite sprite = this.minecraft.getMobEffectTextures().get(effect);
+                            RenderSystem.setShaderTexture(0, sprite.atlasLocation());
+                            graphics.blit(currentIconX, iconY, 0, 18, 18, sprite);
+
+                            if (mouseX >= currentIconX && mouseX <= currentIconX + 18 && mouseY >= iconY && mouseY <= iconY + 18) {
+                                graphics.renderTooltip(this.font, effect.getDisplayName(), mouseX, mouseY);
+                            }
+                        }
+                    }
+                    entity.yBodyRot = 180.0f;
+                    entity.yBodyRotO = 180.0f;
+                    entity.yHeadRot = 180.0f;
+                    entity.yHeadRotO = 180.0f;
+                    entity.setYRot(180.0f);
+                    entity.setXRot(0);
+
+                    float lookX = (entityRotation - 180.0f) * -0.45f;
+                    // y + 155 gives the model more room at the bottom
+                    renderEntity(graphics, x + 195, y + 155, (int)selectedEntry.scale(), lookX, 0, entity);
+                }
+            }
 
         } else {
             graphics.drawString(this.font, "Abyssal Journal", x + 145, y + 25, 0x303030, false);
             graphics.drawWordWrap(this.font, Component.literal("Select a chapter from the left to reveal its secrets..."), x + 145, y + 45, 90, 0x505050);
         }
-        if (selectedEntry != null && selectedEntry.entityType() != null) {
-            LivingEntity entity = getEntity(selectedEntry.entityType());
-            if (entity != null) {
-                entity.yBodyRot = 180.0f;
-                entity.yBodyRotO = 180.0f;
-                entity.yHeadRot = 180.0f;
-                entity.yHeadRotO = 180.0f;
-                entity.setYRot(180.0f);
-                entity.setXRot(0);
 
-                // This math converts 0-360 degrees into the "Look Offset" the renderer wants
-                // Multiplied by -0.45 to flip the direction and scale the rotation properly
-                float lookX = (entityRotation - 180.0f) * -0.45f;
-
-                renderEntity(graphics, x + 195, y + 145, (int)selectedEntry.scale(), lookX, 0, entity);
-            }
-        }
 
         // ... (text rendering code) ...
         super.render(graphics, mouseX, mouseY, partialTicks);
@@ -211,12 +294,23 @@ public class JournalScreen extends Screen {
         // CHANGE THIS: It must use lookX and lookY, not 0 and 0!
         InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, x, y, scale, lookX, lookY, entity);
     }
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+        // If mouse is over the right page and we are on page 0
+        int x = (this.width - 256) / 2;
+        if (currentPage == 0 && mouseX > x + 140) {
+            descriptionScroll = Math.max(0, descriptionScroll - (scroll * 10));
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, scroll);
+    }
 
 
     @Override
     public boolean isPauseScreen() { return false; }
 
     // --- HELPER CLASSES ---
+
 
     static class TextLinkButton extends Button {
         public TextLinkButton(int x, int y, int width, int height, Component msg, OnPress onPress) {
