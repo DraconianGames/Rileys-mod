@@ -23,6 +23,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.FROST_HOPPER.get(), FrostHopperEntity.createAttributes().build());
         event.put(RileyModEntities.TOOTHFAIRY.get(), ToothFairyEntity.createAttributes().build());
         event.put(RileyModEntities.BONEFAIRY.get(), BoneFairyEntity.createAttributes().build());
+        event.put(RileyModEntities.SKELETONFAIRY.get(), SkeletonFairyEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {

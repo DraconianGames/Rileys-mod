@@ -36,6 +36,9 @@ public static final RegistryObject<EntityType<ToothFairyEntity>> TOOTHFAIRY =
 public static final RegistryObject<EntityType<BoneFairyEntity>> BONEFAIRY =
         ENTITY_TYPES.register("bonefairy",()-> EntityType.Builder.of(BoneFairyEntity::new,MobCategory.CREATURE)
                 .sized(1f,2.5f).build("bonefairy"));
+public static final RegistryObject<EntityType<SkeletonFairyEntity>> SKELETONFAIRY =
+        ENTITY_TYPES.register("skeletonfairy",()-> EntityType.Builder.of(SkeletonFairyEntity::new,MobCategory.CREATURE)
+                .sized(1.5f,1.5f).build("skeletonfairy"));
 
 
     public static void register(IEventBus eventBus){

@@ -1,19 +1,19 @@
 package net.riley.riley_mod.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -30,15 +30,20 @@ import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
+public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
+    private static final EntityDataAccessor<Boolean> ATTACKING =
+            SynchedEntityData.defineId(BoneFairyEntity.class, EntityDataSerializers.BOOLEAN);
+
+    public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState begAnimationState = new AnimationState();
     public final AnimationState sitAnimationState = new AnimationState();
 
+    public int attackAnimationTimeout = 0;
 
-    public ToothFairyEntity(EntityType<? extends TamableAnimal> type, Level level) {
+    public SkeletonFairyEntity(EntityType<? extends TamableAnimal> type, Level level) {
         super(type, level);
         // Use FlyingPathNavigation so it doesn't get stuck on fences/blocks
 
@@ -54,20 +59,40 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
         return navigation;
     }
     @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.entityData.set(ATTACKING, attacking);
+    }
+
+    public boolean isAttacking() {
+        return this.entityData.get(ATTACKING);
+    }
+    @Override
     public void tick() {
         super.tick();
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
-
     private void setupAnimationStates() {
+        if (this.isAttacking() && attackAnimationTimeout <= 0) {
+            attackAnimationTimeout = 15; // Match your animation length (0.5s = 10 ticks)
+            attackAnimationState.start(this.tickCount);
+        } else {
+            --this.attackAnimationTimeout;
+        }
+
+        if (!this.isAttacking()) {
+            attackAnimationState.stop();
+        }
         Player nearestPlayer = this.level().getNearestPlayer(this, 5.0D);
         boolean playerHoldingBegItem = nearestPlayer != null &&
                 (nearestPlayer.getMainHandItem().is(RileyModItems.TOOTH.get()) ||
-                        nearestPlayer.getOffhandItem().is(RileyModItems.TOOTH.get()) ||
-                        nearestPlayer.getMainHandItem().is(Items.BONE) ||
-                        nearestPlayer.getOffhandItem().is(Items.BONE));
+                        nearestPlayer.getOffhandItem().is(RileyModItems.TOOTH.get()));
 
         // HEIGHT CHECK: Is the block directly below air?
         boolean nearGround = !this.level().getBlockState(this.blockPosition().below()).isAir();
@@ -97,32 +122,73 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
         if (activeState != begAnimationState) begAnimationState.stop();
         if (activeState != sitAnimationState) sitAnimationState.stop();
     }
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
-    // This makes the mob use flying pathfinding logic
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get()), false));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
+            @Override
+            public void start() {
+                super.start();
+                ((SkeletonFairyEntity)this.mob).setAttacking(true);
+            }
+            @Override
+            public void stop() {
+                super.stop();
+                ((SkeletonFairyEntity)this.mob).setAttacking(false);
+            }
+        });
 
+        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.25D, 10.0F, 2.0F, true));
+
+        // 1. Add a ground-based stroll (She will walk if already on the ground)
+        // 4. Prefer walking if on ground, but allow flying wander
+        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
+
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+    }
+    public static AttributeSupplier.Builder createAttributes() {
+        return Animal.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 10D)
+                .add(Attributes.FOLLOW_RANGE, 30D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D) // Increased from 0.2
+                .add(Attributes.FLYING_SPEED, 0.2D)   // Increased from 0.3
+                .add(Attributes.ARMOR_TOUGHNESS, 0f)
+                .add(Attributes.ATTACK_KNOCKBACK, 0f)
+                .add(Attributes.ATTACK_DAMAGE, 1f);
+
+    }
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.isOrderedToSit()) {
-            this.setNoGravity(false); // Enable gravity so she falls
 
-            // Landing Physics
-            if (!this.onGround()) {
-                // Fall straight down
-                this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
-            } else {
-                // Stop completely on ground
-                this.setDeltaMovement(Vec3.ZERO);
-            }
-        } else {
-            // Not sitting? Weightless flight!
-            this.setNoGravity(true);
-
-            if (this.getPose() == Pose.SITTING) {
-                this.setPose(Pose.STANDING);
-            }
-        }
         if (!this.level().isClientSide) {
+            // Night Terror Logic: Weightless unless sitting
+            if (this.isOrderedToSit()) {
+                this.setNoGravity(false); // Enable gravity so she falls
+
+                // Landing Physics
+                if (!this.onGround()) {
+                    // Fall straight down
+                    this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
+                } else {
+                    // Stop completely on ground
+                    this.setDeltaMovement(Vec3.ZERO);
+                }
+            } else {
+                // Not sitting? Weightless flight!
+                this.setNoGravity(true);
+
+                if (this.getPose() == Pose.SITTING) {
+                    this.setPose(Pose.STANDING);
+                }
+            }
             int inLove = this.getPersistentData().getInt("InLove");
             if (inLove > 0) {
                 this.getPersistentData().putInt("InLove", inLove - 1);
@@ -154,7 +220,7 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
         // If on the ground and a player is nearby with a tooth, try to stay on the ground to beg
         if (!this.level().isClientSide && this.onGround() && this.isTame()) {
             Player player = this.level().getNearestPlayer(this, 10.0D);
-            if (player != null && (player.getMainHandItem().is(RileyModItems.TOOTH.get()) || player.getMainHandItem().is(Items.BONE))) {
+            if (player != null && player.getMainHandItem().is(RileyModItems.TOOTH.get())) {
                 this.setNoGravity(false); // Ensure she stays down to walk/beg
             }
         }
@@ -230,34 +296,6 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.TOOTHFAIRY.get().create(pLevel);
     }
-    public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 10D)
-                .add(Attributes.FOLLOW_RANGE, 30D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D) // Increased from 0.2
-                .add(Attributes.FLYING_SPEED, 0.2D)   // Increased from 0.3
-                .add(Attributes.ARMOR_TOUGHNESS, 0f)
-                .add(Attributes.ATTACK_KNOCKBACK, 0f)
-                .add(Attributes.ATTACK_DAMAGE, 1f);
-
-    }
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
-
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(), Items.BONE), false));
-        this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.25D, 10.0F, 2.0F, true));
-
-        // 1. Add a ground-based stroll (She will walk if already on the ground)
-        // 4. Prefer walking if on ground, but allow flying wander
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0D));
-
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-    }
     @Override
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
         return false; // Fairies don't take fall damage
@@ -271,33 +309,6 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
 
-        // Transform into Baby Bone Fairy when fed a Bone
-        if (itemstack.is(Items.BONE) && !this.isBaby()) {
-            if (!pPlayer.getAbilities().instabuild) {
-                itemstack.shrink(1);
-            }
-
-            if (!this.level().isClientSide) {
-                BoneFairyEntity babyBoneFairy = this.convertTo(RileyModEntities.BONEFAIRY.get(), true);
-
-                if (babyBoneFairy != null) {
-                    // EXPLICIT TAME TRANSFER: Ensure the new entity is tamed and owned by the same player
-                    if (this.isTame()) {
-                        babyBoneFairy.setTame(true);
-                        babyBoneFairy.setOwnerUUID(this.getOwnerUUID());
-                        babyBoneFairy.setOrderedToSit(this.isOrderedToSit());
-                    }
-
-                    babyBoneFairy.setAge(-24000); // Make it a baby
-                    this.level().broadcastEntityEvent(babyBoneFairy, (byte)7); // confirm with hearts
-                }
-            }else {
-                // CLIENT SIDE DETECTION: Force the journal to forget the old species
-                // so it doesn't linger as "Not in World"
-                net.riley.riley_mod.entity.client.JournalScreen.forgetPet(this.getUUID());
-            }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
-        }
         // 1. If it's already tame and the player is the owner
         if (this.isTame() && this.isOwnedBy(pPlayer)) {
             if (this.isFood(itemstack) && this.getAge() == 0) {
@@ -359,4 +370,3 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
         return pStack.is(RileyModItems.TOOTH.get());
     }
 }
-

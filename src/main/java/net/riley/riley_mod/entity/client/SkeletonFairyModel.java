@@ -13,6 +13,11 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.riley.riley_mod.entity.animations.BoneFairyAnimationDefinitions;
+import net.riley.riley_mod.entity.animations.SkeletonFairyAnimationDefinitions;
+
+import net.riley.riley_mod.entity.custom.SkeletonFairyEntity;
+
 
 public class SkeletonFairyModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -137,7 +142,17 @@ public class SkeletonFairyModel<T extends Entity> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 
+		SkeletonFairyEntity fairy = (SkeletonFairyEntity) entity;
+		// Map the Entity States to the Animation Definitions
+		this.animate(fairy.idleAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_IDLE, ageInTicks);
+		this.animate(fairy.walkAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_WALK, ageInTicks);
+		this.animate(fairy.flyAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_FLY, ageInTicks);
+		this.animate(fairy.begAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_BEG, ageInTicks);
+		this.animate(fairy.sitAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_SIT, ageInTicks);
+
+		this.animate(fairy.attackAnimationState, SkeletonFairyAnimationDefinitions.SKELETONFAIRY_ATTACK, ageInTicks);
 	}
+	
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {

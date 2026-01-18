@@ -10,7 +10,8 @@ public record JournalEntry(
         @Nullable EntityType<?> entityType,
         float scale,
         net.minecraft.world.item.Item temptationItem,
-        java.util.List<net.minecraft.world.effect.MobEffectInstance> hitEffects
+        java.util.List<net.minecraft.world.effect.MobEffectInstance> hitEffects,
+        @Nullable java.util.UUID entityUUID
 ) {
     public JournalEntry {
         if (hitEffects == null) {
@@ -18,13 +19,13 @@ public record JournalEntry(
         }
     }
     public enum Category {
-        CREATURES, BLOCKS, ITEMS, ABYSS, STRUCTURES
+        CREATURES, BLOCKS, ITEMS, ABYSS, STRUCTURES, PETS
     }
 
 
     public JournalEntry(String title, String content, Category category) {
 
-        this(title, content, category, null, 18.0f,null,java.util.List.of());
+        this(title, content, category, null, 18.0f,null,java.util.List.of(),null);
 
     }
 

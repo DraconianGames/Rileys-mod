@@ -19,6 +19,8 @@ public class RileyModModelLayers {
             new ResourceLocation(RileyMod.MODID, "toothfairy_layer"),"main");
     public static final ModelLayerLocation BONEFAIRY_LAYER = new ModelLayerLocation(
             new ResourceLocation(RileyMod.MODID, "bonefairy_layer"),"main");
+    public static final ModelLayerLocation SKELETONFAIRY_LAYER = new ModelLayerLocation(
+            new ResourceLocation(RileyMod.MODID, "skeletonfairy_layer"),"main");
 
 
 

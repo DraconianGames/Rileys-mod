@@ -149,8 +149,11 @@ public class BoneFairyModel<T extends Entity> extends HierarchicalModel<T> {
 		this.animate(fairy.begAnimationState, BoneFairyAnimationDefinitions.BONEFAIRY_BEG, ageInTicks);
 		this.animate(fairy.sitAnimationState, BoneFairyAnimationDefinitions.BONEFAIRY_SIT, ageInTicks);
 
-
-
+		if (fairy.getAttackSide() == 0) {
+			this.animate(fairy.attackAnimationState, BoneFairyAnimationDefinitions.BONEFAIRY_LEFT_ATTACK, ageInTicks);
+		} else {
+			this.animate(fairy.attackAnimationState, BoneFairyAnimationDefinitions.BONEFAIRY_RIGHT_ATTACK, ageInTicks);
+		}
 	}
 
 	@Override

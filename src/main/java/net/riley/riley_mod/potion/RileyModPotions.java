@@ -14,7 +14,7 @@ public class RileyModPotions{
             = DeferredRegister.create(ForgeRegistries.POTIONS, RileyMod.MODID);
 
     public static final RegistryObject<Potion> FREEZE_POTION = POTIONS.register("freeze_potion",
-            () -> new Potion(new MobEffectInstance(RileyModEffects.FREEZE.get(), 2000, 0)));
+            () -> new Potion(new MobEffectInstance(RileyModEffects.FREEZE.get(), 2000, 0, false, true, true)));
 
 
     public static void register(IEventBus eventBus) {

@@ -26,6 +26,7 @@ import net.riley.riley_mod.entity.client.*;
 import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
 import terrablender.api.Regions;
@@ -66,6 +67,7 @@ public class RileyMod
 
         RileyModSounds.register(modEventBus);
 
+        RileyModPackets.register();
         RileyModItems.register(modEventBus);
         RileyModEntities.register(modEventBus);
         RileyModBlocks.register(modEventBus);
@@ -119,6 +121,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.RAPTER.get(), RapterRenderer::new);
             EntityRenderers.register(RileyModEntities.TOOTHFAIRY.get(), ToothFairyRenderer::new);
             EntityRenderers.register(RileyModEntities.BONEFAIRY.get(), BoneFairyRenderer::new);
+            EntityRenderers.register(RileyModEntities.SKELETONFAIRY.get(), SkeletonFairyRenderer::new);
             EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
             EntityRenderers.register(RileyModEntities.FROST_HOPPER.get(), FrostHopperRenderer::new);
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);

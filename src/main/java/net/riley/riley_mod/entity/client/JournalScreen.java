@@ -1,5 +1,10 @@
 package net.riley.riley_mod.entity.client;
 
+import net.minecraft.world.item.ItemStack;
+import net.riley.riley_mod.network.PetActionPacket;
+import net.riley.riley_mod.network.RileyModPackets;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -32,8 +37,12 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.riley.riley_mod.effect.RileyModEffects;
+
 public class JournalScreen extends Screen {
     private static final ResourceLocation GUI_TEXTURE =ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/journal_gui.png");
+
+    // Static list to keep pets in memory even if the entity is deleted from the world
+    private static final List<JournalEntry> SAVED_PETS = new ArrayList<>();
 
     private final List<JournalEntry> ALL_ENTRIES = new ArrayList<>();
     private JournalEntry.Category expandedCategory = null;
@@ -48,6 +57,10 @@ public class JournalScreen extends Screen {
     private JournalEntryList entryList;
     private AbstractSliderButton rotationSlider;
 
+    private Button petActionButton; // Summon/Revive
+    private Button storePetButton;  // Store in Journal
+    private Button deletePetButton; // Remove from Journal
+
     private float entityRotation = 0.0f;
     private double descriptionScroll = 0;
 
@@ -56,15 +69,15 @@ public class JournalScreen extends Screen {
 
         // --- ADD YOUR ENTRIES HERE ---
         ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral. They hate Night Terrors", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f, Items.AMETHYST_SHARD
-                ,java.util.List.of()));
+                ,java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f,null,
-                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0), new MobEffectInstance(MobEffects.WITHER, 60, 0))));
+                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0), new MobEffectInstance(MobEffects.WITHER, 60, 0)),null));
         ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),15.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
-                java.util.List.of(new MobEffectInstance(RileyModEffects.BLEED.get(), 100, 0))));
+                java.util.List.of(new MobEffectInstance(RileyModEffects.BLEED.get(), 100, 0)),null));
         ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves a little crab.", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f, RileyModItems.CLAW.get(),
-                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0))));
+                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0)),null));
         ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Just like his evolutionary cousin Rapter", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
-                java.util.List.of(new MobEffectInstance(RileyModEffects.FREEZE.get(), 60, 0))));
+                java.util.List.of(new MobEffectInstance(RileyModEffects.FREEZE.get(), 60, 0)),null));
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));
@@ -81,6 +94,8 @@ public class JournalScreen extends Screen {
         int y = (this.height - 180) / 2;
         this.clearWidgets();
 
+        // Add dynamically found Pets to ALL_ENTRIES
+        refreshPetEntries();
         // 1. Search Bar (Top Left)
         this.searchBox = new EditBox(this.font, x + 20, y + 12, 80, 14, Component.literal("Search..."));
         this.searchBox.setResponder(this::onSearch);
@@ -134,6 +149,22 @@ public class JournalScreen extends Screen {
         this.addRenderableWidget(this.prevButton);
         this.addRenderableWidget(this.nextButton);
 
+        // Pet Action Buttons (Hidden by default)
+        this.petActionButton = Button.builder(Component.literal("Summon"), b -> {
+            handlePetAction();
+        }).bounds(x + 145, y + 100, 45, 14).build();
+
+        this.storePetButton = Button.builder(Component.literal("Store"), b -> {
+            handleStorePet();
+        }).bounds(x + 195, y + 100, 45, 14).build();
+
+        this.deletePetButton = Button.builder(Component.literal("Release"), b -> {
+            handleDeletePet();
+        }).bounds(x + 145, y + 140, 95, 14).build(); // Centered under the other two
+
+        this.addRenderableWidget(this.petActionButton);
+        this.addRenderableWidget(this.storePetButton);
+        this.addRenderableWidget(this.deletePetButton);
 
         this.rotationSlider = new AbstractSliderButton(x + 150, y + 160, 90, 12, Component.literal("Rotate"), entityRotation / 360.0f) {
             @Override
@@ -167,7 +198,91 @@ public class JournalScreen extends Screen {
             return entity instanceof LivingEntity living ? living : null;
         });
     }
+    private void handleDeletePet() {
+        if (selectedEntry != null && selectedEntry.entityUUID() != null) {
+            // 1. Tell the server to physically remove the NBT data from the item
+            RileyModPackets.sendToServer(new PetActionPacket(selectedEntry.entityUUID(), 2));
 
+            // 2. Clear from local memory
+            SAVED_PETS.removeIf(e -> e.entityUUID().equals(selectedEntry.entityUUID()));
+            ALL_ENTRIES.removeIf(e -> e.entityUUID() != null && e.entityUUID().equals(selectedEntry.entityUUID()));
+
+            selectedEntry = null;
+            init(); // Re-initialize UI to show updated list
+        }
+    }
+
+    private void handlePetAction() {
+        if (selectedEntry != null && selectedEntry.entityUUID() != null) {
+            // Action 0 is Summon/Revive
+            RileyModPackets.sendToServer(new PetActionPacket(selectedEntry.entityUUID(), 0));
+            this.onClose();
+        }
+    }
+    private void handleStorePet() {
+        if (selectedEntry != null && selectedEntry.entityUUID() != null) {
+            // Action 1 is Store
+            RileyModPackets.sendToServer(new PetActionPacket(selectedEntry.entityUUID(), 1));
+            this.onClose();
+        }
+    }
+    public static void forgetPet(java.util.UUID uuid) {
+        SAVED_PETS.removeIf(e -> uuid.equals(e.entityUUID()));
+    }
+    private void refreshPetEntries() {
+
+        if (this.minecraft == null || this.minecraft.level == null || this.minecraft.player == null) return;
+
+        // Start with a clean slate for the current frame's UI
+        SAVED_PETS.clear();
+
+        // 1. Load all BACKUPS from the Journal
+        ItemStack journal = this.minecraft.player.getMainHandItem();
+        if (journal.hasTag() && journal.getTag().contains("StoredPets")) {
+            ListTag stored = journal.getTag().getList("StoredPets", 10);
+            for (int i = 0; i < stored.size(); i++) {
+                CompoundTag data = stored.getCompound(i);
+                java.util.UUID uuid = data.getUUID("UUID");
+
+                String petId = data.getString("id");
+                String displayName = "Unknown Pet";
+                if (data.contains("CustomName", 8)) {
+                    try {
+                        Component nameComp = Component.Serializer.fromJson(data.getString("CustomName"));
+                        if (nameComp != null) displayName = nameComp.getString();
+                    } catch (Exception ignored) {}
+                } else {
+                    displayName = EntityType.byString(petId).map(t -> t.getDescription().getString()).orElse("Pet");
+                }
+
+                SAVED_PETS.add(new JournalEntry("[] " + displayName, "Eternal Backup", JournalEntry.Category.PETS,
+                        EntityType.byString(petId).orElse(null), 20f, null, List.of(), uuid));
+            }
+        }
+
+        // 2. Check the WORLD for live pets
+        for (net.minecraft.world.entity.Entity entity : this.minecraft.level.entitiesForRendering()) {
+            if (entity instanceof net.minecraft.world.entity.TamableAnimal tamable && !entity.isRemoved() && tamable.isAlive()) {
+                if (this.minecraft.player.getUUID().equals(tamable.getOwnerUUID())) {
+                    java.util.UUID petUUID = tamable.getUUID();
+
+                    // If a live pet is found, remove the "Stored" placeholder and use the live one
+                    SAVED_PETS.removeIf(e -> petUUID.equals(e.entityUUID()));
+
+                    String name = tamable.hasCustomName() ? tamable.getCustomName().getString() : tamable.getType().getDescription().getString();
+                    SAVED_PETS.add(new JournalEntry(name, "Status: Active", JournalEntry.Category.PETS,
+                            tamable.getType(), 20.0f, null, java.util.List.of(), petUUID));
+                }
+            }
+        }
+
+        ALL_ENTRIES.removeIf(e -> e.category() == JournalEntry.Category.PETS);
+        ALL_ENTRIES.addAll(SAVED_PETS);
+    }
+
+
+
+//TODO fix journal entries and add spawn eggs
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
@@ -176,16 +291,33 @@ public class JournalScreen extends Screen {
         int y = (this.height - 180) / 2;
 
         boolean hasEntity = (selectedEntry != null && selectedEntry.entityType() != null);
+        boolean isPet = selectedEntry != null && selectedEntry.category() == JournalEntry.Category.PETS;
 
-        // Update widget visibility
-        if (rotationSlider != null) {
-            // Slider only visible on the model page (Page 1)
-            rotationSlider.visible = hasEntity && currentPage == 1;
+        if (deletePetButton != null) {
+            // Only show the delete button for pets
+            deletePetButton.visible = isPet;
         }
+        // --- Consolidated Widget Visibility Logic ---
+        if (rotationSlider != null) {
+            // Slider only for non-pets on page 1
+            rotationSlider.visible = !isPet && hasEntity && currentPage == 1;
+        }
+
         if (nextButton != null && prevButton != null) {
-            // Buttons only visible if the entry actually has a model to show
-            nextButton.visible = hasEntity && currentPage == 0;
-            prevButton.visible = hasEntity && currentPage == 1;
+            // NAVIGATION ARROWS: Hidden entirely if it's a pet
+            nextButton.visible = !isPet && hasEntity && currentPage == 0;
+            prevButton.visible = !isPet && hasEntity && currentPage == 1;
+        }
+
+        if (petActionButton != null && storePetButton != null) {
+            petActionButton.visible = isPet;
+            storePetButton.visible = isPet;
+
+            if (isPet) {
+                // Dynamically check if the selected pet is dead to update button text
+                boolean isDead = isSelectedPetDead();
+                petActionButton.setMessage(isDead ? Component.literal("Revive") : Component.literal("Summon"));
+            }
         }
 
 
@@ -195,10 +327,12 @@ public class JournalScreen extends Screen {
 
         // Render Right Page Content
         if (selectedEntry != null) {
-            // Title is on both pages
             graphics.drawString(this.font, selectedEntry.title(), x + 145, y + 28, 0x303030, false);
 
-            if (currentPage == 0 || !hasEntity) {
+            if (isPet) {
+                // PET SINGLE PAGE LAYOUT
+                renderPetStatusPage(graphics, x + 145, y + 45);
+            } else if (currentPage == 0 || !hasEntity) {
                 // PAGE 0: SCROLLABLE TEXT
                 int textX = x + 145;
                 int textY = y + 45;
@@ -270,12 +404,83 @@ public class JournalScreen extends Screen {
         // ... (text rendering code) ...
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
+    private boolean isSelectedPetDead() {
+        if (selectedEntry == null || this.minecraft.level == null) return false;
+
+        // Use the standard rendering list to check if the pet IS currently dead in the world
+        for (net.minecraft.world.entity.Entity e : this.minecraft.level.entitiesForRendering()) {
+            if (e instanceof net.minecraft.world.entity.TamableAnimal tamable &&
+                    tamable.getType() == selectedEntry.entityType() &&
+                    selectedEntry.title().equals(tamable.hasCustomName() ? tamable.getCustomName().getString() : tamable.getType().getDescription().getString())) {
+                return !tamable.isAlive();
+            }
+        }
+        // If the pet isn't in the world at all, we treat it as needing summoning/revival
+        return true;
+    }
+    private void renderPetStatusPage(GuiGraphics graphics, int x, int y) {
+        if (this.minecraft == null || this.minecraft.level == null || selectedEntry == null) return;
+
+        // --- FIX: Re-scan for the pet every frame to get the LIVE version ---
+        java.util.UUID targetUUID = selectedEntry.entityUUID();
+        net.minecraft.world.entity.LivingEntity livePet = null;
+
+        for (net.minecraft.world.entity.Entity e : this.minecraft.level.entitiesForRendering()) {
+            if (e.getUUID().equals(targetUUID) && e instanceof net.minecraft.world.entity.LivingEntity living) {
+                livePet = living;
+                break;
+            }
+        }
+
+        int textColor = 0x303030;
+        int currentY = y;
+
+        if (livePet != null) {
+            // PET STATUS
+            graphics.drawString(this.font, String.format("Health: %.1f / %.1f", livePet.getHealth(), livePet.getMaxHealth()), x, currentY, textColor, false);
+            currentY += 10;
+            String lifeStatus = livePet.isAlive() ? "Status: Alive" : "Status: Dead";
+            graphics.drawString(this.font, lifeStatus, x, currentY, livePet.isAlive() ? 0x228B22 : 0x8B0000, false);
+            currentY += 12;
+
+
+            // REMOVED: Active Effects Section
+
+            // Position buttons at a standard spot
+            int buttonY = y + 85;
+            petActionButton.setY(buttonY);
+            storePetButton.setY(buttonY);
+            deletePetButton.visible = false;
+
+        } else {
+
+            // PET IS GONE
+            graphics.drawString(this.font, "Status: Stored", x, currentY, 0x8B0000, false);
+            currentY += 12;
+
+            List<net.minecraft.util.FormattedCharSequence> lines = this.font.split(Component.literal("This pet is no longer nearby. It may have evolved or moved away."), 90);
+            for (net.minecraft.util.FormattedCharSequence line : lines) {
+                graphics.drawString(this.font, line, x, currentY, 0x505050, false);
+                currentY += 9;
+            }
+
+            currentY += 6;
+            deletePetButton.setY(currentY);
+            deletePetButton.visible = true;
+
+            // Move Summon/Store buttons below the Release button
+            int buttonY = currentY + 18;
+            petActionButton.setY(buttonY);
+            storePetButton.setY(buttonY);
+        }
+    }
     private void renderStatBlock(GuiGraphics graphics, int x, int y, EntityType<?> type) {
         LivingEntity entity = getEntity(type);
         if (entity == null) return;
 
         int textColor = 0x303030;
         int spacing = 10;
+
 
         // Pulling attributes from the entity instance
         double hp = entity.getMaxHealth();
@@ -286,8 +491,14 @@ public class JournalScreen extends Screen {
         graphics.drawString(this.font, "HP: " + (int)hp, x, y, textColor, false);
         graphics.drawString(this.font, "ATK: " + (int)attack, x, y + spacing, textColor, false);
         graphics.drawString(this.font, "SPD: " + String.format("%.2f", speed), x, y + (spacing * 2), textColor, false);
+        int currentY = y + (spacing * 3);
         if (armor > 0) {
-            graphics.drawString(this.font, "ARM: " + (int)armor, x, y + (spacing * 3), textColor, false);
+            graphics.drawString(this.font, "ARM: " + (int)armor, x, currentY + (spacing * 3), textColor, false);
+        }
+        // Removed the Effects logic from here to keep Creature page purely for descriptions
+        if (selectedEntry != null && selectedEntry.category() == JournalEntry.Category.PETS) {
+            String status = entity.isAlive() ? "Status: Healthy" : "Status: Fainted";
+            graphics.drawString(this.font, status, x, currentY, textColor, false);
         }
     }
     private void renderEntity(GuiGraphics graphics, int x, int y, int scale, float lookX, float lookY, LivingEntity entity) {

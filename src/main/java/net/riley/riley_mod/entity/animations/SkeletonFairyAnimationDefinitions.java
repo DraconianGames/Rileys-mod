@@ -210,9 +210,21 @@ public class SkeletonFairyAnimationDefinitions {
                 .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 32.5F), AnimationChannel.Interpolations.LINEAR)
                 ))
+                .addAnimation("left_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -77.5F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("right_wing", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 77.5F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("left_wing_2", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 152.5F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("right_wing_2", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, -152.5F), AnimationChannel.Interpolations.LINEAR)
+                ))
                 .build();
 
-        public static final AnimationDefinition SKELETONAIRY_SIT = AnimationDefinition.Builder.withLength(0.5F).looping()
+        public static final AnimationDefinition SKELETONFAIRY_SIT = AnimationDefinition.Builder.withLength(0.5F).looping()
                 .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                         new Keyframe(0.0F, KeyframeAnimations.degreeVec(-37.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
                 ))
