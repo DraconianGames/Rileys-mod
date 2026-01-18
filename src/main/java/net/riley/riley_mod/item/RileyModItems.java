@@ -71,6 +71,15 @@ public class RileyModItems {
     public static final RegistryObject<Item> FROST_HOPPER_SPAWN_EGG = ITEMS.register("frost_hopper_spawn_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.FROST_HOPPER,0xebfcff ,0x8dddeb,
                     new Item.Properties()));
+    public static final RegistryObject<Item> TOOTHFAIRY_SPAWN_EGG = ITEMS.register("toothfairy_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.TOOTHFAIRY,0x1666b5 ,0x09427a,
+                    new Item.Properties()));
+    public static final RegistryObject<Item> BONEFAIRY_SPAWN_EGG = ITEMS.register("bonefairy_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.BONEFAIRY,0x0b3f73 ,0x062b4f,
+                    new Item.Properties()));
+    public static final RegistryObject<Item> SKELETONFAIRY_SPAWN_EGG = ITEMS.register("skeletonfairy_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.SKELETONFAIRY,0x07024a ,0xbcc720,
+                    new Item.Properties()));
 //book
 public static final RegistryObject<Item> DARK_JOURNAL = ITEMS.register("dark_journal",
         () -> new net.riley.riley_mod.item.custom.JournalItem(new Item.Properties().stacksTo(1)));

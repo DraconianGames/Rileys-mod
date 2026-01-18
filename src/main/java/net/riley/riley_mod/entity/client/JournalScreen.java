@@ -281,8 +281,8 @@ public class JournalScreen extends Screen {
     }
 
 
+//TODO Make pets section pick up mounts
 
-//TODO fix journal entries and add spawn eggs
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {

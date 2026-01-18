@@ -68,6 +68,33 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 1.5F))))
                 ));
+        this.add(RileyModEntities.TOOTHFAIRY.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(RileyModItems.TOOTH.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))
+                        .add(LootItem.lootTableItem(Items.FEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 2.0F))))));
+        this.add(RileyModEntities.BONEFAIRY.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(RileyModItems.TOOTH.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))
+                        .add(LootItem.lootTableItem(Items.FEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 2.0F))))));
+        this.add(RileyModEntities.SKELETONFAIRY.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(RileyModItems.TOOTH.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 2.0F))))
+                        .add(LootItem.lootTableItem(Items.SKELETON_SKULL)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 2.0F))))));
     }
 
     @Override

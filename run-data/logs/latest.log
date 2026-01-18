@@ -1,36 +1,37 @@
-[16Jan2026 22:09:17.396] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Riley Licht\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.6, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, riley_mod, --all, --output, C:\Minecraft_mods\Riley's-mod\src\generated\resources, --existing, C:\Minecraft_mods\Riley's-mod\src\main\resources]
-[16Jan2026 22:09:17.406] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.16 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
-[16Jan2026 22:09:17.675] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[16Jan2026 22:09:17.856] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Riley%20Licht/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[16Jan2026 22:09:18.557] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.6\9e86bf67e222253576e982856d9958695725adb5\javafmllanguage-1.20.1-47.4.6.jar is missing mods.toml file
-[16Jan2026 22:09:18.572] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.6\56100545804adc991cc48ab68b86ba46c5873246\lowcodelanguage-1.20.1-47.4.6.jar is missing mods.toml file
-[16Jan2026 22:09:18.575] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.6\fd228d7d879a9da774eda022ea3092cedb5178f1\mclanguage-1.20.1-47.4.6.jar is missing mods.toml file
-[16Jan2026 22:09:18.590] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.6\cefc55ada370ce2f23f92834530eb967c0de1fdd\fmlcore-1.20.1-47.4.6.jar is missing mods.toml file
-[16Jan2026 22:09:18.833] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[16Jan2026 22:09:22.259] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[16Jan2026 22:09:22.279] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Riley Licht\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, riley_mod, --all, --output, C:\Minecraft_mods\Riley's-mod\src\generated\resources, --existing, C:\Minecraft_mods\Riley's-mod\src\main\resources]
-[16Jan2026 22:09:23.121] [main/INFO] [mixin/]: Remapping refMap terrablender.refmap.json using C:\Minecraft_mods\Riley's-mod\build\createSrgToMcp\output.srg
-[16Jan2026 22:09:23.127] [main/INFO] [mixin/]: Remapping refMap terrablender.refmap.json using C:\Minecraft_mods\Riley's-mod\build\createSrgToMcp\output.srg
-[16Jan2026 22:09:24.189] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [riley_mod]
-[16Jan2026 22:09:35.341] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.6, for MC 1.20.1 with MCP 20230612.114412
-[16Jan2026 22:09:35.343] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.6 Initialized
-[16Jan2026 22:09:36.765] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Riley%20Licht/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[16Jan2026 22:09:36.767] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Riley%20Licht/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[16Jan2026 22:09:37.252] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
-[16Jan2026 22:09:37.264] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 10 ms
-[16Jan2026 22:09:37.266] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
-[16Jan2026 22:09:37.771] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 508 ms
-[16Jan2026 22:09:37.771] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: riley_mod
-[16Jan2026 22:09:38.168] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: riley_mod finished after 392 ms
-[16Jan2026 22:09:38.168] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: riley_mod
-[16Jan2026 22:09:38.248] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: riley_mod finished after 80 ms
-[16Jan2026 22:09:38.248] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id riley_mod
-[16Jan2026 22:09:38.283] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id riley_mod finished after 33 ms
-[16Jan2026 22:09:38.285] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:worldgen/biome mod id riley_mod
-[16Jan2026 22:09:38.287] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:worldgen/biome mod id riley_mod finished after 2 ms
-[16Jan2026 22:09:38.287] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id riley_mod
-[16Jan2026 22:09:38.293] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id riley_mod finished after 4 ms
-[16Jan2026 22:09:38.293] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
-[16Jan2026 22:09:38.375] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 81 ms
-[16Jan2026 22:09:38.375] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 1123 ms
-[16Jan2026 22:09:38.423] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 233, old count: 233, new count: 234, removed stale: 0, written: 0
+[18Jan2026 13:24:41.282] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Riley Licht\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.4.6, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, riley_mod, --all, --output, C:\Minecraft_mods\Riley's-mod\src\generated\resources, --existing, C:\Minecraft_mods\Riley's-mod\src\main\resources]
+[18Jan2026 13:24:41.290] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.16 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[18Jan2026 13:24:41.581] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[18Jan2026 13:24:41.764] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Riley%20Licht/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[18Jan2026 13:24:42.503] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.4.6\9e86bf67e222253576e982856d9958695725adb5\javafmllanguage-1.20.1-47.4.6.jar is missing mods.toml file
+[18Jan2026 13:24:42.514] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.4.6\56100545804adc991cc48ab68b86ba46c5873246\lowcodelanguage-1.20.1-47.4.6.jar is missing mods.toml file
+[18Jan2026 13:24:42.524] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.4.6\fd228d7d879a9da774eda022ea3092cedb5178f1\mclanguage-1.20.1-47.4.6.jar is missing mods.toml file
+[18Jan2026 13:24:42.527] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Riley Licht\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.4.6\cefc55ada370ce2f23f92834530eb967c0de1fdd\fmlcore-1.20.1-47.4.6.jar is missing mods.toml file
+[18Jan2026 13:24:42.729] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[18Jan2026 13:24:46.233] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[18Jan2026 13:24:46.254] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Riley Licht\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, riley_mod, --all, --output, C:\Minecraft_mods\Riley's-mod\src\generated\resources, --existing, C:\Minecraft_mods\Riley's-mod\src\main\resources]
+[18Jan2026 13:24:47.153] [main/INFO] [mixin/]: Remapping refMap terrablender.refmap.json using C:\Minecraft_mods\Riley's-mod\build\createSrgToMcp\output.srg
+[18Jan2026 13:24:47.159] [main/INFO] [mixin/]: Remapping refMap terrablender.refmap.json using C:\Minecraft_mods\Riley's-mod\build\createSrgToMcp\output.srg
+[18Jan2026 13:24:48.274] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [riley_mod]
+[18Jan2026 13:24:59.306] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.4.6, for MC 1.20.1 with MCP 20230612.114412
+[18Jan2026 13:24:59.314] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.4.6 Initialized
+[18Jan2026 13:25:00.755] [main/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.riley.riley_mod.entity.custom.BoneFairyEntity from class net.riley.riley_mod.entity.custom.SkeletonFairyEntity
+[18Jan2026 13:25:00.961] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Riley%20Licht/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
+[18Jan2026 13:25:00.963] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Riley%20Licht/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1/forge-1.20.1-47.4.6_mapped_parchment_2023.06.26-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
+[18Jan2026 13:25:01.378] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Recipes
+[18Jan2026 13:25:01.390] [main/INFO] [net.minecraft.data.DataGenerator/]: Recipes finished after 9 ms
+[18Jan2026 13:25:01.390] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Loot Tables
+[18Jan2026 13:25:02.131] [main/INFO] [net.minecraft.data.DataGenerator/]: Loot Tables finished after 739 ms
+[18Jan2026 13:25:02.131] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Block States: riley_mod
+[18Jan2026 13:25:02.486] [main/INFO] [net.minecraft.data.DataGenerator/]: Block States: riley_mod finished after 356 ms
+[18Jan2026 13:25:02.486] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: riley_mod
+[18Jan2026 13:25:02.575] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: riley_mod finished after 87 ms
+[18Jan2026 13:25:02.575] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:block mod id riley_mod
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:block mod id riley_mod finished after 37 ms
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:worldgen/biome mod id riley_mod
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:worldgen/biome mod id riley_mod finished after 2 ms
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Tags for minecraft:item mod id riley_mod
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Tags for minecraft:item mod id riley_mod finished after 3 ms
+[18Jan2026 13:25:02.607] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[18Jan2026 13:25:02.681] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 63 ms
+[18Jan2026 13:25:02.686] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 1307 ms
+[18Jan2026 13:25:02.740] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 239, old count: 233, new count: 240, removed stale: 0, written: 6
