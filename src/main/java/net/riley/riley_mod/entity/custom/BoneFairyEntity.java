@@ -105,8 +105,8 @@ public class BoneFairyEntity extends TamableAnimal implements FlyingAnimal {
         boolean playerHoldingBegItem = nearestPlayer != null &&
                 (nearestPlayer.getMainHandItem().is(RileyModItems.TOOTH.get()) ||
                         nearestPlayer.getOffhandItem().is(RileyModItems.TOOTH.get()) ||
-                        nearestPlayer.getMainHandItem().is(Items.BONE) ||
-                        nearestPlayer.getOffhandItem().is(Items.BONE));
+                        nearestPlayer.getMainHandItem().is(Items.SKELETON_SKULL) ||
+                        nearestPlayer.getOffhandItem().is(Items.SKELETON_SKULL));
 
         // HEIGHT CHECK: Is the block directly below air?
         boolean nearGround = !this.level().getBlockState(this.blockPosition().below()).isAir();
@@ -276,7 +276,7 @@ public class BoneFairyEntity extends TamableAnimal implements FlyingAnimal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         // Transform into Baby Skeleton Fairy when fed a Bone
-        if (itemstack.is(Items.BONE) && !this.isBaby()) {
+        if (itemstack.is(Items.SKELETON_SKULL) && !this.isBaby()) {
             if (!pPlayer.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
@@ -367,7 +367,7 @@ public class BoneFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),Items.BONE), false));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),Items.SKELETON_SKULL), false));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override
             public void start() {
