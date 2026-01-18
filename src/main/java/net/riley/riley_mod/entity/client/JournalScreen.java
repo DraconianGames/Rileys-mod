@@ -235,74 +235,102 @@ public class JournalScreen extends Screen {
     public static void forgetPet(java.util.UUID uuid) {
         SAVED_PETS.removeIf(e -> uuid.equals(e.entityUUID()));
     }
-    private void refreshPetEntries() {
 
+
+    private void refreshPetEntries() {
         if (this.minecraft == null || this.minecraft.level == null || this.minecraft.player == null) return;
 
-        // Start with a clean slate for the current frame's UI
+        // Clear the list we'll build for this frame
         SAVED_PETS.clear();
 
-        // 1. Load all BACKUPS from the Journal
+        // 1) Read stored/backups from the journal into a map by UUID (don't add them to the list yet)
+        java.util.Map<java.util.UUID, net.minecraft.nbt.CompoundTag> storedMap = new java.util.HashMap<>();
         ItemStack journal = this.minecraft.player.getMainHandItem();
         if (journal.hasTag() && journal.getTag().contains("StoredPets")) {
-            ListTag stored = journal.getTag().getList("StoredPets", 10);
+            net.minecraft.nbt.ListTag stored = journal.getTag().getList("StoredPets", 10);
             for (int i = 0; i < stored.size(); i++) {
-                CompoundTag data = stored.getCompound(i);
-                java.util.UUID uuid = data.getUUID("UUID");
-
-                String petId = data.getString("id");
-                String displayName = "Unknown Pet";
-                if (data.contains("CustomName", 8)) {
-                    try {
-                        Component nameComp = Component.Serializer.fromJson(data.getString("CustomName"));
-                        if (nameComp != null) displayName = nameComp.getString();
-                    } catch (Exception ignored) {}
-                } else {
-                    displayName = EntityType.byString(petId).map(t -> t.getDescription().getString()).orElse("Pet");
-                }
-
-                SAVED_PETS.add(new JournalEntry("[] " + displayName, "Eternal Backup", JournalEntry.Category.PETS,
-                        EntityType.byString(petId).orElse(null), 20f, null, List.of(), uuid));
+                net.minecraft.nbt.CompoundTag data = stored.getCompound(i);
+                try {
+                    java.util.UUID uuid = data.getUUID("UUID");
+                    storedMap.put(uuid, data);
+                } catch (Exception ignored) {}
             }
         }
 
-        // 2. Check the WORLD for live pets
-        for (net.minecraft.world.entity.Entity entity : this.minecraft.level.entitiesForRendering()) {
-            // Check for Tamable Animals (Dogs/Cats) OR Horses/Donkeys/Mules
-            boolean isTamable = entity instanceof net.minecraft.world.entity.TamableAnimal;
-            boolean isHorse = entity instanceof net.minecraft.world.entity.animal.horse.AbstractHorse;
+        // Keep track of which stored UUIDs we handled as LIVE (so we don't also add the "stored" placeholder)
+        java.util.Set<java.util.UUID> handled = new java.util.HashSet<>();
 
-            if ((isTamable || isHorse) && !entity.isRemoved() && entity instanceof LivingEntity living && living.isAlive()) {
+        // 2) Scan the client world for live pets. Treat entity as a pet if:
+        //    - it's owned by the player (ownerUUID matches), OR
+        //    - its UUID matches a stored backup (so a summoned/respawned pet will override the stored backup)
+        for (net.minecraft.world.entity.Entity e : this.minecraft.level.entitiesForRendering()) {
+            if (!(e instanceof net.minecraft.world.entity.LivingEntity living)) continue;
+            if (e.isRemoved()) continue;
 
-                boolean isOwned = false;
-                java.util.UUID ownerUUID = null;
+            // Resolve owner UUID (supports TamableAnimal, AbstractHorse, and generic OwnableEntity)
+            java.util.UUID ownerUUID = null;
+            try {
+                if (living instanceof net.minecraft.world.entity.TamableAnimal ta) ownerUUID = ta.getOwnerUUID();
+                else if (living instanceof net.minecraft.world.entity.animal.horse.AbstractHorse ho) ownerUUID = ho.getOwnerUUID();
+                else if (living instanceof net.minecraft.world.entity.OwnableEntity oe) ownerUUID = oe.getOwnerUUID();
+            } catch (Exception ignored) {}
 
-                if (isTamable) {
-                    ownerUUID = ((net.minecraft.world.entity.TamableAnimal)entity).getOwnerUUID();
-                } else {
-                    // AbstractHorse handles owner via a specific method
-                    ownerUUID = ((net.minecraft.world.entity.animal.horse.AbstractHorse)entity).getOwnerUUID();
-                }
+            boolean ownedByPlayer = ownerUUID != null && ownerUUID.equals(this.minecraft.player.getUUID());
+            java.util.UUID entityUUID = living.getUUID();
 
-                if (this.minecraft.player.getUUID().equals(ownerUUID)) {
-                    java.util.UUID petUUID = entity.getUUID();
+            // If the live entity is owned by the player OR matches a stored backup, add it as an ACTIVE pet
+            if (ownedByPlayer || storedMap.containsKey(entityUUID)) {
+                handled.add(entityUUID); // mark handled so we won't add the stored placeholder later
 
-                    // If a live pet is found, remove the "Stored" placeholder and use the live one
-                    SAVED_PETS.removeIf(e -> petUUID.equals(e.entityUUID()));
-
-                    String name = entity.hasCustomName() ? entity.getCustomName().getString() : entity.getType().getDescription().getString();
-                    SAVED_PETS.add(new JournalEntry(name, "Status: Active", JournalEntry.Category.PETS,
-                            entity.getType(), 20.0f, null, java.util.List.of(), petUUID));
-                }
+                String name = living.hasCustomName() ? living.getCustomName().getString() : living.getType().getDescription().getString();
+                SAVED_PETS.add(new net.riley.riley_mod.util.JournalEntry(
+                        name,
+                        "Status: Active",
+                        net.riley.riley_mod.util.JournalEntry.Category.PETS,
+                        living.getType(),
+                        20.0f,
+                        null,
+                        java.util.List.of(),
+                        entityUUID
+                ));
             }
         }
 
-        ALL_ENTRIES.removeIf(e -> e.category() == JournalEntry.Category.PETS);
+        // 3) Any stored backups not handled by the live-scan should be added as stored placeholders
+        for (java.util.Map.Entry<java.util.UUID, net.minecraft.nbt.CompoundTag> entry : storedMap.entrySet()) {
+            java.util.UUID uuid = entry.getKey();
+            if (handled.contains(uuid)) continue; // live entity already replaced this backup
+
+            net.minecraft.nbt.CompoundTag data = entry.getValue();
+            String petId = data.contains("id") ? data.getString("id") : "";
+            String displayName = "Unknown Pet";
+            if (data.contains("CustomName", 8)) {
+                try {
+                    net.minecraft.network.chat.Component nameComp = net.minecraft.network.chat.Component.Serializer.fromJson(data.getString("CustomName"));
+                    if (nameComp != null) displayName = nameComp.getString();
+                } catch (Exception ignored) {}
+            } else if (!petId.isEmpty()) {
+                displayName = net.minecraft.world.entity.EntityType.byString(petId).map(t -> t.getDescription().getString()).orElse("Pet");
+            }
+
+            SAVED_PETS.add(new net.riley.riley_mod.util.JournalEntry(
+                    "[] " + displayName,
+                    "Eternal Backup",
+                    net.riley.riley_mod.util.JournalEntry.Category.PETS,
+                    net.minecraft.world.entity.EntityType.byString(petId).orElse(null),
+                    20f,
+                    null,
+                    java.util.List.of(),
+                    uuid
+            ));
+        }
+
+        // 4) Replace any previous Pets entries in ALL_ENTRIES with the freshly computed list
+        ALL_ENTRIES.removeIf(e -> e.category() == net.riley.riley_mod.util.JournalEntry.Category.PETS);
         ALL_ENTRIES.addAll(SAVED_PETS);
     }
 
 
-//TODO Make pets section pick up mounts
 
 
     @Override
@@ -425,18 +453,24 @@ public class JournalScreen extends Screen {
         // ... (text rendering code) ...
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
-    private boolean isSelectedPetDead() {
-        if (selectedEntry == null || this.minecraft.level == null) return false;
 
-        // Use the standard rendering list to check if the pet IS currently dead in the world
+    // Replace the existing isSelectedPetDead() method body with this:
+    private boolean isSelectedPetDead() {
+        if (selectedEntry == null || selectedEntry.entityUUID() == null || this.minecraft == null || this.minecraft.level == null) {
+            return false; // no selection or no world — treat as "not dead" so UI won't show "Revive" for nothing
+        }
+
+        // Look for the entity by UUID in the client's rendering list (works for TamableAnimal, AbstractHorse, OwnableEntity, etc.)
         for (net.minecraft.world.entity.Entity e : this.minecraft.level.entitiesForRendering()) {
-            if (e instanceof net.minecraft.world.entity.TamableAnimal tamable &&
-                    tamable.getType() == selectedEntry.entityType() &&
-                    selectedEntry.title().equals(tamable.hasCustomName() ? tamable.getCustomName().getString() : tamable.getType().getDescription().getString())) {
-                return !tamable.isAlive();
+            if (e.getUUID().equals(selectedEntry.entityUUID())) {
+                if (e instanceof net.minecraft.world.entity.LivingEntity living) {
+                    return !living.isAlive();
+                }
+                return true; // present but not a living entity -> treat as dead/missing
             }
         }
-        // If the pet isn't in the world at all, we treat it as needing summoning/revival
+
+        // Not present in the world -> needs summoning/revival
         return true;
     }
     private void renderPetStatusPage(GuiGraphics graphics, int x, int y) {
