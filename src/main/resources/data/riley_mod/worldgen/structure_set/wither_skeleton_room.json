@@ -1,0 +1,15 @@
+{
+
+  "structures": [
+    {
+      "structure": "riley_mod:wither_skeleton_room",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "salt": 5473612543,
+    "spacing": 20,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

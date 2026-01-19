@@ -57,8 +57,11 @@ public class RileyMod
 //TODO add more effects that mobs can use
 //TODO Update block pages for book
 //TODO upgrade tree
+//TODO add new station that makes enchanting easier.
+ //TODO add bane of mystic. Does double damage to things that are not real.
 //TODO Block when activated spawns a boss
 //TODO update Journal entries for mobs
+
 
         RileyModSounds.register(modEventBus);
 
