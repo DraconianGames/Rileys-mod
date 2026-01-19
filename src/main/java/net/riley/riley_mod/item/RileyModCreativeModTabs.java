@@ -33,6 +33,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.TOOTHFAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.BONEFAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.SKELETONFAIRY_SPAWN_EGG.get());
+                        output.accept(RileyModItems.CAGGED_FAIRY.get());
+
                         output.accept(RileyModBlocks.NIGHT_STAR.get());
 
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());

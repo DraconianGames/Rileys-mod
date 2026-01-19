@@ -21,6 +21,7 @@ public class RileyModStructureLootTables implements LootTableSubProvider {
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(RileyModItems.EYE.get()))
+                        .add(LootItem.lootTableItem(RileyModItems.FUNTIUM_ORE.get()))
                 )
         );
     }

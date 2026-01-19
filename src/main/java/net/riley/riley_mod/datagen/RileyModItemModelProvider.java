@@ -50,6 +50,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.ICE_CHUNK);
         simpleItem(RileyModItems.CLAW);
         simpleItem(RileyModItems.TOOTH);
+        simpleItem(RileyModItems.CAGGED_FAIRY);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 

@@ -7,6 +7,10 @@
         {
           "type": "minecraft:item",
           "name": "riley_mod:eye"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "riley_mod:funtium_ore"
         }
       ],
       "rolls": 1.0

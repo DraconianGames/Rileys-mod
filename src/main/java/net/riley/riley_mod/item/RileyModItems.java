@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
+import net.riley.riley_mod.item.custom.CaggedFairyItem;
 import net.riley.riley_mod.item.custom.RileyModArmorItem;
 import net.riley.riley_mod.item.custom.RileyModPortalItem;
 
@@ -80,6 +81,9 @@ public class RileyModItems {
     public static final RegistryObject<Item> SKELETONFAIRY_SPAWN_EGG = ITEMS.register("skeletonfairy_spawn_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.SKELETONFAIRY,0x07024a ,0xbcc720,
                     new Item.Properties()));
+
+    public static final RegistryObject<Item> CAGGED_FAIRY = ITEMS.register("cagged_fairy",
+            () -> new CaggedFairyItem(new Item.Properties().stacksTo(16)));
 //book
 public static final RegistryObject<Item> DARK_JOURNAL = ITEMS.register("dark_journal",
         () -> new net.riley.riley_mod.item.custom.JournalItem(new Item.Properties().stacksTo(1)));
