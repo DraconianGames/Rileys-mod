@@ -178,7 +178,7 @@ public class BoneFairyEntity extends TamableAnimal implements FlyingAnimal {
         // If on the ground and a player is nearby with a tooth, try to stay on the ground to beg
         if (!this.level().isClientSide && this.onGround() && this.isTame()) {
             Player player = this.level().getNearestPlayer(this, 10.0D);
-            if (player != null && (player.getMainHandItem().is(RileyModItems.TOOTH.get()) || player.getMainHandItem().is(Items.BONE))) {
+            if (player != null && (player.getMainHandItem().is(RileyModItems.TOOTH.get()) || player.getMainHandItem().is(Items.SKELETON_SKULL))) {
                 this.setNoGravity(false); // Ensure she stays down to walk/beg
             }
         }
