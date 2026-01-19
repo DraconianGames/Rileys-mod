@@ -68,30 +68,32 @@ public class JournalScreen extends Screen {
         super(Component.literal("Dark Journal"));
 
         // --- ADD YOUR ENTRIES HERE ---
-        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral. They hate Night Terrors", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f, Items.AMETHYST_SHARD
+        ALL_ENTRIES.add(new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(),22.0f, Items.AMETHYST_SHARD
                 ,java.util.List.of(),null));
-        ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f,null,
-                java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0), new MobEffectInstance(MobEffects.WITHER, 60, 0)),null));
-        ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),15.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
+        ALL_ENTRIES.add(new JournalEntry("Whale Hunter", "A massive predator deep sea predator. They are neutral. They don't like boats.", JournalEntry.Category.CREATURES, RileyModEntities.WHALE_HUNTER.get(),10.0f,null,
+                java.util.List.of(),null));
+        ALL_ENTRIES.add(new JournalEntry("Rapter", "Loves cooked rabbit. They are neutral, but they are opportunistic. They are stronger than their cousin the Frost Hopper.", JournalEntry.Category.CREATURES, RileyModEntities.RAPTER.get(),15.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
                 java.util.List.of(new MobEffectInstance(RileyModEffects.BLEED.get(), 100, 0)),null));
-        ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves a little crab.", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f, RileyModItems.CLAW.get(),
+        ALL_ENTRIES.add(new JournalEntry("Night Terror","A Winged Nightmare that loves flying way too much. It's roar will make you go deaf temporary", JournalEntry.Category.CREATURES, RileyModEntities.NIGHT_TERROR.get(),10.0f, RileyModItems.CLAW.get(),
                 java.util.List.of(new MobEffectInstance(RileyModEffects.DEAF.get(), 6000, 0)),null));
-        ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Just like his evolutionary cousin Rapter", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
+        ALL_ENTRIES.add(new JournalEntry("Frost Hopper","Lives Obsidian Peaks in the abyss. Smaller than they rapter, they developed a poison that will freeze you in place, it comes out of the horn on their forehead. They hunt in packs.", JournalEntry.Category.CREATURES, RileyModEntities.FROST_HOPPER.get(),25.0f,net.minecraft.world.item.Items.COOKED_RABBIT,
                 java.util.List.of(new MobEffectInstance(RileyModEffects.FREEZE.get(), 60, 0)),null));
-        ALL_ENTRIES.add(new JournalEntry("Tooth Fairy", "An extremely docile creature looking for protection. They are more useless than a cat. They do like bones for some reason.", JournalEntry.Category.CREATURES, RileyModEntities.TOOTHFAIRY.get(),25.0f, RileyModItems.TOOTH.get(),
+        ALL_ENTRIES.add(new JournalEntry("Tooth Fairy", "An extremely docile creature looking for protection. They are more useless than a bat. They do like bones for some reason.", JournalEntry.Category.CREATURES, RileyModEntities.TOOTHFAIRY.get(),25.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Bone Fairy", "The larger, much deadlier evolutionary cousin of the Tooth Fairy. It can throw a pretty good punch. They do like skeleton skulls for some reason.", JournalEntry.Category.CREATURES, RileyModEntities.BONEFAIRY.get(), 5.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
-        ALL_ENTRIES.add(new JournalEntry("Skeleton Fairy", "After countless fights, the Bone Fairie's claws wore down, force to only be used as feet. It grew strong though and developed a nasty bite. It also developed more eyes for better precision.", JournalEntry.Category.CREATURES, RileyModEntities.SKELETONFAIRY.get(), 10.0f, RileyModItems.TOOTH.get(),
+        ALL_ENTRIES.add(new JournalEntry("Skeleton Fairy", "After countless fights, the Bone Fairie's claws wore down, force to only be used as feet. It grew too heavy to stand upright, and developed a nice set of fangs. It also developed more eyes for better precision.", JournalEntry.Category.CREATURES, RileyModEntities.SKELETONFAIRY.get(), 10.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));
+        ALL_ENTRIES.add(new JournalEntry("Caged Fairy","A baby Toothfairy is held within. Right click on any surface to release it. Make sure to tame it before it wanders off.", JournalEntry.Category.ITEMS));
         ALL_ENTRIES.add(new JournalEntry("Funtium Ore", "A DENSE material containing mystical properties, you do need Netherite to mine it because it is so dense.", JournalEntry.Category.ITEMS));
         ALL_ENTRIES.add(new JournalEntry("The Abyss", "A dimension where messing with the wrong thing can be deadly. It has a range of terrifying creatures, unique flora, and for some reason, it's only night. Never let the creatures out unless they are tamed.", JournalEntry.Category.ABYSS));
         ALL_ENTRIES.add(new JournalEntry("The Abyss Portal", "A portal built exactly like the Nether portal, but you need activated funtium as its frame, and the eye to light it", JournalEntry.Category.ABYSS));
         ALL_ENTRIES.add(new JournalEntry("The Arena", "It has good loot but only spawn in the abyss", JournalEntry.Category.STRUCTURES));
         ALL_ENTRIES.add(new JournalEntry("The Avalon", "A place where the weary traveler can shelter out the storms. Spawns in the overworld. Designed by Avalon herself", JournalEntry.Category.STRUCTURES));
+        ALL_ENTRIES.add(new JournalEntry("The Wither Skeleton Room","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES));
     }
 
     @Override
