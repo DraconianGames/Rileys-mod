@@ -12,7 +12,7 @@ import net.riley.riley_mod.entity.custom.SunlessCrabEntity;
 
 public class SkeletonFairyRenderer extends MobRenderer<SkeletonFairyEntity,SkeletonFairyModel<SkeletonFairyEntity>> {
     public SkeletonFairyRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new SkeletonFairyModel<>(pContext.bakeLayer(RileyModModelLayers.SKELETONFAIRY_LAYER)), 2f);
+        super(pContext, new SkeletonFairyModel<>(pContext.bakeLayer(RileyModModelLayers.SKELETONFAIRY_LAYER)), 1.3f);
     }
 
     @Override

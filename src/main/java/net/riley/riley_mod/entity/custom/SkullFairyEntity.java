@@ -20,7 +20,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +29,8 @@ import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
-public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
+public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
+
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(BoneFairyEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -43,12 +43,10 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
 
     public int attackAnimationTimeout = 0;
 
-    public SkeletonFairyEntity(EntityType<? extends TamableAnimal> type, Level level) {
-        super(type, level);
-        // Use FlyingPathNavigation so it doesn't get stuck on fences/blocks
-
-        // Standard move control for flying animals
+    public SkullFairyEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
         this.moveControl = new FlyingMoveControl(this, 20, true);
+
     }
     @Override
     protected PathNavigation createNavigation(Level pLevel) {
@@ -129,16 +127,17 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get()), false));
+        //TODO fix stopping distance of beg.
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override
             public void start() {
                 super.start();
-                ((SkeletonFairyEntity)this.mob).setAttacking(true);
+                ((SkullFairyEntity)this.mob).setAttacking(true);
             }
             @Override
             public void stop() {
                 super.stop();
-                ((SkeletonFairyEntity)this.mob).setAttacking(false);
+                ((SkullFairyEntity)this.mob).setAttacking(false);
             }
         });
 
@@ -152,19 +151,8 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-    }
-    public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 10D)
-                .add(Attributes.FOLLOW_RANGE, 30D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D) // Increased from 0.2
-                .add(Attributes.FLYING_SPEED, 0.2D)   // Increased from 0.3
-                .add(Attributes.ARMOR_TOUGHNESS, 0f)
-                .add(Attributes.ATTACK_KNOCKBACK, 0f)
-                .add(Attributes.ATTACK_DAMAGE, 1f);
 
     }
-    //TODO add transformation to skull fairy
     @Override
     public void aiStep() {
         super.aiStep();
@@ -369,5 +357,17 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
     @Override
     public boolean isFood(ItemStack pStack) {
         return pStack.is(RileyModItems.TOOTH.get());
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Animal.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 10D)
+                .add(Attributes.FOLLOW_RANGE, 30D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D) // Increased from 0.2
+                .add(Attributes.FLYING_SPEED, 0.2D)   // Increased from 0.3
+                .add(Attributes.ARMOR_TOUGHNESS, 0f)
+                .add(Attributes.ATTACK_KNOCKBACK, 0f)
+                .add(Attributes.ATTACK_DAMAGE, 1f);
+
     }
 }

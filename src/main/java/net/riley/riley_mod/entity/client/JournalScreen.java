@@ -84,6 +84,7 @@ public class JournalScreen extends Screen {
                 java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Skeleton Fairy", "After countless fights, the Bone Fairie's claws wore down, force to only be used as feet. It grew too heavy to stand upright, and developed a nice set of fangs. It also developed more eyes for better precision.", JournalEntry.Category.CREATURES, RileyModEntities.SKELETONFAIRY.get(), 10.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
+        //TODO add skull fairy entry
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));

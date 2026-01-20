@@ -81,6 +81,9 @@ public class RileyModItems {
     public static final RegistryObject<Item> SKELETONFAIRY_SPAWN_EGG = ITEMS.register("skeletonfairy_spawn_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.SKELETONFAIRY,0x07024a ,0xbcc720,
                     new Item.Properties()));
+    public static final RegistryObject<Item> SKULL_FAIRY_SPAWN_EGG = ITEMS.register("skull_fairy_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.SKULL_FAIRY,0x07024a ,0xbcc720,
+                    new Item.Properties()));//TODO change this egg's color
 
     public static final RegistryObject<Item> CAGGED_FAIRY = ITEMS.register("cagged_fairy",
             () -> new CaggedFairyItem(new Item.Properties().stacksTo(16)));

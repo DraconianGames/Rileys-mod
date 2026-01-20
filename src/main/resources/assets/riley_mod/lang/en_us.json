@@ -16,6 +16,7 @@
   "item.riley_mod.toothfairy_spawn_egg": "Tooth Fairy Spawn Egg",
   "item.riley_mod.bonefairy_spawn_egg": "Bone Fairy Spawn Egg",
   "item.riley_mod.skeletonfairy_spawn_egg": "Skeleton Fairy Spawn Egg",
+  "item.riley_mod.skull_fairy_spawn_egg": "Skull Fairy Spawn Egg",
 
   "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
   "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
@@ -78,6 +79,7 @@
   "entity.riley_mod.toothfairy": "Tooth Fairy",
   "entity.riley_mod.bonefairy": "Bone Fairy",
   "entity.riley_mod.skeletonfairy": "Skeleton Fairy",
+  "entity.riley_mod.skull_fairy": "Skull Fairy",
 
   "creativetab.funtium_tab": "Funtium Tab",
 
