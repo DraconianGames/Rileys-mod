@@ -92,7 +92,7 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         Player nearestPlayer = this.level().getNearestPlayer(this, 5.0D);
         boolean playerHoldingBegItem = nearestPlayer != null &&
                 (nearestPlayer.getMainHandItem().is(RileyModItems.TOOTH.get()) ||
-                        nearestPlayer.getOffhandItem().is(RileyModItems.TOOTH.get()));
+                        nearestPlayer.getOffhandItem().is(RileyModItems.TOOTH.get())|| nearestPlayer.getMainHandItem().is(RileyModItems.FANCY_SKULL.get()));
 
         // HEIGHT CHECK: Is the block directly below air?
         boolean nearGround = !this.level().getBlockState(this.blockPosition().below()).isAir();
@@ -128,7 +128,7 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get()), false));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),RileyModItems.FANCY_SKULL.get()), false));//TODO change bone to new item
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override
             public void start() {
@@ -309,7 +309,33 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
+// Transform into Baby Bone Fairy when fed a Bone
+        if (itemstack.is(RileyModItems.FANCY_SKULL.get()) && !this.isBaby()) {
+            if (!pPlayer.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
 
+            if (!this.level().isClientSide) {
+                SkullFairyEntity babySkullFairy = this.convertTo(RileyModEntities.SKULL_FAIRY.get(), true);
+
+                if (babySkullFairy != null) {
+                    // EXPLICIT TAME TRANSFER: Ensure the new entity is tamed and owned by the same player
+                    if (this.isTame()) {
+                        babySkullFairy.setTame(true);
+                        babySkullFairy.setOwnerUUID(this.getOwnerUUID());
+                        babySkullFairy.setOrderedToSit(this.isOrderedToSit());
+                    }
+
+                    babySkullFairy.setAge(-24000); // Make it a baby
+                    this.level().broadcastEntityEvent(babySkullFairy, (byte)7); // confirm with hearts
+                }
+            }else {
+                // CLIENT SIDE DETECTION: Force the journal to forget the old species
+                // so it doesn't linger as "Not in World"
+                net.riley.riley_mod.entity.client.JournalScreen.forgetPet(this.getUUID());
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
         // 1. If it's already tame and the player is the owner
         if (this.isTame() && this.isOwnedBy(pPlayer)) {
             if (this.isFood(itemstack) && this.getAge() == 0) {

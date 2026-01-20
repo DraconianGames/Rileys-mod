@@ -36,6 +36,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOOTH = ITEMS.register("tooth",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FANCY_SKULL = ITEMS.register("fancy_skull",
+            () -> new Item(new Item.Properties()));
     //Tools
     public static final RegistryObject<Item> FUNTIUM_SWORD = ITEMS.register("funtium_sword",
             () -> new SwordItem(RileyModToolTiers.FUNTIUM,4,3,new Item.Properties()));

@@ -218,7 +218,7 @@ public class SkullFairyModel<T extends Entity> extends HierarchicalModel<T> {
 		this.animate(fairy.sitAnimationState, SkullFairyAnimationDefinitions.SKULL_FAIRY_SIT, ageInTicks);
 
 		this.animate(fairy.attackAnimationState, SkullFairyAnimationDefinitions.SKULL_FAIRY_BITE, ageInTicks);
-//TODO add transformation animation after it transforms only from the skeleton fairy. Like how the warden only plays the animation when summoned by shreeker.
+//TODO add transformation animation after it transforms only from the skeleton fairy. Like how the warden only plays the animation when summoned by shreeker. The animation is currently st to hold last position
 	}
 
 	@Override

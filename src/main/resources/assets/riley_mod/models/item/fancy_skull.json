@@ -1,0 +1,17 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "riley_mod:item/fancy_skull_model"
+  },"perspectives": {
+  "gui": {
+    "parent": "riley_mod:item/fancy_skull_2d"
+  },
+  "ground": {
+    "parent": "riley_mod:item/fancy_skull_2d"
+  },
+  "fixed": {
+    "parent": "riley_mod:item/fancy_skull_2d"
+  }
+}
+}
