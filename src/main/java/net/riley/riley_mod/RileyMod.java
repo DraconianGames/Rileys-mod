@@ -54,6 +54,15 @@ public class RileyMod
         RileyModCreativeModTabs.register(modEventBus);
 //TODO add new mobs to the ocean.
 //TODO add more effects that mobs can use
+// TODO infected potion effect. spawns a parasite killing the host
+// TODO add damage to the freeze effect, your literally frozen, frost bite happens
+// TODO look into unstable rifts
+// TODO fire and water elementals
+// TODO Tree mimic
+// TODO War Horse Elemental
+// TODO Bison evolution
+// TODO Update model animations. Specifically the crab, my first one.
+// TODO Something that grabs you, lifts you, and stabs you with tenticals from no where. IK is good for chains only, possibly tenticals.
 //TODO Update block pages for book
 //TODO upgrade tree
 //TODO add new station that makes enchanting easier.
@@ -61,7 +70,7 @@ public class RileyMod
 //TODO Block when activated spawns a boss
 //TODO update Journal entries for mobs
 //TODO Update Journal entries.
-        //TODO change states for the toothfairy evolutions
+// TODO Make a mob that spawns reinforcements
 
         RileyModSounds.register(modEventBus);
 

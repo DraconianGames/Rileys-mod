@@ -155,13 +155,13 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
     }
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 10D)
+                .add(Attributes.MAX_HEALTH, 100D)
                 .add(Attributes.FOLLOW_RANGE, 30D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D) // Increased from 0.2
                 .add(Attributes.FLYING_SPEED, 0.2D)   // Increased from 0.3
-                .add(Attributes.ARMOR_TOUGHNESS, 0f)
-                .add(Attributes.ATTACK_KNOCKBACK, 0f)
-                .add(Attributes.ATTACK_DAMAGE, 1f);
+                .add(Attributes.ARMOR_TOUGHNESS, .2f)
+                .add(Attributes.ATTACK_KNOCKBACK, .4f)
+                .add(Attributes.ATTACK_DAMAGE, 240f);
 
     }
     //TODO add transformation to skull fairy
