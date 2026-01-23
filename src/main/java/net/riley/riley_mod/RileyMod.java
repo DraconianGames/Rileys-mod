@@ -61,6 +61,7 @@ public class RileyMod
 //TODO Block when activated spawns a boss
 //TODO update Journal entries for mobs
 //TODO Update Journal entries.
+        //TODO change states for the toothfairy evolutions
 
         RileyModSounds.register(modEventBus);
 
