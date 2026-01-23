@@ -52,7 +52,6 @@ public class RileyMod
 
 
         RileyModCreativeModTabs.register(modEventBus);
-//TODO add new structure to nether for wither skeleton spawner.
 //TODO add new mobs to the ocean.
 //TODO add more effects that mobs can use
 //TODO Update block pages for book
@@ -61,7 +60,7 @@ public class RileyMod
  //TODO add bane of mystic. Does double damage to things that are not real.
 //TODO Block when activated spawns a boss
 //TODO update Journal entries for mobs
-//TODO add crafting recipe for the fancy skull. Update Journal entries.
+//TODO Update Journal entries.
 
         RileyModSounds.register(modEventBus);
 

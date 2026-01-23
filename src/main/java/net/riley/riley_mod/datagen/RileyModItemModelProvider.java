@@ -63,6 +63,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         withExistingParent(RileyModItems.BONEFAIRY_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
         withExistingParent(RileyModItems.SKELETONFAIRY_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
         withExistingParent(RileyModItems.SKULL_FAIRY_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.BISON_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
 
         fenceItem(RileyModBlocks.ABYSS_WOOD_FENCE, RileyModBlocks.ABYSS_PLANKS);
         
