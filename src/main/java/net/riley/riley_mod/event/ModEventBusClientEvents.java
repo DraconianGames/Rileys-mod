@@ -21,5 +21,6 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.BONEFAIRY_LAYER, BoneFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.SKELETONFAIRY_LAYER, SkeletonFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.SKULL_FAIRY_LAYER, SkullFairyModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.BISON_LAYER, BisonModel::createBodyLayer);
     }
 }

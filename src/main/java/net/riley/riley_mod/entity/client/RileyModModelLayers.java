@@ -23,6 +23,8 @@ public class RileyModModelLayers {
             new ResourceLocation(RileyMod.MODID, "skeletonfairy_layer"),"main");
 public static final ModelLayerLocation SKULL_FAIRY_LAYER = new ModelLayerLocation(
         new ResourceLocation(RileyMod.MODID, "skull_fairy_layer"),"main");
+public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
+        new ResourceLocation(RileyMod.MODID, "bison_layer"),"main");
 
 
 

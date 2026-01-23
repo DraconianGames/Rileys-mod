@@ -61,7 +61,7 @@ public class RileyMod
  //TODO add bane of mystic. Does double damage to things that are not real.
 //TODO Block when activated spawns a boss
 //TODO update Journal entries for mobs
-
+//TODO add crafting recipe for the fancy skull. Update Journal entries.
 
         RileyModSounds.register(modEventBus);
 
@@ -124,6 +124,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.NIGHT_TERROR.get(), NightTerrorRenderer::new);
             EntityRenderers.register(RileyModEntities.FROST_HOPPER.get(), FrostHopperRenderer::new);
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);
+            EntityRenderers.register(RileyModEntities.BISON.get(), BisonRenderer::new);
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
         }
     }
