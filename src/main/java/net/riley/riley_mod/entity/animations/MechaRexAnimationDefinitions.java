@@ -6,6 +6,41 @@ import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
 public class MechaRexAnimationDefinitions {
+        public static final AnimationDefinition MECHAREX_IDLE = AnimationDefinition.Builder.withLength(3.0F).looping()
+                .addAnimation("up_left_jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.1667F, KeyframeAnimations.degreeVec(-12.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.375F, KeyframeAnimations.degreeVec(-14.7623F, -2.7351F, 23.7722F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.4167F, KeyframeAnimations.degreeVec(-12.6866F, -9.7606F, 2.1856F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.5417F, KeyframeAnimations.degreeVec(-30.1866F, -9.7606F, 2.1856F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.7917F, KeyframeAnimations.degreeVec(-38.5548F, -13.098F, -46.3449F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("up_right_jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.0833F, KeyframeAnimations.degreeVec(0.0F, 20.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.25F, KeyframeAnimations.degreeVec(-12.5F, 20.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.5417F, KeyframeAnimations.degreeVec(-2.5F, 20.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.75F, KeyframeAnimations.degreeVec(-32.2495F, 23.1404F, -20.6961F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("down_left_jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.125F, KeyframeAnimations.degreeVec(0.0F, 5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.25F, KeyframeAnimations.degreeVec(20.0F, -25.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.5833F, KeyframeAnimations.degreeVec(18.2629F, -8.4509F, 5.9682F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.7917F, KeyframeAnimations.degreeVec(82.6196F, -43.5794F, -5.111F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("down_right_jaw", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(2.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.1667F, KeyframeAnimations.degreeVec(60.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.3333F, KeyframeAnimations.degreeVec(66.1413F, 18.7472F, 36.0052F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.5833F, KeyframeAnimations.degreeVec(16.1413F, 18.7472F, 36.0052F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.75F, KeyframeAnimations.degreeVec(13.5403F, 20.6713F, 28.304F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(3.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .build();
     public static final AnimationDefinition MECHAREX_ACTIVATION = AnimationDefinition.Builder.withLength(4.0F)
             .addAnimation("body", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, -30.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
