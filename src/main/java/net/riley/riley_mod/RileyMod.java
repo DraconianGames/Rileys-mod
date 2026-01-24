@@ -55,7 +55,6 @@ public class RileyMod
 //TODO add new mobs to the ocean.
 //TODO add more effects that mobs can use
 // TODO infected potion effect. spawns a parasite killing the host
-// TODO add damage to the freeze effect, your literally frozen, frost bite happens
 // TODO look into unstable rifts
 // TODO fire and water elementals
 // TODO Tree mimic
