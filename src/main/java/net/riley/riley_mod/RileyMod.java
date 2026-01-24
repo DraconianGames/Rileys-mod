@@ -134,6 +134,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);
             EntityRenderers.register(RileyModEntities.BISON.get(), BisonRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRex_BombRenderer::new);
+            EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
         }
     }

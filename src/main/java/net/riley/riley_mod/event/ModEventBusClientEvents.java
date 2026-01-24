@@ -6,6 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.client.*;
+import net.riley.riley_mod.entity.custom.MechaRexEntity;
 
 @Mod.EventBusSubscriber(modid = RileyMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModEventBusClientEvents {
@@ -23,5 +24,6 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.SKULL_FAIRY_LAYER, SkullFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.BISON_LAYER, BisonModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.MECHAREXBOMB_LAYER, MechaRex_Bomb_Model::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.MECHAREX_LAYER, MechaRexModel::createBodyLayer);
     }
 }

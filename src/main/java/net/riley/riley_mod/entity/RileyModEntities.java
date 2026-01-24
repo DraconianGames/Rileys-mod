@@ -48,6 +48,9 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
 public static final RegistryObject<EntityType<MechaRexBombEntity>> MECHAREXBOMB =
         ENTITY_TYPES.register("mecharexbomb", ()-> EntityType.Builder.of(MechaRexBombEntity::new,MobCategory.CREATURE)
                 .sized(0.75f,0.75f).build("mecharexbomb"));
+    public static final RegistryObject<EntityType<MechaRexEntity>> MECHAREX =
+            ENTITY_TYPES.register("mecharex", ()-> EntityType.Builder.of(MechaRexEntity::new,MobCategory.CREATURE)
+                    .sized(4f,3.5f).build("mecharex"));
 
 
     public static void register(IEventBus eventBus){
