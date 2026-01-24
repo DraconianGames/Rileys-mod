@@ -38,6 +38,43 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FANCY_SKULL = ITEMS.register("fancy_skull",
             () -> new Item(new Item.Properties()));
+
+    //TODO make new crafting block
+    public static final RegistryObject<Item> LIVING_MACHANICAL_NURONS = ITEMS.register("living_machanical_nurons",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LYDAR = ITEMS.register("lydar",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHA_REX_UNASSEMBLED_HEAD = ITEMS.register("mecha_rex_unassembled_head",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_BRAIN = ITEMS.register("mecharex_brain",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_EGG = ITEMS.register("mecharex_egg",
+            () -> new Item(new Item.Properties()));//TODO make spawn tamed mecha rex baby
+    public static final RegistryObject<Item> MECHAREX_ENGINE = ITEMS.register("mecharex_engine",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_HEAD = ITEMS.register("mecharex_head",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_LEG = ITEMS.register("mecharex_leg",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_TAIL = ITEMS.register("mecharex_tail",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_TORSO = ITEMS.register("mecharex_torso",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SYNTHETIC_MUSCLE = ITEMS.register("synthetic_muscle",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TORSO = ITEMS.register("unassembled_mecharex_torso",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TAIL = ITEMS.register("unassembled_mecharex_tail",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_LEG = ITEMS.register("unassembled_mecharex_leg",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MECHAREX_CANNON = ITEMS.register("mecharex_cannon",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ARMOR_PLATING = ITEMS.register("armor_plating",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CANNON_SHEILD = ITEMS.register("cannon_sheild",
+            () -> new Item(new Item.Properties()));
+
     //Tools
     public static final RegistryObject<Item> FUNTIUM_SWORD = ITEMS.register("funtium_sword",
             () -> new SwordItem(RileyModToolTiers.FUNTIUM,4,3,new Item.Properties()));

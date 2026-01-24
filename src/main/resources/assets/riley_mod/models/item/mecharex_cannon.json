@@ -1,0 +1,17 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "riley_mod:item/mecharexcannon"
+  },"perspectives": {
+  "gui": {
+    "parent": "riley_mod:item/mecharex_cannon_2d"
+  },
+  "ground": {
+    "parent": "riley_mod:item/mecharex_cannon_2d"
+  },
+  "fixed": {
+    "parent": "riley_mod:item/mecharex_cannon_2d"
+  }
+}
+}

@@ -51,6 +51,22 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.CLAW);
         simpleItem(RileyModItems.TOOTH);
         simpleItem(RileyModItems.CAGGED_FAIRY);
+        simpleItem(RileyModItems.LIVING_MACHANICAL_NURONS);
+        simpleItem(RileyModItems.LYDAR);
+        simpleItem(RileyModItems.MECHA_REX_UNASSEMBLED_HEAD);
+        simpleItem(RileyModItems.MECHAREX_BRAIN);
+        simpleItem(RileyModItems.MECHAREX_EGG);
+        simpleItem(RileyModItems.MECHAREX_ENGINE);
+        simpleItem(RileyModItems.MECHAREX_HEAD);
+        simpleItem(RileyModItems.MECHAREX_LEG);
+        simpleItem(RileyModItems.MECHAREX_TORSO);
+        simpleItem(RileyModItems.MECHAREX_TAIL);
+        simpleItem(RileyModItems.SYNTHETIC_MUSCLE);
+        simpleItem(RileyModItems.UNASSEMBLED_MECHAREX_TORSO);
+        simpleItem(RileyModItems.UNASSEMBLED_MECHAREX_LEG);
+        simpleItem(RileyModItems.UNASSEMBLED_MECHAREX_TAIL);
+        simpleItem(RileyModItems.ARMOR_PLATING);
+        simpleItem(RileyModItems.CANNON_SHEILD);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 

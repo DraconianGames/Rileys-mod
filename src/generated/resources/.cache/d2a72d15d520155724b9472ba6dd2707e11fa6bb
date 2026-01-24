@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-22T22:37:40.1536978	Item Models: riley_mod
+// 1.20.1	2026-01-24T14:53:36.6090516	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -6,9 +6,11 @@ c4d2d5e0e7c8c94280f423134adc3242f691ff4e assets/riley_mod/models/item/abyss_wood
 7d986f4664e2afabaf23d5afade2967106d87706 assets/riley_mod/models/item/abyss_wood_slab.json
 a702e6285bdc1d29b24ef61920692b7b54c44462 assets/riley_mod/models/item/abyss_wood_stairs.json
 5cbd3617853cec7e30c762414aa0d7db5eef731b assets/riley_mod/models/item/abyss_wood_wall.json
+7cf3530b940cbae390777ca41329789696fda8fa assets/riley_mod/models/item/armor_plating.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bison_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bonefairy_spawn_egg.json
 5161fec7ce7ac2960b00de8cb89f45eb547f370e assets/riley_mod/models/item/cagged_fairy.json
+b7029b59fe453c53bf788076c731898edaff691e assets/riley_mod/models/item/cannon_sheild.json
 7ca673f8fb552755581f62e5923e850be7951802 assets/riley_mod/models/item/claw.json
 2dfcec25e31ff4079cdc85f5cc78cc9eb0f01aa8 assets/riley_mod/models/item/eye.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/frost_hopper_spawn_egg.json
@@ -60,6 +62,16 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 706fac02361c7b511bd7c63482c6b59ae8d9dd0d assets/riley_mod/models/item/funtium_ore.json
 7ee586a3127c26c4124084f90bb3f370f810232d assets/riley_mod/models/item/funtium_plate.json
 2a576c7e8507c46a3fb03b156b832df6e0e73ed5 assets/riley_mod/models/item/ice_chunk.json
+16a311f1ab210c475c716c56583341d166e6b36f assets/riley_mod/models/item/living_machanical_nurons.json
+7b13050a9e8f0eb3876e5f608b958726ff3ec58f assets/riley_mod/models/item/lydar.json
+19e27213fb5d21dd84f6c6c2f173acc34e9dc96e assets/riley_mod/models/item/mecharex_brain.json
+735e2368b8fbb5aa89cf0c5d0b452074d69c277a assets/riley_mod/models/item/mecharex_egg.json
+e6b882d8edd8e1301a51a6eca472018907dde3a4 assets/riley_mod/models/item/mecharex_engine.json
+b636c6d68e7a202fbb490b6e9d9b99785db55773 assets/riley_mod/models/item/mecharex_head.json
+27ad1aacc5bd75ecaf4f075cf7e29b3b74ace240 assets/riley_mod/models/item/mecharex_leg.json
+2c6c8a982140b045c5a51cd77d64b040481a2acf assets/riley_mod/models/item/mecharex_tail.json
+fc78f293c45552814d32cbf345aeb22f88b3177c assets/riley_mod/models/item/mecharex_torso.json
+faf4e2941484f5f3d90b4edec46d712c71a46111 assets/riley_mod/models/item/mecha_rex_unassembled_head.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/night_terror_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/rapter_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/skeletonfairy_spawn_egg.json
@@ -71,7 +83,11 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 2ba903f8028a8a6adc4e4d7cf20c9e882828ebec assets/riley_mod/models/item/structure_brick_stairs.json
 e5a442996617a2304b1da22f61ab82fb6c856d5a assets/riley_mod/models/item/structure_brick_wall.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/sunless_crab_spawn_egg.json
+5af70bb3f8622cd7d6191e670ad3643d2bef769a assets/riley_mod/models/item/synthetic_muscle.json
 9140144ec00f096cb57b866687a35996ee2e783f assets/riley_mod/models/item/tooth.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/toothfairy_spawn_egg.json
+e943fd5f66649a6ab6e43a67300e4a1e459ed55b assets/riley_mod/models/item/unassembled_mecharex_leg.json
+24096b526f22b13192817b3c87b0656d7018d517 assets/riley_mod/models/item/unassembled_mecharex_tail.json
+a9508b8f1091fb6364cf260d2d57d0be0cec21fa assets/riley_mod/models/item/unassembled_mecharex_torso.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/whale_hunter_spawn_egg.json
 ded3ed6ba37a27bc3613831cf92e8d1bd0c12697 assets/riley_mod/models/item/whale_hunter_trophy.json

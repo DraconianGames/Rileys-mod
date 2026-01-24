@@ -87,6 +87,24 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
                         output.accept(RileyModItems.DARK_JOURNAL.get());
 
+                        output.accept(RileyModItems.LIVING_MACHANICAL_NURONS.get());
+                        output.accept(RileyModItems.LYDAR.get());
+                        output.accept(RileyModItems.MECHA_REX_UNASSEMBLED_HEAD.get());
+                        output.accept(RileyModItems.MECHAREX_BRAIN.get());
+                        output.accept(RileyModItems.MECHAREX_EGG.get());
+                        output.accept(RileyModItems.MECHAREX_ENGINE.get());
+                        output.accept(RileyModItems.MECHAREX_HEAD.get());
+                        output.accept(RileyModItems.MECHAREX_LEG.get());
+                        output.accept(RileyModItems.MECHAREX_TORSO.get());
+                        output.accept(RileyModItems.MECHAREX_TAIL.get());
+                        output.accept(RileyModItems.SYNTHETIC_MUSCLE.get());
+                        output.accept(RileyModItems.UNASSEMBLED_MECHAREX_TORSO.get());
+                        output.accept(RileyModItems.UNASSEMBLED_MECHAREX_LEG.get());
+                        output.accept(RileyModItems.UNASSEMBLED_MECHAREX_TAIL.get());
+                        output.accept(RileyModItems.MECHAREX_CANNON.get());
+                        output.accept(RileyModItems.ARMOR_PLATING.get());
+                        output.accept(RileyModItems.CANNON_SHEILD.get());
+
 
 
                     })
