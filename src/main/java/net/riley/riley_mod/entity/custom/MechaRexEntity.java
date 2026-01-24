@@ -66,7 +66,7 @@ public class MechaRexEntity extends TamableAnimal {
                 .add(Attributes.ATTACK_DAMAGE, 20f);
 
     }
-//TODO fix animation speed for walking. Register all animations to model. Add attack goal for the tail swipe and bomb launch.
+//TODO fix animation speed for walking. Register all animations to model. Add attack goal for the tail swipe and bomb launch. Figure out how to make it spawn in the Activaction animation.
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
