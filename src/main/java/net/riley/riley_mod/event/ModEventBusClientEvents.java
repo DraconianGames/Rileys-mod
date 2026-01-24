@@ -22,5 +22,6 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.SKELETONFAIRY_LAYER, SkeletonFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.SKULL_FAIRY_LAYER, SkullFairyModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.BISON_LAYER, BisonModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.MECHAREXBOMB_LAYER, MechaRex_Bomb_Model::createBodyLayer);
     }
 }
