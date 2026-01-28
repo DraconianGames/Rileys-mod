@@ -36,6 +36,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.SKULL_FAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.BISON_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
+                        output.accept(RileyModItems.SPEAR.get());
 
                         output.accept(RileyModItems.CAGGED_FAIRY.get());
 
