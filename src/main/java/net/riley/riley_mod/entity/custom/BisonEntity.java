@@ -21,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
-//Todo make it act like horse. fix player positioning.
 public class BisonEntity extends AbstractChestedHorse {
 
     public BisonEntity(EntityType<? extends BisonEntity> pEntityType, Level pLevel) {
@@ -118,4 +117,30 @@ public class BisonEntity extends AbstractChestedHorse {
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.BISON.get().create(pLevel);
     }
+    //TODO Adjust rider position
+    //TODO add chest and saddle logic
+    /*
+     protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
+      int i = this.getPassengers().indexOf(pPassenger);
+      if (i >= 0) {
+         boolean flag = i == 0;
+         float f = 0.5F;
+         float f1 = (float)(this.isRemoved() ? (double)0.01F : this.getBodyAnchorAnimationYOffset(flag, 0.0F) + pPassenger.getMyRidingOffset());
+         if (this.getPassengers().size() > 1) {
+            if (!flag) {
+               f = -0.7F;
+            }
+
+            if (pPassenger instanceof Animal) {
+               f += 0.2F;
+            }
+         }
+
+         Vec3 vec3 = (new Vec3(0.0D, 0.0D, (double)f)).yRot(-this.yBodyRot * ((float)Math.PI / 180F));
+         pCallback.accept(pPassenger, this.getX() + vec3.x, this.getY() + (double)f1, this.getZ() + vec3.z);
+         this.clampRotation(pPassenger);
+      }
+   }
+    */
+
 }
