@@ -20,6 +20,9 @@ public class MechaRexRenderer extends MobRenderer<MechaRexEntity, MechaRexModel<
 
     @Override
     public void render(MechaRexEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        if(pEntity.isBaby()) {
+            pMatrixStack.scale(0.3f, 0.3f, 0.3f);
+        }
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.item.custom.CaggedFairyItem;
+import net.riley.riley_mod.item.custom.MecharexEggItem;
 import net.riley.riley_mod.item.custom.RileyModArmorItem;
 import net.riley.riley_mod.item.custom.RileyModPortalItem;
 
@@ -49,7 +50,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> MECHAREX_BRAIN = ITEMS.register("mecharex_brain",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MECHAREX_EGG = ITEMS.register("mecharex_egg",
-            () -> new Item(new Item.Properties()));//TODO make spawn tamed mecha rex baby
+            () -> new MecharexEggItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> MECHAREX_ENGINE = ITEMS.register("mecharex_engine",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MECHAREX_HEAD = ITEMS.register("mecharex_head",
