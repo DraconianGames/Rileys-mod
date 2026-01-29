@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:armor_plating"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "A  "
+  ],
+  "result": {
+    "item": "riley_mod:cannon_sheild"
+  },
+  "show_notification": true
+}

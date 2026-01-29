@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:mecharex_head"
+    },
+    "B": {
+      "item": "riley_mod:mecharex_torso"
+    },
+    "C": {
+      "item": "riley_mod:mecharex_tail"
+    },
+    "D": {
+      "item": "riley_mod:mecharex_leg"
+    },
+    "E": {
+      "item": "riley_mod:armor_plating"
+    }
+  },
+  "pattern": [
+    "EAE",
+    "DBD",
+    "ECE"
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_egg"
+  },
+  "show_notification": true
+}

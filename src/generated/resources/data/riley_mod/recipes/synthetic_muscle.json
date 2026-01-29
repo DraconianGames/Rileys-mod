@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:sculk"
+    }
+  },
+  "pattern": [
+    "AA ",
+    " AA",
+    "AA "
+  ],
+  "result": {
+    "item": "riley_mod:synthetic_muscle"
+  },
+  "show_notification": true
+}

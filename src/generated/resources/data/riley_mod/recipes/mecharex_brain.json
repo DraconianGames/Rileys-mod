@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:living_machanical_nurons"
+    }
+  },
+  "pattern": [
+    "AAA",
+    " A ",
+    " A "
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_brain"
+  },
+  "show_notification": true
+}

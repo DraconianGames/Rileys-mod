@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:unassembled_mecharex_leg"
+    },
+    "B": {
+      "item": "riley_mod:synthetic_muscle"
+    },
+    "C": {
+      "item": "riley_mod:living_machanical_nurons"
+    }
+  },
+  "pattern": [
+    "BBC",
+    "BAC",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_leg"
+  },
+  "show_notification": true
+}

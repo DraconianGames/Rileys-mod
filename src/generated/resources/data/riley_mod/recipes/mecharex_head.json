@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:mecha_rex_unassembled_head"
+    },
+    "B": {
+      "item": "riley_mod:lydar"
+    },
+    "C": {
+      "item": "riley_mod:mecharex_brain"
+    },
+    "D": {
+      "item": "riley_mod:cannon_sheild"
+    },
+    "E": {
+      "item": "riley_mod:mecharex_cannon"
+    }
+  },
+  "pattern": [
+    "DDD",
+    "DEA",
+    "BBC"
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_head"
+  },
+  "show_notification": true
+}

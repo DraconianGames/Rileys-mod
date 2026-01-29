@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:glass_bottle"
+    },
+    "B": {
+      "item": "minecraft:beef"
+    },
+    "C": {
+      "item": "minecraft:clock"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB",
+    "AC "
+  ],
+  "result": {
+    "item": "riley_mod:living_machanical_nurons"
+  },
+  "show_notification": true
+}

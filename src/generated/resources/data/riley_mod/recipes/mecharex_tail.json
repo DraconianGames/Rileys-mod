@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "riley_mod:synthetic_muscle"
+    },
+    "C": {
+      "item": "riley_mod:living_machanical_nurons"
+    },
+    "D": {
+      "item": "riley_mod:unassembled_mecharex_tail"
+    }
+  },
+  "pattern": [
+    "CCB",
+    "BDC",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_tail"
+  },
+  "show_notification": true
+}

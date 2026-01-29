@@ -74,6 +74,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CANNON_SHEILD = ITEMS.register("cannon_sheild",
             () -> new Item(new Item.Properties()));
+
+
     public static final RegistryObject<Item> SPEAR = ITEMS.register("spear",
             () -> new Item(new Item.Properties()));
 

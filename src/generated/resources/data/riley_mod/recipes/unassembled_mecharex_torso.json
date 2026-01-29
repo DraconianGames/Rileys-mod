@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:armor_plating"
+    },
+    "B": {
+      "item": "riley_mod:synthetic_muscle"
+    },
+    "C": {
+      "item": "riley_mod:living_machanical_nurons"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "BCC",
+    "AAA"
+  ],
+  "result": {
+    "item": "riley_mod:unassembled_mecharex_torso"
+  },
+  "show_notification": true
+}

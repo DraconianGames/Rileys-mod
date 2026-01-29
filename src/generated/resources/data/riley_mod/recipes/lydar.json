@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:living_machanical_nurons"
+    },
+    "B": {
+      "item": "minecraft:red_stained_glass_pane"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BAB",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:lydar"
+  },
+  "show_notification": true
+}

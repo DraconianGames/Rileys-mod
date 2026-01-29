@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:armor_plating"
+    },
+    "B": {
+      "item": "minecraft:iron_block"
+    }
+  },
+  "pattern": [
+    "A A",
+    "A A",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:mecharex_cannon"
+  },
+  "show_notification": true
+}
