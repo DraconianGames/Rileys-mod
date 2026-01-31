@@ -90,6 +90,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ENCHANTER.get());
                         output.accept(RileyModBlocks.MORPH_STATION.get());
                         output.accept(RileyModBlocks.TROPHY_READER.get());
+
                         output.accept(RileyModItems.DARK_JOURNAL.get());
 
                         output.accept(RileyModItems.LIVING_MACHANICAL_NURONS.get());

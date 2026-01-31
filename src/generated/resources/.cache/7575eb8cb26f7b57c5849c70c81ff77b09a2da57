@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-07T19:51:02.792605	Block States: riley_mod
+// 1.20.1	2026-01-30T23:14:17.5665395	Block States: riley_mod
 892275efd6c4a5886593bc3447e00c207d022c1a assets/riley_mod/blockstates/abyssal_cobblestone.json
 f5931e86b557cc362c6df94e0bf443776b70303f assets/riley_mod/blockstates/abyssal_dirt.json
 9d9b958fe14afe3504a6dbbbed5273045560e72c assets/riley_mod/blockstates/abyssal_grass.json
@@ -28,6 +28,7 @@ d68e8f2b5c79b5c02f276bf80aa0546e8247c744 assets/riley_mod/blockstates/stripped_a
 efc7d8b35e5a9eeb32572e2f55eaa1e95703450f assets/riley_mod/blockstates/structure_brick_slab.json
 13418fea12cbe49c0ac5d7bdf1da8b1d6c711bf0 assets/riley_mod/blockstates/structure_brick_stairs.json
 160080acb9a9796618134e78234b8f9d84356dee assets/riley_mod/blockstates/structure_brick_wall.json
+fd6b75edd261a0e67dc90b8ad7d0134f6ae1fcc0 assets/riley_mod/blockstates/trophy_reader.json
 e862e700b4f27c1e400630f82a4eb689eb3b8860 assets/riley_mod/models/block/abyssal_cobblestone.json
 a03b460786f6095f87060151d7a723633dab724c assets/riley_mod/models/block/abyssal_dirt.json
 d0e572f187898faf9df79fee88008214e42b1291 assets/riley_mod/models/block/abyssal_grass.json
@@ -79,6 +80,7 @@ a0b875f615a76de13d4bb77542d0ad244e7dcee7 assets/riley_mod/models/block/structure
 be3f213664d5fb983fa01a8f3db7b04ca749f8c4 assets/riley_mod/models/block/structure_brick_wall_post.json
 b611f82a36dd8c6fafcc87ff05298c5692a7795f assets/riley_mod/models/block/structure_brick_wall_side.json
 ebe6163e3e73d1d473af26ac8329c4375839eca9 assets/riley_mod/models/block/structure_brick_wall_side_tall.json
+2fc21f6a47a2839a61dfd39e0c68b50217acea35 assets/riley_mod/models/block/trophy_reader.json
 e91cb2e693044739bf77343714e4d2b0593091c9 assets/riley_mod/models/item/abyssal_cobblestone.json
 65beee8a1813ca8e7919a9dbfe63d3710a3bb584 assets/riley_mod/models/item/abyssal_dirt.json
 42dba31f3c67c45d47370ef9c96f16030a8c84b8 assets/riley_mod/models/item/abyssal_grass.json
@@ -96,3 +98,4 @@ e301f591c31738e8a135f7e6c7124cc642668c2a assets/riley_mod/models/item/night_star
 bc5cefe3a08e1ff38512501cd99f5bfecc5d7324 assets/riley_mod/models/item/stripped_abyss_log.json
 805dbb44cc60cd5e487d76537f2f3da74beaab82 assets/riley_mod/models/item/stripped_abyss_wood.json
 910c8822f2f4579d407b6941d346b6f35e1913e5 assets/riley_mod/models/item/structure_brick.json
+325e95e8eb7307a79048dca494982b03fdc597fa assets/riley_mod/models/item/trophy_reader.json

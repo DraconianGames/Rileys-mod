@@ -80,6 +80,8 @@ public class BisonEntity extends AbstractChestedHorse {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
+
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(Items.CARROT)));
         this.goalSelector.addGoal(3,new TemptGoal(this,1D, Ingredient.of(Items.CARROT),false));
@@ -88,6 +90,16 @@ public class BisonEntity extends AbstractChestedHorse {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
+
+        // Chest-on-like-a-mule behavior (explicit, reliable)
+        if (itemstack.is(Items.CHEST) && this.isTamed() && !this.isBaby() && !this.hasChest()) {
+            if (!this.level().isClientSide) {
+                this.setChest(true);
+                this.createInventory(); // expands inventory for chested horses
+                if (!pPlayer.getAbilities().instabuild) itemstack.shrink(1);
+            }
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
         if (this.isFood(itemstack)) {
             int cooldown = this.getPersistentData().getInt("BreedCooldown");
             if (cooldown > 0) return InteractionResult.PASS;
@@ -111,36 +123,20 @@ public class BisonEntity extends AbstractChestedHorse {
                 .add(Attributes.MOVEMENT_SPEED, .3D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
-                .add(Attributes.ATTACK_DAMAGE,10f);
+                .add(Attributes.ATTACK_DAMAGE,10f)
+                .add(Attributes.JUMP_STRENGTH, 0.7D);
+
+    }
+    @Override
+    public double getPassengersRidingOffset() {
+        // Raise the rider; tweak this number until it looks right.
+        return super.getPassengersRidingOffset() + 0.35D;
     }
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.BISON.get().create(pLevel);
     }
-    //TODO Adjust rider position
-    //TODO add chest and saddle logic
-    /*
-     protected void positionRider(Entity pPassenger, Entity.MoveFunction pCallback) {
-      int i = this.getPassengers().indexOf(pPassenger);
-      if (i >= 0) {
-         boolean flag = i == 0;
-         float f = 0.5F;
-         float f1 = (float)(this.isRemoved() ? (double)0.01F : this.getBodyAnchorAnimationYOffset(flag, 0.0F) + pPassenger.getMyRidingOffset());
-         if (this.getPassengers().size() > 1) {
-            if (!flag) {
-               f = -0.7F;
-            }
+  //TODO fix nonexistance in the pets section when tamed
 
-            if (pPassenger instanceof Animal) {
-               f += 0.2F;
-            }
-         }
-
-         Vec3 vec3 = (new Vec3(0.0D, 0.0D, (double)f)).yRot(-this.yBodyRot * ((float)Math.PI / 180F));
-         pCallback.accept(pPassenger, this.getX() + vec3.x, this.getY() + (double)f1, this.getZ() + vec3.z);
-         this.clampRotation(pPassenger);
-      }
-   }
-    */
 
 }

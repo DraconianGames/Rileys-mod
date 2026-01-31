@@ -51,18 +51,12 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
             () -> new MorphStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> AUGMENTATION_STATION = registerBlock("augmentation_station",
             () -> new AugmentationStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
-    public static final RegistryObject<Block> TROPHY_READER= registerBlock("trophy_reader",
-            () -> new TrophyReaderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
 
     public static final RegistryObject<Block> TROPHY_FILLER = BLOCKS.register("trophy_filler",
             () -> new TrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
-    public static final RegistryObject<Block> TROPHY_READER_FILLER = BLOCKS.register("trophy_reader_filler",
-            () -> new TrophyReaderFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .noLootTable()
-                    .noOcclusion()));
-    public static final RegistryObject<Block> MORPH_STATION_FILLER = BLOCKS.register("morph_station_filler",
+      public static final RegistryObject<Block> MORPH_STATION_FILLER = BLOCKS.register("morph_station_filler",
             () -> new MorphStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
@@ -159,6 +153,8 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
     public static final RegistryObject<Block> STRUCTURE_BRICK_WALL = registerBlock("structure_brick_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
 
+    public static final RegistryObject<Block> TROPHY_READER = registerBlock("trophy_reader",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
             () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)

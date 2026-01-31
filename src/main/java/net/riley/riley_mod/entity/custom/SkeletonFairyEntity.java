@@ -327,6 +327,9 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
                     }
 
                     babySkullFairy.setAge(-24000); // Make it a baby
+                    // Start transform animation + freeze for 2 seconds (40 ticks)
+                    babySkullFairy.startTransform(80);
+
                     this.level().broadcastEntityEvent(babySkullFairy, (byte)7); // confirm with hearts
                 }
             }else {

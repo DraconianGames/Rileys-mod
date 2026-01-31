@@ -169,6 +169,19 @@ public class BisonModel<T extends Entity> extends HierarchicalModel<T> {
 
 this.animateWalk(BisonAnimationDefinitions.BISON_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
 this.animate(((BisonEntity) entity).idleAnimationState,BisonAnimationDefinitions.BISON_IDLE,ageInTicks,1f);
+
+		BisonEntity bisonEntity = (BisonEntity) entity;
+
+		// Mule-like visuals:
+		this.saddle.visible = bisonEntity.isSaddled();
+		this.chest.visible = bisonEntity.hasChest();
+
+		// "Reins" usually only show when saddled AND being ridden/controlled.
+		// If you want them visible whenever saddled, drop the isVehicle() check.
+		this.reins.visible = bisonEntity.isSaddled() && bisonEntity.isVehicle();
+		this.bridle.visible = bisonEntity.isSaddled() && bisonEntity.isVehicle();
+
+
 	}
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
 		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -30.0F, 30.0F);

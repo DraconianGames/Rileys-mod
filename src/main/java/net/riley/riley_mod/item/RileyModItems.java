@@ -40,7 +40,6 @@ public class RileyModItems {
     public static final RegistryObject<Item> FANCY_SKULL = ITEMS.register("fancy_skull",
             () -> new Item(new Item.Properties()));
 
-    //TODO make new crafting recipies for dino parts
     public static final RegistryObject<Item> LIVING_MACHANICAL_NURONS = ITEMS.register("living_machanical_nurons",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LYDAR = ITEMS.register("lydar",

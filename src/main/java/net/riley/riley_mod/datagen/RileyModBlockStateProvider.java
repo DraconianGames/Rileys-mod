@@ -65,7 +65,9 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         fenceBlock(((FenceBlock) RileyModBlocks.STRUCTURE_BRICK_FENCE.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
         fenceGateBlock(((FenceGateBlock) RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
         wallBlock(((WallBlock) RileyModBlocks.STRUCTURE_BRICK_WALL.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
-        
+
+        topTexturedBlock(RileyModBlocks.TROPHY_READER, "trophy_reader", "trophy_reader_top");
+
     }
     private void makeAbyssPortal(Block block) {
         // This creates the thin model (4 pixels thick on the Z axis)
@@ -95,6 +97,15 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         simpleBlockWithItem(blockRegistryObject.get(),
                 models().singleTexture(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), new ResourceLocation("minecraft:block/leaves"),
                         "all", blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+    private void topTexturedBlock(RegistryObject<Block> blockRegistryObject, String sideAndBottomTexture, String topTexture) {
+        ModelFile model = models().cubeBottomTop(
+                blockRegistryObject.getId().getPath(),
+                modLoc("block/" + sideAndBottomTexture), // sides
+                modLoc("block/" + sideAndBottomTexture), // bottom (same as default)
+                modLoc("block/" + topTexture)            // top
+        );
+        simpleBlockWithItem(blockRegistryObject.get(), model);
     }
     private void blockItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockItem(blockRegistryObject.get(), new ModelFile.UncheckedModelFile(RileyMod.MODID +

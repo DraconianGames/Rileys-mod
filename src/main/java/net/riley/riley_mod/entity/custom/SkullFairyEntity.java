@@ -33,6 +33,9 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
 
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(BoneFairyEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRANSFORMING =
+            SynchedEntityData.defineId(SkullFairyEntity.class, EntityDataSerializers.BOOLEAN);
+
 
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState idleAnimationState = new AnimationState();
@@ -40,6 +43,10 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState begAnimationState = new AnimationState();
     public final AnimationState sitAnimationState = new AnimationState();
+
+    // Transform animation (2s) - should only play after SkeletonFairy -> SkullFairy conversion
+    public final AnimationState transformAnimationState = new AnimationState();
+    private int transformTicksRemaining = 0;
 
     public int attackAnimationTimeout = 0;
 
@@ -60,8 +67,17 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
+        this.entityData.define(TRANSFORMING, false);
+    }
+    public void startTransform(int ticks) {
+        this.transformTicksRemaining = Math.max(this.transformTicksRemaining, ticks);
+        this.entityData.set(TRANSFORMING, true);
     }
 
+    private boolean isTransforming() {
+        // Client reads synced flag, server also uses local timer for freezing
+        return this.entityData.get(TRANSFORMING);
+    }
     public void setAttacking(boolean attacking) {
         this.entityData.set(ATTACKING, attacking);
     }
@@ -72,11 +88,33 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
     @Override
     public void tick() {
         super.tick();
+
+
+        // Server: pick up the conversion tag once, then clear it
+        if (!this.level().isClientSide) {
+            if (this.transformTicksRemaining > 0) {
+                this.transformTicksRemaining--;
+                if (this.transformTicksRemaining <= 0) {
+                    this.entityData.set(TRANSFORMING, false);
+                }
+            }
+        }
+
         if (this.level().isClientSide()) {
             setupAnimationStates();
         }
     }
+
+
     private void setupAnimationStates() {
+        // If transforming: play ONLY the transform animation for its duration
+        if (this.isTransforming()) {
+            transformAnimationState.startIfStopped(this.tickCount);
+            stopAllExcept(transformAnimationState);
+            return;
+        } else {
+            transformAnimationState.stop();
+        }
         if (this.isAttacking() && attackAnimationTimeout <= 0) {
             attackAnimationTimeout = 15; // Match your animation length (0.5s = 10 ticks)
             attackAnimationState.start(this.tickCount);
@@ -119,6 +157,7 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
         if (activeState != idleAnimationState) idleAnimationState.stop();
         if (activeState != begAnimationState) begAnimationState.stop();
         if (activeState != sitAnimationState) sitAnimationState.stop();
+        if (activeState != transformAnimationState) transformAnimationState.stop();
     }
     @Override
     protected void registerGoals() {
@@ -127,7 +166,7 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get()), false));
-        //TODO fix stopping distance of beg.
+
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override
             public void start() {
@@ -156,7 +195,18 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
     @Override
     public void aiStep() {
         super.aiStep();
-
+        // Freeze on server while transforming
+        if (!this.level().isClientSide && this.transformTicksRemaining > 0) {
+            this.navigation.stop();
+            this.setDeltaMovement(Vec3.ZERO);
+            return;
+        }
+        // Hard-freeze while transforming (no drifting, no AI motion)
+        if (this.isTransforming()) {
+            this.navigation.stop();
+            this.setDeltaMovement(Vec3.ZERO);
+            return;
+        }
         if (!this.level().isClientSide) {
             // Night Terror Logic: Weightless unless sitting
             if (this.isOrderedToSit()) {
@@ -216,6 +266,12 @@ public class SkullFairyEntity extends TamableAnimal implements FlyingAnimal {
     }
     @Override
     public void travel(Vec3 pTravelVector) {
+        // Freeze movement while transforming (prevents drift)
+        if (!this.level().isClientSide && this.transformTicksRemaining > 0) {
+            this.calculateEntityAnimation(false);
+            this.setDeltaMovement(Vec3.ZERO);
+            return;
+        }
         if (this.isOrderedToSit()) {
             this.calculateEntityAnimation(false);
             this.setDeltaMovement(this.getDeltaMovement().add(0, -0.3, 0));

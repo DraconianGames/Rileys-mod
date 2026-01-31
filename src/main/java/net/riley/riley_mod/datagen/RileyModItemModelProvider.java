@@ -105,10 +105,9 @@ public class RileyModItemModelProvider extends ItemModelProvider {
 
         flatBlockItem(RileyModBlocks.ABYSS_PORTAL);
         evenSimplerBlockItem2(RileyModBlocks.WHALE_HUNTER_TROPHY);
-        evenSimplerBlockItem2(RileyModBlocks.TROPHY_READER);
+        evenSimplerBlockItem2(RileyModBlocks.MORPH_STATION);
         evenSimplerBlockItem2(RileyModBlocks.ENCHANTER);
         evenSimplerBlockItem2(RileyModBlocks.AUGMENTATION_STATION);
-        evenSimplerBlockItem2(RileyModBlocks.MORPH_STATION);
     }
     private ItemModelBuilder flatBlockItem(RegistryObject<Block> block) {
         return withExistingParent(block.getId().getPath(),
