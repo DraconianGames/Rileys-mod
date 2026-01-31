@@ -18,7 +18,7 @@ import net.riley.riley_mod.entity.custom.FrostHopperEntity;
 
 public class FrostHopperModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "frosthoppermodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "frosthoppermodel"), "main");
 	private final ModelPart frosthopper;
 	private final ModelPart body;
 	private final ModelPart torso;

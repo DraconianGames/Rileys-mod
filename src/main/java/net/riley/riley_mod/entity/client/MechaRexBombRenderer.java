@@ -17,7 +17,7 @@ import net.riley.riley_mod.entity.custom.MechaRexBombEntity;
 public class MechaRexBombRenderer extends EntityRenderer<MechaRexBombEntity> {
 
     private static final ResourceLocation TEXTURE =
-            new ResourceLocation(RileyMod.MODID, "textures/entity/mecharex_bomb.png");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/mecharex_bomb.png");
 
     private final MechaRex_Bomb_Model<MechaRexBombEntity> model;
 

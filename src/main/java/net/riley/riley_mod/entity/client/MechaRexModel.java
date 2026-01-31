@@ -18,7 +18,7 @@ import net.riley.riley_mod.entity.custom.MechaRexEntity;
 
 public class MechaRexModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "mecharexmodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "mecharexmodel"), "main");
 	private final ModelPart mecha_rex;
 	private final ModelPart body;
 	private final ModelPart torso;

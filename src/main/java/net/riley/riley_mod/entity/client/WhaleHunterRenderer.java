@@ -15,7 +15,7 @@ public class WhaleHunterRenderer extends MobRenderer<WhaleHunterEntity, WhaleHun
 
     @Override
     public ResourceLocation getTextureLocation(WhaleHunterEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/whalehunter.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/whalehunter.png");
     }
 
     @Override

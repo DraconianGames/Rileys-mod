@@ -15,7 +15,7 @@ public class MechaRexRenderer extends MobRenderer<MechaRexEntity, MechaRexModel<
 
     @Override
     public ResourceLocation getTextureLocation(MechaRexEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/mecha_rex.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/mecha_rex.png");
     }
 
     @Override

@@ -15,7 +15,7 @@ public class SunlessCrabRenderer extends MobRenderer<SunlessCrabEntity,SunlessCr
 
     @Override
     public ResourceLocation getTextureLocation(SunlessCrabEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/sunless_crab.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/sunless_crab.png");
     }
     @Override
     public void render(SunlessCrabEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack,

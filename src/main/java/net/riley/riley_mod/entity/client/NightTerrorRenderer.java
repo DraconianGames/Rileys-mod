@@ -15,7 +15,7 @@ public class NightTerrorRenderer extends MobRenderer<NightTerrorEntity,NightTerr
 
     @Override
     public ResourceLocation getTextureLocation(NightTerrorEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/night_terror.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/night_terror.png");
     }
 
     @Override

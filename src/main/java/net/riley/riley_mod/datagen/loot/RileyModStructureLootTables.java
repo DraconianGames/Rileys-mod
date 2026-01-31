@@ -17,7 +17,7 @@ import java.util.function.BiConsumer;
 
 public class RileyModStructureLootTables implements LootTableSubProvider {
 
-    public static final ResourceLocation ARENA_CHEST = new ResourceLocation(RileyMod.MODID, "chests/arena");
+    public static final ResourceLocation ARENA_CHEST = ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "chests/arena");
 
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> builder) {

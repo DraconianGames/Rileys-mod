@@ -19,7 +19,7 @@ import net.riley.riley_mod.entity.custom.RapterEntity;
 
 public class RapterModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "rapter_model"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "rapter_model"), "main");
 	private final ModelPart rapter;
 	private final ModelPart body;
 	private final ModelPart torso;

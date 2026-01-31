@@ -15,7 +15,7 @@ public class SkullFairyRenderer extends MobRenderer<SkullFairyEntity, SkullFairy
 
     @Override
     public ResourceLocation getTextureLocation(SkullFairyEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/skull_fairy.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/skull_fairy.png");
     }
 
     @Override

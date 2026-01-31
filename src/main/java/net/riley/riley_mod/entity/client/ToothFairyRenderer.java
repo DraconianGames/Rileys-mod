@@ -20,7 +20,7 @@ public class ToothFairyRenderer extends MobRenderer<ToothFairyEntity, ToothFairy
 
     @Override
     public ResourceLocation getTextureLocation(ToothFairyEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/toothfairy.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/toothfairy.png");
     }
 
     @Override

@@ -18,7 +18,7 @@ public class FrostHopperRenderer extends MobRenderer<FrostHopperEntity, FrostHop
 
     @Override
     public ResourceLocation getTextureLocation(FrostHopperEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID,"textures/entity/frost_hopper.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"textures/entity/frost_hopper.png");
     }
 
 

@@ -17,7 +17,7 @@ public class SkeletonFairyRenderer extends MobRenderer<SkeletonFairyEntity,Skele
 
     @Override
     public ResourceLocation getTextureLocation(SkeletonFairyEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/skeletonfairy.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/skeletonfairy.png");
     }
 
     @Override

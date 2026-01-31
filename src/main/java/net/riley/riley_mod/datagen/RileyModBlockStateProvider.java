@@ -96,7 +96,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
     }
     private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(),
-                models().singleTexture(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), new ResourceLocation("minecraft:block/leaves"),
+                models().singleTexture(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(),ResourceLocation.fromNamespaceAndPath("minecraft","block/leaves"),
                         "all", blockTexture(blockRegistryObject.get())).renderType("cutout"));
     }
     private void topTexturedBlock(RegistryObject<Block> blockRegistryObject, String sideAndBottomTexture, String topTexture) {

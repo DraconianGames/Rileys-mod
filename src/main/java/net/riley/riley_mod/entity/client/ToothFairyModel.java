@@ -17,7 +17,7 @@ import net.riley.riley_mod.entity.custom.ToothFairyEntity;
 
 public class ToothFairyModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "toothfairymodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "toothfairymodel"), "main");
 	private final ModelPart toothfairy;
 	private final ModelPart body;
 	private final ModelPart torso;

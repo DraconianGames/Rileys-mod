@@ -15,7 +15,7 @@ public class BisonRenderer extends MobRenderer<BisonEntity, BisonModel<BisonEnti
 
     @Override
     public ResourceLocation getTextureLocation(BisonEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/bison.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/bison.png");
     }
 
     @Override

@@ -17,7 +17,7 @@ import org.lwjgl.glfw.GLFW;
 public class SpecialSpawnerScreen extends AbstractContainerScreen<SpecialSpawnerMenu> {
 
     private static final ResourceLocation BG =
-            new ResourceLocation(RileyMod.MODID, "textures/gui/special_spawner.png");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/special_spawner.png");
 
     // IMPORTANT: set these to your PNG’s real size (common is 256x256)
     private static final int TEX_W = 256;

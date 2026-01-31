@@ -15,7 +15,7 @@ public class RileyModPackets {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(RileyMod.MODID, "messages"))
+                .named(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)

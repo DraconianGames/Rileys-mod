@@ -18,7 +18,7 @@ import net.riley.riley_mod.entity.custom.BisonEntity;
 
 public class BisonModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "bison"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "bison"), "main");
 	private final ModelPart bison;
 	private final ModelPart body;
 	private final ModelPart torso;

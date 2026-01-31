@@ -18,7 +18,7 @@ import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 
 public class WhaleHunterModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "whalehuntermodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "whalehuntermodel"), "main");
 	private final ModelPart whalehunter;
 	private final ModelPart body;
 	private final ModelPart torso;

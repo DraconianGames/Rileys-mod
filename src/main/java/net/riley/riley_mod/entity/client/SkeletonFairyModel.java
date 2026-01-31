@@ -21,7 +21,7 @@ import net.riley.riley_mod.entity.custom.SkeletonFairyEntity;
 
 public class SkeletonFairyModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "skeletonfairymodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "skeletonfairymodel"), "main");
 	private final ModelPart skeletonfairy;
 	private final ModelPart body;
 	private final ModelPart torso;

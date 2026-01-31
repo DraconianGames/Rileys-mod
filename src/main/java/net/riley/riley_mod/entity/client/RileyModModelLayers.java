@@ -6,31 +6,31 @@ import net.riley.riley_mod.RileyMod;
 
 public class RileyModModelLayers {
     public static final ModelLayerLocation SUNLESS_CRAB_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "sunless_crab_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "sunless_crab_layer"),"main");
     public static final ModelLayerLocation RAPTER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "rapter_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "rapter_layer"),"main");
     public static final ModelLayerLocation FROST_HOPPER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "frost_hopper_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "frost_hopper_layer"),"main");
     public static final ModelLayerLocation NIGHT_TERROR_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "nightterror_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "nightterror_layer"),"main");
     public static final ModelLayerLocation WHALE_HUNTER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "whale_hunter_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "whale_hunter_layer"),"main");
     public static final ModelLayerLocation TOOTHFAIRY_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "toothfairy_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "toothfairy_layer"),"main");
     public static final ModelLayerLocation BONEFAIRY_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "bonefairy_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "bonefairy_layer"),"main");
     public static final ModelLayerLocation SKELETONFAIRY_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "skeletonfairy_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "skeletonfairy_layer"),"main");
 public static final ModelLayerLocation SKULL_FAIRY_LAYER = new ModelLayerLocation(
-        new ResourceLocation(RileyMod.MODID, "skull_fairy_layer"),"main");
+        ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "skull_fairy_layer"),"main");
 public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
-        new ResourceLocation(RileyMod.MODID, "bison_layer"),"main");
+        ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "bison_layer"),"main");
 
     public static final ModelLayerLocation MECHAREXBOMB_LAYER =new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "mecharex_bomb"), "main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_bomb"), "main");
 
     public static final ModelLayerLocation MECHAREX_LAYER = new ModelLayerLocation(
-            new ResourceLocation(RileyMod.MODID, "mecharex_layer"),"main");
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_layer"),"main");
 
 
 

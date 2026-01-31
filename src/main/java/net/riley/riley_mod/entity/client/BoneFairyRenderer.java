@@ -16,7 +16,7 @@ public class BoneFairyRenderer extends MobRenderer<BoneFairyEntity, BoneFairyMod
 
     @Override
     public ResourceLocation getTextureLocation(BoneFairyEntity pEntity) {
-        return new ResourceLocation(RileyMod.MODID, "textures/entity/bonefairy.png");
+        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/bonefairy.png");
     }
     @Override
     public void render(BoneFairyEntity pEntity, float pEntityYaw, float pPartialTick, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {

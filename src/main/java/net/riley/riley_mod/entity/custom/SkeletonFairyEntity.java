@@ -128,7 +128,7 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),RileyModItems.FANCY_SKULL.get()), false));//TODO change bone to new item
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),RileyModItems.FANCY_SKULL.get()), false));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override
             public void start() {
@@ -164,7 +164,7 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
                 .add(Attributes.ATTACK_DAMAGE, 240f);
 
     }
-    //TODO add transformation to skull fairy
+
     @Override
     public void aiStep() {
         super.aiStep();

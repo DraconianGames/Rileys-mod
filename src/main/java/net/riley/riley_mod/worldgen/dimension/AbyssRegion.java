@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class AbyssRegion extends Region {
     public AbyssRegion(int weight) {
-        super(new ResourceLocation(RileyMod.MODID, "abyss_region"), RegionType.OVERWORLD, weight);
+        super(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_region"), RegionType.OVERWORLD, weight);
     }
 
     @Override

@@ -64,7 +64,6 @@ public class RileyMod
 //TODO upgrade tree
 //TODO add new station that makes enchanting easier.
 //TODO add bane of mystic. Does double damage to things that are not real.
-//TODO Block when activated spawns a boss
 //TODO Update Journal entries.
 
         RileyModSounds.register(modEventBus);

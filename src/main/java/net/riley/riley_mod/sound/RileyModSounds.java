@@ -26,7 +26,7 @@ public static final RegistryObject<SoundEvent> NIGHT_TERROR_ROAR = registerSound
 
 
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
-return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(RileyMod.MODID, name)));
+return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name)));
 
     }
 
