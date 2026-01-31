@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 import java.util.UUID;
-
+//TODO add goal to other mobs
 public class DisableFriendlyTargetGoal extends Goal {
     private final TamableAnimal mob;
 

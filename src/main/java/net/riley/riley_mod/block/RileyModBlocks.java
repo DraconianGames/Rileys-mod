@@ -41,8 +41,11 @@ public class RileyModBlocks {
     public static final RegistryObject<Block> NIGHT_STAR = BLOCKS.register("night_star",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).lightLevel((state) -> 15)));
 
+    public static final RegistryObject<Block> SPECIAL_SPAWNER = registerBlock("special_spawner",
+            () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
 
-//trophies
+
+    //trophies
 public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("whale_hunter_trophy",
         () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> ENCHANTER = registerBlock("enchanter",

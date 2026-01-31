@@ -28,6 +28,12 @@ public class RileyModPackets {
                 .encoder(PetActionPacket::toBytes)
                 .consumerMainThread(PetActionPacket::handle)
                 .add();
+
+        net.messageBuilder(SpecialSpawnerSettingsPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SpecialSpawnerSettingsPacket::new)
+                .encoder(SpecialSpawnerSettingsPacket::toBytes)
+                .consumerMainThread(SpecialSpawnerSettingsPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {

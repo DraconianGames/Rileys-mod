@@ -1,6 +1,7 @@
 package net.riley.riley_mod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.entity.registry.RileyModBlockEntities;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
@@ -26,6 +28,7 @@ import net.riley.riley_mod.entity.client.*;
 import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.menu.RileyModMenuTypes;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
@@ -70,6 +73,8 @@ public class RileyMod
         RileyModItems.register(modEventBus);
         RileyModEntities.register(modEventBus);
         RileyModBlocks.register(modEventBus);
+        RileyModMenuTypes.register(modEventBus);
+        RileyModBlockEntities.register(modEventBus);
         RileyModEffects.register(modEventBus);
         RileyModPotions.register(modEventBus);
 
@@ -129,6 +134,9 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRexBombRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
+            event.enqueueWork(() -> {
+                MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
+            });
         }
     }
 }

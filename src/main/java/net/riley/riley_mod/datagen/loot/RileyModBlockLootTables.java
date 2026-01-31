@@ -40,6 +40,7 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.MORPH_STATION.get());
         this.dropSelf(RileyModBlocks.TROPHY_READER.get());
         this.dropSelf(RileyModBlocks.NIGHT_STAR.get());
+        this.dropSelf(RileyModBlocks.SPECIAL_SPAWNER.get());
 
         this.add(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(),
                 block -> createCopperLikeOreDrops(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(), RileyModItems.FUNTIUM_ORE.get()));

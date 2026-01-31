@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-30T23:14:17.5665395	Block States: riley_mod
+// 1.20.1	2026-01-31T14:39:22.2959712	Block States: riley_mod
 892275efd6c4a5886593bc3447e00c207d022c1a assets/riley_mod/blockstates/abyssal_cobblestone.json
 f5931e86b557cc362c6df94e0bf443776b70303f assets/riley_mod/blockstates/abyssal_dirt.json
 9d9b958fe14afe3504a6dbbbed5273045560e72c assets/riley_mod/blockstates/abyssal_grass.json
@@ -20,6 +20,7 @@ f2f04e09c9cef427177179ef0e732d71cd8eeee0 assets/riley_mod/blockstates/abyss_wood
 7739bd480f13916b111f86f6888f454295f95e7c assets/riley_mod/blockstates/funtium_block.json
 1536a2e3b2b85ef15c213d187aa10d44849e6b4b assets/riley_mod/blockstates/funtium_ore_block.json
 8b5b7cd66adc49e33c79c4fcbdc2fab0b60f3491 assets/riley_mod/blockstates/night_star.json
+be92fb94824738fdb22971eca722c4586fcaac5d assets/riley_mod/blockstates/special_spawner.json
 d68e8f2b5c79b5c02f276bf80aa0546e8247c744 assets/riley_mod/blockstates/stripped_abyss_log.json
 54506dad635a3f4cc16717fb8dd83ec232d8ba17 assets/riley_mod/blockstates/stripped_abyss_wood.json
 3fa3ea05258d35fc3d2566093dd1d65eb355ea5a assets/riley_mod/blockstates/structure_brick.json
@@ -61,6 +62,7 @@ a4f8d0ac005a1205b8a3ba0d62ad5bc78b18717f assets/riley_mod/models/block/deepslate
 1f30bf2994728a38d1200986c8c3fa17546c728c assets/riley_mod/models/block/funtium_block.json
 e7b5e6946f4d620782921100ae6214d4a16f34d7 assets/riley_mod/models/block/funtium_ore_block.json
 c51afaa32899b16505957d174260e89c5b564981 assets/riley_mod/models/block/night_star.json
+72fe4a5608154e4d8861271f57e2c5c765a8a195 assets/riley_mod/models/block/special_spawner.json
 49c5a451bd7b8e1e59960d3e66f13e7f97390b74 assets/riley_mod/models/block/stripped_abyss_log.json
 324b4e16ba91808c7c3d05e90cc8510bb434c3a0 assets/riley_mod/models/block/stripped_abyss_log_horizontal.json
 df15a41250c4659c39cb53973eaba5f98f2e3fec assets/riley_mod/models/block/stripped_abyss_wood.json
@@ -95,6 +97,7 @@ e91cb2e693044739bf77343714e4d2b0593091c9 assets/riley_mod/models/item/abyssal_co
 b9de9715c893c9dc9c8bbd274dd859a451e86f42 assets/riley_mod/models/item/funtium_block.json
 4583ba0fa2f9ef5e5618a9f3477fad084ae1a6c2 assets/riley_mod/models/item/funtium_ore_block.json
 e301f591c31738e8a135f7e6c7124cc642668c2a assets/riley_mod/models/item/night_star.json
+2c71e3908be55f07227097362353af4cbbf8d11d assets/riley_mod/models/item/special_spawner.json
 bc5cefe3a08e1ff38512501cd99f5bfecc5d7324 assets/riley_mod/models/item/stripped_abyss_log.json
 805dbb44cc60cd5e487d76537f2f3da74beaab82 assets/riley_mod/models/item/stripped_abyss_wood.json
 910c8822f2f4579d407b6941d346b6f35e1913e5 assets/riley_mod/models/item/structure_brick.json
