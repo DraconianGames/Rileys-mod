@@ -272,8 +272,31 @@ public class MechaRexModel<T extends Entity> extends HierarchicalModel<T> {
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-		this.animateWalk(MechaRexAnimationDefinitions.MECHAREX_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
-		this.animate(((MechaRexEntity) entity).idleAnimationState,MechaRexAnimationDefinitions.MECHAREX_IDLE,ageInTicks,1f);
+
+		MechaRexEntity rex = (MechaRexEntity) entity;
+
+		if (rex.isActivating()) {
+			this.animate(rex.activationAnimationState, MechaRexAnimationDefinitions.MECHAREX_ACTIVATION, ageInTicks, 1f);
+			return;
+		}
+		// 1) WALK first (base layer)
+		// Only if actually moving; otherwise it can "fight" idle/attacks.
+		if (limbSwingAmount > 0.01F) {
+			this.animateWalk(MechaRexAnimationDefinitions.MECHAREX_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
+		}
+
+		// 2) ATTACKS second (overlay on top of walk)
+		if (rex.isTailSwiping()) {
+			this.animate(rex.tailSwipeAnimationState, MechaRexAnimationDefinitions.MECHAREX_TAIL_SWIPE, ageInTicks, 1f);
+		}
+		if (rex.isLaunchingBomb()) {
+			this.animate(rex.launchBombAnimationState, MechaRexAnimationDefinitions.MECHAREX_LAUNCH_BOMB, ageInTicks, 1f);
+		}
+
+		// 3) IDLE last, but only when not walking and not attacking
+		if (limbSwingAmount <= 0.01F && !rex.isTailSwiping() && !rex.isLaunchingBomb()) {
+			this.animate(rex.idleAnimationState, MechaRexAnimationDefinitions.MECHAREX_IDLE, ageInTicks, 1f);
+		}
 
 
 	}

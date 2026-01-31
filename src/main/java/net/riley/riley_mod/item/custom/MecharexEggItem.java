@@ -39,9 +39,16 @@ public class MecharexEggItem extends Item {
         MechaRexEntity mecha = type.create(level);
         if (mecha != null) {
             mecha.moveTo(x, y, z, player != null ? player.getYRot() : 0.0F, 0.0F);
-            mecha.setAge(-24000); // make it a baby (same approach used elsewhere in the repo)
-            // Optionally set tamed/owner here if desired:
-            if (player != null) { mecha.setTame(true); mecha.setOwnerUUID(player.getUUID()); }
+            mecha.setAge(-24000);
+
+            if (player != null) {
+                mecha.setTame(true);
+                mecha.setOwnerUUID(player.getUUID());
+            }
+
+            // Add this: play activation animation only for egg-spawned rex
+            mecha.startActivation();
+
             level.addFreshEntity(mecha);
 
             if (player != null && !player.getAbilities().instabuild) {

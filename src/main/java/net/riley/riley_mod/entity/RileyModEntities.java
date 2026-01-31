@@ -45,9 +45,14 @@ public static final RegistryObject<EntityType<SkullFairyEntity>> SKULL_FAIRY =
 public static final RegistryObject<EntityType<BisonEntity>> BISON =
         ENTITY_TYPES.register("bison",()-> EntityType.Builder.of(BisonEntity::new,MobCategory.CREATURE)
                 .sized(1f,1.5f).build("bison"));
-public static final RegistryObject<EntityType<MechaRexBombEntity>> MECHAREXBOMB =
-        ENTITY_TYPES.register("mecharexbomb", ()-> EntityType.Builder.of(MechaRexBombEntity::new,MobCategory.CREATURE)
-                .sized(0.75f,0.75f).build("mecharexbomb"));
+    public static final RegistryObject<EntityType<MechaRexBombEntity>> MECHAREXBOMB =
+            ENTITY_TYPES.register("mecharexbomb", () ->
+                    EntityType.Builder.<MechaRexBombEntity>of(MechaRexBombEntity::new, MobCategory.MISC)
+                            .sized(0.75f, 0.75f)
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+                            .build("mecharexbomb")
+            );
     public static final RegistryObject<EntityType<MechaRexEntity>> MECHAREX =
             ENTITY_TYPES.register("mecharex", ()-> EntityType.Builder.of(MechaRexEntity::new,MobCategory.CREATURE)
                     .sized(4f,3.5f).build("mecharex"));
