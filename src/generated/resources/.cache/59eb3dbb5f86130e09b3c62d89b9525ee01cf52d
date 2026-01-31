@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-28T19:38:53.7541498	Loot Tables
+// 1.20.1	2026-01-30T20:14:47.0719484	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -14,10 +14,13 @@ af1b12f19252943f1add278032f9f98450970335 data/riley_mod/loot_tables/blocks/abyss
 f86e29e68a686525a4d6adfcd1a32df6cb995973 data/riley_mod/loot_tables/blocks/abyss_wood_stairs.json
 1fe7dd8a987664b10437cdfff0ee8652406142e7 data/riley_mod/loot_tables/blocks/abyss_wood_wall.json
 cd226cbb8ad1e26f8d56a6b5288dbcdad22e55c1 data/riley_mod/loot_tables/blocks/activacted_funtium.json
+f83fa953ce3dc23d62f2823367b0b6bf42df2430 data/riley_mod/loot_tables/blocks/augmentation_station.json
 d850c93a93b4dc8b2ee7d3f6620a897821d9cd3e data/riley_mod/loot_tables/blocks/black_sand.json
 854714340f0e18df086f7e5c21fd23d2d110ff18 data/riley_mod/loot_tables/blocks/deepslate_funtium_ore.json
+f13d391a6151afad20098da29cc71680d7dabe68 data/riley_mod/loot_tables/blocks/enchanter.json
 a9b6ec746cd39c86807d879708da0c9374f7a99d data/riley_mod/loot_tables/blocks/funtium_block.json
 8e7e44d1c34a5a3dea971961bd3d457ccee4a22b data/riley_mod/loot_tables/blocks/funtium_ore_block.json
+38812b314da0423404d20fcf70d239fabe4cf6dd data/riley_mod/loot_tables/blocks/morph_station.json
 d94e11374a18e0c9b9b0c75393ceb2ba5d055a1c data/riley_mod/loot_tables/blocks/night_star.json
 7f65ec048b7906f1f0203412f0e07fc6b8bea2b4 data/riley_mod/loot_tables/blocks/stripped_abyss_log.json
 2b98809870df78dcb3ab6fd31d9c271aab832162 data/riley_mod/loot_tables/blocks/stripped_abyss_wood.json
@@ -27,6 +30,7 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 95315fbf246c49d70ae74cb167e46f58045a3630 data/riley_mod/loot_tables/blocks/structure_brick_slab.json
 63ca2f45ec18017c187090ca08536a99f3627ecf data/riley_mod/loot_tables/blocks/structure_brick_stairs.json
 563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json
+6afbf8b9d7391023a77426655b08c7d529bb2bd2 data/riley_mod/loot_tables/blocks/trophy_reader.json
 7dd6bf04282b93dd2be2b0519776f4b21f633b1d data/riley_mod/loot_tables/blocks/whale_hunter_trophy.json
 4f37bf5e8b7c3aeec48c7b08daba0a799d07aad9 data/riley_mod/loot_tables/chests/arena.json
 3e95fbc3ceae7fbe5076fff83ee32eec57384f57 data/riley_mod/loot_tables/entities/bison.json

@@ -54,22 +54,15 @@ public class RileyMod
         RileyModCreativeModTabs.register(modEventBus);
 //TODO add new mobs to the ocean.
 //TODO add more effects that mobs can use
-// TODO infected potion effect. spawns a parasite killing the host
-// TODO look into unstable rifts
-// TODO fire and water elementals
-// TODO Tree mimic
-// TODO War Horse Elemental
-// TODO Bison evolution
-// TODO Update model animations. Specifically the crab, my first one.
-// TODO Something that grabs you, lifts you, and stabs you with tenticals from no where. IK is good for chains only, possibly tenticals.
+//TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
+//TODO Bison evolution
+//TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO Update block pages for book
 //TODO upgrade tree
 //TODO add new station that makes enchanting easier.
- //TODO add bane of mystic. Does double damage to things that are not real.
+//TODO add bane of mystic. Does double damage to things that are not real.
 //TODO Block when activated spawns a boss
-//TODO update Journal entries for mobs
 //TODO Update Journal entries.
-// TODO Make a mob that spawns reinforcements
 
         RileyModSounds.register(modEventBus);
 

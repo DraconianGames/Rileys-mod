@@ -23,6 +23,11 @@ public class MechaRexRenderer extends MobRenderer<MechaRexEntity, MechaRexModel<
         if(pEntity.isBaby()) {
             pMatrixStack.scale(0.3f, 0.3f, 0.3f);
         }
+
+        /* This scales the adult model size
+        if(!pEntity.isBaby()) {
+            pMatrixStack.scale(0.3f, 0.3f, 0.3f);
+        }*/
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 }

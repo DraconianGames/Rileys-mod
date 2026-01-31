@@ -45,8 +45,33 @@ public class RileyModBlocks {
 //trophies
 public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("whale_hunter_trophy",
         () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> ENCHANTER = registerBlock("enchanter",
+            () -> new EnchanterBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> MORPH_STATION = registerBlock("morph_station",
+            () -> new MorphStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> AUGMENTATION_STATION = registerBlock("augmentation_station",
+            () -> new AugmentationStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+    public static final RegistryObject<Block> TROPHY_READER= registerBlock("trophy_reader",
+            () -> new TrophyReaderBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+
     public static final RegistryObject<Block> TROPHY_FILLER = BLOCKS.register("trophy_filler",
             () -> new TrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .noLootTable()
+                    .noOcclusion()));
+    public static final RegistryObject<Block> TROPHY_READER_FILLER = BLOCKS.register("trophy_reader_filler",
+            () -> new TrophyReaderFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .noLootTable()
+                    .noOcclusion()));
+    public static final RegistryObject<Block> MORPH_STATION_FILLER = BLOCKS.register("morph_station_filler",
+            () -> new MorphStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .noLootTable()
+                    .noOcclusion()));
+    public static final RegistryObject<Block> ENCHANTER_FILLER = BLOCKS.register("enchanter_filler",
+            () -> new EnchanterFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .noLootTable()
+                    .noOcclusion()));
+    public static final RegistryObject<Block> AUGMENTATION_STATION_FILLER = BLOCKS.register("augmentation_station_filler",
+            () -> new AugmentationStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
 //ores
