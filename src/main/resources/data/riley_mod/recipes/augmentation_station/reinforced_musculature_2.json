@@ -1,0 +1,12 @@
+{
+  "type": "riley_mod:augmentation_station",
+  "category": "body_enhancements",
+  "augment_id": "riley_mod:reinforced_musculature",
+  "level": 2,
+  "icon": { "item": "minecraft:nether_star" },
+  "description": "Upgrade: further strengthens musculature.",
+  "requirements": [
+    { "item": "riley_mod:synthetic_muscle", "count": 1200 },
+    { "item": "minecraft:nether_star", "count": 2 }
+  ]
+}

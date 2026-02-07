@@ -111,5 +111,9 @@
 
 
   "item.riley_mod.night_star.tooltip": "May there be brighter days",
-  "item.riley_mod.whale_hunter_trophy.tooltip": "You Monster, they were Neutral"
+  "item.riley_mod.whale_hunter_trophy.tooltip": "You Monster, they were Neutral",
+
+
+  "key.categories.riley_mod": "Riley Mod",
+  "key.riley_mod.domain_expansion": "Domain Expansion"
 }

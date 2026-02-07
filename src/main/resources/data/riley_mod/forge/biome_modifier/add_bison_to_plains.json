@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:plains",
+  "spawners": {
+    "type": "riley_mod:bison",
+    "weight": 8,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

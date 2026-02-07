@@ -18,6 +18,8 @@ public class RileyModCreativeModTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(RileyModItems.STARDUST.get()))
                     .title(Component.translatable("creativetab.funtium_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(RileyModBlocks.SPECIAL_SPAWNER.get());
+
                         output.accept(RileyModItems.STARDUST.get());
                         output.accept(RileyModItems.FUNTIUM_MIX.get());
                         output.accept(RileyModItems.FUNTIUM_PLATE.get());

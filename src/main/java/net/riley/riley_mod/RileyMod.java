@@ -30,6 +30,8 @@ import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.menu.RileyModMenuTypes;
 import net.riley.riley_mod.network.RileyModPackets;
+import net.riley.riley_mod.particle.RileyModParticles;
+import net.riley.riley_mod.recipe.RileyModRecipes;
 import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
 import terrablender.api.Regions;
@@ -61,10 +63,9 @@ public class RileyMod
 //TODO Bison evolution
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO Update block pages for book
-//TODO upgrade tree
-//TODO add new station that makes enchanting easier.
 //TODO add bane of mystic. Does double damage to things that are not real.
 //TODO Update Journal entries.
+//TODO add dimension.
 
         RileyModSounds.register(modEventBus);
 
@@ -76,6 +77,8 @@ public class RileyMod
         RileyModBlockEntities.register(modEventBus);
         RileyModEffects.register(modEventBus);
         RileyModPotions.register(modEventBus);
+        RileyModRecipes.register(modEventBus);
+        RileyModParticles.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -135,6 +138,9 @@ public class RileyMod
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
             event.enqueueWork(() -> {
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
+                MenuScreens.register(RileyModMenuTypes.AUGMENTATION_STATION_MENU.get(), AugmentationStationScreen::new);
+                MenuScreens.register(RileyModMenuTypes.MORPH_STATION_MENU.get(), MorphStationScreen::new);
+                MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
             });
         }
     }

@@ -136,7 +136,7 @@ public class BisonEntity extends AbstractChestedHorse {
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.BISON.get().create(pLevel);
     }
-  //TODO fix nonexistance in the pets section when tamed
+
 
 
 }

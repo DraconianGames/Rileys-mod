@@ -86,21 +86,23 @@ public class JournalScreen extends Screen {
                 java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Skull Fairy","The final evolution of the tooth fairy. It is now fire proof.", JournalEntry.Category.CREATURES, RileyModEntities.SKULL_FAIRY.get(), 10.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
-        //TODO add bison entry
+        //TODO add bison and mecha rex entry
         //Blocks
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS));
-       //Items
+       ALL_ENTRIES.add(new JournalEntry("Special Spawner","When one gets close enough, the selected mob will spawn. If you got close enough to one without this happening, I probably forgot to set the mob for said block. You too can set the spawn in Creative mode, just right click on the block.", JournalEntry.Category.BLOCKS));
+        //Items
         ALL_ENTRIES.add(new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS));
-        ALL_ENTRIES.add(new JournalEntry("Caged Fairy","A baby Toothfairy is held within. Right click on any surface to release it. Make sure to tame it before it wanders off.", JournalEntry.Category.ITEMS));
+        ALL_ENTRIES.add(new JournalEntry("Caged Fairy","A baby Tooth fairy is held within. Right click on any surface to release it. Make sure to tame it before it wanders off.", JournalEntry.Category.ITEMS));
         ALL_ENTRIES.add(new JournalEntry("Funtium Ore", "A DENSE material containing mystical properties, you do need Netherite to mine it because it is so dense.", JournalEntry.Category.ITEMS));
-       //Misc
+       ALL_ENTRIES.add(new JournalEntry("Dark Journal","An appendix containing mystical properties. The pets section allows you to revive and store your pet. One must store their pet in the journal before hand. Right click mounts to save them in the journal. Don't loose your journal, you will loose your pets.",JournalEntry.Category.ITEMS));
+        //Misc
         ALL_ENTRIES.add(new JournalEntry("The Abyss", "A dimension where messing with the wrong thing can be deadly. It has a range of terrifying creatures, unique flora, and for some reason, it's only night. Never let the creatures out unless they are tamed.", JournalEntry.Category.ABYSS));
         ALL_ENTRIES.add(new JournalEntry("The Abyss Portal", "A portal built exactly like the Nether portal, but you need activated funtium as its frame, and the eye to light it", JournalEntry.Category.ABYSS));
        //Structures
         ALL_ENTRIES.add(new JournalEntry("The Arena", "It has good loot but only spawn in the abyss", JournalEntry.Category.STRUCTURES));
         ALL_ENTRIES.add(new JournalEntry("The Avalon", "A place where the weary traveler can shelter out the storms. Spawns in the overworld. Designed by Avalon herself", JournalEntry.Category.STRUCTURES));
-        ALL_ENTRIES.add(new JournalEntry("The Wither Skeleton Room","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES));
+        ALL_ENTRIES.add(new JournalEntry("Wither Skeleton Room","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES));
     }
 
     @Override

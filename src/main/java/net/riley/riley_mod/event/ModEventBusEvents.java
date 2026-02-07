@@ -1,8 +1,8 @@
 package net.riley.riley_mod.event;
 
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -65,6 +65,12 @@ public class ModEventBusEvents {
                 Heightmap.Types.WORLD_SURFACE,
                 RapterEntity::checkRapterSpawnRules,
                 SpawnPlacementRegisterEvent.Operation.OR
+        );
+        SpawnPlacements.register(
+                RileyModEntities.BISON.get(),
+                SpawnPlacements.Type.ON_GROUND,
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Animal::checkAnimalSpawnRules
         );
     }
 }
