@@ -140,10 +140,17 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
         this.imageHeight = TEX_H;
 
         allEntries.add(new AugmentEntry(
-                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "prototype_domain_expansion"),
-                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "prototype_domain_expansion"),
-                "Domain Expansion: Prototype",
-                "A placeholder entry for your domain expansions.",
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "augmentation_station/huricane_domain_expansion"),
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "huricane_domain_expansion"),
+                "Domain Expansion: Huricane",
+                "Swiftly defeat your enemies",
+                Category.DOMAIN_EXPANSIONS
+        ));
+        allEntries.add(new AugmentEntry(
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "augmentation_station/blizzard_domain_expansion"),
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "blizzard_domain_expansion"),
+                "Domain Expansion: Blizzard",
+                "Freeze your enemies in place.",
                 Category.DOMAIN_EXPANSIONS
         ));
 
@@ -273,7 +280,12 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
 
         this.craftButton = this.addRenderableWidget(Button.builder(Component.literal("Craft"), b -> {
             if (selectedEntry == null) return;
-            RileyModPackets.sendToServer(new CraftAugmentPacket(this.menu.getPos(), selectedEntry.recipeId()));
+
+            // Use the *resolved* recipe id (handles augmentation_station/ folder recipes correctly)
+            Optional<AugmentationStationRecipe> recipeOpt = getSelectedRecipe();
+            if (recipeOpt.isEmpty()) return;
+
+            RileyModPackets.sendToServer(new CraftAugmentPacket(this.menu.getPos(), recipeOpt.get().getId()));
         }).bounds(bx, by, bw, bh).build());
 
         this.activateButton = this.addRenderableWidget(Button.builder(Component.literal("Activate"), b -> {

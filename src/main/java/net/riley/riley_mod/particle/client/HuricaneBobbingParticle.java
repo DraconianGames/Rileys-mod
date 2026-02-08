@@ -20,12 +20,16 @@ public class HuricaneBobbingParticle extends TextureSheetParticle {
         this.gravity = 0.0F;
         this.hasPhysics = false;
 
-        this.xd = 0.0;
-        this.yd = 0.0;
-        this.zd = 0.0;
+        // IMPORTANT: keep the incoming motion (don't zero it out)
+        this.xd = xd;
+        this.yd = yd;
+        this.zd = zd;
 
         this.quadSize = 0.12F + (this.random.nextFloat() * 0.08F);
-        this.lifetime = 60 + this.random.nextInt(30);
+
+        // Shorter lifetime so rotation "reads" instead of accumulating into a static ring
+        this.lifetime = 14 + this.random.nextInt(10);
+
         this.alpha = 0.9F;
     }
 
@@ -40,6 +44,12 @@ public class HuricaneBobbingParticle extends TextureSheetParticle {
             return;
         }
 
+        // Move (since we override tick, we must apply velocity ourselves)
+        this.x += this.xd;
+        this.y += this.yd;
+        this.z += this.zd;
+
+        // Gentle bobbing
         double bob = Math.sin((this.age + this.phaseOffset) * 0.25) * 0.02;
         this.y += bob;
 

@@ -1,0 +1,11 @@
+{
+  "type": "riley_mod:augmentation_station",
+  "category": "domain_expansion",
+  "augment_id": "riley_mod:blizzard_domain_expansion",
+  "level": 3,
+  "icon": { "item": "riley_mod:ice_shard" },
+  "description": "Freeze your enemies in the extreme cold",
+  "requirements": [
+    { "item": "minecraft:nether_star", "count": 1 }
+  ]
+}

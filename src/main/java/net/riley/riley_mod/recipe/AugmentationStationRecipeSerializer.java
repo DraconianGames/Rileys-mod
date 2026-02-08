@@ -21,8 +21,8 @@ public class AugmentationStationRecipeSerializer implements RecipeSerializer<Aug
     public AugmentationStationRecipe fromJson(ResourceLocation id, JsonObject json) {
         String catStr = GsonHelper.getAsString(json, "category");
         AugmentationStationRecipe.Category category = switch (catStr.toLowerCase()) {
-            case "domain_expansions" -> AugmentationStationRecipe.Category.DOMAIN_EXPANSIONS;
-            case "body_enhancements" -> AugmentationStationRecipe.Category.BODY_ENHANCEMENTS;
+            case "domain_expansions", "domain_expansion", "domain" -> AugmentationStationRecipe.Category.DOMAIN_EXPANSIONS;
+            case "body_enhancements", "body_enhancement", "body" -> AugmentationStationRecipe.Category.BODY_ENHANCEMENTS;
             default -> throw new IllegalArgumentException("Unknown augmentation category: " + catStr);
         };
 
@@ -45,6 +45,7 @@ public class AugmentationStationRecipeSerializer implements RecipeSerializer<Aug
             Item item = BuiltInRegistries.ITEM.get(itemId);
             requirements.add(new Requirement(item, count));
         }
+
         int level = GsonHelper.getAsInt(json, "level", 1);
 
         return new AugmentationStationRecipe(id, category, augmentId, icon, description, requirements, level);
@@ -64,6 +65,7 @@ public class AugmentationStationRecipeSerializer implements RecipeSerializer<Aug
             int count = buf.readVarInt();
             requirements.add(new Requirement(item, count));
         }
+
         int level = buf.readVarInt();
         return new AugmentationStationRecipe(id, category, augmentId, icon, description, requirements, level);
     }
@@ -74,11 +76,13 @@ public class AugmentationStationRecipeSerializer implements RecipeSerializer<Aug
         buf.writeResourceLocation(recipe.getAugmentId());
         buf.writeUtf(recipe.getDescription());
         buf.writeItem(recipe.getResultIcon());
+
         buf.writeVarInt(recipe.getRequirements().size());
         for (Requirement r : recipe.getRequirements()) {
             buf.writeId(BuiltInRegistries.ITEM, r.item());
             buf.writeVarInt(r.count());
-            buf.writeVarInt(recipe.getLevel());
         }
+
+        buf.writeVarInt(recipe.getLevel());
     }
 }

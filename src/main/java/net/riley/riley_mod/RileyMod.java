@@ -33,6 +33,7 @@ import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.particle.RileyModParticles;
 import net.riley.riley_mod.recipe.RileyModRecipes;
 import net.riley.riley_mod.sound.RileyModSounds;
+import net.riley.riley_mod.world.domain.RileyModDomains;
 import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
 import terrablender.api.Regions;
 
@@ -100,6 +101,8 @@ public class RileyMod
         event.enqueueWork(() -> {
             BrewingRecipeRegistry.addRecipe(new FreezeBrewingRecipe());
 
+            // Register all domain behaviors once during common setup
+            RileyModDomains.registerAll();
         });
 
 

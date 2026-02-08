@@ -1,0 +1,11 @@
+{
+  "type": "riley_mod:augmentation_station",
+  "category": "domain_expansion",
+  "augment_id": "riley_mod:huricane_domain_expansion",
+  "level": 3,
+  "icon": { "item": "riley_mod:ice_shard" },
+  "description": "Swiftly defeat your enemies",
+  "requirements": [
+    { "item": "minecraft:nether_star", "count": 1 }
+  ]
+}

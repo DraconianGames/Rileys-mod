@@ -7,7 +7,11 @@ import net.minecraftforge.network.NetworkEvent;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.util.AugmentData;
 import net.riley.riley_mod.world.DomainExpansionManager;
+import net.riley.riley_mod.world.domain.DomainRegistry;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class DomainExpansionKeyPacket {
@@ -27,13 +31,25 @@ public class DomainExpansionKeyPacket {
             ServerPlayer player = ctx.getSender();
             if (player == null) return;
 
-            ResourceLocation REQUIRED = ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "prototype_domain_expansion");
-            if (!AugmentData.isUnlocked(player, REQUIRED)) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.literal("You haven't crafted a Domain Expansion yet."), true);
+            // Must be ACTIVE (not just unlocked)
+            Set<ResourceLocation> active = AugmentData.getActive(player);
+
+            List<ResourceLocation> domainsToCast = new ArrayList<>();
+            for (ResourceLocation augmentId : active) {
+                if (DomainRegistry.isDomain(augmentId)) {
+                    domainsToCast.add(augmentId);
+                }
+            }
+
+            if (domainsToCast.isEmpty()) {
+                player.displayClientMessage(
+                        net.minecraft.network.chat.Component.literal("No active Domain Expansions selected."),
+                        true
+                );
                 return;
             }
 
-            DomainExpansionManager.activate(player);
+            DomainExpansionManager.activateBatch(player, domainsToCast);
         });
         return true;
     }

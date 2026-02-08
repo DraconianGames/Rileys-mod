@@ -12,7 +12,12 @@ import static net.riley.riley_mod.RileyMod.MODID;
 public class RileyModParticleClient {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(RileyModParticles.BLIZZARD_PARTICLE.get(), BlizzardBobbingParticle.Provider::new);
+        event.registerSpriteSet(RileyModParticles.BLIZZARD_PARTICLE_2.get(), BlizzardBobbingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.HURICANE_PARTICLE.get(), HuricaneBobbingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.HURICANE_PARTICLE_2.get(), HuricaneBobbingParticle.Provider::new);
+        event.registerSpriteSet(RileyModParticles.ORBITING_PARTICLE.get(), OrbitingParticle.Provider::new);
+        event.registerSpriteSet(RileyModParticles.ORBITING_PARTICLE_2.get(), OrbitingParticle.Provider::new);
+
     }
 }
