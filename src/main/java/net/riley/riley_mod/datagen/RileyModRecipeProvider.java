@@ -2,14 +2,18 @@ package net.riley.riley_mod.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.item.RileyModItems;
 
 import java.util.List;
@@ -32,6 +36,16 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 RileyModItems.ARMOR_PLATING.get(),
                 0.7F, 100,
                 "armor_plating");
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.ARTIFICIAL_ORGAN.get())
+                .pattern(" BA")
+                .pattern("BAB")
+                .pattern("AB ")
+                .define('A', RileyModItems.LIVING_MACHANICAL_NURONS.get())
+                .define('B', RileyModItems.SYNTHETIC_MUSCLE.get())
+
+                .unlockedBy("has_item", has(RileyModBlocks.AUGMENTATION_STATION.get()))
+                .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.MECHAREX_EGG.get())
                 .pattern("EAE")
@@ -87,7 +101,7 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 .pattern("BCC")
                 .pattern("AAA")
                 .define('A', RileyModItems.ARMOR_PLATING.get())
-                .define('B', RileyModItems.SYNTHETIC_MUSCLE.get())
+                .define('B', RileyModItems.MECHAREX_ENGINE.get())
                 .define('C', RileyModItems.LIVING_MACHANICAL_NURONS.get())
                 .unlockedBy("has_item", has(RileyModItems.EYE.get()))
                 .save(pWriter);
@@ -148,11 +162,11 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 .define('A', Items.SCULK)
                 .unlockedBy("has_item", has(RileyModItems.EYE.get()))
                 .save(pWriter);
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.LIVING_MACHANICAL_NURONS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.LIVING_MACHANICAL_NURONS.get(),6)
                 .pattern("BBB")
                 .pattern("BBB")
                 .pattern("AC ")
-                .define('B', Items.BEEF)
+                .define('B',  ItemTags.create(new ResourceLocation("riley_mod", "meat")))
                 .define('A', Items.GLASS_BOTTLE)
                 .define('C', Items.CLOCK)
                 .unlockedBy("has_item", has(RileyModItems.EYE.get()))
@@ -163,7 +177,7 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 .pattern("CAC")
                 .define('A', Items.SCULK_CATALYST)
                 .define('B', Items.NETHER_STAR)
-                .define('C', Items.END_ROD)
+                .define('C', RileyModItems.CAGGED_FAIRY.get())
                 .unlockedBy("has_item", has(RileyModItems.EYE.get()))
                 .save(pWriter);
 

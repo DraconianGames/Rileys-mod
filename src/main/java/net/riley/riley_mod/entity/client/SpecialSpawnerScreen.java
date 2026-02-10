@@ -8,7 +8,9 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.block.entity.SpecialSpawnerBlockEntity;
 import net.riley.riley_mod.menu.SpecialSpawnerMenu;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.network.SpecialSpawnerSettingsPacket;
@@ -42,16 +44,31 @@ public class SpecialSpawnerScreen extends AbstractContainerScreen<SpecialSpawner
 
         this.mobIdBox = new EditBox(this.font, x0 + 12, y0 + 28, this.imageWidth - 24, 18, Component.literal("Mob ID"));
         this.mobIdBox.setMaxLength(128);
-        this.mobIdBox.setValue("");
         this.addRenderableWidget(this.mobIdBox);
 
         this.radiusBox = new EditBox(this.font, x0 + 12, y0 + 60, 60, 18, Component.literal("Radius"));
-        this.radiusBox.setValue("4");
         this.addRenderableWidget(this.radiusBox);
 
         this.countBox = new EditBox(this.font, x0 + 12, y0 + 92, 60, 18, Component.literal("Count"));
-        this.countBox.setValue("1");
         this.addRenderableWidget(this.countBox);
+
+        // Prefill from the client-side block entity (synced from server)
+        String mobId = "";
+        int radius = 4;
+        int count = 1;
+
+        if (this.minecraft != null && this.minecraft.level != null) {
+            BlockEntity be = this.minecraft.level.getBlockEntity(this.menu.getPos());
+            if (be instanceof SpecialSpawnerBlockEntity spawnerBe) {
+                mobId = spawnerBe.getMobId();
+                radius = spawnerBe.getRadius();
+                count = spawnerBe.getCount();
+            }
+        }
+
+        this.mobIdBox.setValue(mobId == null ? "" : mobId);
+        this.radiusBox.setValue(Integer.toString(radius));
+        this.countBox.setValue(Integer.toString(count));
 
         this.addRenderableWidget(Button.builder(Component.literal("Save"), b -> onSave())
                 .pos(x0 + this.imageWidth - 12 - 60, y0 + this.imageHeight - 12 - 20)
@@ -98,6 +115,7 @@ public class SpecialSpawnerScreen extends AbstractContainerScreen<SpecialSpawner
         g.drawString(this.font, Component.literal("Radius"), this.leftPos + 12, this.topPos + 50, 0xFFFFFF, false);
         g.drawString(this.font, Component.literal("Count"), this.leftPos + 12, this.topPos + 82, 0xFFFFFF, false);
     }
+
     @Override
     protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
         // Prevent default title/inventory labels from drawing over your widgets

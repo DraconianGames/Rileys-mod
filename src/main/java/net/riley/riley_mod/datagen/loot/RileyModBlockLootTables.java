@@ -24,6 +24,7 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(RileyModBlocks.FUNTIUM_BLOCK.get());
+        this.dropSelf(RileyModBlocks.FALLOW_GROUND.get());
         this.dropSelf(RileyModBlocks.ACTIVACTED_FUNTIUM.get());
         this.dropSelf(RileyModBlocks.ABYSS_LOG.get());
         this.dropSelf(RileyModBlocks.ABYSS_PLANKS.get());

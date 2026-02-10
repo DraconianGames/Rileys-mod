@@ -1,0 +1,15 @@
+{
+  "structures": [
+    {
+      "structure": "riley_mod:mech_arena",
+      "weight": 3
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 1445218973,
+    "spacing": 20,
+    "separation": 6,
+    "spread_type": "linear"
+  }
+}

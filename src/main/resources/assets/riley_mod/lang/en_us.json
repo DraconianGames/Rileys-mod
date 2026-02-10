@@ -24,6 +24,7 @@
   "item.riley_mod.eye": "Eye",
   "item.riley_mod.claw": "Claw",
   "item.riley_mod.tooth": "Tooth",
+  "item.riley_mod.artificial_organ": "Artificial Organ",
   "item.riley_mod.ice_chunk": "Ice Chunk",
   "item.riley_mod.cagged_fairy": "Caged Fairy",
   "item.riley_mod.sunless_crab_spawn_egg": "Sunless Crab Spawn Egg",
@@ -87,6 +88,7 @@
   "block.riley_mod.abyss_leaves": "Abyss Leaves",
   "block.riley_mod.abyss_portal": "Abyss Portal",
   "block.riley_mod.abyss_wood_wall": "Abyss Wood Wall",
+  "block.riley_mod.fallow_ground": "Fallow Ground",
 
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",
@@ -103,6 +105,7 @@
   "entity.riley_mod.skull_fairy": "Skull Fairy",
   "entity.riley_mod.mecharex": "Mecha Rex",
   "entity.riley_mod.mecharexbomb": "Mecha Rex Bomb",
+  "entity.riley_mod.bison": "Bison",
 
   "creativetab.funtium_tab": "Funtium Tab",
 

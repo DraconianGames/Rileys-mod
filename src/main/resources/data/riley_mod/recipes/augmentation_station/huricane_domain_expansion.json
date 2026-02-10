@@ -6,6 +6,7 @@
   "icon": { "item": "riley_mod:ice_shard" },
   "description": "Swiftly defeat your enemies",
   "requirements": [
+    {"item": "riley_mod:artificial_organ", "count": 1},
     { "item": "minecraft:nether_star", "count": 1 }
   ]
 }

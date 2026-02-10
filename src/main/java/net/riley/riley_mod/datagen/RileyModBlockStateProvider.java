@@ -35,6 +35,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.ABYSSAL_DIRT);
         blockWithItem(RileyModBlocks.NIGHT_STAR);
         blockWithItem(RileyModBlocks.SPECIAL_SPAWNER);
+        blockWithItem(RileyModBlocks.FALLOW_GROUND);
 
 
         abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);

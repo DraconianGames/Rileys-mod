@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -44,6 +45,11 @@ public class SpecialSpawnerBlockEntity extends BlockEntity implements MenuProvid
         this.radius = Math.max(0, Math.min(radius, 64));
         this.count = Math.max(1, Math.min(count, 64));
         setChanged();
+        // Push changes to clients so the screen shows the right values when reopened.
+        if (level != null && !level.isClientSide) {
+            BlockState state = getBlockState();
+            level.sendBlockUpdated(worldPosition, state, state, 3);
+        }
     }
 
     @Override
@@ -123,5 +129,32 @@ public class SpecialSpawnerBlockEntity extends BlockEntity implements MenuProvid
         mobId = tag.getString("MobId");
         radius = tag.getInt("Radius");
         count = tag.getInt("Count");
+    }
+    // ---- Client sync (important for GUIs) ----
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        // What the client receives for initial chunk/blockentity sync
+        return saveWithoutMetadata();
+    }
+
+    @Nullable
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        // What the client receives when we call sendBlockUpdated(...)
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        // Called client-side when update tag arrives
+        load(tag);
+    }
+
+    @Override
+    public void onDataPacket(net.minecraft.network.Connection connection, ClientboundBlockEntityDataPacket packet) {
+        // Called client-side when update packet arrives
+        CompoundTag tag = packet.getTag();
+        if (tag != null) load(tag);
     }
 }

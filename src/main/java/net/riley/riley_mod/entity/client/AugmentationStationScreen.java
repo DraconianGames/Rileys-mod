@@ -73,6 +73,10 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
     private int getCurrentLevel(ResourceLocation augmentId) {
         return levels.getOrDefault(augmentId, unlocked.contains(augmentId) ? 1 : 0);
     }
+    private String titleWithLevel(AugmentEntry entry) {
+        int lvl = getCurrentLevel(entry.augmentId());
+        return entry.title() + " (Lv " + lvl + ")";
+    }
 
     private void updateActionButtons() {
         boolean hasSelection = selectedEntry != null;
@@ -142,14 +146,14 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
         allEntries.add(new AugmentEntry(
                 ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "augmentation_station/huricane_domain_expansion"),
                 ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "huricane_domain_expansion"),
-                "Domain Expansion: Huricane",
+                "Huricane",
                 "Swiftly defeat your enemies",
                 Category.DOMAIN_EXPANSIONS
         ));
         allEntries.add(new AugmentEntry(
                 ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "augmentation_station/blizzard_domain_expansion"),
                 ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "blizzard_domain_expansion"),
-                "Domain Expansion: Blizzard",
+                "Blizzard",
                 "Freeze your enemies in place.",
                 Category.DOMAIN_EXPANSIONS
         ));
@@ -253,7 +257,7 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
             if (expandedCategory == cat) {
                 for (AugmentEntry entry : allEntries) {
                     if (entry.category() == cat) {
-                        entryList.addLink(Component.literal(" - " + entry.title()), () -> {
+                        entryList.addLink(Component.literal(" - " + titleWithLevel(entry)), () -> {
                             selectedEntry = entry;
                             descriptionScroll = 0;
                             updateActionButtons();

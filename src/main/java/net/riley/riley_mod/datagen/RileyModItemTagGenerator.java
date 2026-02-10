@@ -4,11 +4,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.util.RileyModTags;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,6 +23,20 @@ public class RileyModItemTagGenerator extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        this.tag(RileyModTags.Items.MEAT)
+                .add(Items.BEEF,
+                        Items.COOKED_BEEF,
+                        Items.SALMON,
+                        Items.COOKED_SALMON,
+                        Items.PUFFERFISH,
+                        Items.COD,
+                        Items.COOKED_COD,
+                        Items.CHICKEN,
+                        Items.COOKED_CHICKEN,
+                        Items.RABBIT,
+                        Items.COOKED_RABBIT,
+                        Items.PORKCHOP,
+                        Items.COOKED_PORKCHOP);
 
         this.tag(ItemTags.TRIMMABLE_ARMOR)
                 .add(RileyModItems.FUNTIUM_HELMET.get(),

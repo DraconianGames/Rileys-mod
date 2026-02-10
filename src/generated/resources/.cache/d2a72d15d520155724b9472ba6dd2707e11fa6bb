@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-30T23:17:31.0786888	Item Models: riley_mod
+// 1.20.1	2026-02-09T17:43:01.527463	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -7,6 +7,7 @@ c4d2d5e0e7c8c94280f423134adc3242f691ff4e assets/riley_mod/models/item/abyss_wood
 a702e6285bdc1d29b24ef61920692b7b54c44462 assets/riley_mod/models/item/abyss_wood_stairs.json
 5cbd3617853cec7e30c762414aa0d7db5eef731b assets/riley_mod/models/item/abyss_wood_wall.json
 7cf3530b940cbae390777ca41329789696fda8fa assets/riley_mod/models/item/armor_plating.json
+3d0bb217b9b447936433f9133f081e788b23a148 assets/riley_mod/models/item/artificial_organ.json
 d8c780933c7ad322567e89aea87fe63129dbb266 assets/riley_mod/models/item/augmentation_station.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bison_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bonefairy_spawn_egg.json

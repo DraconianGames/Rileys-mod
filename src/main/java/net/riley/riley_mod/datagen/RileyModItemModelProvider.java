@@ -67,6 +67,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.UNASSEMBLED_MECHAREX_TAIL);
         simpleItem(RileyModItems.ARMOR_PLATING);
         simpleItem(RileyModItems.CANNON_SHEILD);
+        simpleItem(RileyModItems.ARTIFICIAL_ORGAN);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 

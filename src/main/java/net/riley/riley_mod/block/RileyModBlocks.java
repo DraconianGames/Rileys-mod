@@ -40,9 +40,11 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> NIGHT_STAR = BLOCKS.register("night_star",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).lightLevel((state) -> 15)));
+    public static final RegistryObject<Block> FALLOW_GROUND = registerBlock("fallow_ground",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 
     public static final RegistryObject<Block> SPECIAL_SPAWNER = registerBlock("special_spawner",
-            () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
+            () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
 
 
     //trophies

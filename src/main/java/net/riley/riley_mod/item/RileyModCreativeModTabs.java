@@ -38,6 +38,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.SKULL_FAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.BISON_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
+                        output.accept(RileyModItems.ARTIFICIAL_ORGAN.get());
                         output.accept(RileyModItems.SPEAR.get());
 
                         output.accept(RileyModItems.CAGGED_FAIRY.get());
@@ -60,6 +61,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ACTIVACTED_FUNTIUM.get());
                         output.accept(RileyModBlocks.FUNTIUM_ORE_BLOCK.get());
                         output.accept(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get());
+                        output.accept(RileyModBlocks.FALLOW_GROUND.get());
 
                         output.accept(RileyModBlocks.ABYSS_LOG.get());
                         output.accept(RileyModBlocks.STRIPPED_ABYSS_LOG.get());

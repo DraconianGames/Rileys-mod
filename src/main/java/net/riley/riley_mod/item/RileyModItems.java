@@ -39,6 +39,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FANCY_SKULL = ITEMS.register("fancy_skull",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ARTIFICIAL_ORGAN = ITEMS.register("artificial_organ",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LIVING_MACHANICAL_NURONS = ITEMS.register("living_machanical_nurons",
             () -> new Item(new Item.Properties()));

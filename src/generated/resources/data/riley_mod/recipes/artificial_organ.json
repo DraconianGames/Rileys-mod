@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:living_machanical_nurons"
+    },
+    "B": {
+      "item": "riley_mod:synthetic_muscle"
+    }
+  },
+  "pattern": [
+    " BA",
+    "BAB",
+    "AB "
+  ],
+  "result": {
+    "item": "riley_mod:artificial_organ"
+  },
+  "show_notification": true
+}

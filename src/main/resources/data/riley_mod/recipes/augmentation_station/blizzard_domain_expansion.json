@@ -6,6 +6,7 @@
   "icon": { "item": "riley_mod:ice_shard" },
   "description": "Freeze your enemies in the extreme cold",
   "requirements": [
+    {"item": "riley_mod:artificial_organ", "count": 1},
     { "item": "minecraft:nether_star", "count": 1 }
   ]
 }
