@@ -59,7 +59,7 @@ public class RileyModBiomes {
 
         globalOverworldGeneration(biomeBuilder);
         BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
-//TODO change colors
+
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
                 .temperature(0.8f)
@@ -67,10 +67,10 @@ public class RileyModBiomes {
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .specialEffects(new BiomeSpecialEffects.Builder()
-                        .waterColor(0x3f2a1a)
-                        .waterFogColor(0x2a1a10)
-                        .fogColor(0x6b4a2f)
-                        .skyColor(0x6b4a2f)
+                        .waterColor(0x333333)
+                        .waterFogColor(0x333333)
+                        .fogColor(0x858585)
+                        .skyColor(0x858585)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();

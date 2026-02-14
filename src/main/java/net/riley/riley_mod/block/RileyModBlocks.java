@@ -180,7 +180,7 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
                     .noLootTable()));
 
 
-//TODO Animated portal textures
+
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
