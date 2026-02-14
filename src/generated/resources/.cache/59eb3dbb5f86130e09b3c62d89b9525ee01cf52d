@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-14T14:16:39.6237959	Loot Tables
+// 1.20.1	2026-02-14T14:36:57.3400157	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -40,7 +40,7 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 3e95fbc3ceae7fbe5076fff83ee32eec57384f57 data/riley_mod/loot_tables/entities/bison.json
 67aa4b8c4366d8ae395780a15d54689f024bb563 data/riley_mod/loot_tables/entities/bonefairy.json
 34fede37fab920dd466036d1c6238e16dfb16226 data/riley_mod/loot_tables/entities/frost_hopper.json
-b22d20e2db639ae37fce2568e00c8fef9e9418e5 data/riley_mod/loot_tables/entities/mecharex.json
+49a95e3e27e1d256ee819f85356da391270f452d data/riley_mod/loot_tables/entities/mecharex.json
 ab98c73b52fe8cdf98ca601c2ec957217481f864 data/riley_mod/loot_tables/entities/night_terror.json
 008abd2e736fd2140f524dbb0db2fc2b83b4337a data/riley_mod/loot_tables/entities/rapter.json
 713c3f42a41d0043d68e2e682049e82b6af36dcd data/riley_mod/loot_tables/entities/skeletonfairy.json

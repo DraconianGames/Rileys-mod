@@ -19,7 +19,7 @@ public record JournalEntry(
         }
     }
     public enum Category {
-        CREATURES, BLOCKS, ITEMS, ABYSS, STRUCTURES, PETS
+        CREATURES, BLOCKS, ITEMS, ABYSS, FALLOW, STRUCTURES, PETS
     }
 
 

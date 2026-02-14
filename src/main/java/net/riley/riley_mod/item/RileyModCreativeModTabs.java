@@ -38,9 +38,10 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.SKELETONFAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.SKULL_FAIRY_SPAWN_EGG.get());
                         output.accept(RileyModItems.BISON_EGG.get());
+                        output.accept(RileyModItems.MECHA_REX_SPAWN_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
                         output.accept(RileyModItems.ARTIFICIAL_ORGAN.get());
-                        output.accept(RileyModItems.SPEAR.get());
+
 
                         output.accept(RileyModItems.CAGGED_FAIRY.get());
 
@@ -79,7 +80,6 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ABYSS_WOOD_WALL.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD_FENCE_GATE.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD_STAIRS.get());
-                        output.accept(RileyModBlocks.ABYSS_PORTAL.get());
                         output.accept(RileyModBlocks.STRUCTURE_BRICK.get());
                         output.accept(RileyModBlocks.STRUCTURE_BRICK_FENCE.get());
                         output.accept(RileyModBlocks.STRUCTURE_BRICK_SLAB.get());

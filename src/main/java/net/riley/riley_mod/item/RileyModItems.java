@@ -133,6 +133,10 @@ public class RileyModItems {
     public static final RegistryObject<Item> BISON_EGG = ITEMS.register("bison_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.BISON,0x543404 ,0x6e4913,
                     new Item.Properties()));
+    public static final RegistryObject<Item> MECHA_REX_SPAWN_EGG= ITEMS.register("mecha_rex_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.MECHAREX,0x8f8f8f ,0x6a1cbd,
+                    new Item.Properties()));
+
     public static final RegistryObject<Item> CAGGED_FAIRY = ITEMS.register("cagged_fairy",
             () -> new CaggedFairyItem(new Item.Properties().stacksTo(16)));
 //book

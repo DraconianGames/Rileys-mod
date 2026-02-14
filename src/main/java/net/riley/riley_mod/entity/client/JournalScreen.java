@@ -102,13 +102,17 @@ public class JournalScreen extends Screen {
         ALL_ENTRIES.add(new JournalEntry("Funtium Ore", "A DENSE material containing mystical properties, you do need Netherite to mine it because it is so dense.", JournalEntry.Category.ITEMS));
        ALL_ENTRIES.add(new JournalEntry("Mecha Rex Egg", "You will need to work hard to obtain such a powerful boss as a pet, just let it grow up first before attacking anything, it kinda looks ridiculous attacking things as a baby. SAVE it to your Journal. Your responsible for it now.", JournalEntry.Category.ITEMS));
         ALL_ENTRIES.add(new JournalEntry("Dark Journal","An appendix containing mystical properties. The pets section allows you to revive and store your pet. One must store their pet in the journal before hand. Right click mounts to save them in the journal. Don't loose your journal, you will loose your pets.",JournalEntry.Category.ITEMS));
+        ALL_ENTRIES.add(new JournalEntry("Tome", "A rare item found in Wither Skeleton Rooms", JournalEntry.Category.ITEMS));
         //Misc
         ALL_ENTRIES.add(new JournalEntry("The Abyss", "A dimension where messing with the wrong thing can be deadly. It has a range of terrifying creatures, unique flora, and for some reason, it's only night. Never let the creatures out unless they are tamed.", JournalEntry.Category.ABYSS));
         ALL_ENTRIES.add(new JournalEntry("The Abyss Portal", "A portal built exactly like the Nether portal, but you need activated funtium as its frame, and the eye to light it", JournalEntry.Category.ABYSS));
-       //Structures
+       ALL_ENTRIES.add(new JournalEntry("Fallow Dimension", "A place where no life can be found. Only the remnants of civilization remain as robots now rule the land. The whole area has been leveled by war and the detritus still falls from the old machines destroyed in the sky.", JournalEntry.Category.FALLOW));
+       ALL_ENTRIES.add(new JournalEntry("The Fallow Portal","A portal built exactly like the Nether portal, but you need fallow portal frame as its frame, and a tome to light it", JournalEntry.Category.FALLOW));
+        //Structures
         ALL_ENTRIES.add(new JournalEntry("The Arena", "It has good loot but only spawn in the abyss", JournalEntry.Category.STRUCTURES));
         ALL_ENTRIES.add(new JournalEntry("The Avalon", "A place where the weary traveler can shelter out the storms. Spawns in the overworld. Designed by Avalon herself", JournalEntry.Category.STRUCTURES));
-        ALL_ENTRIES.add(new JournalEntry("Wither Skeleton Room","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES));
+        ALL_ENTRIES.add(new JournalEntry("Wither Skeleton","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES));
+        ALL_ENTRIES.add(new JournalEntry("Mecha Arena", "An arena found within the Fallow Dimension. You are safe on the outside, but within, the mecharex sleeps.", JournalEntry.Category.STRUCTURES));
     }
 
     @Override

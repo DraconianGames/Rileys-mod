@@ -20,7 +20,7 @@
   "item.riley_mod.mecharex_cannon": "Mecha Rex Cannon",
   "item.riley_mod.armor_plating": "Armor Plating",
   "item.riley_mod.cannon_sheild": "Cannon Shield",
-  "item.riley_mod.spear": "Spear [for testing]",
+  "item.riley_mod.spear": "Spear [for testing purposes]",
   "item.riley_mod.eye": "Eye",
   "item.riley_mod.claw": "Claw",
   "item.riley_mod.tooth": "Tooth",
@@ -37,6 +37,8 @@
   "item.riley_mod.skeletonfairy_spawn_egg": "Skeleton Fairy Spawn Egg",
   "item.riley_mod.skull_fairy_spawn_egg": "Skull Fairy Spawn Egg",
   "item.riley_mod.bison_egg": "Bison Spawn Egg",
+  "item.riley_mod.mecha_rex_spawn_egg": "Mecha Rex Spawn Egg",
+  "item.riley_mod.tome": "Tome",
 
   "item.riley_mod.fancy_skull": "Fancy Skull",
 
@@ -93,6 +95,10 @@
   "block.riley_mod.fallow_protal": "Fallow Portal",
   "block.riley_mod.fallow_portal_frame": "Fallow Portal Frame",
   "block.riley_mod.augmentation_station": "Augmentation Station",
+  "block.riley_mod.special_spawner": "Special Spawner",
+  "block.riley_mod.enchanter": "Enchanter [Not done]",
+  "block.riley_mod.morph_station": "Morph station [Not done]",
+  "block.riley_mod.trophy_reader": "Trophy Reader [Not done]",
 
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",
