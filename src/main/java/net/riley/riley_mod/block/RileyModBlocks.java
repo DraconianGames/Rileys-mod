@@ -40,8 +40,14 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> NIGHT_STAR = BLOCKS.register("night_star",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).lightLevel((state) -> 15)));
+
+
     public static final RegistryObject<Block> FALLOW_GROUND = registerBlock("fallow_ground",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+    public static final RegistryObject<Block> FALLOW_EARTH = registerBlock("fallow_earth",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
+    public static final RegistryObject<Block> FALLOW_PORTAL_FRAME = registerBlock("fallow_portal_frame",
+            () -> new Block(BlockBehaviour.Properties.copy(RileyModBlocks.ACTIVACTED_FUNTIUM.get())));
 
     public static final RegistryObject<Block> SPECIAL_SPAWNER = registerBlock("special_spawner",
             () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
@@ -162,11 +168,19 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
-            () -> new RileyModPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
+            () -> new RileyModAbyssPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
                     .noCollission()
                     .noOcclusion() // This is critical for the "thin" look
                     .noLootTable()));
 
+    public static final RegistryObject<Block> FALLOW_PORTAL = registerBlock("fallow_portal",
+            () -> new RileyModFallowPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
+                    .noCollission()
+                    .noOcclusion() // This is critical for the "thin" look
+                    .noLootTable()));
+
+
+//TODO Animated portal textures
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

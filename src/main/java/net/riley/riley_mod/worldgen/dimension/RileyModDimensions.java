@@ -21,11 +21,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.worldgen.biome.RileyModBiomes;
 import java.util.List;
+import java.util.Optional;
 import java.util.OptionalLong;
 import terrablender.api.ParameterUtils;
-
+import net.minecraft.core.Holder;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
+import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 
 public class RileyModDimensions {
+    //Abyss dimension
     public static final ResourceKey<LevelStem> ABYSSDIM_KEY = ResourceKey.create(Registries.LEVEL_STEM,
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"abyss_dim"));
     public static final ResourceKey<Level> ABYSSDIM_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
@@ -34,6 +39,15 @@ public class RileyModDimensions {
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"abyss_dim_type"));
     public static final ResourceKey<NoiseGeneratorSettings> ABYSS_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS,
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_noise_settings"));
+    //Fallow dimension
+    public static final ResourceKey<LevelStem> FALLOWDIM_KEY = ResourceKey.create(Registries.LEVEL_STEM,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"fallow_dim"));
+    public static final ResourceKey<Level> FALLOWDIM_LEVEL_KEY = ResourceKey.create(Registries.DIMENSION,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"fallow_dim"));
+    public static final ResourceKey<DimensionType> FALLOWDIM_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID,"fallow_dim_type"));
+    public static final ResourceKey<NoiseGeneratorSettings> FALLOW_NOISE_SETTINGS = ResourceKey.create(Registries.NOISE_SETTINGS,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "fallow_noise_settings"));
 
 
     public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> context) {
@@ -41,6 +55,17 @@ public class RileyModDimensions {
                 // minY: -64, height: 384 (Standard Overworld size)
                 NoiseSettings.create(-64, 384, 1, 2),
                 RileyModBlocks.ABYSSAL_STONE.get().defaultBlockState(),
+                Blocks.WATER.defaultBlockState(),
+                NoiseGeneratorSettings.overworld(context, false, false).noiseRouter(),
+                RileyModSurfaceRules.makeRules(),
+                List.of(),
+                63, // Keep sea level at 63
+                false, true, false, false
+        ));
+        context.register(FALLOW_NOISE_SETTINGS, new NoiseGeneratorSettings(
+                // minY: -64, height: 384 (Standard Overworld size)
+                NoiseSettings.create(-64, 384, 1, 2),
+                RileyModBlocks.FALLOW_GROUND.get().defaultBlockState(),
                 Blocks.WATER.defaultBlockState(),
                 NoiseGeneratorSettings.overworld(context, false, false).noiseRouter(),
                 RileyModSurfaceRules.makeRules(),
@@ -61,6 +86,17 @@ public class RileyModDimensions {
                 BuiltinDimensionTypes.OVERWORLD_EFFECTS,
                 0.0f,
                 new DimensionType.MonsterSettings(false, true, ConstantInt.of(7), 0)));
+        context.register(FALLOWDIM_TYPE, new DimensionType(
+                OptionalLong.of(10000),
+                true, false, false, false,
+                1.0, true, true,
+                -64,
+                384,
+                384,
+                BlockTags.INFINIBURN_OVERWORLD,
+                BuiltinDimensionTypes.OVERWORLD_EFFECTS,
+                0.0f,
+                new DimensionType.MonsterSettings(false, true, ConstantInt.of(7), 0)));
     }
 
 
@@ -69,8 +105,6 @@ public class RileyModDimensions {
         HolderGetter<DimensionType> dimTypes = context.lookup(Registries.DIMENSION_TYPE);
         HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 
-        // We update this list to match the logical flow:
-        // Trench -> Ocean -> Beach -> Forest -> Plains -> Peaks
         MultiNoiseBiomeSource biomeSource = MultiNoiseBiomeSource.createFromList(
                 new Climate.ParameterList<>(List.of(
                         Pair.of(Climate.parameters(0.0F, 0.0F, -1.1F, 0.9F, 0.0F, 0.8F, 0.0F), biomeRegistry.getOrThrow(RileyModBiomes.ABYSSAL_TRENCH)),
@@ -88,5 +122,24 @@ public class RileyModDimensions {
                 new NoiseBasedChunkGenerator(biomeSource, noiseGenSettings.getOrThrow(ABYSS_NOISE_SETTINGS)));
 
         context.register(ABYSSDIM_KEY, stem);
+        //Fallow Dimension
+        Holder<Biome> fallowBiomeHolder = biomeRegistry.getOrThrow(RileyModBiomes.FALLOW_LANDS);
+
+        FlatLevelGeneratorSettings flatSettings =
+                new FlatLevelGeneratorSettings(Optional.empty(), fallowBiomeHolder, List.of());
+
+        flatSettings.getLayersInfo().clear();
+        flatSettings.getLayersInfo().add(new FlatLayerInfo(1, Blocks.BEDROCK));
+        flatSettings.getLayersInfo().add(new FlatLayerInfo(58, RileyModBlocks.FALLOW_EARTH.get()));
+        flatSettings.getLayersInfo().add(new FlatLayerInfo(5, RileyModBlocks.FALLOW_GROUND.get()));
+        flatSettings.updateLayers();
+
+        LevelStem fallowStem = new LevelStem(
+                dimTypes.getOrThrow(RileyModDimensions.FALLOWDIM_TYPE),
+                new FlatLevelSource(flatSettings)
+        );
+
+        context.register(FALLOWDIM_KEY, fallowStem);
+
     }
 }

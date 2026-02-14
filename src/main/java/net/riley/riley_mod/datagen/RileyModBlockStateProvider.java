@@ -12,7 +12,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
-import net.riley.riley_mod.block.custom.RileyModPortalBlock;
+import net.riley.riley_mod.block.custom.RileyModAbyssPortalBlock;
+import net.riley.riley_mod.block.custom.RileyModFallowPortalBlock;
 
 
 public class RileyModBlockStateProvider extends BlockStateProvider {
@@ -36,6 +37,8 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.NIGHT_STAR);
         blockWithItem(RileyModBlocks.SPECIAL_SPAWNER);
         blockWithItem(RileyModBlocks.FALLOW_GROUND);
+        blockWithItem(RileyModBlocks.FALLOW_EARTH);
+        blockWithItem(RileyModBlocks.FALLOW_PORTAL_FRAME);
 
 
         abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);
@@ -56,6 +59,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         saplingBlock(RileyModBlocks.ABYSS_SAPLING);
 
         makeAbyssPortal(RileyModBlocks.ABYSS_PORTAL.get());
+        makeFallowPortal(RileyModBlocks.FALLOW_PORTAL.get());
         stairsBlock(((StairBlock) RileyModBlocks.ABYSS_WOOD_STAIRS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         slabBlock(((SlabBlock) RileyModBlocks.ABYSS_WOOD_SLAB.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
         fenceBlock(((FenceBlock) RileyModBlocks.ABYSS_WOOD_FENCE.get()), blockTexture(RileyModBlocks.ABYSS_PLANKS.get()));
@@ -71,6 +75,26 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         topTexturedBlock(RileyModBlocks.TROPHY_READER, "trophy_reader", "trophy_reader_top");
 
     }
+    private void makeFallowPortal(Block block) {
+        // This creates the thin model (4 pixels thick on the Z axis)
+        ModelFile portalModel = models().withExistingParent("fallow_portal", "block/block")
+                .texture("particle", modLoc("block/fallow_portal"))
+                .texture("portal", modLoc("block/fallow_portal"))
+                .element()
+                .from(0f, 0f, 6f)
+                .to(16f, 16f, 10f)
+                .face(Direction.NORTH).uvs(0f, 0f, 16f, 16f).texture("#portal").end()
+                .face(Direction.SOUTH).uvs(0f, 0f, 16f, 16f).texture("#portal").end()
+                .end();
+
+        // This sets up the variants for X and Z axis
+        getVariantBuilder(block).partialState()
+                .with(RileyModFallowPortalBlock.AXIS, Direction.Axis.X)
+                .modelForState().modelFile(portalModel).addModel()
+                .partialState()
+                .with(RileyModFallowPortalBlock.AXIS, Direction.Axis.Z)
+                .modelForState().modelFile(portalModel).rotationY(90).addModel();
+    }
     private void makeAbyssPortal(Block block) {
         // This creates the thin model (4 pixels thick on the Z axis)
         ModelFile portalModel = models().withExistingParent("abyss_portal", "block/block")
@@ -85,10 +109,10 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
 
         // This sets up the variants for X and Z axis
         getVariantBuilder(block).partialState()
-                .with(RileyModPortalBlock.AXIS, Direction.Axis.X)
+                .with(RileyModAbyssPortalBlock.AXIS, Direction.Axis.X)
                 .modelForState().modelFile(portalModel).addModel()
                 .partialState()
-                .with(RileyModPortalBlock.AXIS, Direction.Axis.Z)
+                .with(RileyModAbyssPortalBlock.AXIS, Direction.Axis.Z)
                 .modelForState().modelFile(portalModel).rotationY(90).addModel();
     }
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {

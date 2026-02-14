@@ -25,6 +25,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.FUNTIUM_PLATE.get());
                         output.accept(RileyModItems.FUNTIUM_ORE.get());
                         output.accept(RileyModItems.EYE.get());
+                        output.accept(RileyModItems.TOME.get());
                         output.accept(RileyModItems.CLAW.get());
                         output.accept(RileyModItems.TOOTH.get());
                         output.accept(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.get());
@@ -62,6 +63,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.FUNTIUM_ORE_BLOCK.get());
                         output.accept(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get());
                         output.accept(RileyModBlocks.FALLOW_GROUND.get());
+                        output.accept(RileyModBlocks.FALLOW_EARTH.get());
+                        output.accept(RileyModBlocks.FALLOW_PORTAL_FRAME.get());
 
                         output.accept(RileyModBlocks.ABYSS_LOG.get());
                         output.accept(RileyModBlocks.STRIPPED_ABYSS_LOG.get());

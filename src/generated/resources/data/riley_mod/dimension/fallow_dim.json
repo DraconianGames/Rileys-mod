@@ -1,0 +1,25 @@
+{
+  "type": "riley_mod:fallow_dim_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "riley_mod:fallow_lands",
+      "features": false,
+      "lakes": false,
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        },
+        {
+          "block": "riley_mod:fallow_earth",
+          "height": 58
+        },
+        {
+          "block": "riley_mod:fallow_ground",
+          "height": 5
+        }
+      ]
+    }
+  }
+}

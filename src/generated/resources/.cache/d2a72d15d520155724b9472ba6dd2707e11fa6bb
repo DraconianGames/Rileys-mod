@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-09T17:43:01.527463	Item Models: riley_mod
+// 1.20.1	2026-02-14T10:57:15.1847652	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -88,6 +88,7 @@ faf4e2941484f5f3d90b4edec46d712c71a46111 assets/riley_mod/models/item/mecha_rex_
 e5a442996617a2304b1da22f61ab82fb6c856d5a assets/riley_mod/models/item/structure_brick_wall.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/sunless_crab_spawn_egg.json
 5af70bb3f8622cd7d6191e670ad3643d2bef769a assets/riley_mod/models/item/synthetic_muscle.json
+3d922d2cc3cc49c02b14525c127d3569d82d623b assets/riley_mod/models/item/tome.json
 9140144ec00f096cb57b866687a35996ee2e783f assets/riley_mod/models/item/tooth.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/toothfairy_spawn_egg.json
 e943fd5f66649a6ab6e43a67300e4a1e459ed55b assets/riley_mod/models/item/unassembled_mecharex_leg.json

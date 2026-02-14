@@ -9,10 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
-import net.riley.riley_mod.item.custom.CaggedFairyItem;
-import net.riley.riley_mod.item.custom.MecharexEggItem;
-import net.riley.riley_mod.item.custom.RileyModArmorItem;
-import net.riley.riley_mod.item.custom.RileyModPortalItem;
+import net.riley.riley_mod.item.custom.*;
 
 
 public class RileyModItems {
@@ -29,8 +26,12 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_ORE = ITEMS.register("funtium_ore",
             () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
-            () -> new RileyModPortalItem(new Item.Properties().stacksTo(1)));
+            () -> new RileyModAbyssPortalItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> TOME = ITEMS.register("tome",
+            () -> new RileyModFallowPortalItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CLAW = ITEMS.register("claw",

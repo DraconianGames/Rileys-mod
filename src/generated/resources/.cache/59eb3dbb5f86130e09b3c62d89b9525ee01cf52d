@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-09T21:22:42.0469957	Loot Tables
+// 1.20.1	2026-02-14T10:57:15.1792094	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -18,7 +18,9 @@ f83fa953ce3dc23d62f2823367b0b6bf42df2430 data/riley_mod/loot_tables/blocks/augme
 d850c93a93b4dc8b2ee7d3f6620a897821d9cd3e data/riley_mod/loot_tables/blocks/black_sand.json
 854714340f0e18df086f7e5c21fd23d2d110ff18 data/riley_mod/loot_tables/blocks/deepslate_funtium_ore.json
 f13d391a6151afad20098da29cc71680d7dabe68 data/riley_mod/loot_tables/blocks/enchanter.json
+d0fd9380f346120ef51a2e863374bc1b594d3e2d data/riley_mod/loot_tables/blocks/fallow_earth.json
 0da55c33fc61acc4dc170ed9e1e92b69aa43e933 data/riley_mod/loot_tables/blocks/fallow_ground.json
+23654f482a40a9c4f8d05f66ee8b0346a7d25cc2 data/riley_mod/loot_tables/blocks/fallow_portal_frame.json
 a9b6ec746cd39c86807d879708da0c9374f7a99d data/riley_mod/loot_tables/blocks/funtium_block.json
 8e7e44d1c34a5a3dea971961bd3d457ccee4a22b data/riley_mod/loot_tables/blocks/funtium_ore_block.json
 38812b314da0423404d20fcf70d239fabe4cf6dd data/riley_mod/loot_tables/blocks/morph_station.json

@@ -26,6 +26,9 @@ public class RileyModBiomes {
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_beach"));
     public static final ResourceKey<Biome> ABYSS_OCEAN = ResourceKey.create(Registries.BIOME,
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "abyss_ocean"));
+    public static final ResourceKey<Biome> FALLOW_LANDS = ResourceKey.create(Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "fallow_lands"));
+
 
     public static void boostrap(BootstapContext<Biome> context) {
         context.register(ABYSS_FOREST_BIOME, abyssForestBiome(context));
@@ -34,6 +37,7 @@ public class RileyModBiomes {
         context.register(OBSIDIAN_PEAKS, obsidianPeaks(context));
         context.register(ABYSS_BEACH, abyssBeach(context));
         context.register(ABYSS_OCEAN, abyssOcean(context));
+        context.register(FALLOW_LANDS, fallowLandsBiome(context));
 
     }
 
@@ -44,6 +48,32 @@ public class RileyModBiomes {
         BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
         BiomeDefaultFeatures.addDefaultSprings(builder);
         BiomeDefaultFeatures.addSurfaceFreezing(builder);
+    }
+    public static Biome fallowLandsBiome(BootstapContext<Biome> context) {
+        MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
+        // Example: add spawns or leave empty
+        // spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(RileyModEntities.SOME_ENTITY.get(), 10, 1, 2));
+
+        BiomeGenerationSettings.Builder biomeBuilder =
+                new BiomeGenerationSettings.Builder(context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+
+        globalOverworldGeneration(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultOres(biomeBuilder);
+//TODO change colors
+        return new Biome.BiomeBuilder()
+                .hasPrecipitation(false)
+                .temperature(0.8f)
+                .downfall(0.0f)
+                .generationSettings(biomeBuilder.build())
+                .mobSpawnSettings(spawnBuilder.build())
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(0x3f2a1a)
+                        .waterFogColor(0x2a1a10)
+                        .fogColor(0x6b4a2f)
+                        .skyColor(0x6b4a2f)
+                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
+                        .build())
+                .build();
     }
     public static Biome abyssPlainsBiome(BootstapContext<Biome> context){
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();

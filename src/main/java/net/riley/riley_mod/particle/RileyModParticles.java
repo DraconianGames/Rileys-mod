@@ -27,6 +27,14 @@ public class RileyModParticles {
     public static final RegistryObject<SimpleParticleType> HURICANE_PARTICLE_2 =
             PARTICLES.register("huricane_particle_2", () -> new SimpleParticleType(false));
 
+    // --- NEW: detrus "weather" particles ---
+    public static final RegistryObject<SimpleParticleType> DETRUS_PARTICAL =
+            PARTICLES.register("detrus_partical", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> DETRUS_PARTICAL_2 =
+            PARTICLES.register("detrus_partical_2", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> DETRUS_PARTICAL_3 =
+            PARTICLES.register("detrus_partical_3", () -> new SimpleParticleType(false));
+
     // NEW: orbiting particle (carries center/radius/etc.)
     public static final RegistryObject<ParticleType<OrbitingParticleData>> ORBITING_PARTICLE =
             PARTICLES.register("orbiting_particle", () -> new ParticleType<OrbitingParticleData>(false, OrbitingParticleData.DESERIALIZER) {
