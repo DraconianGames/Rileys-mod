@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:living_machanical_nurons"
+    },
+    "B": {
+      "item": "minecraft:iron_block"
+    },
+    "C": {
+      "item": "minecraft:red_stained_glass_pane"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "result": {
+    "item": "riley_mod:augmentation_station"
+  },
+  "show_notification": true
+}

@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-14T10:57:15.1792094	Loot Tables
+// 1.20.1	2026-02-14T14:16:39.6237959	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -36,7 +36,7 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json
 6afbf8b9d7391023a77426655b08c7d529bb2bd2 data/riley_mod/loot_tables/blocks/trophy_reader.json
 7dd6bf04282b93dd2be2b0519776f4b21f633b1d data/riley_mod/loot_tables/blocks/whale_hunter_trophy.json
-4f37bf5e8b7c3aeec48c7b08daba0a799d07aad9 data/riley_mod/loot_tables/chests/arena.json
+67d2baa8e842e3e29f067606064067173ea9bd50 data/riley_mod/loot_tables/chests/arena.json
 3e95fbc3ceae7fbe5076fff83ee32eec57384f57 data/riley_mod/loot_tables/entities/bison.json
 67aa4b8c4366d8ae395780a15d54689f024bb563 data/riley_mod/loot_tables/entities/bonefairy.json
 34fede37fab920dd466036d1c6238e16dfb16226 data/riley_mod/loot_tables/entities/frost_hopper.json

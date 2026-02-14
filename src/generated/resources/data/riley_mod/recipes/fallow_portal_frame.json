@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:smooth_stone"
+    },
+    "B": {
+      "item": "minecraft:netherrack"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "item": "riley_mod:fallow_portal_frame"
+  },
+  "show_notification": true
+}

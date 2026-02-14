@@ -52,6 +52,9 @@ public class RileyModStructureLootTables implements LootTableSubProvider {
                         .add(LootItem.lootTableItem(RileyModItems.ICE_CHUNK.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 12.0F)))
                                 .setWeight(1))
+                        .add(LootItem.lootTableItem(RileyModItems.TOME.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
                 )
         );
     }

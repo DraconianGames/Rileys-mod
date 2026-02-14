@@ -105,6 +105,21 @@
             }
           ],
           "name": "riley_mod:ice_chunk"
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "riley_mod:tome"
         }
       ],
       "rolls": 1.0

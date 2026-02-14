@@ -89,6 +89,10 @@
   "block.riley_mod.abyss_portal": "Abyss Portal",
   "block.riley_mod.abyss_wood_wall": "Abyss Wood Wall",
   "block.riley_mod.fallow_ground": "Fallow Ground",
+  "block.riley_mod.fallow_earth": "Fallow Earth",
+  "block.riley_mod.fallow_protal": "Fallow Portal",
+  "block.riley_mod.fallow_portal_frame": "Fallow Portal Frame",
+  "block.riley_mod.augmentation_station": "Augmentation Station",
 
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",

@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-14T11:54:20.2107816	Registries
+// 1.20.1	2026-02-14T14:07:20.359765	Registries
 70089b6ea8cb8b4ced1f6d5a936c768efe80c0fc data/riley_mod/dimension/abyss_dim.json
 3eac67c8f0df6915634c86e0cc541cbd5c43b28d data/riley_mod/dimension/fallow_dim.json
 e3c413374610d8d5c51f7bb1e61d474b79ae5b1d data/riley_mod/dimension_type/abyss_dim_type.json
@@ -10,7 +10,7 @@ fd1efaf597a233068ab32afa2f161200d8ba1249 data/riley_mod/worldgen/biome/abyssal_t
 f099c58bebb99cf15e774289ebed79baa69f57b3 data/riley_mod/worldgen/biome/abyss_forest_biome.json
 5d950adbacb3871819f28ea655a0a6e6a5ee0aa0 data/riley_mod/worldgen/biome/abyss_ocean.json
 94e73c471a95796febb564ee42fac08bd8f676c5 data/riley_mod/worldgen/biome/abyss_plains.json
-ca7eabfad6e72d8383447b2822e0439a1cfe99f0 data/riley_mod/worldgen/biome/fallow_lands.json
+d097cc5092e4c70419d9beab7081f5ed394563c4 data/riley_mod/worldgen/biome/fallow_lands.json
 a92ad28559bc8a8b64dfd281c3e860e5a78880ce data/riley_mod/worldgen/biome/obsidian_peaks.json
 9c2bb2605bcf54c2f40fa8b20a6016cf151fb856 data/riley_mod/worldgen/configured_feature/abyss.json
 889a1866649729cddbedb72e8ca344bc53c64835 data/riley_mod/worldgen/configured_feature/funtium_ore.json

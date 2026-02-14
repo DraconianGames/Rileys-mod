@@ -36,6 +36,25 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 RileyModItems.ARMOR_PLATING.get(),
                 0.7F, 100,
                 "armor_plating");
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.FALLOW_PORTAL_FRAME.get())
+                .pattern("ABA")
+                .pattern("BBB")
+                .pattern("ABA")
+                .define('A', Blocks.SMOOTH_STONE)
+                .define('B', Blocks.NETHERRACK)
+
+                .unlockedBy("has_item", has(Blocks.NETHERRACK))
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.AUGMENTATION_STATION.get())
+                .pattern("ABA")
+                .pattern("BCB")
+                .pattern("ABA")
+                .define('A', RileyModItems.LIVING_MACHANICAL_NURONS.get())
+                .define('B', Blocks.IRON_BLOCK)
+                .define('C', Blocks.RED_STAINED_GLASS_PANE)
+
+                .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.ARTIFICIAL_ORGAN.get())
                 .pattern(" BA")
