@@ -4,13 +4,8 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -22,11 +17,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.block.entity.registry.RileyModBlockEntities;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
-import net.riley.riley_mod.client.render.layer.FreezeOverlayLayer;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.client.*;
@@ -68,7 +61,7 @@ public class RileyMod
 //TODO Update block pages for book
 //TODO add bane of mystic. Does double damage to things that are not real.
 
-//TODO custom textures for effects
+
 
         RileyModSounds.register(modEventBus);
 
@@ -147,39 +140,6 @@ public class RileyMod
                 MenuScreens.register(RileyModMenuTypes.MORPH_STATION_MENU.get(), MorphStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
             });
-        }
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class OnAddLayersHandler {
-        @SubscribeEvent
-        public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
-            // Attach to player skins (important, since players are handled separately)
-            for (String skin : event.getSkins()) {
-                EntityRenderer<?> renderer = event.getSkin(skin);
-                if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
-                    addFreezeLayerUnsafeCast(livingRenderer);
-                }
-            }
-
-            // Attach to all registered entity types that use LivingEntityRenderer
-            for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES.getValues()) {
-                // Only process if it's a LivingEntity type
-                if (LivingEntity.class.isAssignableFrom(type.getBaseClass())) {
-                    @SuppressWarnings("unchecked")
-                    EntityType<? extends LivingEntity> livingType = (EntityType<? extends LivingEntity>) type;
-
-                    EntityRenderer<?> renderer = event.getRenderer(livingType);
-                    if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
-                        addFreezeLayerUnsafeCast(livingRenderer);
-                    }
-                }
-            }
-        }
-
-        @SuppressWarnings({"rawtypes", "unchecked"})
-        private static void addFreezeLayerUnsafeCast(LivingEntityRenderer livingRenderer) {
-            livingRenderer.addLayer(new FreezeOverlayLayer(livingRenderer));
         }
     }
 }
