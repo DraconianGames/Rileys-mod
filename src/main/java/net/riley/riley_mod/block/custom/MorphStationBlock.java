@@ -1,6 +1,7 @@
 package net.riley.riley_mod.block.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +16,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -28,12 +31,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class MorphStationBlock extends Block {
+    public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST);
     // 3 blocks wide (48 pixels), 1.5 blocks tall (24 pixels), 1 block deep (16 pixels)
     // Values are (minX, minY, minZ, maxX, maxY, maxZ) in pixels (0-16 is one block)
     private static final VoxelShape SHAPE = Shapes.box(0, 0.0, 0, 1.0, 2, 1.0);
 
     public MorphStationBlock(Properties pProperties) {
         super(pProperties);
+    }
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING);
     }
 
     @Override
@@ -113,6 +121,6 @@ public class MorphStationBlock extends Block {
             }
         }
 
-        return this.defaultBlockState();
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 }

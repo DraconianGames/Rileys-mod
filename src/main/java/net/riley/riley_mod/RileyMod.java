@@ -56,6 +56,7 @@ public class RileyMod
 //TODO add new mobs to the ocean.
 //TODO add more effects that mobs can use
 //TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
+        //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
 //TODO Bison evolution
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO Update block pages for book
@@ -129,6 +130,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.BISON.get(), BisonRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRexBombRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
+            EntityRenderers.register(RileyModEntities.MECHA_TERROR.get(), MechaTerrorRenderer:: new);//TODO FINNISH the mecha terror
             ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
             event.enqueueWork(() -> {
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);

@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "riley_mod:block/enchanter" }
+    "facing=north": { "model": "riley_mod:block/enchanter" },
+    "facing=south": { "model": "riley_mod:block/enchanter", "y": 180 },
+    "facing=east": { "model": "riley_mod:block/enchanter", "y": 90 },
+    "facing=west": { "model": "riley_mod:block/enchanter", "y": 270 }
   }
 }

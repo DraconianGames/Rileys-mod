@@ -1,5 +1,8 @@
 {
   "variants": {
-    "": { "model": "riley_mod:block/augmentation_station" }
+    "facing=north": { "model": "riley_mod:block/augmentation_station" },
+    "facing=south": { "model": "riley_mod:block/augmentation_station", "y": 180 },
+    "facing=east": { "model": "riley_mod:block/augmentation_station", "y": 90 },
+    "facing=west": { "model": "riley_mod:block/augmentation_station", "y": 270 }
   }
 }

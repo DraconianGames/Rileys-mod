@@ -25,6 +25,8 @@ public static final ModelLayerLocation SKULL_FAIRY_LAYER = new ModelLayerLocatio
         ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "skull_fairy_layer"),"main");
 public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
         ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "bison_layer"),"main");
+    public static final ModelLayerLocation MECHA_TERROR_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecha_terror_layer"),"main");
 
     public static final ModelLayerLocation MECHAREXBOMB_LAYER =new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_bomb"), "main");
