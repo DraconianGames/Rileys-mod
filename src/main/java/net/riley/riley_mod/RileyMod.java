@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -160,9 +161,15 @@ public class RileyMod
 
         // Attach to all registered entity types that use LivingEntityRenderer
         for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES.getValues()) {
-            EntityRenderer<?> renderer = event.getRenderer(type);
-            if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
-                addFreezeLayerUnsafeCast(livingRenderer);
+            // Only process if it's a LivingEntity type
+            if (LivingEntity.class.isAssignableFrom(type.getBaseClass())) {
+                @SuppressWarnings("unchecked")
+                EntityType<? extends LivingEntity> livingType = (EntityType<? extends LivingEntity>) type;
+
+                EntityRenderer<?> renderer = event.getRenderer(livingType);
+                if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
+                    addFreezeLayerUnsafeCast(livingRenderer);
+                }
             }
         }
     }

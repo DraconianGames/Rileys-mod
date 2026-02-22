@@ -16,7 +16,7 @@ import static net.minecraft.client.renderer.entity.LivingEntityRenderer.getOverl
 
 public class FreezeOverlayLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
 
-    // Path: assets/riley_mod/textures/misc/freeze_effect_texture.png
+    // Path: src/main/resources/assets/riley_mod/textures/misc/freeze_effect_texture.png
     private static final ResourceLocation FREEZE_OVERLAY =
             new ResourceLocation(RileyMod.MODID, "textures/misc/freeze_effect_texture.png");
 
@@ -41,15 +41,19 @@ public class FreezeOverlayLayer<T extends LivingEntity, M extends EntityModel<T>
             return;
         }
 
-        // Use translucent so PNG alpha is respected.
+        poseStack.pushPose();
+
+        // Use translucent so PNG alpha is respected
         VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucent(FREEZE_OVERLAY));
 
-        // Tint (r,g,b) and alpha. Lower alpha = more subtle overlay.
+        // Tint (r,g,b) and alpha. Lower alpha = more subtle overlay
         float r = 1.0f;
         float g = 1.0f;
         float b = 1.0f;
-        float a = 0.55f;
+        float a = 1.0f;
 
         this.getParentModel().renderToBuffer(poseStack, consumer, packedLight, getOverlayCoords(entity, 0.0F), r, g, b, a);
+
+        poseStack.popPose();
     }
 }
