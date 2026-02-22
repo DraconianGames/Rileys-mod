@@ -149,33 +149,37 @@ public class RileyMod
             });
         }
     }
-    @SubscribeEvent
-    public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
-        // Attach to player skins (important, since players are handled separately)
-        for (String skin : event.getSkins()) {
-            EntityRenderer<?> renderer = event.getSkin(skin);
-            if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
-                addFreezeLayerUnsafeCast(livingRenderer);
-            }
-        }
 
-        // Attach to all registered entity types that use LivingEntityRenderer
-        for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES.getValues()) {
-            // Only process if it's a LivingEntity type
-            if (LivingEntity.class.isAssignableFrom(type.getBaseClass())) {
-                @SuppressWarnings("unchecked")
-                EntityType<? extends LivingEntity> livingType = (EntityType<? extends LivingEntity>) type;
-
-                EntityRenderer<?> renderer = event.getRenderer(livingType);
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class OnAddLayersHandler {
+        @SubscribeEvent
+        public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+            // Attach to player skins (important, since players are handled separately)
+            for (String skin : event.getSkins()) {
+                EntityRenderer<?> renderer = event.getSkin(skin);
                 if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
                     addFreezeLayerUnsafeCast(livingRenderer);
                 }
             }
-        }
-    }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static void addFreezeLayerUnsafeCast(LivingEntityRenderer livingRenderer) {
-        livingRenderer.addLayer(new FreezeOverlayLayer(livingRenderer));
+            // Attach to all registered entity types that use LivingEntityRenderer
+            for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES.getValues()) {
+                // Only process if it's a LivingEntity type
+                if (LivingEntity.class.isAssignableFrom(type.getBaseClass())) {
+                    @SuppressWarnings("unchecked")
+                    EntityType<? extends LivingEntity> livingType = (EntityType<? extends LivingEntity>) type;
+
+                    EntityRenderer<?> renderer = event.getRenderer(livingType);
+                    if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
+                        addFreezeLayerUnsafeCast(livingRenderer);
+                    }
+                }
+            }
+        }
+
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        private static void addFreezeLayerUnsafeCast(LivingEntityRenderer livingRenderer) {
+            livingRenderer.addLayer(new FreezeOverlayLayer(livingRenderer));
+        }
     }
 }

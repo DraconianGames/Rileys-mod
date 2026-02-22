@@ -40,6 +40,11 @@ public class FreezeOverlayLayer<T extends LivingEntity, M extends EntityModel<T>
         if (!entity.hasEffect(RileyModEffects.FREEZE.get())) {
             return;
         }
+        System.out.println("Freeze overlay rendering for entity: " + entity);
+
+        if (!entity.hasEffect(RileyModEffects.FREEZE.get())) {
+            return;
+        }
 
         poseStack.pushPose();
 
@@ -56,4 +61,5 @@ public class FreezeOverlayLayer<T extends LivingEntity, M extends EntityModel<T>
 
         poseStack.popPose();
     }
+
 }
