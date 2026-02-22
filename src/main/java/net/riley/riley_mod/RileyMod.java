@@ -4,10 +4,12 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -19,13 +21,14 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.block.entity.registry.RileyModBlockEntities;
 import net.riley.riley_mod.brewing.FreezeBrewingRecipe;
+import net.riley.riley_mod.client.render.layer.FreezeOverlayLayer;
 import net.riley.riley_mod.effect.RileyModEffects;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.client.*;
-import net.riley.riley_mod.entity.custom.WhaleHunterEntity;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.menu.RileyModMenuTypes;
@@ -34,8 +37,6 @@ import net.riley.riley_mod.particle.RileyModParticles;
 import net.riley.riley_mod.recipe.RileyModRecipes;
 import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.world.domain.RileyModDomains;
-import net.riley.riley_mod.worldgen.dimension.AbyssRegion;
-import terrablender.api.Regions;
 
 
 import net.riley.riley_mod.potion.RileyModPotions;
@@ -65,8 +66,8 @@ public class RileyMod
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO Update block pages for book
 //TODO add bane of mystic. Does double damage to things that are not real.
-//TODO Update Journal entries.
-//TODO add dimension.
+
+//TODO custom textures for effects
 
         RileyModSounds.register(modEventBus);
 
@@ -146,5 +147,28 @@ public class RileyMod
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
             });
         }
+    }
+    @SubscribeEvent
+    public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
+        // Attach to player skins (important, since players are handled separately)
+        for (String skin : event.getSkins()) {
+            EntityRenderer<?> renderer = event.getSkin(skin);
+            if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
+                addFreezeLayerUnsafeCast(livingRenderer);
+            }
+        }
+
+        // Attach to all registered entity types that use LivingEntityRenderer
+        for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES.getValues()) {
+            EntityRenderer<?> renderer = event.getRenderer(type);
+            if (renderer instanceof LivingEntityRenderer<?, ?> livingRenderer) {
+                addFreezeLayerUnsafeCast(livingRenderer);
+            }
+        }
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    private static void addFreezeLayerUnsafeCast(LivingEntityRenderer livingRenderer) {
+        livingRenderer.addLayer(new FreezeOverlayLayer(livingRenderer));
     }
 }
