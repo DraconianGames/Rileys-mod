@@ -37,12 +37,22 @@ import net.riley.riley_mod.effect.RileyModEffects;
 public class RapterEntity extends AgeableMob {
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.BOOLEAN);
-
+    private static final EntityDataAccessor<Integer> VARIANT =
+            SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.INT);
 
     public RapterEntity(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.setVariant(this.random.nextInt(2)); // 50% chance of albino. Change number to ammount of varients.
+
     }
 
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
+    }
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAminationTimeout = 0;
     public final AnimationState attackAnimationState = new AnimationState();
@@ -122,6 +132,7 @@ setupAminationStates();
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
+        this.entityData.define(VARIANT, 0); // 0 = normal, 1 = albino
     }
 
     @Override

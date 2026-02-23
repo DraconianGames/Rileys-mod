@@ -15,7 +15,10 @@ public class RapterRenderer extends MobRenderer<RapterEntity,RapterModel<RapterE
 
     @Override
     public ResourceLocation getTextureLocation(RapterEntity pEntity) {
-        return ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_texture.png");
+        return switch(pEntity.getVariant()) {
+            case 1 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_albino.png");
+            default -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_texture.png");
+        };
     }
     @Override
     public void render(RapterEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack,
