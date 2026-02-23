@@ -20,7 +20,7 @@ public class RileyModEntities {
 
 public static final RegistryObject<EntityType<RapterEntity>> RAPTER =
         ENTITY_TYPES.register("rapter",()-> EntityType.Builder.of(RapterEntity::new,MobCategory.MONSTER)
-                .sized(1f,1f).build("rapter"));
+                .sized(0.5f,1f).build("rapter"));
 public static final RegistryObject<EntityType<NightTerrorEntity>> NIGHT_TERROR =
         ENTITY_TYPES.register("night_terror",()-> EntityType.Builder.of(NightTerrorEntity::new,MobCategory.MONSTER)
                 .sized(2f,1.3f).build("night_terror"));
