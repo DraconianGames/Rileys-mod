@@ -35,7 +35,7 @@ public class MechaRexEntity extends TamableAnimal {
     public final AnimationState activationAnimationState = new AnimationState();
 
     private int idleAminationTimeout = 0;
-    LivingEntity shooter = this; // inside your Mecha Rex class
+    LivingEntity shooter = this;
     // Attack animations (client-side visuals)
     private static final EntityDataAccessor<Integer> TAIL_SWIPE_TICKS =
             SynchedEntityData.defineId(MechaRexEntity.class, EntityDataSerializers.INT);

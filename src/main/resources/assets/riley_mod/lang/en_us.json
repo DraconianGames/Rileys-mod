@@ -38,9 +38,11 @@
   "item.riley_mod.skull_fairy_spawn_egg": "Skull Fairy Spawn Egg",
   "item.riley_mod.bison_egg": "Bison Spawn Egg",
   "item.riley_mod.mecha_rex_spawn_egg": "Mecha Rex Spawn Egg",
+  "item.riley_mod.mecha_terror_spawn_egg": "Mecha Terror Spawn Egg",
   "item.riley_mod.tome": "Tome",
 
   "item.riley_mod.fancy_skull": "Fancy Skull",
+  "item.riley_mod.mecha_terror_egg": "Mecha Terror Egg",
 
   "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
   "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
@@ -116,6 +118,7 @@
   "entity.riley_mod.mecharex": "Mecha Rex",
   "entity.riley_mod.mecharexbomb": "Mecha Rex Bomb",
   "entity.riley_mod.bison": "Bison",
+  "entity.riley_mod.mecha_terror": "Mecha Terror",
 
   "creativetab.funtium_tab": "Funtium Tab",
 

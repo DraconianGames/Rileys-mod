@@ -11,7 +11,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.riley.riley_mod.entity.animations.MechaTerrorAnimationDefinitions;
+import net.riley.riley_mod.entity.custom.MechaTerrorEntity;
 
 public class MechaTerrorModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -185,14 +188,43 @@ public class MechaTerrorModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
+		MechaTerrorEntity rex = (MechaTerrorEntity) entity;
+		if (rex.isActivating()) {
+			this.animate(rex.activationAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_ACTIVATE, ageInTicks, 1f);
+			return;
+		}
+		// 1) WALK first (base layer)
+		// Only if actually moving; otherwise it can "fight" idle/attacks.
+		if (limbSwingAmount > 0.01F) {
+			this.animateWalk(MechaTerrorAnimationDefinitions.MECHA_TERROR_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
+		}
+/*
+		// 2) ATTACKS second (overlay on top of walk)
+		if (rex.isShootinging()) {
+			this.animate(rex.ShootAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_SHOOT, ageInTicks, 1f);
+		}
 
+		// 3) IDLE last, but only when not walking and not attacking
+		if (limbSwingAmount <= 0.01F && !rex.isShooting()) {
+			this.animate(rex.idleAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_IDLE, ageInTicks, 1f);
+		}
+*/
+		//TODO register shooting
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		mecha_terror.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
+	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
+		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -30.0F, 30.0F);
+		pHeadPitch = Mth.clamp(pHeadPitch, -25.0F, 45.0F);
 
+		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
+		this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
+	}
 	@Override
 	public ModelPart root() {
 		return mecha_terror;

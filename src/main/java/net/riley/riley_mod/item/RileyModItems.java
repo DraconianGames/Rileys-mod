@@ -78,6 +78,8 @@ public class RileyModItems {
     public static final RegistryObject<Item> CANNON_SHEILD = ITEMS.register("cannon_sheild",
             () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> MECHA_TERROR_EGG = ITEMS.register("mecha_terror_egg",
+            () -> new MechaTerrorEggItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SPEAR = ITEMS.register("spear",
             () -> new Item(new Item.Properties()));
@@ -135,6 +137,9 @@ public class RileyModItems {
                     new Item.Properties()));
     public static final RegistryObject<Item> MECHA_REX_SPAWN_EGG= ITEMS.register("mecha_rex_spawn_egg",
             () -> new ForgeSpawnEggItem(RileyModEntities.MECHAREX,0x8f8f8f ,0x6a1cbd,
+                    new Item.Properties()));
+    public static final RegistryObject<Item> MECHA_TERROR_SPAWN_EGG= ITEMS.register("mecha_terror_spawn_egg",
+            () -> new ForgeSpawnEggItem(RileyModEntities.MECHA_TERROR,0x916c06 ,0x262522,
                     new Item.Properties()));
 
     public static final RegistryObject<Item> CAGGED_FAIRY = ITEMS.register("cagged_fairy",
