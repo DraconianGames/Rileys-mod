@@ -18,8 +18,14 @@ public class RapterRenderer extends MobRenderer<RapterEntity,RapterModel<RapterE
         return switch(pEntity.getVariant()) {
             case 1 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_albino.png");
             case 2 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_scarred.png");
-            case 3 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_melinistc.png");
-            default -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_texture.png");
+            case 4 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_melinistc.png");
+            case 5 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_gold.png");
+            case 6 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_green.png");
+            case 7 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_purple.png");
+            case 8 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_red.png");
+            case 9 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_silver.png");
+            case 10 -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter_rainbow.png");
+            default -> ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/entity/rapter.png");
         };
     }
     @Override

@@ -42,7 +42,7 @@ public class RapterEntity extends AgeableMob {
 
     public RapterEntity(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.setVariant(this.random.nextInt(4)); // 50% chance of albino. Change number to ammount of varients.
+        this.setVariant(this.random.nextInt(11)); // Change number to number of variants.
 
     }
 
@@ -208,10 +208,6 @@ setupAminationStates();
     }
 
 
-    @Override
-    protected @Nullable SoundEvent getAmbientSound() {
-        return SoundEvents.STRIDER_AMBIENT;
-    }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource) {
