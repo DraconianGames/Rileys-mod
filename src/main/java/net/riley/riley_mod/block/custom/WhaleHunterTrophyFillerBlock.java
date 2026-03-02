@@ -12,8 +12,8 @@ import net.minecraft.world.level.Level;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TrophyFillerBlock extends Block {
-    public TrophyFillerBlock(Properties pProperties) {
+public class WhaleHunterTrophyFillerBlock extends Block {
+    public WhaleHunterTrophyFillerBlock(Properties pProperties) {
         super(pProperties);
     }
 

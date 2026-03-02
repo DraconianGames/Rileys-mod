@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-22T18:51:35.1823413	Loot Tables
+// 1.20.1	2026-03-02T13:59:52.6225735	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -16,6 +16,7 @@ f86e29e68a686525a4d6adfcd1a32df6cb995973 data/riley_mod/loot_tables/blocks/abyss
 cd226cbb8ad1e26f8d56a6b5288dbcdad22e55c1 data/riley_mod/loot_tables/blocks/activacted_funtium.json
 f83fa953ce3dc23d62f2823367b0b6bf42df2430 data/riley_mod/loot_tables/blocks/augmentation_station.json
 d850c93a93b4dc8b2ee7d3f6620a897821d9cd3e data/riley_mod/loot_tables/blocks/black_sand.json
+e77820a5b6066652d0398aa80d275ff27102c3c5 data/riley_mod/loot_tables/blocks/cable.json
 854714340f0e18df086f7e5c21fd23d2d110ff18 data/riley_mod/loot_tables/blocks/deepslate_funtium_ore.json
 f13d391a6151afad20098da29cc71680d7dabe68 data/riley_mod/loot_tables/blocks/enchanter.json
 d0fd9380f346120ef51a2e863374bc1b594d3e2d data/riley_mod/loot_tables/blocks/fallow_earth.json
@@ -23,6 +24,11 @@ d0fd9380f346120ef51a2e863374bc1b594d3e2d data/riley_mod/loot_tables/blocks/fallo
 23654f482a40a9c4f8d05f66ee8b0346a7d25cc2 data/riley_mod/loot_tables/blocks/fallow_portal_frame.json
 a9b6ec746cd39c86807d879708da0c9374f7a99d data/riley_mod/loot_tables/blocks/funtium_block.json
 8e7e44d1c34a5a3dea971961bd3d457ccee4a22b data/riley_mod/loot_tables/blocks/funtium_ore_block.json
+c2ecd9401e5f3f86875f8b781fa9fb6d9b91d510 data/riley_mod/loot_tables/blocks/machine_core.json
+78681a9b50e1fee8261325ecdfbc0463e5e40e78 data/riley_mod/loot_tables/blocks/machine_core_center.json
+745a970924129a97142af2d217a6dcc29e47a076 data/riley_mod/loot_tables/blocks/machine_core_port.json
+a4ad20c5fbf3a5c805e36297c4543d6c1911dd9d data/riley_mod/loot_tables/blocks/machine_core_screen.json
+8d3f7e5fbd951647471a00e7dcc43b99755fb401 data/riley_mod/loot_tables/blocks/machine_core_test.json
 38812b314da0423404d20fcf70d239fabe4cf6dd data/riley_mod/loot_tables/blocks/morph_station.json
 d94e11374a18e0c9b9b0c75393ceb2ba5d055a1c data/riley_mod/loot_tables/blocks/night_star.json
 4ee072b3a1e0438516c1b87d650d5c60aa7c0823 data/riley_mod/loot_tables/blocks/special_spawner.json

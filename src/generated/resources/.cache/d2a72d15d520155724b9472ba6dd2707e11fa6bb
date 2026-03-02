@@ -1,4 +1,4 @@
-// 1.20.1	2026-02-22T19:30:06.1288218	Item Models: riley_mod
+// 1.20.1	2026-03-02T13:59:52.6289386	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -11,11 +11,13 @@ a702e6285bdc1d29b24ef61920692b7b54c44462 assets/riley_mod/models/item/abyss_wood
 d8c780933c7ad322567e89aea87fe63129dbb266 assets/riley_mod/models/item/augmentation_station.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bison_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bonefairy_spawn_egg.json
+38a71be2ab0e6d1f4d872b31454bf92349b0374d assets/riley_mod/models/item/cable.json
 5161fec7ce7ac2960b00de8cb89f45eb547f370e assets/riley_mod/models/item/cagged_fairy.json
 b7029b59fe453c53bf788076c731898edaff691e assets/riley_mod/models/item/cannon_sheild.json
 7ca673f8fb552755581f62e5923e850be7951802 assets/riley_mod/models/item/claw.json
 6a9699eaf0dbd822f158b83708f6ad4ba5b736f4 assets/riley_mod/models/item/enchanter.json
 2dfcec25e31ff4079cdc85f5cc78cc9eb0f01aa8 assets/riley_mod/models/item/eye.json
+be4b49bad7f93f1075ded56900d70089cf39908d assets/riley_mod/models/item/fallow_portal.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/frost_hopper_spawn_egg.json
 dca06bbd11b4ff7d1686f851b432807cade13313 assets/riley_mod/models/item/funtium_boots.json
 e946ce0a5e5cf942400da03c82b7e11fd251a36d assets/riley_mod/models/item/funtium_boots_amethyst_trim.json
@@ -67,6 +69,7 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 2a576c7e8507c46a3fb03b156b832df6e0e73ed5 assets/riley_mod/models/item/ice_chunk.json
 16a311f1ab210c475c716c56583341d166e6b36f assets/riley_mod/models/item/living_machanical_nurons.json
 7b13050a9e8f0eb3876e5f608b958726ff3ec58f assets/riley_mod/models/item/lydar.json
+e8482faaa77bc67d7de9dca152c8ce3899d13d74 assets/riley_mod/models/item/machine_core_test.json
 19e27213fb5d21dd84f6c6c2f173acc34e9dc96e assets/riley_mod/models/item/mecharex_brain.json
 735e2368b8fbb5aa89cf0c5d0b452074d69c277a assets/riley_mod/models/item/mecharex_egg.json
 e6b882d8edd8e1301a51a6eca472018907dde3a4 assets/riley_mod/models/item/mecharex_engine.json

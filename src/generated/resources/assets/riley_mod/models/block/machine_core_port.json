@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "riley_mod:block/machine_core",
+    "side": "riley_mod:block/machine_core_port",
+    "top": "riley_mod:block/machine_core"
+  }
+}

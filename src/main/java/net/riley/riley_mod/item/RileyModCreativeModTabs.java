@@ -50,6 +50,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.CAGGED_FAIRY.get());
 
                         output.accept(RileyModBlocks.NIGHT_STAR.get());
+                        output.accept(RileyModBlocks.CABLE.get());
+
 
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());
                         output.accept(RileyModItems.FUNTIUM_PICKAXE.get());
@@ -95,6 +97,11 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ABYSSAL_COBBLESTONE.get());
                         output.accept(RileyModBlocks.ABYSSAL_STONE.get());
                         output.accept(RileyModBlocks.BLACK_SAND.get());
+                        output.accept(RileyModBlocks.MACHINE_CORE.get());
+                        output.accept(RileyModBlocks.MACHINE_CORE_CENTER.get());
+                        output.accept(RileyModBlocks.MACHINE_CORE_PORT.get());
+                        output.accept(RileyModBlocks.MACHINE_CORE_SCREEN.get());
+                        output.accept(RileyModBlocks.MACHINE_CORE_TEST.get());
 
                         output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
                         output.accept(RileyModBlocks.AUGMENTATION_STATION.get());

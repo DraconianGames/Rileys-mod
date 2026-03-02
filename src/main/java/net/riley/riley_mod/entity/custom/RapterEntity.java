@@ -139,6 +139,7 @@ setupAminationStates();
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new RapterAttackGoal(this, 1.4D, true));
+        //TODO add rapter leader that they follow around. Fix dimension so rapters don't spawn so commonly.
 
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.1D, Ingredient.of(Items.COOKED_RABBIT)));
         this.goalSelector.addGoal(3,new TemptGoal(this,2D, Ingredient.of(Items.COOKED_RABBIT),false));

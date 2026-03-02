@@ -59,8 +59,7 @@ public class RileyMod
         //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
 //TODO Bison evolution
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
-//TODO Update block pages for book
-//TODO add bane of mystic. Does double damage to things that are not real.
+//TODO bane of the abyss, bane of the fallow, bane of the crystalic
 
 
 
@@ -131,9 +130,9 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRexBombRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHA_TERROR.get(), MechaTerrorRenderer:: new);//TODO FINNISH the mecha terror
-            ItemBlockRenderTypes.setRenderLayer(RileyModBlocks.ABYSS_PORTAL.get(), RenderType.translucent());
             event.enqueueWork(() -> {
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
+                MenuScreens.register(RileyModMenuTypes.MACHINE_CORE_SCREEN_MENU.get(), MachineCoreScreen::new);
                 MenuScreens.register(RileyModMenuTypes.AUGMENTATION_STATION_MENU.get(), AugmentationStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.MORPH_STATION_MENU.get(), MorphStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);

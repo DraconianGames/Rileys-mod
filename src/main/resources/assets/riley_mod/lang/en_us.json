@@ -101,6 +101,11 @@
   "block.riley_mod.enchanter": "Enchanter [Not done]",
   "block.riley_mod.morph_station": "Morph station [Not done]",
   "block.riley_mod.trophy_reader": "Trophy Reader [Not done]",
+  "block.riley_mod.cable": "Cable [Not done]",
+  "block.riley_mod.machine_core": "Machine Core",
+  "block.riley_mod.machine_core_center": "Machine Core Center",
+  "block.riley_mod.machine_core_screen": "Machine Core Screen",
+  "block.riley_mod.machine_core_port": "Machine Core Port",
 
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",

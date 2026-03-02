@@ -27,6 +27,9 @@ public class RileyModMenuTypes {
     public static final RegistryObject<MenuType<EnchanterMenu>> ENCHANTER_MENU =
             MENUS.register("enchanter_menu",
                     () -> IForgeMenuType.create((IContainerFactory<EnchanterMenu>) EnchanterMenu::new));
+    public static final RegistryObject<MenuType<MachineCoreScreenMenu>> MACHINE_CORE_SCREEN_MENU =
+            MENUS.register("machine_core_screen_menu",
+                    () -> IForgeMenuType.create((IContainerFactory<MachineCoreScreenMenu>) MachineCoreScreenMenu::new));
 
     public static void register(IEventBus bus) {
         MENUS.register(bus);

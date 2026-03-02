@@ -39,6 +39,8 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.FALLOW_GROUND);
         blockWithItem(RileyModBlocks.FALLOW_EARTH);
         blockWithItem(RileyModBlocks.FALLOW_PORTAL_FRAME);
+        blockWithItem(RileyModBlocks.MACHINE_CORE);
+        blockWithItem(RileyModBlocks.MACHINE_CORE_CENTER);
 
 
         abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);
@@ -73,6 +75,9 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         wallBlock(((WallBlock) RileyModBlocks.STRUCTURE_BRICK_WALL.get()), blockTexture(RileyModBlocks.STRUCTURE_BRICK.get()));
 
         topTexturedBlock(RileyModBlocks.TROPHY_READER, "trophy_reader", "trophy_reader_top");
+
+        topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_PORT, "machine_core_port", "machine_core");
+        topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_SCREEN, "machine_core_screen", "machine_core");
 
     }
     private void makeFallowPortal(Block block) {
@@ -130,6 +135,15 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
                 modLoc("block/" + sideAndBottomTexture), // sides
                 modLoc("block/" + sideAndBottomTexture), // bottom (same as default)
                 modLoc("block/" + topTexture)            // top
+        );
+        simpleBlockWithItem(blockRegistryObject.get(), model);
+    }
+    private void topBottomTexturedBlock(RegistryObject<Block> blockRegistryObject, String sideTexture, String topAndBottomTexture) {
+        ModelFile model = models().cubeBottomTop(
+                blockRegistryObject.getId().getPath(),
+                modLoc("block/" + sideTexture), // sides
+                modLoc("block/" + topAndBottomTexture), // bottom (same as default)
+                modLoc("block/" + topAndBottomTexture)            // top
         );
         simpleBlockWithItem(blockRegistryObject.get(), model);
     }

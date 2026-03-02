@@ -40,31 +40,33 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.SOUL_SAND)));
     public static final RegistryObject<Block> NIGHT_STAR = BLOCKS.register("night_star",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.AMETHYST_BLOCK).lightLevel((state) -> 15)));
-
-
     public static final RegistryObject<Block> FALLOW_GROUND = registerBlock("fallow_ground",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
     public static final RegistryObject<Block> FALLOW_EARTH = registerBlock("fallow_earth",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<Block> FALLOW_PORTAL_FRAME = registerBlock("fallow_portal_frame",
             () -> new Block(BlockBehaviour.Properties.copy(RileyModBlocks.ACTIVACTED_FUNTIUM.get())));
-
+//SPAWNER
     public static final RegistryObject<Block> SPECIAL_SPAWNER = registerBlock("special_spawner",
             () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
-
-
     //trophies
 public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("whale_hunter_trophy",
         () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+//Machines
+    public static final RegistryObject<Block> CABLE = registerBlock("cable",
+            () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));
+  //testing
+    public static final RegistryObject<Block> MACHINE_CORE_TEST = registerBlock("machine_core_test",
+            () -> new MachineCoreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));
     public static final RegistryObject<Block> ENCHANTER = registerBlock("enchanter",
             () -> new EnchanterBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> MORPH_STATION = registerBlock("morph_station",
             () -> new MorphStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> AUGMENTATION_STATION = registerBlock("augmentation_station",
             () -> new AugmentationStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
-
-    public static final RegistryObject<Block> TROPHY_FILLER = BLOCKS.register("trophy_filler",
-            () -> new TrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+//fillers
+    public static final RegistryObject<Block> WHALE_HUNTER_TROPHY_FILLER = BLOCKS.register("whale_hunter_trophy_filler",
+            () -> new WhaleHunterTrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
       public static final RegistryObject<Block> MORPH_STATION_FILLER = BLOCKS.register("morph_station_filler",
@@ -79,6 +81,15 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
             () -> new AugmentationStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
+//more machines
+    public static final RegistryObject<Block> MACHINE_CORE = registerBlock("machine_core",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+    public static final RegistryObject<Block> MACHINE_CORE_CENTER = registerBlock("machine_core_center",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+    public static final RegistryObject<Block> MACHINE_CORE_PORT = registerBlock("machine_core_port",
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+    public static final RegistryObject<Block> MACHINE_CORE_SCREEN = registerBlock("machine_core_screen",
+            () -> new MachineCoreScreenBlock(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 //ores
     public static final RegistryObject<Block> FUNTIUM_ORE_BLOCK = registerBlock("funtium_ore_block",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
@@ -86,7 +97,6 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> DEEPSLATE_FUNTIUM_ORE = registerBlock("deepslate_funtium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
-
 //grass
 public static final RegistryObject<Block> ABYSSAL_GRASS = registerBlock("abyssal_grass",
             () -> new AbyssalGrassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).randomTicks()));
@@ -108,12 +118,10 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                 return true;
             }
-
             @Override
             public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                 return 20;
             }
-
             @Override
             public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                 return 5;
@@ -125,33 +133,29 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return true;
                 }
-
                 @Override
                 public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 60;
                 }
-
                 @Override
                 public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
                     return 30;
                 }
             });
+    //complex blocks
     public static final RegistryObject<Block> ABYSS_WOOD_STAIRS = registerBlock("abyss_wood_stairs",
             () -> new StairBlock(() -> RileyModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
                     BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_SLAB = registerBlock("abyss_wood_slab",
             () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
-
     public static final RegistryObject<Block> ABYSS_SAPLING = registerBlock("abyss_sapling",
             () -> new SaplingBlock(new AbyssTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
-
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE = registerBlock("abyss_wood_fence",
             () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
     public static final RegistryObject<Block> ABYSS_WOOD_FENCE_GATE = registerBlock("abyss_wood_fence_gate",
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_OPEN));
     public static final RegistryObject<Block> ABYSS_WOOD_WALL = registerBlock("abyss_wood_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).sound(SoundType.WOOD)));
-
     public static final RegistryObject<Block> STRUCTURE_BRICK_STAIRS = registerBlock("structure_brick_stairs",
             () -> new StairBlock(() -> RileyModBlocks.ABYSS_PLANKS.get().defaultBlockState(),
                     BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
@@ -163,37 +167,24 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
             () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS), SoundEvents.CHERRY_WOOD_FENCE_GATE_CLOSE, SoundEvents.CHERRY_WOOD_FENCE_GATE_OPEN));
     public static final RegistryObject<Block> STRUCTURE_BRICK_WALL = registerBlock("structure_brick_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
-
     public static final RegistryObject<Block> TROPHY_READER = registerBlock("trophy_reader",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
-
+//portals
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
-            () -> new RileyModAbyssPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
-                    .noCollission()
-                    .noOcclusion() // This is critical for the "thin" look
-                    .noLootTable()));
-
+            () -> new RileyModAbyssPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).noCollission().noOcclusion().noLootTable()));
     public static final RegistryObject<Block> FALLOW_PORTAL = registerBlock("fallow_portal",
-            () -> new RileyModFallowPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL)
-                    .noCollission()
-                    .noOcclusion() // This is critical for the "thin" look
-                    .noLootTable()));
-
-
-
-
+            () -> new RileyModFallowPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).noCollission().noOcclusion().noLootTable()));
+    //logic
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
     }
-
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block) {
         return RileyModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
     public static final RegistryObject<Item> NIGHT_STAR_ITEM = RileyModItems.ITEMS.register("night_star",
             () -> new NightStarBlockItem(NIGHT_STAR.get(), new Item.Properties()));
-
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);
     }

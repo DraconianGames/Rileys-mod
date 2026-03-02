@@ -39,7 +39,7 @@ public class WhaleHunterTrophyBlock extends Block {
     public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, @Nullable LivingEntity pPlacer, ItemStack pStack) {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         if (!pLevel.isClientSide) {
-            BlockState filler = RileyModBlocks.TROPHY_FILLER.get().defaultBlockState();
+            BlockState filler = RileyModBlocks.WHALE_HUNTER_TROPHY_FILLER.get().defaultBlockState();
             // Fill 3x3 area, 2 blocks high (for the 1.5 height)
             for (int x = -1; x <= 1; x++) {
                 for (int z = -1; z <= 1; z++) {
@@ -63,7 +63,7 @@ public class WhaleHunterTrophyBlock extends Block {
                 for (int z = -1; z <= 1; z++) {
                     for (int y = 0; y <= 1; y++) {
                         BlockPos targetPos = pPos.offset(x, y, z);
-                        if (!targetPos.equals(pPos) && pLevel.getBlockState(targetPos).is(RileyModBlocks.TROPHY_FILLER.get())) {
+                        if (!targetPos.equals(pPos) && pLevel.getBlockState(targetPos).is(RileyModBlocks.WHALE_HUNTER_TROPHY_FILLER.get())) {
                             pLevel.removeBlock(targetPos, false);
                         }
                     }
