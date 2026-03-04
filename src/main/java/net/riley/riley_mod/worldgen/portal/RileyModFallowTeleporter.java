@@ -70,8 +70,7 @@ public class RileyModFallowTeleporter implements ITeleporter {
         double destY = destinationPos.getY();
         double destZ = destinationPos.getZ() + 0.5D;
 
-        // We no longer add 1.5D to X or Z.
-        // The +0.5D above already centers them perfectly inside the block.
+
 
         entity.teleportTo(destX, destY, destZ);
         entity.setPortalCooldown();
@@ -79,7 +78,7 @@ public class RileyModFallowTeleporter implements ITeleporter {
 
         return entity;
     }
-
+//TODO fix portal spawning to nether on return trip
     private void buildPortal(ServerLevel world, BlockPos pos) {
         BlockState frame = RileyModBlocks.FALLOW_PORTAL_FRAME.get().defaultBlockState();
         BlockState portal = RileyModBlocks.FALLOW_PORTAL.get().defaultBlockState().setValue(RileyModFallowPortalBlock.AXIS, Direction.Axis.X);

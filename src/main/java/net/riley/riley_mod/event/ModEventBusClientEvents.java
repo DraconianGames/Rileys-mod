@@ -26,6 +26,7 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.MECHAREXBOMB_LAYER, MechaRex_Bomb_Model::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.MECHAREX_LAYER, MechaRexModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.MECHA_TERROR_LAYER, MechaTerrorModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.TRISON_LAYER, TrisonModel::createBodyLayer);
 
     }
 }

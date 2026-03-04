@@ -60,6 +60,10 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
             ENTITY_TYPES.register("mecha_terror", ()-> EntityType.Builder.of(MechaTerrorEntity::new,MobCategory.CREATURE)
                     .sized(2.5f,2.5f).build("mecha_terror"));
 
+    public static final RegistryObject<EntityType<TrisonEntity>> TRISON =
+            ENTITY_TYPES.register("trison",()-> EntityType.Builder.of(TrisonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
+
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

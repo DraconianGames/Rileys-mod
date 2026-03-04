@@ -55,6 +55,16 @@ public class RileyModStructureLootTables implements LootTableSubProvider {
                         .add(LootItem.lootTableItem(RileyModItems.TOME.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
                                 .setWeight(1))
+                        .add(LootItem.lootTableItem(RileyModItems.TRISON_ARMOR.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5f)) // adjust probability as desired
+                        .add(LootItem.lootTableItem(RileyModItems.TRISON_ARMOR.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
                 )
         );
     }

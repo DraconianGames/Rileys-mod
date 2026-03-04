@@ -31,6 +31,8 @@ public class RileyModItems {
             () -> new RileyModAbyssPortalItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> TOME = ITEMS.register("tome",
             () -> new RileyModFallowPortalItem(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> TRISON_ARMOR = ITEMS.register("trison_armor",
+            () -> new Item(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));

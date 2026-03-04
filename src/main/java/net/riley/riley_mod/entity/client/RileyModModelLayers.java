@@ -34,7 +34,8 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
     public static final ModelLayerLocation MECHAREX_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_layer"),"main");
 
-
+    public static final ModelLayerLocation TRISON_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "trison_layer"),"main");
 
 
 }

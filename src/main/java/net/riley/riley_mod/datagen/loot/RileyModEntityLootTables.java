@@ -130,6 +130,15 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(Items.BEEF)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 2.0F))))));
+        this.add(RileyModEntities.TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
     }
 
     @Override
