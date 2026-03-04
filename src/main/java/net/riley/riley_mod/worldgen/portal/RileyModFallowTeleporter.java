@@ -54,7 +54,7 @@ public class RileyModFallowTeleporter implements ITeleporter {
         } else {
             // Logic for returning TO the Overworld
             destinationPos = thisPos;
-            for (BlockPos checkPos : BlockPos.betweenClosed(thisPos.below(10).west(10).north(10), thisPos.above(10).east(10).south(10))) {
+            for (BlockPos checkPos : BlockPos.betweenClosed(thisPos.below(15).west(15).north(15), thisPos.above(320).east(15).south(15))) {
                 if (destinationWorld.getBlockState(checkPos).is(RileyModBlocks.FALLOW_PORTAL.get())) {
                     destinationPos = checkPos;
                     break;
@@ -78,7 +78,7 @@ public class RileyModFallowTeleporter implements ITeleporter {
 
         return entity;
     }
-//TODO fix portal spawning to nether on return trip
+
     private void buildPortal(ServerLevel world, BlockPos pos) {
         BlockState frame = RileyModBlocks.FALLOW_PORTAL_FRAME.get().defaultBlockState();
         BlockState portal = RileyModBlocks.FALLOW_PORTAL.get().defaultBlockState().setValue(RileyModFallowPortalBlock.AXIS, Direction.Axis.X);
