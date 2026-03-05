@@ -62,6 +62,8 @@
   "item.riley_mod.funtium_leggings": "Funtium Leggings",
   "item.riley_mod.funtium_boots": "Funtium Boots",
   "item.riley_mod.dark_journal": "Dark Journal",
+  "item.riley_mod.soul_orb": "Soul Orb",
+  "item.riley_mod.trison_armor": "Trison Armor",
 
   "block.riley_mod.funtium_block": "Funtium Block",
   "block.riley_mod.activacted_funtium": "Activated Funtium",
@@ -123,6 +125,7 @@
   "entity.riley_mod.mecharex": "Mecha Rex",
   "entity.riley_mod.mecharexbomb": "Mecha Rex Bomb",
   "entity.riley_mod.bison": "Bison",
+  "entity.riley_mod.Trison": "Trison",
   "entity.riley_mod.mecha_terror": "Mecha Terror",
 
   "creativetab.funtium_tab": "Funtium Tab",

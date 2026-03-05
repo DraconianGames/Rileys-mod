@@ -30,6 +30,8 @@ public class TrisonEntity extends AbstractChestedHorse {
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAminationTimeout = 0;
 //TODO add armor layers
+//TODO fix player riding position AKA player needs to move forward a little on the saddle
+//TODO add logic for the trison cart
 
     @Override
     public void aiStep() {

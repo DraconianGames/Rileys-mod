@@ -29,6 +29,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.MECHAREX.get(), MechaRexEntity.createAttributes().build());
         event.put(RileyModEntities.MECHA_TERROR.get(), MechaTerrorEntity.createAttributes().build());
         event.put(RileyModEntities.TRISON.get(), TrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.TRISON_CART.get(), TrisonCartEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {

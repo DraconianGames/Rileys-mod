@@ -21,6 +21,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.SPECIAL_SPAWNER.get());
 
                         output.accept(RileyModItems.STARDUST.get());
+                        output.accept(RileyModItems.SOUL_ORB.get());
+                        output.accept(RileyModItems.TRISON_ARMOR.get());
                         output.accept(RileyModItems.FUNTIUM_MIX.get());
                         output.accept(RileyModItems.FUNTIUM_PLATE.get());
                         output.accept(RileyModItems.FUNTIUM_ORE.get());

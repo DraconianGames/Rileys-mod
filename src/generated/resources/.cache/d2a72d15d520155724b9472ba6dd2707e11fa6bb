@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-03T19:19:28.7423831	Item Models: riley_mod
+// 1.20.1	2026-03-04T14:44:24.6255472	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -86,6 +86,7 @@ faf4e2941484f5f3d90b4edec46d712c71a46111 assets/riley_mod/models/item/mecha_rex_
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/rapter_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/skeletonfairy_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/skull_fairy_spawn_egg.json
+b796d9cd337ba4bd6dd9d57ee2a956a22f16dff4 assets/riley_mod/models/item/soul_orb.json
 59d09b6444eebfe5a960872e7f1976e456637cf1 assets/riley_mod/models/item/stardust.json
 3b4860b8423b7a32dc008ae9e150910f7ac6418e assets/riley_mod/models/item/structure_brick_fence.json
 4aa1033f11b1cd1f8c2b412960053bd613b147e4 assets/riley_mod/models/item/structure_brick_fence_gate.json

@@ -28,12 +28,15 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
-            () -> new RileyModAbyssPortalItem(new Item.Properties().stacksTo(1)));
+            () -> new RileyModAbyssPortalItem(new Item.Properties()));
     public static final RegistryObject<Item> TOME = ITEMS.register("tome",
             () -> new RileyModFallowPortalItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> TRISON_ARMOR = ITEMS.register("trison_armor",
             () -> new Item(new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> SOUL_ORB = ITEMS.register("soul_orb",
+            () -> new Item(new Item.Properties().stacksTo(1)));
+//TODO make custom stacking logic
     public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CLAW = ITEMS.register("claw",
