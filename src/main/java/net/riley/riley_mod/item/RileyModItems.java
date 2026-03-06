@@ -16,8 +16,6 @@ public class RileyModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, RileyMod.MODID);
 
-    //guidebook
-
     public static final RegistryObject<Item> STARDUST = ITEMS.register("stardust",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject <Item> FUNTIUM_MIX = ITEMS.register("funtium_mix",
@@ -25,6 +23,18 @@ public class RileyModItems {
     public static final RegistryObject<Item> FUNTIUM_PLATE = ITEMS.register("funtium_plate",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FUNTIUM_ORE = ITEMS.register("funtium_ore",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LAMP_HOOK = ITEMS.register("lamp_hook",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SOUL_FORGE = ITEMS.register("soul_forge",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TRISON_CART_COVER = ITEMS.register("trison_cart_cover",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TRISON_CART_ITEM = ITEMS.register("trison_cart_item",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> UNASSEMBLED_TRISON_CART = ITEMS.register("unassembled_trison_cart",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WHEEL = ITEMS.register("wheel",
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",

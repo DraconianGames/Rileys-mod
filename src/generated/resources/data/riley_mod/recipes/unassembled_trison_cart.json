@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:abyss_planks"
+    },
+    "B": {
+      "item": "minecraft:chest"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "AAA",
+    "AAA"
+  ],
+  "result": {
+    "item": "riley_mod:unassembled_trison_cart"
+  },
+  "show_notification": true
+}

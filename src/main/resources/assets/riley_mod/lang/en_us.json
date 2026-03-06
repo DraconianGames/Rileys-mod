@@ -64,6 +64,12 @@
   "item.riley_mod.dark_journal": "Dark Journal",
   "item.riley_mod.soul_orb": "Soul Orb",
   "item.riley_mod.trison_armor": "Trison Armor",
+  "item.riley_mod.trison_cart_item": "Trison Cart",
+  "item.riley_mod.wheel": "Wheel",
+  "item.riley_mod.unassembled_trison_cart": "Unassambled Trison Cart",
+  "item.riley_mod.soul_forge": "Soul Forge",
+  "item.riley_mod.lamp_hook": "Lamp Hook",
+  "item.riley_mod.trison_cart_cover": "Trison Cart Cover",
 
   "block.riley_mod.funtium_block": "Funtium Block",
   "block.riley_mod.activacted_funtium": "Activated Funtium",

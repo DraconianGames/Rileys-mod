@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:unassembled_trison_cart"
+    },
+    "B": {
+      "item": "riley_mod:wheel"
+    },
+    "C": {
+      "item": "riley_mod:soul_forge"
+    },
+    "D": {
+      "item": "riley_mod:lamp_hook"
+    },
+    "E": {
+      "item": "riley_mod:trison_cart_cover"
+    }
+  },
+  "pattern": [
+    "DCD",
+    "BAE",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:trison_cart_item"
+  },
+  "show_notification": true
+}

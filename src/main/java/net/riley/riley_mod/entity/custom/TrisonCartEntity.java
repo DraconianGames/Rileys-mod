@@ -29,7 +29,6 @@ public class TrisonCartEntity extends AgeableMob {
     //if too difficult, only when cart is not parked.
 //TODO seating positions.
 //TODO screen that shows cart inventory and attachments. Separate one for the chest inventory.
-    //Make attachments disappear unless they are equipped.
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;

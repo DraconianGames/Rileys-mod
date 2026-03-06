@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-04T14:44:24.6255472	Item Models: riley_mod
+// 1.20.1	2026-03-06T09:51:02.6600037	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -67,6 +67,7 @@ ed4319ba34037a90d64a50a9f9fe480eb9a6b865 assets/riley_mod/models/item/funtium_le
 706fac02361c7b511bd7c63482c6b59ae8d9dd0d assets/riley_mod/models/item/funtium_ore.json
 7ee586a3127c26c4124084f90bb3f370f810232d assets/riley_mod/models/item/funtium_plate.json
 2a576c7e8507c46a3fb03b156b832df6e0e73ed5 assets/riley_mod/models/item/ice_chunk.json
+586ef4789b921f7446c210d5ccb0f1198aef9d46 assets/riley_mod/models/item/lamp_hook.json
 16a311f1ab210c475c716c56583341d166e6b36f assets/riley_mod/models/item/living_machanical_nurons.json
 7b13050a9e8f0eb3876e5f608b958726ff3ec58f assets/riley_mod/models/item/lydar.json
 e8482faaa77bc67d7de9dca152c8ce3899d13d74 assets/riley_mod/models/item/machine_core_test.json
@@ -86,6 +87,7 @@ faf4e2941484f5f3d90b4edec46d712c71a46111 assets/riley_mod/models/item/mecha_rex_
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/rapter_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/skeletonfairy_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/skull_fairy_spawn_egg.json
+a9a2e3d0f4880e6280188f864445700262bb6ad2 assets/riley_mod/models/item/soul_forge.json
 b796d9cd337ba4bd6dd9d57ee2a956a22f16dff4 assets/riley_mod/models/item/soul_orb.json
 59d09b6444eebfe5a960872e7f1976e456637cf1 assets/riley_mod/models/item/stardust.json
 3b4860b8423b7a32dc008ae9e150910f7ac6418e assets/riley_mod/models/item/structure_brick_fence.json
@@ -99,8 +101,12 @@ e5a442996617a2304b1da22f61ab82fb6c856d5a assets/riley_mod/models/item/structure_
 9140144ec00f096cb57b866687a35996ee2e783f assets/riley_mod/models/item/tooth.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/toothfairy_spawn_egg.json
 b7ce65357d18d4a51dab4f21e497f41ccb1187ae assets/riley_mod/models/item/trison_armor.json
+ad4f0e737bed1c270ff93df4fc8be353d576ef71 assets/riley_mod/models/item/trison_cart_cover.json
+914f4c63a16702998c044a2245c41ca8995c9d2f assets/riley_mod/models/item/trison_cart_item.json
 e943fd5f66649a6ab6e43a67300e4a1e459ed55b assets/riley_mod/models/item/unassembled_mecharex_leg.json
 24096b526f22b13192817b3c87b0656d7018d517 assets/riley_mod/models/item/unassembled_mecharex_tail.json
 a9508b8f1091fb6364cf260d2d57d0be0cec21fa assets/riley_mod/models/item/unassembled_mecharex_torso.json
+d90ebfef21bb86e981495edf56227bf671ad564f assets/riley_mod/models/item/unassembled_trison_cart.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/whale_hunter_spawn_egg.json
 ded3ed6ba37a27bc3613831cf92e8d1bd0c12697 assets/riley_mod/models/item/whale_hunter_trophy.json
+445185de19afcc5a990d59ec12081d9190b9a474 assets/riley_mod/models/item/wheel.json

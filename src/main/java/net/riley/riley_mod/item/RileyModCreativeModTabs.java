@@ -44,6 +44,12 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.MECHA_TERROR_SPAWN_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
                         output.accept(RileyModItems.ARTIFICIAL_ORGAN.get());
+                        output.accept(RileyModItems.TRISON_CART_COVER.get());
+                        output.accept(RileyModItems.TRISON_CART_ITEM.get());
+                        output.accept(RileyModItems.UNASSEMBLED_TRISON_CART.get());
+                        output.accept(RileyModItems.WHEEL.get());
+                        output.accept(RileyModItems.LAMP_HOOK.get());
+                        output.accept(RileyModItems.SOUL_FORGE.get());
 
 
                         output.accept(RileyModItems.MECHA_TERROR_EGG.get());

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:funtium_plate"
+    },
+    "B": {
+      "item": "minecraft:soul_lantern"
+    }
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "item": "riley_mod:soul_orb"
+  },
+  "show_notification": true
+}

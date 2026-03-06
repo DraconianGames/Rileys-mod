@@ -32,6 +32,7 @@ public class TrisonEntity extends AbstractChestedHorse {
 //TODO add armor layers
 //TODO fix player riding position AKA player needs to move forward a little on the saddle
 //TODO add logic for the trison cart
+//TODO add attack animation
 
     @Override
     public void aiStep() {

@@ -57,9 +57,9 @@ public class RileyMod
 //TODO add more effects that mobs can use
 //TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
         //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
-//TODO Bison evolution
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO bane of the abyss, bane of the fallow, bane of the crystalic
+//TODO add geckolib as a dependency for the wing augment.
 
 
 

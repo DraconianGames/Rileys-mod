@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:iron_ingot"
+    },
+    "B": {
+      "item": "minecraft:lantern"
+    }
+  },
+  "pattern": [
+    " A ",
+    "B A",
+    "  A"
+  ],
+  "result": {
+    "item": "riley_mod:lamp_hook"
+  },
+  "show_notification": true
+}
