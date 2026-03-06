@@ -15,9 +15,21 @@ public class TrisonCartEntity extends AgeableMob {
         super(pEntityType, pLevel);
     }
 //TODO make function like a cart
+    // make follow tamed trison when equipped to trison. Steering thing must always face trison.
+    //Shift left click to attach to trison.
+    //Shift right click to access inventory
+    //Right click to ride 1 of 2 passenger seats
+    //Cover can be unequipped in menu
+    //same goes for soul forge and lanterns and chests
+    //cart can't be controlled by being in the cart, only by riding the trison.
 //TODO fix rendering error when looking away from cart but still in it.
 //TODO standing inside cart logic?
-//TODO screen that shows cart inventory and attachments. separate one for the chest inventory.
+//TODO custom mob avoidance logic when soul forge is equipped
+//TODO custom light logic when night and lanterns equipped
+    //if too difficult, only when cart is not parked.
+//TODO seating positions.
+//TODO screen that shows cart inventory and attachments. Separate one for the chest inventory.
+    //Make attachments disappear unless they are equipped.
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;

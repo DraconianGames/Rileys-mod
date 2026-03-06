@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
+import net.riley.riley_mod.entity.ai.DisableFriendlyTargetGoal;
 import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
@@ -128,6 +129,7 @@ public class SkeletonFairyEntity extends TamableAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(RileyModItems.TOOTH.get())));
 
+        this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));
         this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(RileyModItems.TOOTH.get(),RileyModItems.FANCY_SKULL.get()), false));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2D, false) {
             @Override

@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
+import net.riley.riley_mod.entity.ai.DisableFriendlyTargetGoal;
 import net.riley.riley_mod.item.RileyModItems;
 import org.jetbrains.annotations.Nullable;
 
@@ -257,6 +258,7 @@ public class ToothFairyEntity extends TamableAnimal implements FlyingAnimal {
 
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));
     }
     @Override
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
