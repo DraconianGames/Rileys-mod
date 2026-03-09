@@ -138,6 +138,8 @@ public class RileyMod
                 MenuScreens.register(RileyModMenuTypes.AUGMENTATION_STATION_MENU.get(), AugmentationStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.MORPH_STATION_MENU.get(), MorphStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
+                MenuScreens.register(RileyModMenuTypes.CUSTOM_MOUNT_MENU.get(), CustomMountScreen::new);
+
             });
         }
     }

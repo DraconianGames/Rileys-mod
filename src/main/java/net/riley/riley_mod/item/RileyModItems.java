@@ -42,7 +42,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> TOME = ITEMS.register("tome",
             () -> new RileyModFallowPortalItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> TRISON_ARMOR = ITEMS.register("trison_armor",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new TrisonArmorItem(7, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SOUL_ORB = ITEMS.register("soul_orb",
             () -> new Item(new Item.Properties().stacksTo(1)));

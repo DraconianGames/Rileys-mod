@@ -11,6 +11,7 @@ import net.riley.riley_mod.entity.custom.TrisonEntity;
 public class TrisonRenderer extends MobRenderer<TrisonEntity, TrisonModel<TrisonEntity>> {
     public TrisonRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new TrisonModel<>(pContext.bakeLayer(RileyModModelLayers.TRISON_LAYER)), 0.7f);
+        this.addLayer(new TrisonArmorLayer(this, pContext.getModelSet()));
     }
 
     @Override

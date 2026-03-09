@@ -24,8 +24,8 @@ public class TrisonCartEntity extends AgeableMob {
     //cart can't be controlled by being in the cart, only by riding the trison.
 //TODO fix rendering error when looking away from cart but still in it.
 //TODO standing inside cart logic?
-//TODO custom mob avoidance logic when soul forge is equipped
-//TODO custom light logic when night and lanterns equipped
+//TODO custom mob avoidance logic for cart
+//TODO custom light logic when night for lanterns
     //if too difficult, only when cart is not parked.
 //TODO seating positions.
 //TODO screen that shows cart inventory and attachments. Separate one for the chest inventory.
