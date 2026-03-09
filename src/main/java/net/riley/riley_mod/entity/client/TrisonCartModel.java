@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.riley.riley_mod.entity.custom.TrisonCartEntity;
 
 public class TrisonCartModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -230,10 +231,45 @@ public class TrisonCartModel<T extends Entity> extends HierarchicalModel<T> {
 
 		return LayerDefinition.create(meshdefinition, 512, 512);
 	}
-
+//TODO wheel animations
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.cover.visible = !(entity instanceof TrisonCartEntity cartEntity) || cartEntity.hasCover();
 
+		this.front_steering.yRot = 0.0F;
+		this.bar.xRot = 0.0F;
+
+		if (!(entity instanceof TrisonCartEntity cartEntity)) {
+			return;
+		}
+
+		if (!cartEntity.hasAttachedTrison()) {
+			return;
+		}
+
+		Entity attached = cartEntity.getAttachedTrisonEntity();
+		if (attached == null || !attached.isAlive()) {
+			return;
+		}
+
+		double dx = attached.getX() - cartEntity.getX();
+		double dy = attached.getY() - cartEntity.getY();
+		double dz = attached.getZ() - cartEntity.getZ();
+
+		double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
+		if (horizontalDistance < 1.0E-4D) {
+			return;
+		}
+
+		float cartYawRad = cartEntity.getYRot() * ((float)Math.PI / 180F);
+		float targetYawRad = (float)Math.atan2(dx, dz);
+		float relativeYawDeg = net.minecraft.util.Mth.wrapDegrees((float)Math.toDegrees(targetYawRad - cartYawRad));
+
+		float steeringDegrees = net.minecraft.util.Mth.clamp(relativeYawDeg * 0.10F, -8.0F, 8.0F);
+		this.front_steering.yRot = steeringDegrees * ((float)Math.PI / 180F);
+
+		float barPitch = (float)-Math.atan2(dy, horizontalDistance);
+		this.bar.xRot = net.minecraft.util.Mth.clamp(barPitch, -0.65F, 0.65F);
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> TRISON_CART_COVER = ITEMS.register("trison_cart_cover",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TRISON_CART_ITEM = ITEMS.register("trison_cart_item",
-            () -> new Item(new Item.Properties()));
+            () -> new TrisonCartItem(new Item.Properties()));
     public static final RegistryObject<Item> UNASSEMBLED_TRISON_CART = ITEMS.register("unassembled_trison_cart",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WHEEL = ITEMS.register("wheel",
@@ -42,7 +42,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> TOME = ITEMS.register("tome",
             () -> new RileyModFallowPortalItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> TRISON_ARMOR = ITEMS.register("trison_armor",
-            () -> new Item(new Item.Properties().stacksTo(1)));
+            () -> new TrisonArmorItem(7, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SOUL_ORB = ITEMS.register("soul_orb",
             () -> new Item(new Item.Properties().stacksTo(1)));

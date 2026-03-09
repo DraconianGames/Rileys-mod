@@ -10,5 +10,11 @@
     "sounds": [
       "riley_mod:night_terror_roar"
     ]
+  },
+  "rapter_battle_cry": {
+  "subtitle" : "sounds.riley_mod.rapter_battle_cry",
+  "sounds": [
+    "riley_mod:rapter_battle_cry"
+  ]
   }
 }

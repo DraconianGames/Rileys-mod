@@ -30,6 +30,10 @@ public class RileyModMenuTypes {
     public static final RegistryObject<MenuType<MachineCoreScreenMenu>> MACHINE_CORE_SCREEN_MENU =
             MENUS.register("machine_core_screen_menu",
                     () -> IForgeMenuType.create((IContainerFactory<MachineCoreScreenMenu>) MachineCoreScreenMenu::new));
+    public static final RegistryObject<MenuType<CustomMountMenu>> CUSTOM_MOUNT_MENU =
+            MENUS.register("custom_mount_menu", () -> IForgeMenuType.create(CustomMountMenu::new));
+    public static final RegistryObject<MenuType<TrisonCartMenu>> TRISON_CART_MENU =
+            MENUS.register("trison_cart_menu", () -> IForgeMenuType.create(TrisonCartMenu::new));
 
     public static void register(IEventBus bus) {
         MENUS.register(bus);
