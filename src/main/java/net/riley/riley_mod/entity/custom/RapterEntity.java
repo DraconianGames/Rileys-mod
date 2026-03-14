@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,6 +30,7 @@ import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import net.riley.riley_mod.entity.ai.AbyssFollowParentGoal;
 import net.riley.riley_mod.entity.ai.HuntVanillaLandMobs;
 import net.riley.riley_mod.entity.ai.RapterAttackGoal;
+import net.riley.riley_mod.sound.RileyModSounds;
 import net.riley.riley_mod.util.RileyModTags;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -57,7 +59,18 @@ public class RapterEntity extends AgeableMob {
     private int idleAminationTimeout = 0;
     public final AnimationState attackAnimationState = new AnimationState();
     public int attackAminationTimeout = 0;
-
+    public void playBattleCry() {
+        this.level().playSound(null, this.getX(), this.getY(), this.getZ(),
+                RileyModSounds.RAPTER_BATTLE_CRY.get(), SoundSource.HOSTILE, 3.0F, 1.0F);
+    }
+    @Override
+    public void setTarget(@Nullable LivingEntity pTarget) {
+        // Check if we are acquiring a NEW target (not just clearing the target)
+        if (pTarget != null && this.getTarget() == null) {
+            this.playBattleCry();
+        }
+        super.setTarget(pTarget);
+    }
     @Override
     public void aiStep() {
         super.aiStep();
@@ -132,7 +145,7 @@ setupAminationStates();
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(ATTACKING, false);
-        this.entityData.define(VARIANT, 0); // 0 = normal, 1 = albino
+        this.entityData.define(VARIANT, 0);
     }
 
     @Override
@@ -206,17 +219,5 @@ setupAminationStates();
             livingTarget.addEffect(new MobEffectInstance(RileyModEffects.BLEED.get(), 100, 0), this);
         }
         return hurt;
-    }
-
-
-
-    @Override
-    protected @Nullable SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.SPIDER_HURT;
-    }
-
-    @Override
-    protected @Nullable SoundEvent getDeathSound() {
-        return SoundEvents.BLAZE_DEATH;
     }
 }

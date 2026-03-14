@@ -15,7 +15,7 @@ public class RileyModSounds {
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, RileyMod.MODID);
 
 public static final RegistryObject<SoundEvent> FROST_HOPPER_BATTLE_CRY = registerSoundEvents("frost_hopper_battle_cry");
-
+    public static final RegistryObject<SoundEvent> RAPTER_BATTLE_CRY = registerSoundEvents("rapter_battle_cry");
 
 
 public static final RegistryObject<SoundEvent> NIGHT_TERROR_ROAR = registerSoundEvents("night_terror_roar");
