@@ -8,6 +8,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.item.custom.*;
 
@@ -79,7 +80,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> MECHAREX_TORSO = ITEMS.register("mecharex_torso",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SYNTHETIC_MUSCLE = ITEMS.register("synthetic_muscle",
-            () -> new Item(new Item.Properties()));
+            () -> new ItemNameBlockItem(RileyModBlocks.MUSCLE_CROP.get(), (new Item.Properties())));
     public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TORSO = ITEMS.register("unassembled_mecharex_torso",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TAIL = ITEMS.register("unassembled_mecharex_tail",

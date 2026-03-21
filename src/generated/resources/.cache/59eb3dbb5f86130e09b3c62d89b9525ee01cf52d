@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-06T09:51:02.6426743	Loot Tables
+// 1.20.1	2026-03-21T17:33:25.1474274	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -30,6 +30,7 @@ c2ecd9401e5f3f86875f8b781fa9fb6d9b91d510 data/riley_mod/loot_tables/blocks/machi
 a4ad20c5fbf3a5c805e36297c4543d6c1911dd9d data/riley_mod/loot_tables/blocks/machine_core_screen.json
 8d3f7e5fbd951647471a00e7dcc43b99755fb401 data/riley_mod/loot_tables/blocks/machine_core_test.json
 38812b314da0423404d20fcf70d239fabe4cf6dd data/riley_mod/loot_tables/blocks/morph_station.json
+262b652c47a903ec87a569ea4c73de732f9f0e22 data/riley_mod/loot_tables/blocks/muscle_crop.json
 d94e11374a18e0c9b9b0c75393ceb2ba5d055a1c data/riley_mod/loot_tables/blocks/night_star.json
 4ee072b3a1e0438516c1b87d650d5c60aa7c0823 data/riley_mod/loot_tables/blocks/special_spawner.json
 7f65ec048b7906f1f0203412f0e07fc6b8bea2b4 data/riley_mod/loot_tables/blocks/stripped_abyss_log.json
@@ -46,8 +47,8 @@ f23f442de8e3c70e0ed45eef7346ec7f092bd9dd data/riley_mod/loot_tables/chests/arena
 3e95fbc3ceae7fbe5076fff83ee32eec57384f57 data/riley_mod/loot_tables/entities/bison.json
 67aa4b8c4366d8ae395780a15d54689f024bb563 data/riley_mod/loot_tables/entities/bonefairy.json
 34fede37fab920dd466036d1c6238e16dfb16226 data/riley_mod/loot_tables/entities/frost_hopper.json
-49a95e3e27e1d256ee819f85356da391270f452d data/riley_mod/loot_tables/entities/mecharex.json
-ce2aab5e9c534959185120f5cd27c4db842037c5 data/riley_mod/loot_tables/entities/mecha_terror.json
+76f3d355b1049ea402d9fa43c737b157dd4b9d6f data/riley_mod/loot_tables/entities/mecharex.json
+fe02480ccb72ca43db561e67c8e1b7de651c8039 data/riley_mod/loot_tables/entities/mecha_terror.json
 ab98c73b52fe8cdf98ca601c2ec957217481f864 data/riley_mod/loot_tables/entities/night_terror.json
 008abd2e736fd2140f524dbb0db2fc2b83b4337a data/riley_mod/loot_tables/entities/rapter.json
 713c3f42a41d0043d68e2e682049e82b6af36dcd data/riley_mod/loot_tables/entities/skeletonfairy.json

@@ -1,5 +1,6 @@
 package net.riley.riley_mod.datagen.loot;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -9,9 +10,12 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.MuscleCropBlock;
 import net.riley.riley_mod.item.RileyModItems;
 
 import java.util.Set;
@@ -81,6 +85,13 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
                 block -> createSlabItemTable(RileyModBlocks.ABYSS_WOOD_SLAB.get()));
         this.add(RileyModBlocks.STRUCTURE_BRICK_SLAB.get(),
                 block -> createSlabItemTable(RileyModBlocks.STRUCTURE_BRICK_SLAB.get()));
+
+        LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(RileyModBlocks.MUSCLE_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MuscleCropBlock.AGE, 3));
+
+        this.add(RileyModBlocks.MUSCLE_CROP.get(), createCropDrops(RileyModBlocks.MUSCLE_CROP.get(), RileyModItems.SYNTHETIC_MUSCLE.get(),RileyModItems.SYNTHETIC_MUSCLE.get(),
+                 lootitemcondition$builder));
     }
 
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item item) {

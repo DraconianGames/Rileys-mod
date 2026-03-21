@@ -25,7 +25,24 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "riley_mod:tooth"
+          "name": "riley_mod:synthetic_muscle"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "chance": 0.05,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "riley_mod:mecha_terror_egg"
         }
       ],
       "rolls": 1.0

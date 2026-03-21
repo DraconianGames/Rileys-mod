@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-02T13:44:55.9673426	Block States: riley_mod
+// 1.20.1	2026-03-21T17:16:41.5787905	Block States: riley_mod
 892275efd6c4a5886593bc3447e00c207d022c1a assets/riley_mod/blockstates/abyssal_cobblestone.json
 f5931e86b557cc362c6df94e0bf443776b70303f assets/riley_mod/blockstates/abyssal_dirt.json
 9d9b958fe14afe3504a6dbbbed5273045560e72c assets/riley_mod/blockstates/abyssal_grass.json
@@ -27,6 +27,7 @@ f0b5a2f11dddeb0b34ac5f62f1efa972e82a434c assets/riley_mod/blockstates/machine_co
 78105dedc6c41a1900b334aabb64dda27b7b0385 assets/riley_mod/blockstates/machine_core_center.json
 4b71a31fa7cf9488c3b59aec0dfbc27c988cb6d7 assets/riley_mod/blockstates/machine_core_port.json
 1e04213d4f97f0c6eb343d1e797c4769e85925db assets/riley_mod/blockstates/machine_core_screen.json
+47652b9af3f9466fa1f2b9f48ff0558f6458bb04 assets/riley_mod/blockstates/muscle_crop.json
 8b5b7cd66adc49e33c79c4fcbdc2fab0b60f3491 assets/riley_mod/blockstates/night_star.json
 be92fb94824738fdb22971eca722c4586fcaac5d assets/riley_mod/blockstates/special_spawner.json
 d68e8f2b5c79b5c02f276bf80aa0546e8247c744 assets/riley_mod/blockstates/stripped_abyss_log.json
@@ -77,6 +78,10 @@ e7b5e6946f4d620782921100ae6214d4a16f34d7 assets/riley_mod/models/block/funtium_o
 02e5ff23e289528230b91592456eba08a79a68e1 assets/riley_mod/models/block/machine_core_center.json
 e5fc742bc25afc5c62841a76b659bf2edd3564ee assets/riley_mod/models/block/machine_core_port.json
 98c0a8495c5e19e9456ef68eacec5f2e9b5a72ff assets/riley_mod/models/block/machine_core_screen.json
+5246e743f6a52ff7dbf9981b772b5ae5c863d2f3 assets/riley_mod/models/block/muscle_crop_stage0.json
+97fb0597e792ea01a1b0ba056743ec4e24937714 assets/riley_mod/models/block/muscle_crop_stage1.json
+ad3d9065216fe6a8fb22027f9f7c99ab43f8e394 assets/riley_mod/models/block/muscle_crop_stage2.json
+1c751c39985742b442b62963b9fff9b2a437d669 assets/riley_mod/models/block/muscle_crop_stage3.json
 c51afaa32899b16505957d174260e89c5b564981 assets/riley_mod/models/block/night_star.json
 72fe4a5608154e4d8861271f57e2c5c765a8a195 assets/riley_mod/models/block/special_spawner.json
 49c5a451bd7b8e1e59960d3e66f13e7f97390b74 assets/riley_mod/models/block/stripped_abyss_log.json

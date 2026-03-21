@@ -5,15 +5,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.MuscleCropBlock;
 import net.riley.riley_mod.block.custom.RileyModAbyssPortalBlock;
 import net.riley.riley_mod.block.custom.RileyModFallowPortalBlock;
+
+import java.util.function.Function;
 
 
 public class RileyModBlockStateProvider extends BlockStateProvider {
@@ -79,6 +84,20 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_PORT, "machine_core_port", "machine_core");
         topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_SCREEN, "machine_core_screen", "machine_core");
 
+        makeMuscleCrop((CropBlock) RileyModBlocks.MUSCLE_CROP.get(), "muscle_crop_stage", "muscle_crop_stage");
+    }
+    public void makeMuscleCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> strawberryStates(state, block, modelName, textureName);
+
+        getVariantBuilder(block).forAllStates(function);
+    }
+
+    private ConfiguredModel[] strawberryStates(BlockState state, CropBlock block, String modelName, String textureName) {
+        ConfiguredModel[] models = new ConfiguredModel[1];
+        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((MuscleCropBlock) block).getAgeProperty()),
+                new ResourceLocation(RileyMod.MODID, "block/" + textureName + state.getValue(((MuscleCropBlock) block).getAgeProperty()))).renderType("cutout"));
+
+        return models;
     }
     private void makeFallowPortal(Block block) {
         // This creates the thin model (4 pixels thick on the Z axis)
