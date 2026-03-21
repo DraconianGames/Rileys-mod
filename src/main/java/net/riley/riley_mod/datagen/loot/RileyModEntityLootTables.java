@@ -53,9 +53,12 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
         this.add(RileyModEntities.MECHA_TERROR.get(),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(RileyModItems.TOOTH.get())
+                        .add(LootItem.lootTableItem(RileyModItems.SYNTHETIC_MUSCLE.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 1.5F))))
+                        .add(LootItem.lootTableItem(RileyModItems.MECHA_TERROR_EGG.get())
+                                .when(LootItemRandomChanceCondition.randomChance(0.05f)) // 5% chance to drop
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))))
                 ));
 
         this.add(RileyModEntities.WHALE_HUNTER.get(),
@@ -114,7 +117,7 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
         this.add(RileyModEntities.MECHAREX.get(),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(RileyModItems.ICE_CHUNK.get())
+                        .add(LootItem.lootTableItem(RileyModItems.SYNTHETIC_MUSCLE.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 1.5F))))
                         .add(LootItem.lootTableItem(RileyModItems.MECHAREX_ENGINE.get())

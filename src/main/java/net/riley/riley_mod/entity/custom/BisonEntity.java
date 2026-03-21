@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
-public class BisonEntity extends AbstractChestedHorse {
+public class BisonEntity extends AbstractInventoryMountEntity {
 
     public BisonEntity(EntityType<? extends BisonEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -87,6 +86,22 @@ public class BisonEntity extends AbstractChestedHorse {
         this.goalSelector.addGoal(3,new TemptGoal(this,1D, Ingredient.of(Items.CARROT),false));
 
     }
+
+    @Override
+    protected int getBaseStorageColumns() {
+        return 5;
+    }
+
+    @Override
+    protected int getBaseStorageRows() {
+        return 3;
+    }
+
+    @Override
+    public boolean canEquipMountArmor(ItemStack stack) {
+        return false;
+    }
+
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
