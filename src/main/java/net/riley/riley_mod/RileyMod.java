@@ -53,7 +53,7 @@ public class RileyMod
 
 
         RileyModCreativeModTabs.register(modEventBus);
-//TODO add new mobs to the ocean.
+
 //TODO add more effects that mobs can use
 //TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
         //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
@@ -133,6 +133,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.TRISON_CART.get(), TrisonCartRenderer::new);
             EntityRenderers.register(RileyModEntities.TEST.get(), TestRenderer::new);//TODO Make transparency work
             EntityRenderers.register(RileyModEntities.MECHA_TERROR.get(), MechaTerrorRenderer:: new);//TODO FINNISH the mecha terror
+            EntityRenderers.register(RileyModEntities.MECHA_PARASITE.get(), MechaParasiteRenderer:: new);
             event.enqueueWork(() -> {
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
                 MenuScreens.register(RileyModMenuTypes.MACHINE_CORE_SCREEN_MENU.get(), MachineCoreScreen::new);

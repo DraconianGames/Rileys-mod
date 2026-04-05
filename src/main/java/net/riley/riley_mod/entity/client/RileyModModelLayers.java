@@ -40,4 +40,7 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "trison_layer"),"main");
     public static final ModelLayerLocation TRISON_CART_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "trison_cart_layer"),"main");
+
+    public static final ModelLayerLocation MECHA_PARASITE_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecha_parasite_layer"),"main");
 }

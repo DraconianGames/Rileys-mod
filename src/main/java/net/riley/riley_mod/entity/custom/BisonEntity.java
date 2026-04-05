@@ -127,6 +127,7 @@ public class BisonEntity extends AbstractInventoryMountEntity {
         }
         return super.mobInteract(pPlayer, pHand);
     }
+    //TODO add transformation logic. Golden apple.
     public boolean isFood(ItemStack pStack) {
         return pStack.is(Items.CARROT); // Or whatever food you prefer
     }
