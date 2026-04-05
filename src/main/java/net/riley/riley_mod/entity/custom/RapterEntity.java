@@ -41,7 +41,7 @@ public class RapterEntity extends AgeableMob {
             SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT =
             SynchedEntityData.defineId(RapterEntity.class, EntityDataSerializers.INT);
-
+//TODO make variants stay in the same texture on reload
     public RapterEntity(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setVariant(this.random.nextInt(11)); // Change number to number of variants.

@@ -16,3 +16,5 @@ public interface DomainBehavior {
         onPulse(level, owner, center);
     }
 }
+//TODO Make max level 5. Max radius 50 blocks. Make 4 minute max effect. Stop increasing the cooldown.
+//TODO Make say max after max level is bought.

@@ -48,7 +48,7 @@ public abstract class AbstractInventoryMountEntity extends AbstractChestedHorse 
             }
         };
     }
-
+//TODO change the tame logic to support the transformation logic
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

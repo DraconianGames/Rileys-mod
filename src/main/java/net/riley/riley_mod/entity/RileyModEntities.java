@@ -66,6 +66,9 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
     public static final RegistryObject<EntityType<TrisonCartEntity>> TRISON_CART =
             ENTITY_TYPES.register("trison_cart",()-> EntityType.Builder.of(TrisonCartEntity::new,MobCategory.CREATURE)
                     .sized(4f,3f).build("trison_cart"));
+    public static final RegistryObject<EntityType<TestEntity>> TEST =
+            ENTITY_TYPES.register("test",()-> EntityType.Builder.of(TestEntity::new,MobCategory.CREATURE)
+                    .sized(1f,1f).build("test"));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

@@ -4,7 +4,7 @@
   "augment_id": "riley_mod:reinforced_musculature",
   "level": 1,
   "icon": { "item": "riley_mod:synthetic_muscle" },
-  "description": "Replaces your musculature with synthetic fibers.",
+  "description": "Intertwines your musculature with synthetic fibers.",
   "requirements": [
     { "item": "riley_mod:synthetic_muscle", "count": 600 },
     { "item": "minecraft:nether_star", "count": 1 }
