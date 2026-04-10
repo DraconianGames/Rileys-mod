@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.riley.riley_mod.entity.animations.TrisonCartAnimationDefinitions;
 import net.riley.riley_mod.entity.custom.TrisonCartEntity;
 
 public class TrisonCartModel<T extends Entity> extends HierarchicalModel<T> {
@@ -231,7 +232,6 @@ public class TrisonCartModel<T extends Entity> extends HierarchicalModel<T> {
 
 		return LayerDefinition.create(meshdefinition, 512, 512);
 	}
-//TODO wheel animations
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.cover.visible = !(entity instanceof TrisonCartEntity cartEntity) || cartEntity.hasCover();
@@ -243,18 +243,29 @@ public class TrisonCartModel<T extends Entity> extends HierarchicalModel<T> {
 			return;
 		}
 
-		if (!cartEntity.hasAttachedTrison()) {
+		boolean attached = cartEntity.hasAttachedTrison();
+		boolean moving = cartEntity.isCartMoving();
+
+		if (!attached) {
+			this.animate(cartEntity.parkedAnimationState, TrisonCartAnimationDefinitions.TRISON_CART_PARKED, ageInTicks, 1.0F);
 			return;
 		}
 
-		Entity attached = cartEntity.getAttachedTrisonEntity();
-		if (attached == null || !attached.isAlive()) {
+		if (moving) {
+			float speedScale = net.minecraft.util.Mth.clamp(cartEntity.getWheelSpeedScale(), 0.0F, 1.0F);
+			this.animate(cartEntity.forwardAnimationState, TrisonCartAnimationDefinitions.TRISON_CART_FORWARD, ageInTicks, speedScale);
+		} else {
+			this.animate(cartEntity.idleAnimationState, TrisonCartAnimationDefinitions.TRISON_CART_IDLE, ageInTicks, 1.0F);
+		}
+
+		Entity attachedTrison = cartEntity.getAttachedTrisonEntity();
+		if (attachedTrison == null || !attachedTrison.isAlive()) {
 			return;
 		}
 
-		double dx = attached.getX() - cartEntity.getX();
-		double dy = attached.getY() - cartEntity.getY();
-		double dz = attached.getZ() - cartEntity.getZ();
+		double dx = attachedTrison.getX() - cartEntity.getX();
+		double dy = attachedTrison.getY() - cartEntity.getY();
+		double dz = attachedTrison.getZ() - cartEntity.getZ();
 
 		double horizontalDistance = Math.sqrt(dx * dx + dz * dz);
 		if (horizontalDistance < 1.0E-4D) {

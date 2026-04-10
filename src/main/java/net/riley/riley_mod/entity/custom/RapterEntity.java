@@ -1,6 +1,7 @@
 package net.riley.riley_mod.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import net.riley.riley_mod.entity.ai.AbyssFollowParentGoal;
@@ -44,8 +47,25 @@ public class RapterEntity extends AgeableMob {
 //TODO make variants stay in the same texture on rejoin
     public RapterEntity(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.setVariant(this.random.nextInt(11)); // Change number to number of variants.
+    }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(ATTACKING, false);
+        this.entityData.define(VARIANT, 0);
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType,
+                                        @Nullable SpawnGroupData spawnData, @Nullable CompoundTag tag) {
+        SpawnGroupData result = super.finalizeSpawn(level, difficulty, spawnType, spawnData, tag);
+
+        if (!this.level().isClientSide) {
+            this.setVariant(this.pickWeightedVariant(this.random));
+        }
+
+        return result;
     }
 
     public int getVariant() {
@@ -54,6 +74,36 @@ public class RapterEntity extends AgeableMob {
 
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("Variant", this.getVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        if (pCompound.contains("Variant")) {
+            this.setVariant(pCompound.getInt("Variant"));
+        }
+    }
+
+    private int pickWeightedVariant(RandomSource random) {
+        int roll = random.nextInt(100);
+
+        if (roll < 20) return 0;  // common
+        if (roll < 30) return 1;  // uncommon
+        if (roll < 35) return 2;  // uncommon
+        if (roll < 45) return 4;  // rare
+        if (roll < 50) return 5;  // rare
+        if (roll < 60) return 6;  // very rare
+        if (roll < 70) return 7;  // very rare
+        if (roll < 80) return 8;  // ultra rare
+        if (roll < 85) return 9;
+        if (roll < 99) return 10;
+        return 0;                // legendary
     }
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAminationTimeout = 0;
@@ -141,12 +191,7 @@ setupAminationStates();
         return this.entityData.get(ATTACKING);
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ATTACKING, false);
-        this.entityData.define(VARIANT, 0);
-    }
+
 
     @Override
     protected void registerGoals() {

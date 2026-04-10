@@ -39,7 +39,7 @@ public class TrisonEntity extends AbstractInventoryMountEntity {
     private static final double RIDER_FORWARD_OFFSET = 0.125D;
     private static final double NORMAL_SPEED = 0.3D;
     private static final double HOOKED_SPEED = 0.18D;
-    private static final double CART_HOOK_RADIUS = 5.0D;
+    private static final double CART_HOOK_RADIUS = 6.0D;
 
     private static final EntityDataAccessor<Optional<UUID>> ATTACHED_CART =
             SynchedEntityData.defineId(TrisonEntity.class, EntityDataSerializers.OPTIONAL_UUID);

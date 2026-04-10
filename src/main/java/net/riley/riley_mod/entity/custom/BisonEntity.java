@@ -115,6 +115,26 @@ public class BisonEntity extends AbstractInventoryMountEntity {
             }
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
+
+        // Transform into Trison when fed a Golden Apple
+        if (itemstack.is(Items.GOLDEN_APPLE) && this.isTamed() && !this.isBaby()) {
+            if (!pPlayer.getAbilities().instabuild) {
+                itemstack.shrink(1);
+            }
+
+            if (!this.level().isClientSide) {
+                this.dropMountInventoryOnGround();
+
+                TrisonEntity trisonEntity = this.convertTo(RileyModEntities.TRISON.get(), true);
+                if (trisonEntity != null) {
+                    trisonEntity.setAge(-24000); // make the new Trison a baby
+                    this.level().broadcastEntityEvent(trisonEntity, (byte) 7);
+                }
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
         if (this.isFood(itemstack)) {
             int cooldown = this.getPersistentData().getInt("BreedCooldown");
             if (cooldown > 0) return InteractionResult.PASS;
@@ -126,6 +146,22 @@ public class BisonEntity extends AbstractInventoryMountEntity {
             }
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    private void dropMountInventoryOnGround() {
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        for (int i = 0; i < this.getMountInventory().getContainerSize(); i++) {
+            ItemStack stack = this.getMountInventory().getItem(i);
+            if (!stack.isEmpty()) {
+                this.spawnAtLocation(stack);
+                this.getMountInventory().setItem(i, ItemStack.EMPTY);
+            }
+        }
+
+        this.getMountInventory().setChanged();
     }
     //TODO add transformation logic. Golden apple.
     public boolean isFood(ItemStack pStack) {

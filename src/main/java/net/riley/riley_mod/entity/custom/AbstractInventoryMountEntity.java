@@ -26,6 +26,8 @@ import net.riley.riley_mod.menu.CustomMountMenu;
 import net.riley.riley_mod.menu.MountInventoryAccess;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public abstract class AbstractInventoryMountEntity extends AbstractChestedHorse implements MenuProvider, MountInventoryAccess {
     public static final int SADDLE_SLOT = 0;
     public static final int ARMOR_SLOT = 1;
@@ -249,6 +251,10 @@ public abstract class AbstractInventoryMountEntity extends AbstractChestedHorse 
 
     @Override
     public void openCustomInventoryScreen(Player player) {
+        if (!this.isTamed()) {
+            return;
+        }
+
         if (!this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
             NetworkHooks.openScreen(serverPlayer, this, buffer -> buffer.writeInt(this.getId()));
         }

@@ -10,14 +10,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -34,11 +36,10 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
     private static final EntityDataAccessor<Boolean> HAS_COVER =
             SynchedEntityData.defineId(TrisonCartEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private static final double HITCH_DISTANCE = 3.0D;
-    private static final double STOPPING_DISTANCE = 2.0D;
+    private static final double HITCH_DISTANCE = 4.0D;
     private static final double SNAP_DISTANCE = 0.35D;
-    private static final double TRISON_MOVING_SPEED_SQR = 0.0025D;
-    private static final double FOLLOW_STEP = 0.45D;
+    private static final double FOLLOW_SPEED = 0.35D;
+    private static final float MAX_TURN_PER_TICK = 10.0F;
 
     private static final Vec3 RIDER_1_OFFSET = new Vec3(1.4D, 1.80D, -4.75D);
     private static final Vec3 RIDER_2_OFFSET = new Vec3(-1.4D, 1.80D, -4.75D);
@@ -46,9 +47,15 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
     private final net.minecraft.world.SimpleContainer cartInventory = new net.minecraft.world.SimpleContainer(52);
 
     private @Nullable Vec3 lockedHitchTarget = null;
-    private @Nullable UUID lastResolvedTrisonUuid = null;
     private Vec3 lastPullDirection = new Vec3(0.0D, 0.0D, -1.0D);
-    private @Nullable Vec3 previousHitchTarget = null;
+
+    public final AnimationState parkedAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState forwardAnimationState = new AnimationState();
+
+    private double previousX;
+    private double previousZ;
+    private float wheelSpeedScale;
 
     public TrisonCartEntity(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
@@ -61,8 +68,93 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         this.entityData.define(HAS_COVER, true);
     }
 
-    public void setAttachedTrison(@Nullable UUID trisonUuid) {
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (this.level().isClientSide) {
+            setupAnimationStates();
+            return;
+        }
+
+        if (!this.hasAttachedTrison()) {
+            this.resetTrailerState();
+            return;
+        }
+
+        Entity trison = this.getAttachedTrisonEntity();
+        if (trison == null) {
+            this.detachFromTrison();
+            return;
+        }
+
+        Vec3 target = this.createTrailerTarget(trison);
+        double distanceToTargetSqr = this.position().distanceToSqr(target);
+
+        if (distanceToTargetSqr > SNAP_DISTANCE * SNAP_DISTANCE) {
+            this.moveToward(target);
+            this.rotateTowardPosition(target);
+        } else {
+            this.setDeltaMovement(Vec3.ZERO);
+            this.getNavigation().stop();
+            this.rotateTowardPosition(new Vec3(trison.getX(), this.getY(), trison.getZ()));
+        }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        if (this.level().isClientSide) {
+            double dx = this.getX() - this.previousX;
+            double dz = this.getZ() - this.previousZ;
+            this.wheelSpeedScale = (float)Math.sqrt(dx * dx + dz * dz);
+            this.previousX = this.getX();
+            this.previousZ = this.getZ();
+            return;
+        }
+
+        if (this.hasAttachedTrison()) {
+            this.getNavigation().stop();
+            if (this.getFirstPassenger() == null) {
+                this.setDeltaMovement(0.0D, this.getDeltaMovement().y, 0.0D);
+            }
+        }
+
+        if (this.hasAttachedTrison() && this.getAttachedTrisonEntity() == null) {
+            this.detachFromTrison();
+        }
+    }
+
+    private void setupAnimationStates() {
+        if (this.hasAttachedTrison()) {
+            if (this.isCartMoving()) {
+                this.forwardAnimationState.startIfStopped(this.tickCount);
+                this.idleAnimationState.stop();
+                this.parkedAnimationState.stop();
+            } else {
+                this.idleAnimationState.startIfStopped(this.tickCount);
+                this.forwardAnimationState.stop();
+                this.parkedAnimationState.stop();
+            }
+        } else {
+            this.parkedAnimationState.startIfStopped(this.tickCount);
+            this.forwardAnimationState.stop();
+            this.idleAnimationState.stop();
+        }
+    }
+
+    public boolean isCartMoving() {
+        return this.wheelSpeedScale > 0.001F;
+    }
+
+    public float getWheelSpeedScale() {
+        return this.wheelSpeedScale;
+    }
+
+    public boolean setAttachedTrison(@Nullable UUID trisonUuid) {
         this.entityData.set(ATTACHED_TRISON, Optional.ofNullable(trisonUuid));
+        return trisonUuid != null;
     }
 
     public @Nullable UUID getAttachedTrisonUuid() {
@@ -76,15 +168,13 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
     public boolean isAttachedTo(Entity entity) {
         return entity != null && entity.getUUID().equals(this.getAttachedTrisonUuid());
     }
+
     private void resetTrailerState() {
         this.lockedHitchTarget = null;
-        this.lastResolvedTrisonUuid = null;
-        this.previousHitchTarget = null;
         this.lastPullDirection = new Vec3(0.0D, 0.0D, -1.0D);
         this.setDeltaMovement(Vec3.ZERO);
         this.getNavigation().stop();
     }
-
 
     public boolean attachToTrison(TrisonEntity trison) {
         if (trison == null || !trison.isAlive()) {
@@ -92,9 +182,7 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         }
 
         this.setAttachedTrison(trison.getUUID());
-        this.lastResolvedTrisonUuid = trison.getUUID();
-        this.lockedHitchTarget = createTrailerTarget(trison);
-        this.previousHitchTarget = this.lockedHitchTarget;
+        this.lockedHitchTarget = this.createTrailerTarget(trison);
         this.snapBehindTrison(trison);
         return true;
     }
@@ -118,26 +206,19 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
 
         return null;
     }
+
     private Vec3 getCartToTrisonDirection(Entity trison) {
-        Vec3 fromCartToTrison = new Vec3(
-                trison.getX() - this.getX(),
-                0.0D,
-                trison.getZ() - this.getZ()
-        );
-
+        Vec3 fromCartToTrison = new Vec3(trison.getX() - this.getX(), 0.0D, trison.getZ() - this.getZ());
         if (fromCartToTrison.lengthSqr() < 1.0E-6D) {
-            return this.lastPullDirection.lengthSqr() > 1.0E-6D ? this.lastPullDirection : new Vec3(0.0D, 0.0D, 1.0D);
+            return this.lastPullDirection.lengthSqr() > 1.0E-6D
+                    ? this.lastPullDirection
+                    : new Vec3(0.0D, 0.0D, 1.0D);
         }
-
         return fromCartToTrison.normalize();
     }
 
     private Vec3 createTrailerTarget(Entity trison) {
-        Vec3 directionToCartSide = getCartToTrisonDirection(trison);
-
-        // target should be behind the trison, opposite of trison -> cart direction
-        Vec3 behindDirection = directionToCartSide.scale(-1.0D);
-
+        Vec3 behindDirection = getCartToTrisonDirection(trison).scale(-1.0D);
         this.lastPullDirection = behindDirection;
 
         return new Vec3(
@@ -146,34 +227,6 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
                 trison.getZ() + behindDirection.z * HITCH_DISTANCE
         );
     }
-
-    private Vec3 getLockedTrailerTarget(Entity trison) {
-        UUID currentUuid = trison.getUUID();
-
-        if (this.lastResolvedTrisonUuid == null || !this.lastResolvedTrisonUuid.equals(currentUuid)) {
-            this.lastResolvedTrisonUuid = currentUuid;
-            this.lockedHitchTarget = createTrailerTarget(trison);
-            this.previousHitchTarget = this.lockedHitchTarget;
-            return this.lockedHitchTarget;
-        }
-
-        Vec3 currentTarget = createTrailerTarget(trison);
-
-        if (this.previousHitchTarget == null) {
-            this.previousHitchTarget = currentTarget;
-        }
-
-        if (this.previousHitchTarget.distanceToSqr(currentTarget) > TRISON_MOVING_SPEED_SQR) {
-            this.lockedHitchTarget = currentTarget;
-        } else if (this.lockedHitchTarget == null) {
-            this.lockedHitchTarget = currentTarget;
-        }
-
-        this.previousHitchTarget = currentTarget;
-        return this.lockedHitchTarget;
-    }
-
-    private static final float MAX_TURN_PER_TICK = 10.0F;
 
     private void setCartYaw(float yaw) {
         this.setYRot(yaw);
@@ -196,37 +249,22 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
             return;
         }
 
-        float targetYaw = (float) (Mth.atan2(-dx, dz) * (180F / Math.PI));
+        float targetYaw = (float)(Mth.atan2(-dx, dz) * (180F / Math.PI));
         this.rotateTowardYaw(targetYaw);
     }
 
-    private void updateRotationFromMovement() {
-        double dx = this.getX() - this.xo;
-        double dz = this.getZ() - this.zo;
-        double horizontalMoveSqr = dx * dx + dz * dz;
-
-        if (horizontalMoveSqr < 1.0E-6D) {
-            return;
-        }
-
-        float targetYaw = (float) (Mth.atan2(-dx, dz) * (180F / Math.PI));
-        this.rotateTowardYaw(targetYaw);
-    }
-
-    private void pullToward(Vec3 target) {
-        Vec3 current = this.position();
-        Vec3 toTarget = target.subtract(current);
+    private void moveToward(Vec3 target) {
+        Vec3 toTarget = target.subtract(this.position());
         Vec3 horizontal = new Vec3(toTarget.x, 0.0D, toTarget.z);
-        double horizontalDistance = horizontal.length();
+        double distance = horizontal.length();
 
-        if (horizontalDistance < 1.0E-6D) {
+        if (distance < 1.0E-6D) {
             return;
         }
 
-        double step = Math.min(FOLLOW_STEP, horizontalDistance);
-        Vec3 move = horizontal.normalize().scale(step);
-
-        this.setPos(this.getX() + move.x, target.y, this.getZ() + move.z);
+        Vec3 step = horizontal.normalize().scale(Math.min(FOLLOW_SPEED, distance));
+        this.setDeltaMovement(step.x, this.getDeltaMovement().y, step.z);
+        this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
     public void snapBehindTrison(Entity trison) {
@@ -234,10 +272,8 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
             return;
         }
 
-        Vec3 target = createTrailerTarget(trison);
+        Vec3 target = this.createTrailerTarget(trison);
         this.lockedHitchTarget = target;
-        this.previousHitchTarget = target;
-        this.lastResolvedTrisonUuid = trison.getUUID();
 
         this.setPos(target.x, target.y, target.z);
         this.setCartYaw(trison.getYRot());
@@ -255,49 +291,6 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
 
     public void toggleCover() {
         this.setCover(!this.hasCover());
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        if (!this.level().isClientSide) {
-            if (!this.hasAttachedTrison()) {
-                this.resetTrailerState();
-                return;
-            }
-
-            Entity trison = this.getAttachedTrisonEntity();
-            if (trison == null) {
-                this.detachFromTrison();
-                return;
-            }
-
-            Vec3 oldTarget = this.lockedHitchTarget;
-            Vec3 target = getLockedTrailerTarget(trison);
-
-            boolean hitchMoving = oldTarget != null && oldTarget.distanceToSqr(target) > TRISON_MOVING_SPEED_SQR;
-            double distanceToTargetSqr = this.position().distanceToSqr(target);
-            double stopDistanceSqr = STOPPING_DISTANCE * STOPPING_DISTANCE;
-            double snapDistanceSqr = SNAP_DISTANCE * SNAP_DISTANCE;
-
-            if (!hitchMoving) {
-                if (distanceToTargetSqr > snapDistanceSqr) {
-                    this.setPos(target.x, target.y, target.z);
-                }
-
-                this.setDeltaMovement(Vec3.ZERO);
-                this.getNavigation().stop();
-                this.rotateTowardPosition(new Vec3(trison.getX(), this.getY(), trison.getZ()));
-            } else if (distanceToTargetSqr > stopDistanceSqr) {
-                this.pullToward(target);
-                this.updateRotationFromMovement();
-            } else {
-                this.setDeltaMovement(Vec3.ZERO);
-                this.getNavigation().stop();
-                this.rotateTowardPosition(new Vec3(trison.getX(), this.getY(), trison.getZ()));
-            }
-        }
     }
 
     @Override
@@ -339,17 +332,13 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
             return;
         }
 
-        Vec3 rotatedOffset = seatOffset.yRot(-this.yBodyRot * ((float) Math.PI / 180F));
+        Vec3 rotatedOffset = seatOffset.yRot(-this.yBodyRot * ((float)Math.PI / 180F));
         moveFunction.accept(
                 passenger,
                 this.getX() + rotatedOffset.x,
                 this.getY() + rotatedOffset.y + passenger.getMyRidingOffset(),
                 this.getZ() + rotatedOffset.z
         );
-
-        passenger.setYBodyRot(this.getYRot());
-        passenger.setYRot(this.getYRot());
-        passenger.setYHeadRot(this.getYRot());
     }
 
     private @Nullable Vec3 getSeatOffset(int passengerIndex) {
