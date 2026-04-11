@@ -165,6 +165,13 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
                 "Doubles strength.",
                 Category.BODY_ENHANCEMENTS
         ));
+        allEntries.add(new AugmentEntry(
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "augmentation_station/wings"),
+                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "wings"),
+                "Wings",
+                "Free falling",
+                Category.BODY_ENHANCEMENTS
+        ));
     }
 
     private enum Category {

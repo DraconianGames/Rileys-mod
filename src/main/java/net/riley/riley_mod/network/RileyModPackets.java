@@ -65,6 +65,21 @@ public class RileyModPackets {
                 .decoder(SyncAugmentsPacket::decode)
                 .consumerMainThread(RileyModPackets::handleSyncAugmentsClientSafe)
                 .add();
+        net.messageBuilder(WingSneakPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WingSneakPacket::encode)
+                .decoder(WingSneakPacket::decode)
+                .consumerMainThread(WingSneakPacket::handle)
+                .add();
+        net.messageBuilder(WingJumpPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WingJumpPacket::encode)
+                .decoder(WingJumpPacket::decode)
+                .consumerMainThread(WingJumpPacket::handle)
+                .add();
+        net.messageBuilder(WingFlapPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WingFlapPacket::encode)
+                .decoder(WingFlapPacket::decode)
+                .consumerMainThread(WingFlapPacket::handle)
+                .add();
     }
 
     private static void handleSyncAugmentsClientSafe(SyncAugmentsPacket msg, Supplier<NetworkEvent.Context> ctxSup) {

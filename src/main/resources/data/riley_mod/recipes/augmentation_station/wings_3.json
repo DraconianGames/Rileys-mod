@@ -1,0 +1,11 @@
+{
+  "type": "riley_mod:augmentation_station",
+  "category": "body_enhancements",
+  "augment_id": "riley_mod:wings",
+  "level": 3,
+  "icon": { "item": "minecraft:elytra" },
+  "description": "Flap Flap Flap",
+  "requirements": [
+    { "item": "riley_mod:synthetic_muscle", "count": 60 }
+  ]
+}

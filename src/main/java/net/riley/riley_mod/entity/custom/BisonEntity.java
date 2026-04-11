@@ -163,7 +163,7 @@ public class BisonEntity extends AbstractInventoryMountEntity {
 
         this.getMountInventory().setChanged();
     }
-    //TODO add transformation logic. Golden apple.
+
     public boolean isFood(ItemStack pStack) {
         return pStack.is(Items.CARROT); // Or whatever food you prefer
     }
