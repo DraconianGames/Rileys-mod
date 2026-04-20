@@ -46,8 +46,11 @@ public class RileyModItems {
             () -> new TrisonArmorItem(7, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SOUL_ORB = ITEMS.register("soul_orb",
-            () -> new Item(new Item.Properties().stacksTo(1)));
-//TODO make custom stacking logic
+            () -> new net.riley.riley_mod.item.custom.SoulOrbItem(new Item.Properties()));
+
+    public static final RegistryObject<Item> FILLED_SOUL_ORB = ITEMS.register("filled_soul_orb",
+            () -> new net.riley.riley_mod.item.custom.FilledSoulOrbItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> ICE_CHUNK = ITEMS.register("ice_chunk",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CLAW = ITEMS.register("claw",

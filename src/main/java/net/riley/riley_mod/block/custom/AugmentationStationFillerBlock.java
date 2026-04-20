@@ -20,6 +20,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.menu.AugmentationStationMenu;
+import net.riley.riley_mod.network.RileyModPackets;
+import net.riley.riley_mod.network.SyncAugmentsPacket;
 import net.riley.riley_mod.util.AugmentData;
 
 import java.util.HashMap;
@@ -78,6 +80,16 @@ public class AugmentationStationFillerBlock extends Block {
                         }
                     }
             );
+
+            Set<ResourceLocation> unlocked = AugmentData.getUnlocked(serverPlayer);
+            Set<ResourceLocation> active = AugmentData.getActive(serverPlayer);
+            Map<ResourceLocation, Integer> levels = new HashMap<>();
+
+            for (ResourceLocation id : unlocked) {
+                levels.put(id, AugmentData.getLevel(serverPlayer, id));
+            }
+
+            RileyModPackets.sendToPlayer(serverPlayer, new SyncAugmentsPacket(unlocked, active, levels));
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }

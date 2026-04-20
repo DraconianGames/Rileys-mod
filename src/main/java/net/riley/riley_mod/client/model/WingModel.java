@@ -87,7 +87,7 @@ public class WingModel<T extends Entity> extends HierarchicalModel<T> {
 
         if (entity instanceof net.minecraft.client.player.AbstractClientPlayer player && player.isCrouching()) {
             this.body.xRot = 0.5F;
-            this.body.y -= 7.0F;//adjust to right height
+            body.y += 3.2F;//TODO make number right
         }
 
         if (currentAnimation == null) {

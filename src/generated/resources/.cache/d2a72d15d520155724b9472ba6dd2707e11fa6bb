@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-21T15:47:26.3443438	Item Models: riley_mod
+// 1.20.1	2026-04-19T19:04:52.2902805	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -18,6 +18,7 @@ b7029b59fe453c53bf788076c731898edaff691e assets/riley_mod/models/item/cannon_she
 6a9699eaf0dbd822f158b83708f6ad4ba5b736f4 assets/riley_mod/models/item/enchanter.json
 2dfcec25e31ff4079cdc85f5cc78cc9eb0f01aa8 assets/riley_mod/models/item/eye.json
 be4b49bad7f93f1075ded56900d70089cf39908d assets/riley_mod/models/item/fallow_portal.json
+5e7cd3c2c945ae7203456b95341f116c91ee5952 assets/riley_mod/models/item/filled_soul_orb.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/frost_hopper_spawn_egg.json
 dca06bbd11b4ff7d1686f851b432807cade13313 assets/riley_mod/models/item/funtium_boots.json
 e946ce0a5e5cf942400da03c82b7e11fd251a36d assets/riley_mod/models/item/funtium_boots_amethyst_trim.json

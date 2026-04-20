@@ -64,6 +64,7 @@
   "item.riley_mod.funtium_boots": "Funtium Boots",
   "item.riley_mod.dark_journal": "Dark Journal",
   "item.riley_mod.soul_orb": "Soul Orb",
+  "item.riley_mod.filled_soul_orb": "Filled Soul Orb",
   "item.riley_mod.trison_armor": "Trison Armor",
   "item.riley_mod.trison_cart_item": "Trison Cart",
   "item.riley_mod.wheel": "Wheel",
@@ -135,6 +136,7 @@
   "entity.riley_mod.trison": "Trison",
   "entity.riley_mod.mecha_terror": "Mecha Terror",
   "entity.riley_mod.trison_cart": "Trison Cart",
+  "entity.riley_mod.mecha_parasite": "Mecha Parasite",
 
   "creativetab.funtium_tab": "Funtium Tab",
 
