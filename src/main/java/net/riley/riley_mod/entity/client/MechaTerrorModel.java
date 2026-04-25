@@ -190,28 +190,23 @@ public class MechaTerrorModel<T extends Entity> extends HierarchicalModel<T> {
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-		MechaTerrorEntity rex = (MechaTerrorEntity) entity;
-		if (rex.isActivating()) {
-			this.animate(rex.activationAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_ACTIVATE, ageInTicks, 1f);
+		MechaTerrorEntity mechaTerror = (MechaTerrorEntity) entity;
+
+		if (mechaTerror.isActivating()) {
+			this.animate(mechaTerror.activationAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_ACTIVATE, ageInTicks, 1.0F);
 			return;
 		}
-		// 1) WALK first (base layer)
-		// Only if actually moving; otherwise it can "fight" idle/attacks.
-		if (limbSwingAmount > 0.01F) {
-			this.animateWalk(MechaTerrorAnimationDefinitions.MECHA_TERROR_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
-		}
-/*
-		// 2) ATTACKS second (overlay on top of walk)
-		if (rex.isShootinging()) {
-			this.animate(rex.ShootAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_SHOOT, ageInTicks, 1f);
+
+		if (mechaTerror.isShooting()) {
+			this.animate(mechaTerror.shootAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_SHOOT, ageInTicks, 1.0F);
+			return;
 		}
 
-		// 3) IDLE last, but only when not walking and not attacking
-		if (limbSwingAmount <= 0.01F && !rex.isShooting()) {
-			this.animate(rex.idleAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_IDLE, ageInTicks, 1f);
+		if (limbSwingAmount > 0.01F) {
+			this.animateWalk(MechaTerrorAnimationDefinitions.MECHA_TERROR_WALK, limbSwing, limbSwingAmount, 2.0F, 2.25F);
+		} else {
+			this.animate(mechaTerror.idleAnimationState, MechaTerrorAnimationDefinitions.MECHA_TERROR_IDLE, ageInTicks, 1.0F);
 		}
-*/
-		//TODO register shooting
 	}
 
 	@Override

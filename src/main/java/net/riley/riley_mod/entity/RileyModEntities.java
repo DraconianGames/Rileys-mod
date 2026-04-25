@@ -53,6 +53,14 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
                             .updateInterval(10)
                             .build("mecharexbomb")
             );
+    public static final RegistryObject<EntityType<MechaTerrorShotEntity>> MECHA_TERROR_SHOT =
+            ENTITY_TYPES.register("mecha_terror_shot", () ->
+                    EntityType.Builder.<MechaTerrorShotEntity>of(MechaTerrorShotEntity::new, MobCategory.MISC)
+                            .sized(0.35F, 0.35F)
+                            .clientTrackingRange(8)
+                            .updateInterval(1)
+                            .build("mecha_terror_shot")
+            );
     public static final RegistryObject<EntityType<MechaRexEntity>> MECHAREX =
             ENTITY_TYPES.register("mecharex", ()-> EntityType.Builder.of(MechaRexEntity::new,MobCategory.CREATURE)
                     .sized(4f,3.5f).build("mecharex"));
