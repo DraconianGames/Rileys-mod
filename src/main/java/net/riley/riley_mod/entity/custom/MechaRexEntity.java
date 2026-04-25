@@ -16,6 +16,12 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -25,6 +31,12 @@ import net.riley.riley_mod.entity.ai.*;
 import org.jetbrains.annotations.Nullable;
 
 public class MechaRexEntity extends TamableAnimal {
+    private final ServerBossEvent bossEvent = new ServerBossEvent(
+            Component.literal("Mecha Rex"),
+            BossEvent.BossBarColor.PURPLE,
+            BossEvent.BossBarOverlay.PROGRESS
+    );
+
     public MechaRexEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -84,6 +96,7 @@ public class MechaRexEntity extends TamableAnimal {
         this.entityData.set(ACTIVATION_TICKS, 80); // 4.0s @ 20 tps
     }
 
+
     @Override
     public void tick() {
         super.tick();
@@ -91,6 +104,8 @@ public class MechaRexEntity extends TamableAnimal {
         if (this.level().isClientSide()) {
             setupAminationStates();
         } else {
+            updateBossBar();
+
             spawnMechaTerrorsBelowHalfHealth();
 
             // Freeze AI during activation
@@ -110,6 +125,43 @@ public class MechaRexEntity extends TamableAnimal {
                 this.entityData.set(ACTIVATION_TICKS, act - 1);
             }
         }
+    }
+    private void updateBossBar() {
+        if (!(this.level() instanceof ServerLevel serverLevel)) return;
+
+        if (this.isTame() || !this.isAlive()) {
+            this.bossEvent.removeAllPlayers();
+            return;
+        }
+
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+
+        for (ServerPlayer player : serverLevel.players()) {
+            double distanceSqr = player.distanceToSqr(this);
+
+            if (distanceSqr <= 64.0D * 64.0D) {
+                this.bossEvent.addPlayer(player);
+            } else {
+                this.bossEvent.removePlayer(player);
+            }
+        }
+    }
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("SpawnedHalfHealthTerrors", this.spawnedHalfHealthTerrors);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.spawnedHalfHealthTerrors = pCompound.getBoolean("SpawnedHalfHealthTerrors");
+    }
+
+    @Override
+    public void remove(RemovalReason pReason) {
+        this.bossEvent.removeAllPlayers();
+        super.remove(pReason);
     }
     private void spawnMechaTerrorsBelowHalfHealth() {
         if (spawnedHalfHealthTerrors || this.isTame()) return;
@@ -304,7 +356,8 @@ public class MechaRexEntity extends TamableAnimal {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 5f));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 
-        this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));
+       this.targetSelector.addGoal(0, new WildMechDisableFriendlyTargetGoal(this));
+       this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new MechaRexShareTargetWithAlliesGoal(this, 32.0));
 
@@ -344,11 +397,7 @@ public class MechaRexEntity extends TamableAnimal {
                 shooter,
                 ax, ay, az
         );
-
-        // Homing only for non-player targets
-        if (!(target instanceof Player)) {
-            bomb.setHomingTarget(target);
-        }
+        bomb.setHomingTarget(target);
 
         bomb.setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
         this.level().addFreshEntity(bomb);

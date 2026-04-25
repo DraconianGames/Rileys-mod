@@ -88,9 +88,10 @@ public class JournalScreen extends Screen {
                 java.util.List.of(),null));
         ALL_ENTRIES.add(new JournalEntry("Skull Fairy","The final evolution of the tooth fairy. It is now fire proof.", JournalEntry.Category.CREATURES, RileyModEntities.SKULL_FAIRY.get(), 5.0f, RileyModItems.TOOTH.get(),
                 java.util.List.of(),null));
-        ALL_ENTRIES.add(new JournalEntry("Mecha Rex", "Only found within a strange arena in the Fallow. Its missiles will track mobs, due to me thinking it will be too difficult of a fight, it doesn't track players. It does have the aim of a bedrock skeleton though.", JournalEntry.Category.CREATURES, RileyModEntities.MECHAREX.get(), 5.0f, null,
+        ALL_ENTRIES.add(new JournalEntry("Mecha Rex", "Only found within a strange arena in the Fallow. Its missiles will track their target.", JournalEntry.Category.CREATURES, RileyModEntities.MECHAREX.get(), 5.0f, null,
                java.util.List.of(),null));
-
+        ALL_ENTRIES.add(new JournalEntry("Mecha Terror", "These are harder to fight than their boss, the Mecha Rex ", JournalEntry.Category.CREATURES, RileyModEntities.MECHA_TERROR.get(), 3.0f, null,
+                java.util.List.of(),null));
         //Blocks
         ALL_ENTRIES.add(new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS));
         ALL_ENTRIES.add(new JournalEntry("Black Sand","Much like soul sand, this stuff will slow you down. It caught me by surprise while exploring the beach for the first time." , JournalEntry.Category.BLOCKS));

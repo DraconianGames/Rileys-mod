@@ -87,22 +87,33 @@ public class MechaTerrorShotEntity extends AbstractHurtingProjectile {
     private boolean isFriendlyTo(LivingEntity other) {
         Entity owner = this.getOwner();
 
-        if (!(owner instanceof TamableAnimal ownerTameable) || !ownerTameable.isTame()) {
-            return false;
-        }
+        if (owner instanceof TamableAnimal ownerTameable) {
+            // Wild MechaRex and wild MechaTerror should not damage each other
+            if (!ownerTameable.isTame() && isWildMechaMob(ownerTameable) && isWildMechaMob(other)) {
+                return true;
+            }
 
-        UUID ownerUUID = ownerTameable.getOwnerUUID();
-        if (ownerUUID == null) return false;
+            // Tamed mobs should not hurt their owner
+            if (ownerTameable.isTame() && ownerTameable.isOwnedBy(other)) {
+                return true;
+            }
 
-        if (ownerTameable.isOwnedBy(other)) {
-            return true;
-        }
-
-        if (other instanceof TamableAnimal otherTameable && otherTameable.isTame()) {
-            return ownerUUID.equals(otherTameable.getOwnerUUID());
+            // Tamed mobs should not hurt same-owner tamed mobs
+            UUID ownerUUID = ownerTameable.getOwnerUUID();
+            if (ownerUUID != null && other instanceof TamableAnimal otherTameable && otherTameable.isTame()) {
+                return ownerUUID.equals(otherTameable.getOwnerUUID());
+            }
         }
 
         return false;
+    }
+
+    private boolean isWildMechaMob(Entity entity) {
+        if (!(entity instanceof TamableAnimal tamable) || tamable.isTame()) {
+            return false;
+        }
+
+        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity;
     }
 
     @Override

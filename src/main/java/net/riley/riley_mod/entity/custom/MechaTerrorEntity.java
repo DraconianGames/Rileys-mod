@@ -1,11 +1,15 @@
 package net.riley.riley_mod.entity.custom;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,6 +27,12 @@ import net.riley.riley_mod.entity.ai.*;
 import org.jetbrains.annotations.Nullable;
 
 public class MechaTerrorEntity extends TamableAnimal {
+    private final ServerBossEvent bossEvent = new ServerBossEvent(
+            Component.literal("Mecha Terror"),
+            BossEvent.BossBarColor.BLUE,
+            BossEvent.BossBarOverlay.PROGRESS
+    );
+
     public MechaTerrorEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -68,6 +78,8 @@ public class MechaTerrorEntity extends TamableAnimal {
         if (this.level().isClientSide()) {
             setupAminationStates();
         } else {
+            updateBossBar();
+
             // Freeze AI during activation
             if (this.isActivating()) {
                 this.getNavigation().stop();
@@ -89,6 +101,32 @@ public class MechaTerrorEntity extends TamableAnimal {
                 this.entityData.set(ACTIVATION_TICKS, act - 1);
             }
         }
+    }
+
+    private void updateBossBar() {
+        if (!(this.level() instanceof ServerLevel serverLevel)) return;
+
+        if (this.isTame() || !this.isAlive()) {
+            this.bossEvent.removeAllPlayers();
+            return;
+        }
+
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+
+        for (ServerPlayer player : serverLevel.players()) {
+            double distanceSqr = player.distanceToSqr(this);
+
+            if (distanceSqr <= 64.0D * 64.0D) {
+                this.bossEvent.addPlayer(player);
+            } else {
+                this.bossEvent.removePlayer(player);
+            }
+        }
+    }
+    @Override
+    public void remove(RemovalReason pReason) {
+        this.bossEvent.removeAllPlayers();
+        super.remove(pReason);
     }
 
     private void tickGunAttack() {
@@ -254,6 +292,7 @@ public class MechaTerrorEntity extends TamableAnimal {
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 5f));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 
+        this.targetSelector.addGoal(0, new WildMechDisableFriendlyTargetGoal(this));
         this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 

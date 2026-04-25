@@ -82,7 +82,7 @@ public class MechaRexBombEntity extends LargeFireball {
 
             // Homing only before diving starts
             LivingEntity target = diving ? null : getHomingTarget();
-            if (target != null && target.isAlive() && !(target instanceof Player)) {
+            if (target != null && target.isAlive()) {
                 Vec3 toTarget = new Vec3(
                         target.getX() - this.getX(),
                         target.getEyeY() - this.getY(),
@@ -147,22 +147,47 @@ public class MechaRexBombEntity extends LargeFireball {
             this.discard();
         }
     }
+    @Override
+    protected boolean canHitEntity(Entity entity) {
+        if (!super.canHitEntity(entity)) return false;
+        if (entity == this.getOwner()) return false;
+
+        if (entity instanceof LivingEntity living && isFriendlyTo(living)) {
+            return false;
+        }
+
+        return true;
+    }
+
     private boolean isFriendlyTo(LivingEntity other) {
         Entity owner = this.getOwner();
-        if (!(owner instanceof TamableAnimal ownerTa) || !ownerTa.isTame()) return false;
 
-        UUID ownerUUID = ownerTa.getOwnerUUID();
-        if (ownerUUID == null) return false;
+        if (owner instanceof TamableAnimal ownerTa) {
+            // Wild MechaRex and wild MechaTerror should not damage each other
+            if (!ownerTa.isTame() && isWildMechaMob(ownerTa) && isWildMechaMob(other)) {
+                return true;
+            }
 
-        // Don't hurt the owner
-        if (other == owner) return true;
+            // Tamed mobs should not hurt their owner
+            if (ownerTa.isTame() && ownerTa.isOwnedBy(other)) {
+                return true;
+            }
 
-        // Don't hurt other tamed mobs with the same owner
-        if (other instanceof TamableAnimal otherTa && otherTa.isTame()) {
-            return ownerUUID.equals(otherTa.getOwnerUUID());
+            // Tamed mobs should not hurt same-owner tamed mobs
+            UUID ownerUUID = ownerTa.getOwnerUUID();
+            if (ownerUUID != null && other instanceof TamableAnimal otherTa && otherTa.isTame()) {
+                return ownerUUID.equals(otherTa.getOwnerUUID());
+            }
         }
 
         return false;
+    }
+    private boolean isWildMechaMob(Entity entity) {
+        if (!(entity instanceof TamableAnimal tamable) || tamable.isTame()) {
+            return false;
+        }
+
+        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity;
     }
     @Override
     protected void onHit(HitResult hitResult) {
