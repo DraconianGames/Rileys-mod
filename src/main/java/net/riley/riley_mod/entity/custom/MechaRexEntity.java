@@ -47,6 +47,7 @@ public class MechaRexEntity extends TamableAnimal {
 
     private boolean tailSwipeDamageDone = false;
     private boolean bombSpawned = false;
+    private boolean spawnedHalfHealthTerrors = false;
 
     @Override
     protected void defineSynchedData() {
@@ -90,6 +91,8 @@ public class MechaRexEntity extends TamableAnimal {
         if (this.level().isClientSide()) {
             setupAminationStates();
         } else {
+            spawnMechaTerrorsBelowHalfHealth();
+
             // Freeze AI during activation
             if (this.isActivating()) {
                 this.getNavigation().stop();
@@ -107,6 +110,51 @@ public class MechaRexEntity extends TamableAnimal {
                 this.entityData.set(ACTIVATION_TICKS, act - 1);
             }
         }
+    }
+    private void spawnMechaTerrorsBelowHalfHealth() {
+        if (spawnedHalfHealthTerrors || this.isTame()) return;
+        if (this.getHealth() >= this.getMaxHealth() * 0.5F) return;
+
+        spawnedHalfHealthTerrors = true;
+
+        spawnSummonedMechaTerror(-3.0D);
+        spawnSummonedMechaTerror(3.0D);
+    }
+
+    private void spawnSummonedMechaTerror(double xOffset) {
+        MechaTerrorEntity terror = RileyModEntities.MECHA_TERROR.get().create(this.level());
+        if (terror == null) return;
+
+        double spawnX = this.getX() + xOffset;
+        double spawnY = this.getY();
+        double spawnZ = this.getZ();
+
+        if (!findSafeMechaTerrorSpawnPosition(terror, spawnX, spawnY, spawnZ)) return;
+
+        terror.startActivation();
+        this.level().addFreshEntity(terror);
+    }
+
+    private boolean findSafeMechaTerrorSpawnPosition(MechaTerrorEntity terror, double startX, double startY, double startZ) {
+        for (int yOffset = 0; yOffset <= 2; yOffset++) {
+            for (int radius = 0; radius <= 5; radius++) {
+                for (int xOffset = -radius; xOffset <= radius; xOffset++) {
+                    for (int zOffset = -radius; zOffset <= radius; zOffset++) {
+                        double x = startX + xOffset;
+                        double y = startY + yOffset;
+                        double z = startZ + zOffset;
+
+                        terror.moveTo(x, y, z, this.getYRot(), 0.0F);
+
+                        if (this.level().noCollision(terror)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {

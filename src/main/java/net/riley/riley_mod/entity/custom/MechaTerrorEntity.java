@@ -59,7 +59,7 @@ public class MechaTerrorEntity extends TamableAnimal {
     }
     public void startActivation() {
         if (this.level().isClientSide) return;
-        this.entityData.set(ACTIVATION_TICKS, 50); // 4.0s @ 20 tps
+        this.entityData.set(ACTIVATION_TICKS, 50); // 2.5s @ 20 tps
     }
     @Override
     public void tick() {
