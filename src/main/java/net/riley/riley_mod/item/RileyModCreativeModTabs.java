@@ -110,7 +110,6 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.MACHINE_CORE_CENTER.get());
                         output.accept(RileyModBlocks.MACHINE_CORE_PORT.get());
                         output.accept(RileyModBlocks.MACHINE_CORE_SCREEN.get());
-                        output.accept(RileyModBlocks.MACHINE_CORE_TEST.get());
 
                         output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
                         output.accept(RileyModBlocks.AUGMENTATION_STATION.get());

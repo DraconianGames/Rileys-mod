@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "formed=false": {
       "model": "riley_mod:block/machine_core_center"
+    },
+    "formed=true": {
+      "model": "riley_mod:block/machine_core_formed"
     }
   }
 }

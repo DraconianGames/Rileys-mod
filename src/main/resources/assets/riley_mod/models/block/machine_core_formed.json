@@ -3,8 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [256, 256],
 	"textures": {
-		"0": "riley_mod:block/machine_core_test",
-		"particle": "riley_mod:block/machine_core_test"
+		"0": "riley_mod:block/machine_core_formed",
+		"particle": "riley_mod:block/machine_core_formed"
 	},
 	"elements": [
 		{

@@ -14,6 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.MachineCorePartBlock;
 import net.riley.riley_mod.block.custom.MuscleCropBlock;
 import net.riley.riley_mod.block.custom.RileyModAbyssPortalBlock;
 import net.riley.riley_mod.block.custom.RileyModFallowPortalBlock;
@@ -44,8 +45,12 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         blockWithItem(RileyModBlocks.FALLOW_GROUND);
         blockWithItem(RileyModBlocks.FALLOW_EARTH);
         blockWithItem(RileyModBlocks.FALLOW_PORTAL_FRAME);
-        blockWithItem(RileyModBlocks.MACHINE_CORE);
-        blockWithItem(RileyModBlocks.MACHINE_CORE_CENTER);
+        machineCorePartBlock(RileyModBlocks.MACHINE_CORE, "machine_core");
+        machineCoreCenterBlock(
+                RileyModBlocks.MACHINE_CORE_CENTER,
+                "machine_core_center",
+                "machine_core_formed"
+        );
 
 
         abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);
@@ -81,8 +86,8 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
 
         topTexturedBlock(RileyModBlocks.TROPHY_READER, "trophy_reader", "trophy_reader_top");
 
-        topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_PORT, "machine_core_port", "machine_core");
-        topBottomTexturedBlock(RileyModBlocks.MACHINE_CORE_SCREEN, "machine_core_screen", "machine_core");
+        machineCoreTopBottomPartBlock(RileyModBlocks.MACHINE_CORE_PORT, "machine_core_port", "machine_core");
+        machineCoreTopBottomPartBlock(RileyModBlocks.MACHINE_CORE_SCREEN, "machine_core_screen", "machine_core");
 
         makeMuscleCrop((CropBlock) RileyModBlocks.MUSCLE_CROP.get(), "muscle_crop_stage", "muscle_crop_stage");
     }
@@ -178,8 +183,69 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
 
         simpleBlockWithItem(blockRegistryObject.get(), abyssalGrassModel);
     }
+    private void machineCoreCenterBlock(RegistryObject<Block> blockRegistryObject, String normalTexture, String formedModelName) {
+        ModelFile normalModel = models().cubeAll(
+                blockRegistryObject.getId().getPath(),
+                modLoc("block/" + normalTexture)
+        );
 
+        ModelFile formedModel = new ModelFile.UncheckedModelFile(
+                modLoc("block/" + formedModelName)
+        );
 
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState()
+                .with(MachineCorePartBlock.FORMED, false)
+                .modelForState()
+                .modelFile(normalModel)
+                .addModel()
+                .partialState()
+                .with(MachineCorePartBlock.FORMED, true)
+                .modelForState()
+                .modelFile(formedModel)
+                .addModel();
+
+        simpleBlockItem(blockRegistryObject.get(), normalModel);
+    }
+    private void machineCoreTopBottomPartBlock(RegistryObject<Block> blockRegistryObject, String sideTexture, String topAndBottomTexture) {
+        ModelFile normalModel = models().cubeBottomTop(
+                blockRegistryObject.getId().getPath(),
+                modLoc("block/" + sideTexture),
+                modLoc("block/" + topAndBottomTexture),
+                modLoc("block/" + topAndBottomTexture)
+        );
+
+        machineCorePartBlockWithModel(blockRegistryObject, normalModel, sideTexture);
+    }
+
+    private void machineCorePartBlock(RegistryObject<Block> blockRegistryObject, String normalTexture) {
+        ModelFile normalModel = models().cubeAll(
+                blockRegistryObject.getId().getPath(),
+                modLoc("block/" + normalTexture)
+        );
+
+        machineCorePartBlockWithModel(blockRegistryObject, normalModel, normalTexture);
+    }
+
+    private void machineCorePartBlockWithModel(RegistryObject<Block> blockRegistryObject, ModelFile normalModel, String particleTexture) {
+        ModelFile invisibleModel = models()
+                .withExistingParent(blockRegistryObject.getId().getPath() + "_invisible", mcLoc("block/air"))
+                .texture("particle", modLoc("block/" + particleTexture));
+
+        getVariantBuilder(blockRegistryObject.get())
+                .partialState()
+                .with(MachineCorePartBlock.FORMED, false)
+                .modelForState()
+                .modelFile(normalModel)
+                .addModel()
+                .partialState()
+                .with(MachineCorePartBlock.FORMED, true)
+                .modelForState()
+                .modelFile(invisibleModel)
+                .addModel();
+
+        simpleBlockItem(blockRegistryObject.get(), normalModel);
+    }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));

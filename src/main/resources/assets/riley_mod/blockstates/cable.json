@@ -1,7 +1,105 @@
 {
-  "variants": {
-    "": {
-      "model": "riley_mod:block/cable"
+  "multipart": [
+    {
+      "apply": {
+        "model": "riley_mod:block/cable/center"
+      }
+    },
+    {
+      "when": {
+        "north_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/north_c"
+      }
+    },
+    {
+      "when": {
+        "north_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/north_p"
+      }
+    },
+    {
+      "when": {
+        "south_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/south_c"
+      }
+    },
+    {
+      "when": {
+        "south_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/south_p"
+      }
+    },
+    {
+      "when": {
+        "east_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/east_c"
+      }
+    },
+    {
+      "when": {
+        "east_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/east_p"
+      }
+    },
+    {
+      "when": {
+        "west_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/west_c"
+      }
+    },
+    {
+      "when": {
+        "west_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/west_p"
+      }
+    },
+    {
+      "when": {
+        "up_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/up_c"
+      }
+    },
+    {
+      "when": {
+        "up_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/up_p"
+      }
+    },
+    {
+      "when": {
+        "down_c": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/down_c"
+      }
+    },
+    {
+      "when": {
+        "down_p": "true"
+      },
+      "apply": {
+        "model": "riley_mod:block/cable/down_p"
+      }
     }
-  }
+  ]
 }

@@ -279,7 +279,7 @@ public class MechaTerrorEntity extends TamableAnimal {
                 .add(Attributes.ATTACK_DAMAGE, 20f);
 
     }
-    //TODO let mecha rex boss summon 2 terrors at half health
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));

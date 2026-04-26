@@ -61,8 +61,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> CABLE = registerBlock("cable",
             () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));
   //testing
-    public static final RegistryObject<Block> MACHINE_CORE_TEST = registerBlock("machine_core_test",
-            () -> new MachineCoreBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));
+
     public static final RegistryObject<Block> ENCHANTER = registerBlock("enchanter",
             () -> new EnchanterBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
     public static final RegistryObject<Block> MORPH_STATION = registerBlock("morph_station",
@@ -86,15 +85,16 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
             () -> new AugmentationStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
-//more machines
+
+//individual parts
     public static final RegistryObject<Block> MACHINE_CORE = registerBlock("machine_core",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+            () -> new MachineCorePartBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> MACHINE_CORE_CENTER = registerBlock("machine_core_center",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+            () -> new MachineCorePartBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> MACHINE_CORE_PORT = registerBlock("machine_core_port",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+            () -> new MachineCorePartBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> MACHINE_CORE_SCREEN = registerBlock("machine_core_screen",
-            () -> new MachineCoreScreenBlock(BlockBehaviour.Properties.copy(Blocks.DIRT)));
+            () -> new MachineCoreScreenBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));
 //ores
     public static final RegistryObject<Block> FUNTIUM_ORE_BLOCK = registerBlock("funtium_ore_block",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)

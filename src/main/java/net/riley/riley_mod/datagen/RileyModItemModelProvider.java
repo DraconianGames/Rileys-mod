@@ -121,8 +121,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         flatBlockItem(RileyModBlocks.ABYSS_PORTAL);
         flatBlockItem(RileyModBlocks.FALLOW_PORTAL);
         evenSimplerBlockItem2(RileyModBlocks.WHALE_HUNTER_TROPHY);
-        evenSimplerBlockItem2(RileyModBlocks.MACHINE_CORE_TEST);
-        evenSimplerBlockItem2(RileyModBlocks.CABLE);
+
         evenSimplerBlockItem2(RileyModBlocks.MORPH_STATION);
         evenSimplerBlockItem2(RileyModBlocks.ENCHANTER);
         evenSimplerBlockItem2(RileyModBlocks.AUGMENTATION_STATION);

@@ -53,7 +53,6 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.MACHINE_CORE_CENTER.get());
         this.dropSelf(RileyModBlocks.MACHINE_CORE_PORT.get());
         this.dropSelf(RileyModBlocks.MACHINE_CORE_SCREEN.get());
-        this.dropSelf(RileyModBlocks.MACHINE_CORE_TEST.get());
 
 
 
