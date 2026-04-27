@@ -80,27 +80,36 @@ public class CableBlock extends Block {
 
     private BlockState getConnectionState(BlockState state, BlockGetter level, BlockPos pos) {
         return state
-                .setValue(NORTH_P, isPort(level, pos.north()))
-                .setValue(NORTH_C, connectsCable(level, pos.north()))
-                .setValue(SOUTH_P, isPort(level, pos.south()))
-                .setValue(SOUTH_C, connectsCable(level, pos.south()))
-                .setValue(EAST_P, isPort(level, pos.east()))
-                .setValue(EAST_C, connectsCable(level, pos.east()))
-                .setValue(WEST_P, isPort(level, pos.west()))
-                .setValue(WEST_C, connectsCable(level, pos.west()))
-                .setValue(UP_P, isPort(level, pos.above()))
-                .setValue(UP_C, connectsCable(level, pos.above()))
-                .setValue(DOWN_P, isPort(level, pos.below()))
-                .setValue(DOWN_C, connectsCable(level, pos.below()));
+                .setValue(NORTH_P, isPort(level, pos.north(), Direction.NORTH))
+                .setValue(NORTH_C, connectsCable(level, pos.north(), Direction.NORTH))
+                .setValue(SOUTH_P, isPort(level, pos.south(), Direction.SOUTH))
+                .setValue(SOUTH_C, connectsCable(level, pos.south(), Direction.SOUTH))
+                .setValue(EAST_P, isPort(level, pos.east(), Direction.EAST))
+                .setValue(EAST_C, connectsCable(level, pos.east(), Direction.EAST))
+                .setValue(WEST_P, isPort(level, pos.west(), Direction.WEST))
+                .setValue(WEST_C, connectsCable(level, pos.west(), Direction.WEST))
+                .setValue(UP_P, isPort(level, pos.above(), Direction.UP))
+                .setValue(UP_C, connectsCable(level, pos.above(), Direction.UP))
+                .setValue(DOWN_P, isPort(level, pos.below(), Direction.DOWN))
+                .setValue(DOWN_C, connectsCable(level, pos.below(), Direction.DOWN));
     }
 
-    private boolean connectsCable(BlockGetter level, BlockPos pos) {
+    private boolean connectsCable(BlockGetter level, BlockPos pos, Direction direction) {
         BlockState neighborState = level.getBlockState(pos);
-        return neighborState.is(this) || neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get());
+        return neighborState.is(this) || isPort(level, pos, direction);
     }
 
-    private boolean isPort(BlockGetter level, BlockPos pos) {
-        return level.getBlockState(pos).is(RileyModBlocks.MACHINE_CORE_PORT.get());
+    private boolean isPort(BlockGetter level, BlockPos pos, Direction direction) {
+        BlockState neighborState = level.getBlockState(pos);
+//neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get()) For all attachment points
+        return direction == Direction.EAST && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
+                ||direction == Direction.WEST && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
+                ||direction == Direction.SOUTH && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
+                ||direction == Direction.NORTH && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
+                || direction == Direction.UP && neighborState.is(RileyModBlocks.AUGMENTATION_STATION.get())
+                || direction == Direction.UP && neighborState.is(RileyModBlocks.MORPH_STATION.get())
+                || direction == Direction.UP && neighborState.is(RileyModBlocks.ENCHANTER.get())
+                || neighborState.is(RileyModBlocks.TROPHY_READER.get());//does all sides
     }
 
     @Override
