@@ -58,6 +58,11 @@ public abstract class AbstractInventoryMountEntity extends AbstractChestedHorse 
         this.entityData.define(HAS_MOUNT_ARMOR, false);
     }
 
+    @Override
+    protected boolean canPerformRearing() {
+        return false;
+    }
+
     protected int getTotalMountSlotCount() {
         return STORAGE_START_SLOT + this.getBaseStorageSlotCount();
     }

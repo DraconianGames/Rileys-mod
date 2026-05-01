@@ -51,7 +51,7 @@ public class CustomMountScreen extends AbstractContainerScreen<CustomMountMenu> 
 
         guiGraphics.blit(HORSE_INVENTORY_LOCATION,
                 left + 7,
-                top + 35 + Y_OFFSET,
+                top + 16 + Y_OFFSET,
                 18,
                 166,
                 18,

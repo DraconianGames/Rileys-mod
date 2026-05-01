@@ -101,7 +101,6 @@ public class CableBlock extends Block {
 
     private boolean isPort(BlockGetter level, BlockPos pos, Direction direction) {
         BlockState neighborState = level.getBlockState(pos);
-//neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get()) For all attachment points
         return direction == Direction.EAST && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
                 ||direction == Direction.WEST && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
                 ||direction == Direction.SOUTH && neighborState.is(RileyModBlocks.MACHINE_CORE_PORT.get())
@@ -109,7 +108,7 @@ public class CableBlock extends Block {
                 || direction == Direction.UP && neighborState.is(RileyModBlocks.AUGMENTATION_STATION.get())
                 || direction == Direction.UP && neighborState.is(RileyModBlocks.MORPH_STATION.get())
                 || direction == Direction.UP && neighborState.is(RileyModBlocks.ENCHANTER.get())
-                || neighborState.is(RileyModBlocks.TROPHY_READER.get());//does all sides
+                || neighborState.is(RileyModBlocks.TROPHY_READER.get());//does all sides. Change to do all but top later.
     }
 
     @Override

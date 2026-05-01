@@ -55,7 +55,7 @@ public class CustomMountMenu extends AbstractContainerMenu {
             }
         });
 
-        this.addSlot(new Slot(this.mountInventory, ARMOR_SLOT_INDEX, 8, 36 + Y_OFFSET) {
+        this.addSlot(new Slot(this.mountInventory, ARMOR_SLOT_INDEX, 8, 17 + Y_OFFSET) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return mountAccess != null && mountAccess.canEquipMountArmor(stack);
