@@ -1,0 +1,21 @@
+{
+
+  "structures": [
+    {
+      "structure": "riley_mod:lighthouse",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "salt": 730926503,
+
+    "spacing": 20,
+
+
+    "separation": 6,
+
+
+    "type": "minecraft:random_spread"
+  }
+}

@@ -18,6 +18,7 @@ import java.util.function.BiConsumer;
 public class RileyModStructureLootTables implements LootTableSubProvider {
 
     public static final ResourceLocation ARENA_CHEST = ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "chests/arena");
+public static final ResourceLocation LIGHTHOUSE_CHEST = ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "chests/lighthouse");
 
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> builder) {
@@ -63,6 +64,43 @@ public class RileyModStructureLootTables implements LootTableSubProvider {
                         .setRolls(ConstantValue.exactly(1.0F))
                         .when(LootItemRandomChanceCondition.randomChance(0.5f)) // adjust probability as desired
                         .add(LootItem.lootTableItem(RileyModItems.TRISON_ARMOR.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
+                )
+        );
+        builder.accept(LIGHTHOUSE_CHEST, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5f)) // adjust probability as desired
+                        .add(LootItem.lootTableItem(RileyModItems.FUNTIUM_SWORD.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(RileyModItems.CAGGED_FAIRY.get())
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(LootItemRandomChanceCondition.randomChance(0.5f)) // adjust probability as desired
+                        .add(LootItem.lootTableItem(Items.DIAMOND)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 12.0F)))
+                                .setWeight(1))
+                        .add(LootItem.lootTableItem(Items.EMERALD)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 12.0F)))
+                                .setWeight(1))
+                        .add(LootItem.lootTableItem(RileyModItems.ICE_CHUNK.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(5.0F, 12.0F)))
+                                .setWeight(1))
+                        .add(LootItem.lootTableItem(RileyModItems.TOME.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
+                                .setWeight(1))
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .when(LootItemRandomChanceCondition.randomChance(0.1f)) // adjust probability as desired
+                        .add(LootItem.lootTableItem(RileyModItems.MECHA_TERROR_EGG.get())
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))
                                 .setWeight(1))
                 )

@@ -1,0 +1,30 @@
+{
+
+  "name": "riley_mod:lighthouse/start_pool",
+
+
+  "fallback": "minecraft:empty",
+
+
+  "elements": [
+    {
+
+
+      "weight": 1,
+      "element": {
+
+
+        "location": "riley_mod:lighthouse",
+
+
+        "processors": "minecraft:empty",
+
+
+        "projection": "rigid",
+
+
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
