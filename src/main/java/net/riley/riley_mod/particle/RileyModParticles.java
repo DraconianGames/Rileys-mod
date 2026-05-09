@@ -52,6 +52,13 @@ public class RileyModParticles {
                     return Codec.unit(() -> new OrbitingParticleData(this, 0, 0, 0, 0, 0, 0, 0));
                 }
             });
+    public static final RegistryObject<ParticleType<ParasiteBlastParticleData>> PARASITE_BLAST_PARTICLE =
+            PARTICLES.register("parasite_blast_particle", () -> new ParticleType<ParasiteBlastParticleData>(false, ParasiteBlastParticleData.DESERIALIZER) {
+                @Override
+                public Codec<ParasiteBlastParticleData> codec() {
+                    return Codec.unit(() -> new ParasiteBlastParticleData(this, 0, 0, 0, 0, 0, 0, 0));
+                }
+            });
 
     public static void register(IEventBus bus) {
         PARTICLES.register(bus);

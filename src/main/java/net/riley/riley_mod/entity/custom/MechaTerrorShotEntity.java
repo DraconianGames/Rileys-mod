@@ -113,9 +113,9 @@ public class MechaTerrorShotEntity extends AbstractHurtingProjectile {
             return false;
         }
 
-        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity;
+        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity || entity instanceof ParasiteCarrierEntity;
     }
-
+//TODO make this a universal list for the mechas.
     @Override
     protected void onHitEntity(EntityHitResult hitResult) {
         super.onHitEntity(hitResult);

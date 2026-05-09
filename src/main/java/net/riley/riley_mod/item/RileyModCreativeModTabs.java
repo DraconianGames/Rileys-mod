@@ -43,6 +43,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.TRISON_EGG.get());
                         output.accept(RileyModItems.MECHA_REX_SPAWN_EGG.get());
                         output.accept(RileyModItems.MECHA_TERROR_SPAWN_EGG.get());
+                        output.accept(RileyModItems.MECHA_PARASITE_SPAWN_EGG.get());
+                        output.accept(RileyModItems.PARASITE_CARRIER_SPAWN_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
                         output.accept(RileyModItems.ARTIFICIAL_ORGAN.get());
                         output.accept(RileyModItems.TRISON_CART_COVER.get());
@@ -54,6 +56,7 @@ public class RileyModCreativeModTabs {
 
 
                         output.accept(RileyModItems.MECHA_TERROR_EGG.get());
+                        output.accept(RileyModItems.PARASITE_CARRIER_EGG.get());
 
 
                         output.accept(RileyModItems.CAGGED_FAIRY.get());

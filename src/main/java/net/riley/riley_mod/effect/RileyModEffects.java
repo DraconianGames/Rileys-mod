@@ -18,6 +18,8 @@ public class RileyModEffects {
             () -> new BleedEffect(MobEffectCategory.HARMFUL, 0x780c0c));
     public static final RegistryObject<MobEffect> DEAF = MOB_EFFECTS.register( "deaf",
             () -> new DeafEffect(MobEffectCategory.HARMFUL, 0x780c0c));
+    public static final RegistryObject<MobEffect> MECHANICAL_PARASITE = MOB_EFFECTS.register("mechanical_parasite",
+            () -> new MechanicalParasiteEffect(MobEffectCategory.HARMFUL, 0x780c0c));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

@@ -187,7 +187,7 @@ public class MechaRexBombEntity extends LargeFireball {
             return false;
         }
 
-        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity;
+        return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity || entity instanceof ParasiteCarrierEntity;
     }
     @Override
     protected void onHit(HitResult hitResult) {

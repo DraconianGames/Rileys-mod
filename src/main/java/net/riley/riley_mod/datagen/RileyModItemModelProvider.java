@@ -57,6 +57,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.MECHAREX_BRAIN);
         simpleItem(RileyModItems.MECHAREX_EGG);
         simpleItem(RileyModItems.MECHA_TERROR_EGG);
+        simpleItem(RileyModItems.PARASITE_CARRIER_EGG);
         simpleItem(RileyModItems.MECHAREX_ENGINE);
         simpleItem(RileyModItems.MECHAREX_HEAD);
         simpleItem(RileyModItems.MECHAREX_LEG);
@@ -95,6 +96,8 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         withExistingParent(RileyModItems.TRISON_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
         withExistingParent(RileyModItems.MECHA_REX_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
         withExistingParent(RileyModItems.MECHA_TERROR_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.PARASITE_CARRIER_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
+        withExistingParent(RileyModItems.MECHA_PARASITE_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
 
         fenceItem(RileyModBlocks.ABYSS_WOOD_FENCE, RileyModBlocks.ABYSS_PLANKS);
         

@@ -79,7 +79,10 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
                     .sized(1f,1f).build("test"));
     public static final RegistryObject<EntityType<MechaParasiteEntity>> MECHA_PARASITE =
             ENTITY_TYPES.register("mecha_parasite",()-> EntityType.Builder.of(MechaParasiteEntity::new,MobCategory.CREATURE)
-                    .sized(.5f,.25f).build("test"));
+                    .sized(.5f,.25f).build("mecha_parasite"));
+    public static final RegistryObject<EntityType<ParasiteCarrierEntity>> PARASITE_CARRIER =
+            ENTITY_TYPES.register("parasite_carrier",()-> EntityType.Builder.of(ParasiteCarrierEntity::new,MobCategory.CREATURE)
+                    .sized(5f,5f).build("parasite_carrier"));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

@@ -59,7 +59,6 @@ public class RileyMod
         //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO bane of the abyss, bane of the fallow, bane of the crystalic
-//TODO add geckolib as a dependency for the wing augment.
 
 
 
@@ -132,9 +131,10 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON.get(), TrisonRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON_CART.get(), TrisonCartRenderer::new);
-            EntityRenderers.register(RileyModEntities.TEST.get(), TestRenderer::new);//TODO Make transparency work
+            EntityRenderers.register(RileyModEntities.TEST.get(), TestRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHA_TERROR.get(), MechaTerrorRenderer:: new);//TODO FINNISH the mecha terror
             EntityRenderers.register(RileyModEntities.MECHA_PARASITE.get(), MechaParasiteRenderer:: new);
+            EntityRenderers.register(RileyModEntities.PARASITE_CARRIER.get(), ParasiteCarrierRenderer:: new);
             event.enqueueWork(() -> {
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
                 MenuScreens.register(RileyModMenuTypes.MACHINE_CORE_SCREEN_MENU.get(), MachineCoreScreen::new);

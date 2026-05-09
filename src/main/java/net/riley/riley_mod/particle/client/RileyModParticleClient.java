@@ -18,8 +18,11 @@ public class RileyModParticleClient {
         event.registerSpriteSet(RileyModParticles.HURICANE_PARTICLE_2.get(), HuricaneBobbingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.ORBITING_PARTICLE.get(), OrbitingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.ORBITING_PARTICLE_2.get(), OrbitingParticle.Provider::new);
+        event.registerSpriteSet(RileyModParticles.ORBITING_PARTICLE_2.get(), OrbitingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.DETRUS_PARTICAL.get(), DetrusFallingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.DETRUS_PARTICAL_2.get(), DetrusFallingParticle.Provider::new);
         event.registerSpriteSet(RileyModParticles.DETRUS_PARTICAL_3.get(), DetrusFallingParticle.Provider::new);
+        event.registerSpriteSet(RileyModParticles.PARASITE_BLAST_PARTICLE.get(), ParasiteBlastParticle.Provider::new);
+
     }
 }

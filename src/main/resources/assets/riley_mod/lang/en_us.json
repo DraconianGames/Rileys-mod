@@ -40,10 +40,13 @@
   "item.riley_mod.trison_egg": "Trison Spawn Egg",
   "item.riley_mod.mecha_rex_spawn_egg": "Mecha Rex Spawn Egg",
   "item.riley_mod.mecha_terror_spawn_egg": "Mecha Terror Spawn Egg",
+  "item.riley_mod.mecha_parasite_spawn_egg": "Mecha Parasite Spawn Egg",
+  "item.riley_mod.parasite_carrier_spawn_egg": "Parasite Carrier Spawn Egg",
   "item.riley_mod.tome": "Tome",
 
   "item.riley_mod.fancy_skull": "Fancy Skull",
   "item.riley_mod.mecha_terror_egg": "Mecha Terror Egg",
+  "item.riley_mod.parasite_carrier_egg": "Parasite Carrier Egg",
 
   "item.minecraft.tipped_arrow.effect.freeze_potion": "Arrow of Freeze",
   "item.minecraft.potion.effect.freeze_potion": "Freeze Potion",
@@ -137,6 +140,7 @@
   "entity.riley_mod.mecha_terror": "Mecha Terror",
   "entity.riley_mod.trison_cart": "Trison Cart",
   "entity.riley_mod.mecha_parasite": "Mecha Parasite",
+  "entity.riley_mod.parasite_carrier": "Parasite Carrier",
 
   "creativetab.funtium_tab": "Funtium Tab",
 
