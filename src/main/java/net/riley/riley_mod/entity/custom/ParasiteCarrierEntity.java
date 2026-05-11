@@ -682,9 +682,9 @@ public class ParasiteCarrierEntity extends TamableAnimal {
 
         this.goalSelector.addGoal(6, new ParasiteCarrierFollowOwnerWhenNoTargetGoal(this, 1.0D, 10.0F, 2.0F, false));
 
-        this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 5f));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1D));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 5f));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
         this.targetSelector.addGoal(0, new WildMechDisableFriendlyTargetGoal(this));
         this.targetSelector.addGoal(0, new DisableFriendlyTargetGoal(this));

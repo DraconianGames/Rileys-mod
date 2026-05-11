@@ -189,6 +189,7 @@ public class MechaRexBombEntity extends LargeFireball {
 
         return entity instanceof MechaRexEntity || entity instanceof MechaTerrorEntity || entity instanceof ParasiteCarrierEntity;
     }
+    //todo fix tamed creatures not damaging wild ones
     @Override
     protected void onHit(HitResult hitResult) {
         if (this.level().isClientSide) return;
