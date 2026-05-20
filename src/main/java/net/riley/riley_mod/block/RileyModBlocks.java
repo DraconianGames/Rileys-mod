@@ -173,7 +173,7 @@ public static final RegistryObject<Block> ABYSS_PLANKS = registerBlock("abyss_pl
     public static final RegistryObject<Block> STRUCTURE_BRICK_WALL = registerBlock("structure_brick_wall",
             () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS).sound(SoundType.NETHER_BRICKS)));
     public static final RegistryObject<Block> TROPHY_READER = registerBlock("trophy_reader",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new TrophyReaderBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 //portals
     public static final RegistryObject<Block> ABYSS_PORTAL = registerBlock("abyss_portal",
             () -> new RileyModAbyssPortalBlock(BlockBehaviour.Properties.copy(Blocks.NETHER_PORTAL).noCollission().noOcclusion().noLootTable()));

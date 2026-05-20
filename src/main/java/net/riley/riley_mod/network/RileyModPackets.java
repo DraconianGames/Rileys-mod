@@ -9,6 +9,10 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.network.NetworkRegistry;
 import net.riley.riley_mod.RileyMod;
 
 import java.util.function.Supplier;
@@ -80,11 +84,35 @@ public class RileyModPackets {
                 .decoder(WingFlapPacket::decode)
                 .consumerMainThread(WingFlapPacket::handle)
                 .add();
+        net.messageBuilder(WingFlapPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WingFlapPacket::encode)
+                .decoder(WingFlapPacket::decode)
+                .consumerMainThread(WingFlapPacket::handle)
+                .add();
+
+        net.messageBuilder(SetMorphPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(SetMorphPacket::encode)
+                .decoder(SetMorphPacket::decode)
+                .consumerMainThread(SetMorphPacket::handle)
+                .add();
+
+        net.messageBuilder(SyncMorphPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SyncMorphPacket::encode)
+                .decoder(SyncMorphPacket::decode)
+                .consumerMainThread(RileyModPackets::handleSyncMorphClientSafe)
+                .add();
+
     }
 
     private static void handleSyncAugmentsClientSafe(SyncAugmentsPacket msg, Supplier<NetworkEvent.Context> ctxSup) {
         NetworkEvent.Context ctx = ctxSup.get();
         ctx.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientAugmentSyncHandler.handle(msg)));
+        ctx.setPacketHandled(true);
+    }
+
+    private static void handleSyncMorphClientSafe(SyncMorphPacket msg, Supplier<NetworkEvent.Context> ctxSup) {
+        NetworkEvent.Context ctx = ctxSup.get();
+        ctx.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientMorphSyncHandler.handle(msg)));
         ctx.setPacketHandled(true);
     }
 

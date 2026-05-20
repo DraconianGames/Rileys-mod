@@ -2,7 +2,9 @@ package net.riley.riley_mod.block.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -10,7 +12,6 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,10 +24,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
+import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
-import net.riley.riley_mod.menu.AugmentationStationMenu;
 import net.riley.riley_mod.menu.MorphStationMenu;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import java.util.List;
 
@@ -35,6 +39,19 @@ public class MorphStationBlock extends Block {
     // 3 blocks wide (48 pixels), 1.5 blocks tall (24 pixels), 1 block deep (16 pixels)
     // Values are (minX, minY, minZ, maxX, maxY, maxZ) in pixels (0-16 is one block)
     private static final VoxelShape SHAPE = Shapes.box(0, 0.0, 0, 1.0, 2, 1.0);
+
+    private static Set<ResourceLocation> getUnlockedMorphs(Level level, BlockPos pos) {
+        Set<ResourceLocation> unlockedMorphs = new LinkedHashSet<>();
+        unlockedMorphs.add(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "player"));
+
+        Set<ResourceLocation> storedTrophies = MachineCoreMultiblock.getStoredTrophiesForConnectedDevice(level, pos);
+
+        if (storedTrophies.contains(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "whale_hunter_trophy"))) {
+            unlockedMorphs.add(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "whale_hunter"));
+        }
+
+        return unlockedMorphs;
+    }
 
     public MorphStationBlock(Properties pProperties) {
         super(pProperties);
@@ -61,7 +78,10 @@ public class MorphStationBlock extends Block {
                             (containerId, inv, p) -> new MorphStationMenu(containerId, inv, pos),
                             Component.literal("Morph Station")
                     ),
-                    buf -> buf.writeBlockPos(pos)
+                    buf -> {
+                        buf.writeBlockPos(pos);
+                        buf.writeCollection(getUnlockedMorphs(level, pos), FriendlyByteBuf::writeResourceLocation);
+                    }
             );
         }
         return InteractionResult.sidedSuccess(level.isClientSide);

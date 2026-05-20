@@ -7,8 +7,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.menu.EnchanterMenu;
+import net.riley.riley_mod.block.custom.MachineCoreMultiblock;
 import net.riley.riley_mod.menu.MachineCoreScreenMenu;
+
+import java.util.List;
 
 public class MachineCoreScreen extends AbstractContainerScreen<MachineCoreScreenMenu> {
 
@@ -37,11 +39,23 @@ public class MachineCoreScreen extends AbstractContainerScreen<MachineCoreScreen
 
     @Override
     protected void renderLabels(GuiGraphics g, int mouseX, int mouseY) {
-        // keep empty unless you want labels
+        if (this.minecraft == null || this.minecraft.level == null) {
+            return;
+        }
+
+        List<Component> lines = MachineCoreMultiblock.getConnectedSummary(this.minecraft.level, this.menu.getPos());
+
+        int x = 12;
+        int y = 12;
+        int lineHeight = 10;
+
+        for (int i = 0; i < lines.size(); i++) {
+            g.drawString(this.font, lines.get(i), x, y + i * lineHeight, 0x404040, false);
+        }
     }
 }
-//TODO add section below everything to see the inventory
-//TODO add slot where one puts item to enchant
-//TODO add scrolling list that displays enchantments and levels
-//TODO add increasing cost for every level + tracking the current level of the item
-//TODO it cost exp
+/*
+cable #
+special screens
+trophiereaders and their trophies they are reading.
+ */
