@@ -8,6 +8,7 @@ import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.custom.MachineCoreMultiblock;
 import net.riley.riley_mod.menu.MorphStationMenu;
 import net.riley.riley_mod.util.MorphData;
+import net.riley.riley_mod.util.MorphStats;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -15,6 +16,8 @@ import java.util.function.Supplier;
 public record SetMorphPacket(ResourceLocation morphId) {
     private static final ResourceLocation PLAYER_MORPH =
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "player");
+    private static final ResourceLocation SUNLESS_CRAB =
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "sunless_crab");
 
     public static void encode(SetMorphPacket msg, FriendlyByteBuf buf) {
         buf.writeResourceLocation(msg.morphId);
@@ -33,7 +36,7 @@ public record SetMorphPacket(ResourceLocation morphId) {
 
             ResourceLocation morphId = msg.morphId();
 
-            if (!PLAYER_MORPH.equals(morphId)) {
+            if (!PLAYER_MORPH.equals(morphId) && !SUNLESS_CRAB.equals(morphId)) {
                 if (!(player.containerMenu instanceof MorphStationMenu morphMenu)) {
                     return;
                 }
@@ -55,6 +58,7 @@ public record SetMorphPacket(ResourceLocation morphId) {
             }
 
             MorphData.setCurrentMorph(player, morphId);
+            MorphStats.apply(player, morphId);
             RileyModPackets.sendToPlayer(player, new SyncMorphPacket(player.getUUID(), morphId));
         });
 

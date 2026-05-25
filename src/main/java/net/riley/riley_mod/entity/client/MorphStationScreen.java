@@ -45,24 +45,11 @@ public class MorphStationScreen extends AbstractContainerScreen<MorphStationMenu
         this.imageWidth = TEX_W;
         this.imageHeight = TEX_H;
 
-        allEntries.add(new MorphEntry(
-                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "player"),
-                "Player",
-                "Your original form.",
-                Category.VANILLA,
-                true
-        ));
-        allEntries.add(new MorphEntry(
-                ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "whale_hunter"),
-                "Whale Hunter",
-                "A powerful abyssal morph built for hunting massive prey.",
-                Category.ABYSS,
-                false
-        ));
-
+        allEntries.addAll(MorphCatalog.getMorphs());
     }
 
-    private enum Category {
+
+    public enum Category {
         VANILLA("Vanilla"),
         ABYSS("Abyss"),
         MECHANICAL("Mechanical"),
@@ -79,7 +66,7 @@ public class MorphStationScreen extends AbstractContainerScreen<MorphStationMenu
         }
     }
 
-    private record MorphEntry(
+   public record MorphEntry(
             ResourceLocation morphId,
             String title,
             String description,
@@ -333,4 +320,5 @@ public class MorphStationScreen extends AbstractContainerScreen<MorphStationMenu
 //TODO swimming logic for whale hunter
 //TODO make morphs take on stats and hitbox size of the mob
 //TODO fix rejoin affecting morph. same fix as augments table.
+//TODO add item that lets play to morph into selescted entity and back
 
