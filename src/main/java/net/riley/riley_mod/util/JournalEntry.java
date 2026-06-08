@@ -8,7 +8,6 @@ public record JournalEntry(
         String content,
         Category category,
         @Nullable EntityType<?> entityType,
-        float scale,
         net.minecraft.world.item.Item temptationItem,
         java.util.List<net.minecraft.world.effect.MobEffectInstance> hitEffects,
         @Nullable java.util.UUID entityUUID
@@ -25,7 +24,7 @@ public record JournalEntry(
 
     public JournalEntry(String title, String content, Category category) {
 
-        this(title, content, category, null, 18.0f,null,java.util.List.of(),null);
+        this(title, content, category, null,null,java.util.List.of(),null);
 
     }
 

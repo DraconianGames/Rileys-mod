@@ -267,7 +267,6 @@ public class JournalScreen extends Screen {
                         "Status: Active",
                         net.riley.riley_mod.util.JournalEntry.Category.PETS,
                         living.getType(),
-                        20.0f,
                         null,
                         java.util.List.of(),
                         entityUUID
@@ -297,7 +296,6 @@ public class JournalScreen extends Screen {
                     "Eternal Backup",
                     net.riley.riley_mod.util.JournalEntry.Category.PETS,
                     net.minecraft.world.entity.EntityType.byString(petId).orElse(null),
-                    20f,
                     null,
                     java.util.List.of(),
                     uuid
@@ -418,8 +416,10 @@ public class JournalScreen extends Screen {
                     entity.setXRot(0);
 
                     float lookX = (entityRotation - 180.0f) * -0.45f;
+                    int autoScale = getAutoEntityScale(entity);
+
                     // y + 155 gives the model more room at the bottom
-                    renderEntity(graphics, x + 195, y + 155, (int)selectedEntry.scale(), lookX, 0, entity);
+                    renderEntity(graphics, x + 195, y + 155, autoScale, lookX, 0, entity);
                 }
             }
 
@@ -535,8 +535,20 @@ public class JournalScreen extends Screen {
             graphics.drawString(this.font, status, x, currentY, textColor, false);
         }
     }
+    private int getAutoEntityScale(LivingEntity entity) {
+        float hitboxSize = Math.max(entity.getBbWidth(), entity.getBbHeight());
+
+        if (hitboxSize <= 0.0f) {
+            return 20;
+        }
+
+        float targetDisplaySize = 1.25f;
+        float scale = 20.0f * (targetDisplaySize / hitboxSize);
+
+        return Math.max(5, Math.min(35, Math.round(scale)));
+    }
+
     private void renderEntity(GuiGraphics graphics, int x, int y, int scale, float lookX, float lookY, LivingEntity entity) {
-        // CHANGE THIS: It must use lookX and lookY, not 0 and 0!
         InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, x, y, scale, lookX, lookY, entity);
     }
     @Override
