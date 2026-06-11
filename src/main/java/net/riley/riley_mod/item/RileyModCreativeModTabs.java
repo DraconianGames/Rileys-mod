@@ -18,8 +18,7 @@ public class RileyModCreativeModTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(RileyModItems.STARDUST.get()))
                     .title(Component.translatable("creativetab.funtium_tab"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(RileyModBlocks.SPECIAL_SPAWNER.get());
-
+                        output.accept(RileyModItems.DARK_JOURNAL.get());
                         output.accept(RileyModItems.STARDUST.get());
                         output.accept(RileyModItems.SOUL_ORB.get());
                         output.accept(RileyModItems.TRISON_ARMOR.get());
@@ -28,55 +27,19 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.FUNTIUM_ORE.get());
                         output.accept(RileyModItems.EYE.get());
                         output.accept(RileyModItems.TOME.get());
-                        output.accept(RileyModItems.CLAW.get());
-                        output.accept(RileyModItems.TOOTH.get());
-                        output.accept(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.get());
-                        output.accept(RileyModItems.RAPTER_SPAWN_EGG.get());
-                        output.accept(RileyModItems.NIGHT_TERROR_SPAWN_EGG.get());
-                        output.accept(RileyModItems.WHALE_HUNTER_SPAWN_EGG.get());
-                        output.accept(RileyModItems.FROST_HOPPER_SPAWN_EGG.get());
-                        output.accept(RileyModItems.TOOTHFAIRY_SPAWN_EGG.get());
-                        output.accept(RileyModItems.BONEFAIRY_SPAWN_EGG.get());
-                        output.accept(RileyModItems.SKELETONFAIRY_SPAWN_EGG.get());
-                        output.accept(RileyModItems.SKULL_FAIRY_SPAWN_EGG.get());
-                        output.accept(RileyModItems.BISON_EGG.get());
-                        output.accept(RileyModItems.TRISON_EGG.get());
-                        output.accept(RileyModItems.MECHA_REX_SPAWN_EGG.get());
-                        output.accept(RileyModItems.MECHA_TERROR_SPAWN_EGG.get());
-                        output.accept(RileyModItems.MECHA_PARASITE_SPAWN_EGG.get());
-                        output.accept(RileyModItems.PARASITE_CARRIER_SPAWN_EGG.get());
                         output.accept(RileyModItems.FANCY_SKULL.get());
                         output.accept(RileyModItems.ARTIFICIAL_ORGAN.get());
-                        output.accept(RileyModItems.TRISON_CART_COVER.get());
-                        output.accept(RileyModItems.TRISON_CART_ITEM.get());
-                        output.accept(RileyModItems.UNASSEMBLED_TRISON_CART.get());
-                        output.accept(RileyModItems.WHEEL.get());
-                        output.accept(RileyModItems.LAMP_HOOK.get());
-                        output.accept(RileyModItems.SOUL_FORGE.get());
-
-
-                        output.accept(RileyModItems.MECHA_TERROR_EGG.get());
-                        output.accept(RileyModItems.PARASITE_CARRIER_EGG.get());
-
-
-                        output.accept(RileyModItems.CAGGED_FAIRY.get());
-
                         output.accept(RileyModBlocks.NIGHT_STAR.get());
                         output.accept(RileyModBlocks.CABLE.get());
-
-
                         output.accept(RileyModItems.FUNTIUM_SWORD.get());
                         output.accept(RileyModItems.FUNTIUM_PICKAXE.get());
                         output.accept(RileyModItems.FUNTIUM_AXE.get());
                         output.accept(RileyModItems.FUNTIUM_SHOVEL.get());
                         output.accept(RileyModItems.FUNTIUM_HOE.get());
-
                         output.accept(RileyModItems.FUNTIUM_HELMET.get());
                         output.accept(RileyModItems.FUNTIUM_CHESTPLATE.get());
                         output.accept(RileyModItems.FUNTIUM_LEGGINGS.get());
                         output.accept(RileyModItems.FUNTIUM_BOOTS.get());
-
-
                         output.accept(RileyModBlocks.FUNTIUM_BLOCK.get());
                         output.accept(RileyModBlocks.ACTIVACTED_FUNTIUM.get());
                         output.accept(RileyModBlocks.FUNTIUM_ORE_BLOCK.get());
@@ -84,7 +47,6 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.FALLOW_GROUND.get());
                         output.accept(RileyModBlocks.FALLOW_EARTH.get());
                         output.accept(RileyModBlocks.FALLOW_PORTAL_FRAME.get());
-
                         output.accept(RileyModBlocks.ABYSS_LOG.get());
                         output.accept(RileyModBlocks.STRIPPED_ABYSS_LOG.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD.get());
@@ -92,7 +54,6 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.ABYSS_PLANKS.get());
                         output.accept(RileyModBlocks.ABYSS_LEAVES.get());
                         output.accept(RileyModBlocks.ABYSS_SAPLING.get());
-
                         output.accept(RileyModBlocks.ABYSS_WOOD_FENCE.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD_SLAB.get());
                         output.accept(RileyModBlocks.ABYSS_WOOD_WALL.get());
@@ -113,23 +74,39 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.MACHINE_CORE_CENTER.get());
                         output.accept(RileyModBlocks.MACHINE_CORE_PORT.get());
                         output.accept(RileyModBlocks.MACHINE_CORE_SCREEN.get());
-
                         output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
                         output.accept(RileyModBlocks.AUGMENTATION_STATION.get());
                         output.accept(RileyModBlocks.ENCHANTER.get());
-                        output.accept(RileyModItems.TRUCK.get());
-
                         output.accept(RileyModBlocks.TROPHY_READER.get());
+                    })
+                    .build());
+    public static final RegistryObject<CreativeModeTab> CREATURES = CREATIVE_MODE_TABS.register("creatures",
+            ()-> CreativeModeTab.builder().icon(() -> new ItemStack(RileyModItems.MECHAREX_LEG.get()))
+                    .title(Component.translatable("creativetab.creatures_tab"))
+                    .displayItems((itemDisplayParameters,output) -> {
+                        output.accept(RileyModItems.SUNLESS_CRAB_SPAWN_EGG.get());
+                        output.accept(RileyModItems.RAPTER_SPAWN_EGG.get());
+                        output.accept(RileyModItems.NIGHT_TERROR_SPAWN_EGG.get());
+                        output.accept(RileyModItems.WHALE_HUNTER_SPAWN_EGG.get());
+                        output.accept(RileyModItems.FROST_HOPPER_SPAWN_EGG.get());
+                        output.accept(RileyModItems.TOOTHFAIRY_SPAWN_EGG.get());
+                        output.accept(RileyModItems.BONEFAIRY_SPAWN_EGG.get());
+                        output.accept(RileyModItems.SKELETONFAIRY_SPAWN_EGG.get());
+                        output.accept(RileyModItems.SKULL_FAIRY_SPAWN_EGG.get());
+                        output.accept(RileyModItems.BISON_EGG.get());
+                        output.accept(RileyModItems.TRISON_EGG.get());
+                        output.accept(RileyModItems.MECHA_REX_SPAWN_EGG.get());
+                        output.accept(RileyModItems.MECHA_TERROR_SPAWN_EGG.get());
+                        output.accept(RileyModItems.MECHA_PARASITE_SPAWN_EGG.get());
+                        output.accept(RileyModItems.PARASITE_CARRIER_SPAWN_EGG.get());
 
-                        output.accept(RileyModItems.DARK_JOURNAL.get());
+                        output.accept(RileyModItems.CLAW.get());
+                        output.accept(RileyModItems.TOOTH.get());
 
-                        output.accept(RileyModItems.LIVING_MACHANICAL_NURONS.get());
-                        output.accept(RileyModItems.LYDAR.get());
-                        output.accept(RileyModItems.MECHA_REX_UNASSEMBLED_HEAD.get());
-                        output.accept(RileyModItems.MECHAREX_BRAIN.get());
-                        output.accept(RileyModItems.MECHAREX_EGG.get());
-                        output.accept(RileyModItems.MECHAREX_ENGINE.get());
-                        output.accept(RileyModItems.MECHAREX_HEAD.get());
+                        output.accept(RileyModItems.MECHA_TERROR_EGG.get());
+                        output.accept(RileyModItems.PARASITE_CARRIER_EGG.get());
+                        output.accept(RileyModItems.CAGGED_FAIRY.get());
+
                         output.accept(RileyModItems.MECHAREX_LEG.get());
                         output.accept(RileyModItems.MECHAREX_TORSO.get());
                         output.accept(RileyModItems.MECHAREX_TAIL.get());
@@ -140,12 +117,31 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.MECHAREX_CANNON.get());
                         output.accept(RileyModItems.ARMOR_PLATING.get());
                         output.accept(RileyModItems.CANNON_SHEILD.get());
-
-
-
+                        output.accept(RileyModItems.LIVING_MACHANICAL_NURONS.get());
+                        output.accept(RileyModItems.LYDAR.get());
+                        output.accept(RileyModItems.MECHA_REX_UNASSEMBLED_HEAD.get());
+                        output.accept(RileyModItems.MECHAREX_BRAIN.get());
+                        output.accept(RileyModItems.MECHAREX_EGG.get());
+                        output.accept(RileyModItems.MECHAREX_ENGINE.get());
+                        output.accept(RileyModItems.MECHAREX_HEAD.get());
                     })
                     .build());
-    
+
+    public static final RegistryObject<CreativeModeTab> VEHICLES = CREATIVE_MODE_TABS.register("vehicles",
+            ()-> CreativeModeTab.builder().icon(() -> new ItemStack(RileyModItems.WHEEL.get()))
+                    .title(Component.translatable("creativetab.vehicles_tab"))
+                    .displayItems((itemDisplayParameters,output) -> {
+                        output.accept(RileyModItems.TRISON_CART_ITEM.get());
+                        output.accept(RileyModItems.TRUCK.get());
+
+                        output.accept(RileyModItems.TRISON_CART_COVER.get());
+                        output.accept(RileyModItems.UNASSEMBLED_TRISON_CART.get());
+                        output.accept(RileyModItems.WHEEL.get());
+                        output.accept(RileyModItems.LAMP_HOOK.get());
+                        output.accept(RileyModItems.SOUL_FORGE.get());
+                    })
+                    .build());
+
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);
     }

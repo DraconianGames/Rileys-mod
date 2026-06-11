@@ -114,7 +114,7 @@
   "block.riley_mod.special_spawner": "Special Spawner",
   "block.riley_mod.enchanter": "Enchanter [Not done]",
   "block.riley_mod.trophy_reader": "Trophy Reader [Not done]",
-  "block.riley_mod.cable": "Cable [Not done]",
+  "block.riley_mod.cable": "Cable",
   "block.riley_mod.machine_core": "Machine Core",
   "block.riley_mod.machine_core_center": "Machine Core Center",
   "block.riley_mod.machine_core_screen": "Machine Core Screen",
@@ -144,6 +144,9 @@
   "entity.riley_mod.truck": "Truck",
 
   "creativetab.funtium_tab": "Funtium Tab",
+  "creativetab.creatures_tab": "Creatures and parts Tab",
+  "creativetab.vehicles_tab": "Vehicles and parts Tab",
+
 
   "sounds.riley_mod.frost_hopper_battle_cry": "Frost Hopper Battle Cry",
   "sounds.riley_mod.night_terror_roar": "Night Terror Roar",

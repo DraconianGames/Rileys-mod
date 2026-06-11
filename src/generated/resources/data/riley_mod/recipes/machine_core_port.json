@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "riley_mod:cable"
+    },
+    "B": {
+      "item": "riley_mod:machine_core"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "A A",
+    "BAB"
+  ],
+  "result": {
+    "count": 4,
+    "item": "riley_mod:machine_core_port"
+  },
+  "show_notification": true
+}

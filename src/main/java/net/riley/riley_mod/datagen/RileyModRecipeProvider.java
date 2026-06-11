@@ -36,6 +36,43 @@ public class RileyModRecipeProvider extends RecipeProvider implements ICondition
                 RileyModItems.ARMOR_PLATING.get(),
                 0.7F, 100,
                 "armor_plating");
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.CABLE.get(),8)
+                .pattern("AAA")
+                .pattern("ABA")
+                .pattern("AAA")
+                .define('A', Items.IRON_NUGGET)
+                .define('B',RileyModItems.LIVING_MACHANICAL_NURONS.get())
+                        .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.MACHINE_CORE_PORT.get(),4)
+                .pattern("BAB")
+                .pattern("A A")
+                .pattern("BAB")
+                .define('A', RileyModBlocks.CABLE.get())
+                .define('B',RileyModBlocks.MACHINE_CORE.get())
+                .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.MACHINE_CORE_SCREEN.get(),4)
+                .pattern(" A ")
+                .pattern("ABA")
+                .pattern(" A ")
+                .define('B', Blocks.GLASS)
+                .define('A',RileyModBlocks.MACHINE_CORE.get())
+                .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.MACHINE_CORE_CENTER.get())
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A',RileyModBlocks.MACHINE_CORE.get())
+                .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                .save(pWriter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModBlocks.MACHINE_CORE.get(),1)
+                .pattern("AA")
+                .pattern("AA")
+                .define('A',RileyModItems.LIVING_MACHANICAL_NURONS.get())
+                .unlockedBy("has_item", has(RileyModItems.LIVING_MACHANICAL_NURONS.get()))
+                .save(pWriter);
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, RileyModItems.TRISON_CART_COVER.get())
                         .pattern("AAA")
                         .pattern("AAA")
