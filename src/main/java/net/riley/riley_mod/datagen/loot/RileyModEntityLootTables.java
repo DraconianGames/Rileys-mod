@@ -172,6 +172,13 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
                                 .when(LootItemRandomChanceCondition.randomChance(0.15f)) // 5% chance to drop
                                 .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f))))
                 ));
+        this.add(RileyModEntities.TRUCK.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(RileyModItems.SYNTHETIC_MUSCLE.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 1.5F))))
+                ));
     }
 
     @Override

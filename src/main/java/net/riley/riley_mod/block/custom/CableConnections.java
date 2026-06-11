@@ -35,9 +35,6 @@ public final class CableConnections {
             return directionFromCable == Direction.UP;
         }
 
-        if (deviceState.is(RileyModBlocks.MORPH_STATION.get())) {
-            return directionFromCable == Direction.UP;
-        }
 
         if (deviceState.is(RileyModBlocks.ENCHANTER.get())) {
             return directionFromCable == Direction.UP;
@@ -51,15 +48,12 @@ public final class CableConnections {
     }
 
     public static boolean isSpecialScreen(BlockState state) {
-        return state.is(RileyModBlocks.MORPH_STATION.get())
-                || state.is(RileyModBlocks.ENCHANTER.get())
+        return state.is(RileyModBlocks.ENCHANTER.get())
                 || state.is(RileyModBlocks.AUGMENTATION_STATION.get());
     }
 
     public static Component getSpecialScreenName(BlockState state) {
-        if (state.is(RileyModBlocks.MORPH_STATION.get())) {
-            return Component.literal("Morph Station");
-        }
+
 
         if (state.is(RileyModBlocks.ENCHANTER.get())) {
             return Component.literal("Enchanter");

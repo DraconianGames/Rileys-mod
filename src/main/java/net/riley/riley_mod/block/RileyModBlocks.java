@@ -64,17 +64,12 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
 
     public static final RegistryObject<Block> ENCHANTER = registerBlock("enchanter",
             () -> new EnchanterBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
-    public static final RegistryObject<Block> MORPH_STATION = registerBlock("morph_station",
-            () -> new MorphStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
+
     public static final RegistryObject<Block> AUGMENTATION_STATION = registerBlock("augmentation_station",
             () -> new AugmentationStationBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
 //fillers
     public static final RegistryObject<Block> WHALE_HUNTER_TROPHY_FILLER = BLOCKS.register("whale_hunter_trophy_filler",
             () -> new WhaleHunterTrophyFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .noLootTable()
-                    .noOcclusion()));
-      public static final RegistryObject<Block> MORPH_STATION_FILLER = BLOCKS.register("morph_station_filler",
-            () -> new MorphStationFillerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .noLootTable()
                     .noOcclusion()));
     public static final RegistryObject<Block> ENCHANTER_FILLER = BLOCKS.register("enchanter_filler",

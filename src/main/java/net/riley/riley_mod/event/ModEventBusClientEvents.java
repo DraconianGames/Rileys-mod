@@ -31,6 +31,7 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.TEST_LAYER, TestModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.MECHA_PARASITE_LAYER, MechaParasiteModel::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.PARASITE_CARRIER_LAYER, ParasiteCarrierModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.TRUCK_LAYER, TruckModel::createBodyLayer);
 
     }
 }

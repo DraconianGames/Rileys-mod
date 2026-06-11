@@ -1,4 +1,4 @@
-// 1.20.1	2026-05-08T08:54:09.6652517	Item Models: riley_mod
+// 1.20.1	2026-06-11T14:44:39.8027121	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -82,7 +82,6 @@ fc78f293c45552814d32cbf345aeb22f88b3177c assets/riley_mod/models/item/mecharex_t
 faf4e2941484f5f3d90b4edec46d712c71a46111 assets/riley_mod/models/item/mecha_rex_unassembled_head.json
 14b8b88ee60e3d315939de092cbba003e3e11b01 assets/riley_mod/models/item/mecha_terror_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/mecha_terror_spawn_egg.json
-8134f0646612cd1f77f9cd0e495a37cdb17ec4b9 assets/riley_mod/models/item/morph_station.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/night_terror_spawn_egg.json
 21d3b017eeb8055c38e2ab7c0c4aeb69dcd89ea0 assets/riley_mod/models/item/parasite_carrier_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/parasite_carrier_spawn_egg.json
@@ -106,6 +105,7 @@ b7ce65357d18d4a51dab4f21e497f41ccb1187ae assets/riley_mod/models/item/trison_arm
 ad4f0e737bed1c270ff93df4fc8be353d576ef71 assets/riley_mod/models/item/trison_cart_cover.json
 914f4c63a16702998c044a2245c41ca8995c9d2f assets/riley_mod/models/item/trison_cart_item.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/trison_egg.json
+7baa12e7796c47b52a583160d25408307ed23e3c assets/riley_mod/models/item/truck.json
 e943fd5f66649a6ab6e43a67300e4a1e459ed55b assets/riley_mod/models/item/unassembled_mecharex_leg.json
 24096b526f22b13192817b3c87b0656d7018d517 assets/riley_mod/models/item/unassembled_mecharex_tail.json
 a9508b8f1091fb6364cf260d2d57d0be0cec21fa assets/riley_mod/models/item/unassembled_mecharex_torso.json

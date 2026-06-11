@@ -90,18 +90,7 @@ public class RileyModPackets {
                 .consumerMainThread(WingFlapPacket::handle)
                 .add();
 
-        net.messageBuilder(SetMorphPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(SetMorphPacket::encode)
-                .decoder(SetMorphPacket::decode)
-                .consumerMainThread(SetMorphPacket::handle)
-                .add();
-
-        net.messageBuilder(SyncMorphPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(SyncMorphPacket::encode)
-                .decoder(SyncMorphPacket::decode)
-                .consumerMainThread(RileyModPackets::handleSyncMorphClientSafe)
-                .add();
-
+ 
     }
 
     private static void handleSyncAugmentsClientSafe(SyncAugmentsPacket msg, Supplier<NetworkEvent.Context> ctxSup) {
@@ -110,11 +99,7 @@ public class RileyModPackets {
         ctx.setPacketHandled(true);
     }
 
-    private static void handleSyncMorphClientSafe(SyncMorphPacket msg, Supplier<NetworkEvent.Context> ctxSup) {
-        NetworkEvent.Context ctx = ctxSup.get();
-        ctx.enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientMorphSyncHandler.handle(msg)));
-        ctx.setPacketHandled(true);
-    }
+
 
     public static <MSG> void sendToServer(MSG message) {
         INSTANCE.sendToServer(message);

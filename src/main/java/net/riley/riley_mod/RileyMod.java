@@ -54,9 +54,7 @@ public class RileyMod
 
         RileyModCreativeModTabs.register(modEventBus);
 
-//TODO add more effects that mobs can use
 //TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
-        //mecha parasite that grows up into one of the mechas at a random chance. mecha chance also randomized.
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO bane of the abyss, bane of the fallow, bane of the crystalic
 
@@ -131,6 +129,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON.get(), TrisonRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON_CART.get(), TrisonCartRenderer::new);
+            EntityRenderers.register(RileyModEntities.TRUCK.get(), TruckRenderer::new);
             EntityRenderers.register(RileyModEntities.TEST.get(), TestRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHA_TERROR.get(), MechaTerrorRenderer:: new);//TODO FINNISH the mecha terror
             EntityRenderers.register(RileyModEntities.MECHA_PARASITE.get(), MechaParasiteRenderer:: new);
@@ -139,7 +138,6 @@ public class RileyMod
                 MenuScreens.register(RileyModMenuTypes.SPECIAL_SPAWNER_MENU.get(), SpecialSpawnerScreen::new);
                 MenuScreens.register(RileyModMenuTypes.MACHINE_CORE_SCREEN_MENU.get(), MachineCoreScreen::new);
                 MenuScreens.register(RileyModMenuTypes.AUGMENTATION_STATION_MENU.get(), AugmentationStationScreen::new);
-                MenuScreens.register(RileyModMenuTypes.MORPH_STATION_MENU.get(), MorphStationScreen::new);
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
                 MenuScreens.register(RileyModMenuTypes.CUSTOM_MOUNT_MENU.get(), CustomMountScreen::new);
                 MenuScreens.register(RileyModMenuTypes.TRISON_CART_MENU.get(), TrisonCartScreen::new);

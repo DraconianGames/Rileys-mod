@@ -102,6 +102,9 @@ public class RileyModItems {
     public static final RegistryObject<Item> PARASITE_CARRIER_EGG = ITEMS.register("parasite_carrier_egg",
             () -> new ParasiteCarrierEggItem(new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> TRUCK = ITEMS.register("truck",
+            () -> new TruckItem(new Item.Properties().stacksTo(1)));
+
     public static final RegistryObject<Item> SPEAR = ITEMS.register("spear",
             () -> new Item(new Item.Properties()));
 

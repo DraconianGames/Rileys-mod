@@ -7,11 +7,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.network.SyncAugmentsPacket;
-import net.riley.riley_mod.network.SyncMorphPacket;
 import net.riley.riley_mod.util.AugmentData;
 import net.minecraft.resources.ResourceLocation;
-import net.riley.riley_mod.util.MorphData;
-import net.riley.riley_mod.util.MorphStats;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,17 +30,13 @@ public class PlayerLoginSyncEvents {
 
         RileyModPackets.sendToPlayer(player, new SyncAugmentsPacket(unlocked, active, levels));
 
-        ResourceLocation currentMorph = MorphData.getCurrentMorph(player);
-        MorphStats.apply(player, currentMorph);
-        RileyModPackets.sendToPlayer(player, new SyncMorphPacket(player.getUUID(), currentMorph));
+
 
     }
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        ResourceLocation currentMorph = MorphData.getCurrentMorph(player);
-        MorphStats.apply(player, currentMorph);
-        RileyModPackets.sendToPlayer(player, new SyncMorphPacket(player.getUUID(), currentMorph));
+
     }
 }

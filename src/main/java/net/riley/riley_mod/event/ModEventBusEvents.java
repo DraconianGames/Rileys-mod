@@ -33,6 +33,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.TEST.get(), TrisonCartEntity.createAttributes().build());
         event.put(RileyModEntities.MECHA_PARASITE.get(), MechaParasiteEntity.createAttributes().build());
         event.put(RileyModEntities.PARASITE_CARRIER.get(), ParasiteCarrierEntity.createAttributes().build());
+        event.put(RileyModEntities.TRUCK.get(), TruckEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {

@@ -117,7 +117,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
                         output.accept(RileyModBlocks.AUGMENTATION_STATION.get());
                         output.accept(RileyModBlocks.ENCHANTER.get());
-                        output.accept(RileyModBlocks.MORPH_STATION.get());
+                        output.accept(RileyModItems.TRUCK.get());
+
                         output.accept(RileyModBlocks.TROPHY_READER.get());
 
                         output.accept(RileyModItems.DARK_JOURNAL.get());

@@ -44,7 +44,6 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.WHALE_HUNTER_TROPHY.get());
         this.dropSelf(RileyModBlocks.ENCHANTER.get());
         this.dropSelf(RileyModBlocks.AUGMENTATION_STATION.get());
-        this.dropSelf(RileyModBlocks.MORPH_STATION.get());
         this.dropSelf(RileyModBlocks.TROPHY_READER.get());
         this.dropSelf(RileyModBlocks.NIGHT_STAR.get());
         this.dropSelf(RileyModBlocks.SPECIAL_SPAWNER.get());

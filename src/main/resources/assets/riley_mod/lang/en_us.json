@@ -70,6 +70,7 @@
   "item.riley_mod.filled_soul_orb": "Filled Soul Orb",
   "item.riley_mod.trison_armor": "Trison Armor",
   "item.riley_mod.trison_cart_item": "Trison Cart",
+  "item.riley_mod.truck": "Truck",
   "item.riley_mod.wheel": "Wheel",
   "item.riley_mod.unassembled_trison_cart": "Unassambled Trison Cart",
   "item.riley_mod.soul_forge": "Soul Forge",
@@ -112,7 +113,6 @@
   "block.riley_mod.augmentation_station": "Augmentation Station",
   "block.riley_mod.special_spawner": "Special Spawner",
   "block.riley_mod.enchanter": "Enchanter [Not done]",
-  "block.riley_mod.morph_station": "Morph station [Not done]",
   "block.riley_mod.trophy_reader": "Trophy Reader [Not done]",
   "block.riley_mod.cable": "Cable [Not done]",
   "block.riley_mod.machine_core": "Machine Core",
@@ -141,6 +141,7 @@
   "entity.riley_mod.trison_cart": "Trison Cart",
   "entity.riley_mod.mecha_parasite": "Mecha Parasite",
   "entity.riley_mod.parasite_carrier": "Parasite Carrier",
+  "entity.riley_mod.truck": "Truck",
 
   "creativetab.funtium_tab": "Funtium Tab",
 

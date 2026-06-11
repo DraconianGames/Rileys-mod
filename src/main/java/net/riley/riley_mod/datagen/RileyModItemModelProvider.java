@@ -80,6 +80,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.WHEEL);
         simpleItem(RileyModItems.UNASSEMBLED_TRISON_CART);
         simpleItem(RileyModItems.FILLED_SOUL_ORB);
+        simpleItem(RileyModItems.TRUCK);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 
@@ -125,7 +126,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         flatBlockItem(RileyModBlocks.FALLOW_PORTAL);
         evenSimplerBlockItem2(RileyModBlocks.WHALE_HUNTER_TROPHY);
 
-        evenSimplerBlockItem2(RileyModBlocks.MORPH_STATION);
+
         evenSimplerBlockItem2(RileyModBlocks.ENCHANTER);
         evenSimplerBlockItem2(RileyModBlocks.AUGMENTATION_STATION);
     }

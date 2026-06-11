@@ -267,10 +267,7 @@ public class MachineCoreMultiblock {
                     continue;
                 }
 
-                if (neighborState.is(RileyModBlocks.MORPH_STATION.get())) {
-                    morphStations.add(neighborPos);
-                    continue;
-                }
+              
 
                 if (neighborState.is(RileyModBlocks.ENCHANTER.get())) {
                     enchanters.add(neighborPos);

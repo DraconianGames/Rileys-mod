@@ -20,9 +20,6 @@ public class RileyModMenuTypes {
             MENUS.register("augmentation_station_menu",
                     () -> IForgeMenuType.create((IContainerFactory<AugmentationStationMenu>) AugmentationStationMenu::new));
 
-    public static final RegistryObject<MenuType<MorphStationMenu>> MORPH_STATION_MENU =
-            MENUS.register("morph_station_menu",
-                    () -> IForgeMenuType.create((IContainerFactory<MorphStationMenu>) MorphStationMenu::new));
 
     public static final RegistryObject<MenuType<EnchanterMenu>> ENCHANTER_MENU =
             MENUS.register("enchanter_menu",

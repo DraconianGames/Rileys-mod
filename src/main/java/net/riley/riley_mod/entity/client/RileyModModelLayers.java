@@ -45,4 +45,6 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecha_parasite_layer"),"main");
     public static final ModelLayerLocation PARASITE_CARRIER_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "parasite_carrier_layer"),"main");
+    public static final ModelLayerLocation TRUCK_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "truck_layer"),"main");
 }
