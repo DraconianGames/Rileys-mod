@@ -37,6 +37,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WHEEL = ITEMS.register("wheel",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WRECKER_UPGRADE = ITEMS.register("wrecker_upgrade",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
             () -> new RileyModAbyssPortalItem(new Item.Properties()));

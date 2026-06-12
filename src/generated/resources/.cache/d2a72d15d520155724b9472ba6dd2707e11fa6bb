@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-11T14:44:39.8027121	Item Models: riley_mod
+// 1.20.1	2026-06-11T19:51:38.5274174	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -113,3 +113,4 @@ d90ebfef21bb86e981495edf56227bf671ad564f assets/riley_mod/models/item/unassemble
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/whale_hunter_spawn_egg.json
 ded3ed6ba37a27bc3613831cf92e8d1bd0c12697 assets/riley_mod/models/item/whale_hunter_trophy.json
 445185de19afcc5a990d59ec12081d9190b9a474 assets/riley_mod/models/item/wheel.json
+cb3064ef776b29cfd6f25789900b0307373d3b32 assets/riley_mod/models/item/wrecker_upgrade.json

@@ -20,13 +20,13 @@ public class WingAugmentEvents {
         if (event.phase != TickEvent.Phase.END) return;
         if (!(event.player instanceof ServerPlayer player)) return;
 
-        int level = AugmentData.getLevel(player, WINGS_ID);
-        if (level < 1) {
+        if (!AugmentData.isUnlocked(player, WINGS_ID) || !AugmentData.isActive(player, WINGS_ID)) {
             WingGlideState.clear(player);
             return;
         }
 
-        if (!AugmentData.isActive(player, WINGS_ID)) {
+        int level = AugmentData.getLevel(player, WINGS_ID);
+        if (level < 1) {
             WingGlideState.clear(player);
             return;
         }

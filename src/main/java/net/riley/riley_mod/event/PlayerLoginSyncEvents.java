@@ -20,6 +20,17 @@ public class PlayerLoginSyncEvents {
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
+        syncAugments(player);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+
+        syncAugments(player);
+    }
+
+    private static void syncAugments(ServerPlayer player) {
         Set<ResourceLocation> unlocked = AugmentData.getUnlocked(player);
         Set<ResourceLocation> active = AugmentData.getActive(player);
 
@@ -29,14 +40,5 @@ public class PlayerLoginSyncEvents {
         }
 
         RileyModPackets.sendToPlayer(player, new SyncAugmentsPacket(unlocked, active, levels));
-
-
-
-    }
-    @SubscribeEvent
-    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if (!(event.getEntity() instanceof ServerPlayer player)) return;
-
-
     }
 }

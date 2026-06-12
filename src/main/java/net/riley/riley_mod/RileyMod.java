@@ -141,6 +141,8 @@ public class RileyMod
                 MenuScreens.register(RileyModMenuTypes.ENCHANTER_MENU.get(), EnchanterScreen::new);
                 MenuScreens.register(RileyModMenuTypes.CUSTOM_MOUNT_MENU.get(), CustomMountScreen::new);
                 MenuScreens.register(RileyModMenuTypes.TRISON_CART_MENU.get(), TrisonCartScreen::new);
+                MenuScreens.register(RileyModMenuTypes.BASE_VEHICLE_MENU.get(), BaseVehicleScreen::new);
+
 
             });
         }

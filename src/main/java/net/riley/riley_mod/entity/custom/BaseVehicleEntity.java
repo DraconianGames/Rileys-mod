@@ -1,33 +1,98 @@
 package net.riley.riley_mod.entity.custom;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.network.NetworkHooks;
+import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.menu.BaseVehicleMenu;
 
-public abstract class BaseVehicleEntity extends Mob {
+public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
+    private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
+            SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
+
+
     public final AnimationState parkAnimationState = new AnimationState();
     public final AnimationState forwardAnimationState = new AnimationState();
     public final AnimationState backwardAnimationState = new AnimationState();
     public final AnimationState steerLeftAnimationState = new AnimationState();
     public final AnimationState steerRightAnimationState = new AnimationState();
-
+    private final SimpleContainer vehicleInventory = new SimpleContainer(BaseVehicleMenu.VEHICLE_SLOT_COUNT) {
+        @Override
+        public void setChanged() {
+            super.setChanged();
+            BaseVehicleEntity.this.syncVehicleUpgradeState();
+        }
+    };
     protected BaseVehicleEntity(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(this.getVehicleStepHeight());
     }
 
+    public SimpleContainer getVehicleInventory() {
+        return this.vehicleInventory;
+    }
+    public ItemStack getVehicleUpgradeItem() {
+        return this.vehicleInventory.getItem(BaseVehicleMenu.UPGRADE_SLOT_INDEX);
+    }
+    public boolean hasVehicleUpgrade(ItemStack stack) {
+        ItemStack upgradeStack = this.getVehicleUpgradeItem();
+        return !upgradeStack.isEmpty() && ItemStack.isSameItem(upgradeStack, stack);
+    }
+
+    public boolean hasWreckerUpgrade() {
+        return this.entityData.get(HAS_WRECKER_UPGRADE);
+    }
+
+    public boolean isValidVehicleUpgrade(ItemStack stack) {
+        return stack.is(RileyModItems.WRECKER_UPGRADE.get());
+    }
+    protected void syncVehicleUpgradeState() {
+        if (!this.level().isClientSide) {
+            this.entityData.set(HAS_WRECKER_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.WRECKER_UPGRADE.get()));
+        }
+    }
+    @Override
+    public boolean canBeAffected(MobEffectInstance effectInstance) {
+        return false;
+    }
+
+    @Override
+    public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public boolean isPushedByFluid(FluidType type) {
+        return false;
+    }
+
     protected float getVehicleStepHeight() {
-        return 1.0F;
+        return 1.2F;
     }
 
     protected float getTurnSpeed() {
@@ -57,12 +122,18 @@ public abstract class BaseVehicleEntity extends Mob {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(HAS_WRECKER_UPGRADE, false);
     }
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (this.hasPassenger(player)) {
             return InteractionResult.PASS;
+        }
+
+        if (player.isSecondaryUseActive()) {
+            this.openVehicleMenu(player);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
         if (!this.level().isClientSide && this.canPassengerRide(player)) {
@@ -72,9 +143,68 @@ public abstract class BaseVehicleEntity extends Mob {
         return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        ListTag inventoryTag = new ListTag();
+
+        for (int i = 0; i < this.vehicleInventory.getContainerSize(); i++) {
+            ItemStack stack = this.vehicleInventory.getItem(i);
+
+            if (!stack.isEmpty()) {
+                CompoundTag stackTag = new CompoundTag();
+                stackTag.putByte("Slot", (byte) i);
+                stack.save(stackTag);
+                inventoryTag.add(stackTag);
+            }
+        }
+
+        compound.put("VehicleInventory", inventoryTag);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+
+        for (int i = 0; i < this.vehicleInventory.getContainerSize(); i++) {
+            this.vehicleInventory.setItem(i, ItemStack.EMPTY);
+        }
+
+        ListTag inventoryTag = compound.getList("VehicleInventory", 10);
+
+        for (int i = 0; i < inventoryTag.size(); i++) {
+            CompoundTag stackTag = inventoryTag.getCompound(i);
+            int slot = stackTag.getByte("Slot") & 255;
+
+            if (slot >= 0 && slot < this.vehicleInventory.getContainerSize()) {
+                this.vehicleInventory.setItem(slot, ItemStack.of(stackTag));
+            }
+        }
+
+        this.vehicleInventory.setChanged();
+        this.syncVehicleUpgradeState();
+    }
+
+    protected void openVehicleMenu(Player player) {
+        if (!this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openScreen(serverPlayer, this, buffer -> buffer.writeInt(this.getId()));
+        }
+    }
+    @Override
+    public Component getDisplayName() {
+        return this.getName();
+    }
+
+    @Override
+    public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+        return new BaseVehicleMenu(containerId, playerInventory, this);
+    }
+
     public boolean canBeControlledByRider() {
         return this.getControllingPassenger() != null;
     }
+
 
     @Override
     public LivingEntity getControllingPassenger() {
@@ -127,7 +257,25 @@ public abstract class BaseVehicleEntity extends Mob {
 
     @Override
     protected void tickDeath() {
+        this.dropVehicleInventoryOnGround();
         this.remove(RemovalReason.KILLED);
+    }
+
+    private void dropVehicleInventoryOnGround() {
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        for (int i = 0; i < this.vehicleInventory.getContainerSize(); i++) {
+            ItemStack stack = this.vehicleInventory.getItem(i);
+
+            if (!stack.isEmpty()) {
+                this.spawnAtLocation(stack);
+                this.vehicleInventory.setItem(i, ItemStack.EMPTY);
+            }
+        }
+
+        this.vehicleInventory.setChanged();
     }
 
     @Override

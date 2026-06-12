@@ -36,7 +36,7 @@ public final class AugmentData {
     }
 
     public static boolean isActive(ServerPlayer player, ResourceLocation augmentId) {
-        return getActive(player).contains(augmentId);
+        return isUnlocked(player, augmentId) && getActive(player).contains(augmentId);
     }
 
     public static boolean unlock(ServerPlayer player, ResourceLocation augmentId) {

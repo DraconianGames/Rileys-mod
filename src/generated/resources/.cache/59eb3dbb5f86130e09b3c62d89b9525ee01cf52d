@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-11T13:39:54.8807307	Loot Tables
+// 1.20.1	2026-06-11T19:21:59.0603697	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -59,5 +59,5 @@ b5a707040f595325000bc0b754b68883175c4eae data/riley_mod/loot_tables/entities/sku
 3301eab73994b8b8121e21919ab4b56208ec04c0 data/riley_mod/loot_tables/entities/toothfairy.json
 68b86df1ec425136a2d2a50c901b673f7e7cbc4e data/riley_mod/loot_tables/entities/trison.json
 2fcc2a3e0c4b766655f06a0fba2665bdb5fa8dfc data/riley_mod/loot_tables/entities/trison_cart.json
-1ac3c84a4b8e809ba67b3b0c07a71b6deb84698d data/riley_mod/loot_tables/entities/truck.json
+95ccc9c34cd7aea65d2ccd43c0f6ef358a0d6244 data/riley_mod/loot_tables/entities/truck.json
 bb30a47d0d9ea8710392289b3496a8f80732027c data/riley_mod/loot_tables/entities/whalehunter.json

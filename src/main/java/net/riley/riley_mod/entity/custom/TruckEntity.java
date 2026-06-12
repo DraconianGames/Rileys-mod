@@ -36,7 +36,7 @@ public class TruckEntity extends BaseVehicleEntity {
 
     @Override
     protected Vec3 getSeatOffset(int passengerIndex) {
-        return new Vec3(0.0D, 0.25D, 0.45D);
+        return new Vec3(0.0D, 0.45D, 0.45D);
     }
 
     @Override
@@ -44,3 +44,4 @@ public class TruckEntity extends BaseVehicleEntity {
         return 0.85D;
     }
 }
+//todo add screen to summon truck/other things

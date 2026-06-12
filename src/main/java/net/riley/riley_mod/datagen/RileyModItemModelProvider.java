@@ -81,6 +81,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.UNASSEMBLED_TRISON_CART);
         simpleItem(RileyModItems.FILLED_SOUL_ORB);
         simpleItem(RileyModItems.TRUCK);
+        simpleItem(RileyModItems.WRECKER_UPGRADE);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 

@@ -31,6 +31,8 @@ public class RileyModMenuTypes {
             MENUS.register("custom_mount_menu", () -> IForgeMenuType.create(CustomMountMenu::new));
     public static final RegistryObject<MenuType<TrisonCartMenu>> TRISON_CART_MENU =
             MENUS.register("trison_cart_menu", () -> IForgeMenuType.create(TrisonCartMenu::new));
+    public static final RegistryObject<MenuType<BaseVehicleMenu>> BASE_VEHICLE_MENU =
+            MENUS.register("base_vehicle_menu", () -> IForgeMenuType.create(BaseVehicleMenu::new));
 
     public static void register(IEventBus bus) {
         MENUS.register(bus);

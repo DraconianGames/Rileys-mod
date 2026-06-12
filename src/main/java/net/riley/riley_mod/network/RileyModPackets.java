@@ -84,12 +84,6 @@ public class RileyModPackets {
                 .decoder(WingFlapPacket::decode)
                 .consumerMainThread(WingFlapPacket::handle)
                 .add();
-        net.messageBuilder(WingFlapPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(WingFlapPacket::encode)
-                .decoder(WingFlapPacket::decode)
-                .consumerMainThread(WingFlapPacket::handle)
-                .add();
-
  
     }
 

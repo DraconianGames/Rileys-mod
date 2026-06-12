@@ -175,9 +175,8 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
         this.add(RileyModEntities.TRUCK.get(),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(RileyModItems.SYNTHETIC_MUSCLE.get())
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
-                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 1.5F))))
+                        .add(LootItem.lootTableItem(RileyModItems.TRUCK.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F))))
                 ));
     }
 

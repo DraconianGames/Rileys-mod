@@ -139,6 +139,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.WHEEL.get());
                         output.accept(RileyModItems.LAMP_HOOK.get());
                         output.accept(RileyModItems.SOUL_FORGE.get());
+                        output.accept(RileyModItems.WRECKER_UPGRADE.get());
                     })
                     .build());
 
