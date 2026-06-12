@@ -38,6 +38,23 @@ public class RileyModPackets {
                 .encoder(PetActionPacket::toBytes)
                 .consumerMainThread(PetActionPacket::handle)
                 .add();
+        net.messageBuilder(RegisterRiddenCompanionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(RegisterRiddenCompanionPacket::new)
+                .encoder(RegisterRiddenCompanionPacket::toBytes)
+                .consumerMainThread(RegisterRiddenCompanionPacket::handle)
+                .add();
+
+        net.messageBuilder(RequestPetDataPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(RequestPetDataPacket::new)
+                .encoder(RequestPetDataPacket::toBytes)
+                .consumerMainThread(RequestPetDataPacket::handle)
+                .add();
+
+        net.messageBuilder(SyncPetDataPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncPetDataPacket::new)
+                .encoder(SyncPetDataPacket::toBytes)
+                .consumerMainThread(SyncPetDataPacket::handle)
+                .add();
 
         net.messageBuilder(SpecialSpawnerSettingsPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SpecialSpawnerSettingsPacket::new)

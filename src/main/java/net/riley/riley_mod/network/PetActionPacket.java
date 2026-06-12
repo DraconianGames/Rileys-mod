@@ -2,10 +2,9 @@ package net.riley.riley_mod.network;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import net.riley.riley_mod.item.custom.JournalItem;
+import net.riley.riley_mod.util.PlayerPetData;
+
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -24,29 +23,26 @@ public class PetActionPacket {
     }
 
     public void toBytes(FriendlyByteBuf buffer) {
-        buffer.writeUUID(petUUID);
-        buffer.writeInt(actionType);
+        buffer.writeUUID(this.petUUID);
+        buffer.writeInt(this.actionType);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
+
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player == null) return;
 
-            ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!(stack.getItem() instanceof JournalItem)) stack = player.getItemInHand(InteractionHand.OFF_HAND);
-
-            if (stack.getItem() instanceof JournalItem) {
-                if (actionType == 1) {
-                    JournalItem.storePet(player, stack, petUUID);
-                } else if (actionType == 0) {
-                    JournalItem.summonPet(player, stack, petUUID);
-                } else if (actionType == 2) {
-                    JournalItem.deletePetData(player, stack, petUUID);
-                }
+            if (this.actionType == 1) {
+                PlayerPetData.storePet(player, this.petUUID);
+            } else if (this.actionType == 0) {
+                PlayerPetData.summonPet(player, this.petUUID);
+            } else if (this.actionType == 2) {
+                PlayerPetData.deletePet(player, this.petUUID);
             }
         });
+
         return true;
     }
 }

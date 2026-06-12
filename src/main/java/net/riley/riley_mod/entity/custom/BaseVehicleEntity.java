@@ -13,11 +13,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,9 +27,12 @@ import net.minecraftforge.network.NetworkHooks;
 import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.menu.BaseVehicleMenu;
 
-public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
+import java.util.UUID;
+
+public abstract class BaseVehicleEntity extends Mob implements MenuProvider, OwnableEntity {
     private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
+    private UUID ownerUUID;
 
 
     public final AnimationState parkAnimationState = new AnimationState();
@@ -55,6 +54,18 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
 
     public SimpleContainer getVehicleInventory() {
         return this.vehicleInventory;
+    }
+    @Override
+    public UUID getOwnerUUID() {
+        return this.ownerUUID;
+    }
+
+    public void setOwnerUUID(UUID ownerUUID) {
+        this.ownerUUID = ownerUUID;
+    }
+
+    public boolean isOwnedBy(Player player) {
+        return this.ownerUUID != null && this.ownerUUID.equals(player.getUUID());
     }
     public ItemStack getVehicleUpgradeItem() {
         return this.vehicleInventory.getItem(BaseVehicleMenu.UPGRADE_SLOT_INDEX);
@@ -131,6 +142,11 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
             return InteractionResult.PASS;
         }
 
+        if (!this.level().isClientSide && this.ownerUUID == null) {
+            this.setOwnerUUID(player.getUUID());
+            player.displayClientMessage(Component.literal("Vehicle claimed."), true);
+        }
+
         if (player.isSecondaryUseActive()) {
             this.openVehicleMenu(player);
             return InteractionResult.sidedSuccess(this.level().isClientSide);
@@ -146,6 +162,10 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+
+        if (this.ownerUUID != null) {
+            compound.putUUID("Owner", this.ownerUUID);
+        }
 
         ListTag inventoryTag = new ListTag();
 
@@ -166,6 +186,12 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+
+        if (compound.hasUUID("Owner")) {
+            this.ownerUUID = compound.getUUID("Owner");
+        } else {
+            this.ownerUUID = null;
+        }
 
         for (int i = 0; i < this.vehicleInventory.getContainerSize(); i++) {
             this.vehicleInventory.setItem(i, ItemStack.EMPTY);

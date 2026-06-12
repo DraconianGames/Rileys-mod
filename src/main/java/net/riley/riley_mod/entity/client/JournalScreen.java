@@ -99,6 +99,10 @@ public class JournalScreen extends Screen {
 
 
         for (JournalEntry.Category cat : JournalEntry.Category.values()) {
+            if (cat == JournalEntry.Category.PETS) {
+                continue;
+            }
+
             // Add Category Header
             entryList.addChapter(Component.literal("> " + cat.name()), () -> {
                 expandedCategory = (expandedCategory == cat) ? null : cat;

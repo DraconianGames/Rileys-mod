@@ -33,8 +33,14 @@ public class TruckItem extends Item {
         @SuppressWarnings("unchecked")
         EntityType<TruckEntity> type = (EntityType<TruckEntity>) RileyModEntities.TRUCK.get();
         TruckEntity fairy = type.create(level);
+
         if (fairy != null) {
             fairy.moveTo(x, y, z, player != null ? player.getYRot() : 0.0F, 0.0F);
+
+            if (player != null) {
+                fairy.setOwnerUUID(player.getUUID());
+            }
+
             level.addFreshEntity(fairy);
 
             if (player != null && !player.getAbilities().instabuild) {
