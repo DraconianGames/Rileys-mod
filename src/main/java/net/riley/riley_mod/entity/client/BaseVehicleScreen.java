@@ -12,6 +12,16 @@ import net.riley.riley_mod.menu.BaseVehicleMenu;
 public class BaseVehicleScreen extends AbstractContainerScreen<BaseVehicleMenu> {
     private static final ResourceLocation VEHICLE_MENU_LOCATION =
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/vehicle_menu.png");
+    private static final ResourceLocation INVENTORY_SLOT_LOCATION =
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/inventory_slot.png");
+    private static final ResourceLocation VEHICLE_UPGRADE_SLOT_LOCATION =
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "textures/gui/vehicle_upgrade_slot.png");
+
+    private static final int VEHICLE_INV_X = 0;
+    private static final int VEHICLE_INV_Y = 0;
+    private static final int UPGRADE_SLOT_X = 234;
+    private static final int UPGRADE_SLOT_Y = 238;
+    private static final int SLOT_SIZE = 18;
 
     public BaseVehicleScreen(BaseVehicleMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -31,8 +41,29 @@ public class BaseVehicleScreen extends AbstractContainerScreen<BaseVehicleMenu> 
         RenderSystem.setShaderTexture(0, VEHICLE_MENU_LOCATION);
         guiGraphics.blit(VEHICLE_MENU_LOCATION, left, top, 0, 0, 256, 256);
 
-    }
+        RenderSystem.setShaderTexture(0, INVENTORY_SLOT_LOCATION);
+        for (int row = 0; row < BaseVehicleMenu.VEHICLE_ROWS; row++) {
+            for (int col = 0; col < BaseVehicleMenu.VEHICLE_COLUMNS; col++) {
+                int x = left + VEHICLE_INV_X + col * SLOT_SIZE;
+                int y = top + VEHICLE_INV_Y + row * SLOT_SIZE;
 
+                guiGraphics.blit(INVENTORY_SLOT_LOCATION, x, y, 0, 0, SLOT_SIZE, SLOT_SIZE, SLOT_SIZE, SLOT_SIZE);
+            }
+        }
+
+        RenderSystem.setShaderTexture(0, VEHICLE_UPGRADE_SLOT_LOCATION);
+        guiGraphics.blit(
+                VEHICLE_UPGRADE_SLOT_LOCATION,
+                left + UPGRADE_SLOT_X,
+                top + UPGRADE_SLOT_Y,
+                0,
+                0,
+                SLOT_SIZE,
+                SLOT_SIZE,
+                SLOT_SIZE,
+                SLOT_SIZE
+        );
+    }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {

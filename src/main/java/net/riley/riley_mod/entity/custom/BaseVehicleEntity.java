@@ -33,8 +33,8 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
     private UUID ownerUUID;
-
-
+    private float deltaRotation;
+//TODO add inventory upgrade. inventory slot logic. and model logic.
     public final AnimationState parkAnimationState = new AnimationState();
     public final AnimationState forwardAnimationState = new AnimationState();
     public final AnimationState backwardAnimationState = new AnimationState();
@@ -344,6 +344,8 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
             boolean hasGas = Math.abs(forwardInput) > 0.01F;
 
+            this.deltaRotation = 0.0F;
+
             if (hasGas) {
                 float turnSpeed = this.getTurnSpeed();
 
@@ -351,8 +353,8 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
                     turnSpeed *= this.getReverseTurnMultiplier();
                 }
 
-                this.setYRot(this.getYRot() - turnInput * turnSpeed);
-                this.yRotO = this.getYRot();
+                this.deltaRotation = -turnInput * turnSpeed;
+                this.setYRot(this.getYRot() + this.deltaRotation);
 
                 this.yBodyRot = this.getYRot();
                 this.yHeadRot = this.yBodyRot;
@@ -368,11 +370,15 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
             super.travel(new Vec3(0.0D, travelVector.y, forwardInput));
         } else {
+            this.deltaRotation = 0.0F;
             this.setMaxUpStep(this.getVehicleStepHeight());
             super.travel(travelVector);
         }
     }
-
+    @Override
+    public boolean shouldRiderSit() {
+        return true;
+    }
     @Override
     protected void positionRider(Entity passenger, MoveFunction moveFunction) {
         int passengerIndex = this.getPassengers().indexOf(passenger);
@@ -386,10 +392,10 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
                 this.getY() + rotatedOffset.y + passenger.getMyRidingOffset(),
                 this.getZ() + rotatedOffset.z
         );
+
+        passenger.setYRot(passenger.getYRot() + this.deltaRotation);
+        passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
+        passenger.setYBodyRot(passenger.getYRot());
     }
 
-    @Override
-    public boolean shouldRiderSit() {
-        return true;
-    }
 }

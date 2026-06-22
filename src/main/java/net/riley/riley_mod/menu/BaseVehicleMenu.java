@@ -28,7 +28,7 @@ public class BaseVehicleMenu extends AbstractContainerMenu {
     private static final int HOTBAR_Y = 240;
 
     private static final int UPGRADE_SLOT_X = 236;
-    private static final int UPGRADE_SLOT_Y = 236;
+    private static final int UPGRADE_SLOT_Y = 240;
 
     private final Entity vehicleEntity;
     private final Container vehicleInventory;
