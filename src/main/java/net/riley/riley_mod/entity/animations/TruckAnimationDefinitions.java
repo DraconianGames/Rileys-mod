@@ -92,4 +92,26 @@ public class TruckAnimationDefinitions {
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 20.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
             ))
             .build();
+        public static final AnimationDefinition CARGO_UPGRADE_FILL = AnimationDefinition.Builder.withLength(2.0F).looping()
+                .addAnimation("rear_loop", new AnimationChannel(AnimationChannel.Targets.POSITION,
+                        new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -35.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("acordian_part", new AnimationChannel(AnimationChannel.Targets.SCALE,
+                        new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.LINEAR),
+                        new Keyframe(2.0F, KeyframeAnimations.scaleVec(1.0F, 1.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .build();
+        public static final AnimationDefinition WRECKER_UPGRADE_TOW = AnimationDefinition.Builder.withLength(1.0F).looping()
+                .addAnimation("crane", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0833F, KeyframeAnimations.degreeVec(-10.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .addAnimation("hook", new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                        new Keyframe(0.0833F, KeyframeAnimations.degreeVec(35.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)
+                ))
+                .build();
+
+        public static final AnimationDefinition WRECKER_UPGRADE_DEFAULT = AnimationDefinition.Builder.withLength(0.0F)
+
+                .build();
 }

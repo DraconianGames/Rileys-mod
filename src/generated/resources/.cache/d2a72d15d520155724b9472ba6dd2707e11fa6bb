@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-11T19:51:38.5274174	Item Models: riley_mod
+// 1.20.1	2026-06-22T16:15:44.1622026	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -13,6 +13,7 @@ d8c780933c7ad322567e89aea87fe63129dbb266 assets/riley_mod/models/item/augmentati
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/riley_mod/models/item/bonefairy_spawn_egg.json
 5161fec7ce7ac2960b00de8cb89f45eb547f370e assets/riley_mod/models/item/cagged_fairy.json
 b7029b59fe453c53bf788076c731898edaff691e assets/riley_mod/models/item/cannon_sheild.json
+49a8843ffe7d4604740fc75d7f98b20e0069d71e assets/riley_mod/models/item/cargo_upgrade.json
 7ca673f8fb552755581f62e5923e850be7951802 assets/riley_mod/models/item/claw.json
 6a9699eaf0dbd822f158b83708f6ad4ba5b736f4 assets/riley_mod/models/item/enchanter.json
 2dfcec25e31ff4079cdc85f5cc78cc9eb0f01aa8 assets/riley_mod/models/item/eye.json

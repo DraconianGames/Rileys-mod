@@ -49,4 +49,6 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "truck_layer"),"main");
     public static final ModelLayerLocation TRUCK_WRECKER_UPGRADE_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "truck_wrecker_upgrade_layer"), "main");
+    public static final ModelLayerLocation TRUCK_CARGO_UPGRADE_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "truck_cargo_upgrade_layer"), "main");
 }

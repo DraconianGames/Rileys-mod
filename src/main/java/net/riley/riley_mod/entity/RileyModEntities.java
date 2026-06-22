@@ -92,3 +92,4 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
         ENTITY_TYPES.register(eventBus);
     }
 }
+//TODO use ender dragon parts to fix rendering issues with large entities
