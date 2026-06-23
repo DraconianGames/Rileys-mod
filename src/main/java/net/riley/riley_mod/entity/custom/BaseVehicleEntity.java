@@ -34,10 +34,13 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_CARGO_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_ARMOR_UPGRADE =
+            SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
 
     private UUID ownerUUID;
     private float deltaRotation;
 //TODO add inventory upgrade. inventory slot logic. and model logic.
+    //TODO armor logic
     public final AnimationState parkAnimationState = new AnimationState();
     public final AnimationState forwardAnimationState = new AnimationState();
     public final AnimationState backwardAnimationState = new AnimationState();
@@ -85,15 +88,20 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     public boolean hasCargoUpgrade() {
         return this.entityData.get(HAS_CARGO_UPGRADE);
     }
+    public boolean hasArmorUpgrade() {
+        return this.entityData.get(HAS_ARMOR_UPGRADE);
+    }
 
     public boolean isValidVehicleUpgrade(ItemStack stack) {
         return stack.is(RileyModItems.WRECKER_UPGRADE.get()) ||
-        stack.is(RileyModItems.CARGO_UPGRADE.get());
+        stack.is(RileyModItems.CARGO_UPGRADE.get()) ||
+        stack.is(RileyModItems.ARMOR_UPGRADE.get());
     }
     protected void syncVehicleUpgradeState() {
         if (!this.level().isClientSide) {
             this.entityData.set(HAS_WRECKER_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.WRECKER_UPGRADE.get()));
             this.entityData.set(HAS_CARGO_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.CARGO_UPGRADE.get()));
+            this.entityData.set(HAS_ARMOR_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.ARMOR_UPGRADE.get()));
         }
     }
     @Override
@@ -144,6 +152,7 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         super.defineSynchedData();
         this.entityData.define(HAS_WRECKER_UPGRADE, false);
         this.entityData.define(HAS_CARGO_UPGRADE, false);
+        this.entityData.define(HAS_ARMOR_UPGRADE, false);
     }
 
     @Override

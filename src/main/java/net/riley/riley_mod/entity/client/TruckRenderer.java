@@ -21,8 +21,11 @@ public class TruckRenderer extends MobRenderer<TruckEntity, TruckModel<TruckEnti
         this.addLayer(new TruckCargoUpgradeLayer(
                 this,
                 new TruckCargoUpgrade<>(pContext.bakeLayer(RileyModModelLayers.TRUCK_CARGO_UPGRADE_LAYER))
-        ))
-        ;
+        ));
+        this.addLayer(new TruckArmorUpgradeLayer(
+                this,
+                new TruckArmorUpgrade<>(pContext.bakeLayer(RileyModModelLayers.TRUCK_ARMOR_UPGRADE_LAYER))
+        ));
     }
 
     @Override

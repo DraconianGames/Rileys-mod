@@ -141,6 +141,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.SOUL_FORGE.get());
                         output.accept(RileyModItems.WRECKER_UPGRADE.get());
                         output.accept(RileyModItems.CARGO_UPGRADE.get());
+                        output.accept(RileyModItems.ARMOR_UPGRADE.get());
                     })
                     .build());
 

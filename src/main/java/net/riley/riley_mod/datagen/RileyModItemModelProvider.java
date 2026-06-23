@@ -83,6 +83,7 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         simpleItem(RileyModItems.TRUCK);
         simpleItem(RileyModItems.WRECKER_UPGRADE);
         simpleItem(RileyModItems.CARGO_UPGRADE);
+        simpleItem(RileyModItems.ARMOR_UPGRADE);
 
         saplingItem(RileyModBlocks.ABYSS_SAPLING);
 
