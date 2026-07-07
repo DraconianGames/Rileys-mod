@@ -21,12 +21,16 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.network.NetworkHooks;
 import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.menu.BaseVehicleMenu;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseVehicleEntity extends Mob implements MenuProvider, OwnableEntity {
@@ -143,6 +147,108 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return new Vec3(0.0D, 0.0D, 0.0D);
     }
 
+    protected List<VehicleHitboxPart> getVehicleHitboxParts() {
+        return List.of();
+    }
+
+    protected AABB getVehiclePartBox(VehicleHitboxPart part) {
+        Vec3 rotatedOffset = part.offset().yRot(-this.getYRot() * ((float) Math.PI / 180F));
+
+        double centerX = this.getX() + rotatedOffset.x;
+        double centerY = this.getY() + rotatedOffset.y;
+        double centerZ = this.getZ() + rotatedOffset.z;
+
+        double halfWidth = part.width() / 2.0D;
+        double halfDepth = part.depth() / 2.0D;
+
+        return new AABB(
+                centerX - halfWidth,
+                centerY,
+                centerZ - halfDepth,
+                centerX + halfWidth,
+                centerY + part.height(),
+                centerZ + halfDepth
+        );
+    }
+
+    public List<VehicleHitboxPart> getDebugVehicleHitboxParts() {
+        return this.getVehicleHitboxParts();
+    }
+
+    public AABB getDebugVehiclePartBox(VehicleHitboxPart part) {
+        return this.getVehiclePartBox(part);
+    }
+
+    public List<AABB> getDebugVehiclePartBoxes() {
+        List<AABB> boxes = new ArrayList<>();
+
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            boxes.add(this.getVehiclePartBox(part));
+        }
+
+        return boxes;
+    }
+
+
+    protected Optional<VehicleHitboxPart> getLookedAtVehiclePart(Player player) {
+        double reach = player.isCreative() ? 5.0D : 4.5D;
+
+        Vec3 eyePosition = player.getEyePosition();
+        Vec3 lookDirection = player.getLookAngle();
+        Vec3 endPosition = eyePosition.add(lookDirection.scale(reach));
+
+        VehicleHitboxPart closestPart = null;
+        double closestDistance = Double.MAX_VALUE;
+
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            AABB box = this.getVehiclePartBox(part);
+            Optional<Vec3> hit = box.clip(eyePosition, endPosition);
+
+            if (hit.isEmpty()) {
+                continue;
+            }
+
+            double distance = eyePosition.distanceToSqr(hit.get());
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestPart = part;
+            }
+        }
+
+        return Optional.ofNullable(closestPart);
+    }
+
+    protected boolean isAnyVehiclePartColliding(VehicleHitboxPart.VehicleHitboxType type) {
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            if (part.type() != type) {
+                continue;
+            }
+
+            if (!this.level().noCollision(this, this.getVehiclePartBox(part))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean isAnyWheelTouchingGround() {
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            if (part.type() != VehicleHitboxPart.VehicleHitboxType.WHEEL) {
+                continue;
+            }
+
+            AABB groundCheckBox = this.getVehiclePartBox(part).move(0.0D, -0.08D, 0.0D);
+
+            if (!this.level().noCollision(this, groundCheckBox)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected boolean canPassengerRide(Player player) {
         return this.getPassengers().size() < this.getMaxPassengers();
     }
@@ -164,6 +270,25 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         if (!this.level().isClientSide && this.ownerUUID == null) {
             this.setOwnerUUID(player.getUUID());
             player.displayClientMessage(Component.literal("Vehicle claimed."), true);
+        }
+
+        Optional<VehicleHitboxPart> lookedAtPart = this.getLookedAtVehiclePart(player);
+
+        if (lookedAtPart.isPresent()) {
+            VehicleHitboxPart part = lookedAtPart.get();
+
+            if (part.type() == VehicleHitboxPart.VehicleHitboxType.MENU) {
+                this.openVehicleMenu(player);
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+
+            if (part.type() == VehicleHitboxPart.VehicleHitboxType.SEAT) {
+                if (!this.level().isClientSide && this.canPassengerRide(player)) {
+                    player.startRiding(this);
+                }
+
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
         }
 
         if (player.isSecondaryUseActive()) {

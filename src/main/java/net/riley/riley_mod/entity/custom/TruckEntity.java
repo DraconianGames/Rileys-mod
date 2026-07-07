@@ -8,9 +8,22 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
+
 public class TruckEntity extends BaseVehicleEntity {
     public TruckEntity(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
+    }
+    private static double bb(double units) {
+        return units / 16.0D;
+    }
+
+    private static Vec3 bbVec(double blockbenchX, double blockbenchY, double blockbenchZ) {
+        return new Vec3(
+                -bb(blockbenchX),
+                bb(blockbenchY),
+                -bb(blockbenchZ)
+        );
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -37,6 +50,75 @@ public class TruckEntity extends BaseVehicleEntity {
     @Override
     protected Vec3 getSeatOffset(int passengerIndex) {
         return new Vec3(0.0D, 0.45D, 0.45D);
+    }
+    @Override
+    protected List<VehicleHitboxPart> getVehicleHitboxParts() {
+        return List.of(
+                new VehicleHitboxPart(
+                        "front_left_wheel",
+                        VehicleHitboxPart.VehicleHitboxType.WHEEL,
+                        bbVec(-12.5D, 0.0D, -26.0D),
+                        bb(10.0D),//X size
+                        bb(10.0D),//Y size
+                        bb(10.0D)//Z size
+                ),
+                new VehicleHitboxPart(
+                        "front_right_wheel",
+                        VehicleHitboxPart.VehicleHitboxType.WHEEL,
+                        bbVec(-12.5D, 0.0D, 26.0D),
+                        bb(10.0D),
+                        bb(10.0D),
+                        bb(10.0D)
+                ),
+                new VehicleHitboxPart(
+                        "rear_left_wheel",
+                        VehicleHitboxPart.VehicleHitboxType.WHEEL,
+                        bbVec(12.5D, 0.0D, -26.0D),
+                        bb(10.0D),
+                        bb(10.0D),
+                        bb(10.0D)
+                ),
+                new VehicleHitboxPart(
+                        "rear_right_wheel",
+                        VehicleHitboxPart.VehicleHitboxType.WHEEL,
+                        bbVec(12.5D, 0.0D, 26.0D),
+                        bb(10.0D),
+                        bb(10.0D),
+                        bb(10.0D)
+                ),
+                new VehicleHitboxPart(
+                        "front_bumper",
+                        VehicleHitboxPart.VehicleHitboxType.BUMPER,
+                        bbVec(0.0D, 5.6D, -38.0D),
+                        bb(30.4D),
+                        bb(8.8D),
+                        bb(5.6D)
+                ),
+                new VehicleHitboxPart(
+                        "rear_bumper",
+                        VehicleHitboxPart.VehicleHitboxType.BUMPER,
+                        bbVec(0.0D, 5.6D, 35.0D),
+                        bb(30.4D),
+                        bb(8.8D),
+                        bb(5.6D)
+                ),
+                new VehicleHitboxPart(
+                        "driver_seat",
+                        VehicleHitboxPart.VehicleHitboxType.SEAT,
+                        bbVec(0.D, 10.4D, -7.2D),
+                        bb(14.4D),
+                        bb(14.4D),
+                        bb(14.4D)
+                ),
+                new VehicleHitboxPart(
+                        "rear_menu",
+                        VehicleHitboxPart.VehicleHitboxType.MENU,
+                        bbVec(0.0D, 11.0D,17.5D ),
+                        bb(18.0D),
+                        bb(16.0D),
+                        bb(35.0D)
+                )
+        );
     }
 
     @Override
