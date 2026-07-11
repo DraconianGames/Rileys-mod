@@ -90,7 +90,7 @@ public class TruckEntity extends BaseVehicleEntity {
                         "front_bumper",
                         VehicleHitboxPart.VehicleHitboxType.BUMPER,
                         bbVec(0.0D, 5.6D, -38.0D),
-                        bb(30.4D),
+                        bb(5.6D),
                         bb(8.8D),
                         bb(5.6D)
                 ),
@@ -98,7 +98,7 @@ public class TruckEntity extends BaseVehicleEntity {
                         "rear_bumper",
                         VehicleHitboxPart.VehicleHitboxType.BUMPER,
                         bbVec(0.0D, 5.6D, 35.0D),
-                        bb(30.4D),
+                        bb(5.6D),
                         bb(8.8D),
                         bb(5.6D)
                 ),
@@ -116,7 +116,7 @@ public class TruckEntity extends BaseVehicleEntity {
                         bbVec(0.0D, 11.0D,17.5D ),
                         bb(18.0D),
                         bb(16.0D),
-                        bb(35.0D)
+                        bb(18.0D)
                 )
         );
     }

@@ -86,7 +86,7 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
 
     public static final RegistryObject<EntityType<TruckEntity>> TRUCK =
             ENTITY_TYPES.register("truck", ()-> EntityType.Builder.of(TruckEntity::new, MobCategory.CREATURE)
-                    .sized(2f,2f).build("truck"));
+                    .sized(2f,1f).build("truck"));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

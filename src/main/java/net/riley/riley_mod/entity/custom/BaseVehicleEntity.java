@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+//todo fix wheels so they follow terrain
 public abstract class BaseVehicleEntity extends Mob implements MenuProvider, OwnableEntity {
     private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -151,8 +151,31 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return List.of();
     }
 
+    protected Vec3 rotateVehicleOffset(Vec3 offset) {
+        return offset.yRot(-this.getYRot() * ((float) Math.PI / 180F));
+    }
+
+    protected Vec3 rotateWorldPointIntoVehicleSpace(Vec3 worldPoint) {
+        Vec3 relative = worldPoint.subtract(this.position());
+        return relative.yRot(this.getYRot() * ((float) Math.PI / 180F));
+    }
+
+    protected AABB getVehiclePartLocalBox(VehicleHitboxPart part) {
+        double halfWidth = part.width() / 2.0D;
+        double halfDepth = part.depth() / 2.0D;
+
+        return new AABB(
+                part.offset().x - halfWidth,
+                part.offset().y,
+                part.offset().z - halfDepth,
+                part.offset().x + halfWidth,
+                part.offset().y + part.height(),
+                part.offset().z + halfDepth
+        );
+    }
+
     protected AABB getVehiclePartBox(VehicleHitboxPart part) {
-        Vec3 rotatedOffset = part.offset().yRot(-this.getYRot() * ((float) Math.PI / 180F));
+        Vec3 rotatedOffset = this.rotateVehicleOffset(part.offset());
 
         double centerX = this.getX() + rotatedOffset.x;
         double centerY = this.getY() + rotatedOffset.y;
@@ -169,6 +192,29 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
                 centerY + part.height(),
                 centerZ + halfDepth
         );
+    }
+
+    public Vec3[] getDebugVehiclePartCorners(VehicleHitboxPart part) {
+        AABB localBox = this.getVehiclePartLocalBox(part);
+
+        Vec3[] localCorners = new Vec3[] {
+                new Vec3(localBox.minX, localBox.minY, localBox.minZ),
+                new Vec3(localBox.maxX, localBox.minY, localBox.minZ),
+                new Vec3(localBox.maxX, localBox.minY, localBox.maxZ),
+                new Vec3(localBox.minX, localBox.minY, localBox.maxZ),
+                new Vec3(localBox.minX, localBox.maxY, localBox.minZ),
+                new Vec3(localBox.maxX, localBox.maxY, localBox.minZ),
+                new Vec3(localBox.maxX, localBox.maxY, localBox.maxZ),
+                new Vec3(localBox.minX, localBox.maxY, localBox.maxZ)
+        };
+
+        Vec3[] worldCorners = new Vec3[localCorners.length];
+
+        for (int i = 0; i < localCorners.length; i++) {
+            worldCorners[i] = this.position().add(this.rotateVehicleOffset(localCorners[i]));
+        }
+
+        return worldCorners;
     }
 
     public List<VehicleHitboxPart> getDebugVehicleHitboxParts() {
@@ -197,18 +243,22 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         Vec3 lookDirection = player.getLookAngle();
         Vec3 endPosition = eyePosition.add(lookDirection.scale(reach));
 
+        Vec3 localEyePosition = this.rotateWorldPointIntoVehicleSpace(eyePosition);
+        Vec3 localEndPosition = this.rotateWorldPointIntoVehicleSpace(endPosition);
+
         VehicleHitboxPart closestPart = null;
         double closestDistance = Double.MAX_VALUE;
 
         for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            AABB box = this.getVehiclePartBox(part);
-            Optional<Vec3> hit = box.clip(eyePosition, endPosition);
+            AABB box = this.getVehiclePartLocalBox(part);
+            Optional<Vec3> hit = box.clip(localEyePosition, localEndPosition);
 
             if (hit.isEmpty()) {
                 continue;
             }
 
-            double distance = eyePosition.distanceToSqr(hit.get());
+            Vec3 worldHit = this.position().add(this.rotateVehicleOffset(hit.get()));
+            double distance = eyePosition.distanceToSqr(worldHit);
 
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -226,6 +276,51 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             }
 
             if (!this.level().noCollision(this, this.getVehiclePartBox(part))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean isBumperBlockedByTallObstacle(float forwardInput) {
+        if (Math.abs(forwardInput) <= 0.01F) {
+            return false;
+        }
+
+        Vec3 localMovementDirection = forwardInput > 0.0F
+                ? new Vec3(0.0D, 0.0D, 1.0D)
+                : new Vec3(0.0D, 0.0D, -1.0D);
+
+        Vec3 movementDirection = this.rotateVehicleOffset(localMovementDirection).normalize();
+        double probeDistance = Math.max(0.35D, Math.abs(forwardInput) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) + 0.35D);
+        Vec3 probeMovement = movementDirection.scale(probeDistance);
+
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            if (part.type() != VehicleHitboxPart.VehicleHitboxType.BUMPER) {
+                continue;
+            }
+
+            Vec3 localBumperOffset = part.offset();
+
+            if (localBumperOffset.dot(localMovementDirection) <= 0.0D) {
+                continue;
+            }
+
+            AABB bumperBox = this.getVehiclePartBox(part)
+                    .move(probeMovement)
+                    .inflate(0.03D, 0.0D, 0.03D);
+
+            AABB tallObstacleProbe = new AABB(
+                    bumperBox.minX,
+                    this.getY() + this.getVehicleStepHeight() + 0.02D,
+                    bumperBox.minZ,
+                    bumperBox.maxX,
+                    this.getY() + this.getVehicleStepHeight() + 1.5D,
+                    bumperBox.maxZ
+            );
+
+            if (!this.level().noCollision(this, tallObstacleProbe)) {
                 return true;
             }
         }
@@ -416,6 +511,44 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     @Override
     public void knockback(double strength, double x, double z) {
     }
+    @Override
+    public void move(MoverType moverType, Vec3 movement) {
+        this.updateVehicleMovementBoundingBox();
+        super.move(moverType, movement);
+        this.updateVehicleMovementBoundingBox();
+    }
+
+    protected void updateVehicleMovementBoundingBox() {
+        this.setBoundingBox(this.getVehicleMovementBoundingBox());
+    }
+
+    protected AABB getVehicleMovementBoundingBox() {
+        AABB box = this.getBaseEntityBoundingBox();
+
+        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
+            if (part.type() != VehicleHitboxPart.VehicleHitboxType.WHEEL) {
+                continue;
+            }
+
+            box = box.minmax(this.getVehiclePartBox(part));
+        }
+
+        return box;
+    }
+
+    protected AABB getBaseEntityBoundingBox() {
+        EntityDimensions dimensions = this.getDimensions(this.getPose());
+        double halfWidth = dimensions.width / 2.0D;
+
+        return new AABB(
+                this.getX() - halfWidth,
+                this.getY(),
+                this.getZ() - halfWidth,
+                this.getX() + halfWidth,
+                this.getY() + dimensions.height,
+                this.getZ() + halfWidth
+        );
+    }
 
     @Override
     public void aiStep() {
@@ -452,6 +585,8 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     public void tick() {
         super.tick();
 
+        this.updateVehicleMovementBoundingBox();
+
         if (this.level().isClientSide) {
             this.updateAnimationStates();
         }
@@ -487,8 +622,19 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             float turnInput = driver.xxa;
 
             boolean hasGas = Math.abs(forwardInput) > 0.01F;
+            boolean bumperBlocked = this.isBumperBlockedByTallObstacle(forwardInput);
 
             this.deltaRotation = 0.0F;
+
+            if (bumperBlocked) {
+                forwardInput = 0.0F;
+                hasGas = false;
+                this.setDeltaMovement(
+                        0.0D,
+                        this.getDeltaMovement().y,
+                        0.0D
+                );
+            }
 
             if (hasGas) {
                 float turnSpeed = this.getTurnSpeed();
