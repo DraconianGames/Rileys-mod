@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.riley.riley_mod.entity.custom.TruckEntity;
 
 public class TruckCargoUpgrade<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -305,7 +306,19 @@ public class TruckCargoUpgrade<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		float fillProgress = 0.0F;
+
+		if (entity instanceof TruckEntity truck) {
+			fillProgress = truck.getCargoStorageFillProgress();
+		}
+
+		fillProgress = Math.max(0.0F, Math.min(1.0F, fillProgress));
+		float emptyProgress = 1.0F - fillProgress;
+
+		this.rear_loop.z = 38.0F - 35.0F * emptyProgress;
+		this.acordian_part.zScale = fillProgress;
 	}
 
 	@Override

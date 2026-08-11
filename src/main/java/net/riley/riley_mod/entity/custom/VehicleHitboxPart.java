@@ -11,6 +11,7 @@ public record VehicleHitboxPart(
         double depth
 ) {
     public enum VehicleHitboxType {
+        BODY,
         WHEEL,
         BUMPER,
         SEAT,

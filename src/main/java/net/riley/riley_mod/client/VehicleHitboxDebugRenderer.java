@@ -1,8 +1,10 @@
 package net.riley.riley_mod.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -12,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.entity.custom.BaseVehicleEntity;
 import net.riley.riley_mod.entity.custom.VehicleHitboxPart;
+import net.riley.riley_mod.entity.custom.VehiclePartEntity;
 
 import static net.riley.riley_mod.RileyMod.MODID;
 
@@ -35,30 +38,33 @@ public class VehicleHitboxDebugRenderer {
 
         Vec3 cameraPosition = minecraft.gameRenderer.getMainCamera().getPosition();
         PoseStack poseStack = event.getPoseStack();
+        VertexConsumer consumer = minecraft.renderBuffers()
+                .bufferSource()
+                .getBuffer(RenderType.lines());
 
         for (Entity entity : minecraft.level.entitiesForRendering()) {
             if (!(entity instanceof BaseVehicleEntity vehicle)) {
                 continue;
             }
 
-            for (VehicleHitboxPart part : vehicle.getDebugVehicleHitboxParts()) {
-                AABB box = vehicle.getDebugVehiclePartBox(part).move(
-                        -cameraPosition.x,
-                        -cameraPosition.y,
-                        -cameraPosition.z
-                );
+            for (net.minecraftforge.entity.PartEntity<?> rawPart : vehicle.getParts()) {
+                if (!(rawPart instanceof VehiclePartEntity part)) {
+                    continue;
+                }
 
-                drawPartBox(poseStack, box, part);
+                drawPartBox(poseStack, consumer, cameraPosition, part);
             }
         }
     }
 
-    private static void drawPartBox(PoseStack poseStack, AABB box, VehicleHitboxPart part) {
+    private static void drawPartBox(PoseStack poseStack, VertexConsumer consumer, Vec3 cameraPosition, VehiclePartEntity part) {
         float red = 1.0F;
         float green = 1.0F;
         float blue = 1.0F;
 
-        switch (part.type()) {
+        VehicleHitboxPart.VehicleHitboxType type = part.getPartType();
+
+        switch (type) {
             case WHEEL -> {
                 red = 0.1F;
                 green = 1.0F;
@@ -81,9 +87,15 @@ public class VehicleHitboxDebugRenderer {
             }
         }
 
+        AABB box = part.getBoundingBox().move(
+                -cameraPosition.x,
+                -cameraPosition.y,
+                -cameraPosition.z
+        );
+
         LevelRenderer.renderLineBox(
                 poseStack,
-                Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(net.minecraft.client.renderer.RenderType.lines()),
+                consumer,
                 box,
                 red,
                 green,

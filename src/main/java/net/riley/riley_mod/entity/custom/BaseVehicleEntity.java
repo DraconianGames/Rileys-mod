@@ -12,9 +12,16 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -30,9 +37,8 @@ import net.riley.riley_mod.menu.BaseVehicleMenu;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-//todo fix wheels so they follow terrain
+
 public abstract class BaseVehicleEntity extends Mob implements MenuProvider, OwnableEntity {
     private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -40,31 +46,59 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> HAS_ARMOR_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> FILLED_CARGO_STORAGE_SLOTS =
+            SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.INT);
+
 
     private UUID ownerUUID;
-    private float deltaRotation;
-//TODO add inventory upgrade. inventory slot logic. and model logic.
-    //TODO armor logic
+    private VehiclePartEntity[] vehicleParts = new VehiclePartEntity[0];
+
     public final AnimationState parkAnimationState = new AnimationState();
     public final AnimationState forwardAnimationState = new AnimationState();
     public final AnimationState backwardAnimationState = new AnimationState();
     public final AnimationState steerLeftAnimationState = new AnimationState();
     public final AnimationState steerRightAnimationState = new AnimationState();
+
     private final SimpleContainer vehicleInventory = new SimpleContainer(BaseVehicleMenu.VEHICLE_SLOT_COUNT) {
         @Override
         public void setChanged() {
             super.setChanged();
             BaseVehicleEntity.this.syncVehicleUpgradeState();
+            BaseVehicleEntity.this.syncCargoStorageFillState();
         }
     };
+
+
     protected BaseVehicleEntity(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
         this.setMaxUpStep(this.getVehicleStepHeight());
+        this.noPhysics = true;
+        this.noCulling = true;
+        this.createVehicleParts();
+    }
+
+    private void createVehicleParts() {
+        List<VehicleHitboxPart> hitboxParts = this.getVehicleHitboxParts();
+        this.vehicleParts = new VehiclePartEntity[hitboxParts.size()];
+
+        for (int i = 0; i < hitboxParts.size(); i++) {
+            this.vehicleParts[i] = new VehiclePartEntity(this, hitboxParts.get(i));
+        }
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+
+        for (int i = 0; i < this.vehicleParts.length; i++) {
+            this.vehicleParts[i].setId(id + i + 1);
+        }
     }
 
     public SimpleContainer getVehicleInventory() {
         return this.vehicleInventory;
     }
+
     @Override
     public UUID getOwnerUUID() {
         return this.ownerUUID;
@@ -77,9 +111,11 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     public boolean isOwnedBy(Player player) {
         return this.ownerUUID != null && this.ownerUUID.equals(player.getUUID());
     }
+
     public ItemStack getVehicleUpgradeItem() {
         return this.vehicleInventory.getItem(BaseVehicleMenu.UPGRADE_SLOT_INDEX);
     }
+
     public boolean hasVehicleUpgrade(ItemStack stack) {
         ItemStack upgradeStack = this.getVehicleUpgradeItem();
         return !upgradeStack.isEmpty() && ItemStack.isSameItem(upgradeStack, stack);
@@ -92,15 +128,25 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     public boolean hasCargoUpgrade() {
         return this.entityData.get(HAS_CARGO_UPGRADE);
     }
+
     public boolean hasArmorUpgrade() {
         return this.entityData.get(HAS_ARMOR_UPGRADE);
     }
 
-    public boolean isValidVehicleUpgrade(ItemStack stack) {
-        return stack.is(RileyModItems.WRECKER_UPGRADE.get()) ||
-        stack.is(RileyModItems.CARGO_UPGRADE.get()) ||
-        stack.is(RileyModItems.ARMOR_UPGRADE.get());
+    public int getFilledCargoStorageSlots() {
+        return this.entityData.get(FILLED_CARGO_STORAGE_SLOTS);
     }
+
+    public float getCargoStorageFillProgress() {
+        return (float) this.getFilledCargoStorageSlots() / (float) BaseVehicleMenu.VEHICLE_STORAGE_SLOT_COUNT;
+    }
+
+    public boolean isValidVehicleUpgrade(ItemStack stack) {
+        return stack.is(RileyModItems.WRECKER_UPGRADE.get())
+                || stack.is(RileyModItems.CARGO_UPGRADE.get())
+                || stack.is(RileyModItems.ARMOR_UPGRADE.get());
+    }
+
     protected void syncVehicleUpgradeState() {
         if (!this.level().isClientSide) {
             this.entityData.set(HAS_WRECKER_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.WRECKER_UPGRADE.get()));
@@ -108,6 +154,23 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             this.entityData.set(HAS_ARMOR_UPGRADE, this.getVehicleUpgradeItem().is(RileyModItems.ARMOR_UPGRADE.get()));
         }
     }
+
+    protected void syncCargoStorageFillState() {
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        int filledSlots = 0;
+
+        for (int i = 1; i < this.vehicleInventory.getContainerSize(); i++) {
+            if (!this.vehicleInventory.getItem(i).isEmpty()) {
+                filledSlots++;
+            }
+        }
+
+        this.entityData.set(FILLED_CARGO_STORAGE_SLOTS, filledSlots);
+    }
+
     @Override
     public boolean canBeAffected(MobEffectInstance effectInstance) {
         return false;
@@ -115,6 +178,16 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
     @Override
     public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public boolean canCollideWith(Entity entity) {
+        return entity != null && !this.hasPassenger(entity) && super.canCollideWith(entity);
+    }
+
+    @Override
+    public boolean isInWall() {
         return false;
     }
 
@@ -127,24 +200,16 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return 1.2F;
     }
 
-    protected float getTurnSpeed() {
-        return 5.0F;
-    }
-
-    protected float getReverseTurnMultiplier() {
-        return -0.5F;
-    }
-
-    protected float getReverseSpeedMultiplier() {
-        return 0.45F;
-    }
-
     protected int getMaxPassengers() {
         return 1;
     }
 
     protected Vec3 getSeatOffset(int passengerIndex) {
-        return new Vec3(0.0D, 0.0D, 0.0D);
+        return Vec3.ZERO;
+    }
+
+    protected float getPassengerYawChange() {
+        return 0.0F;
     }
 
     protected List<VehicleHitboxPart> getVehicleHitboxParts() {
@@ -155,197 +220,92 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return offset.yRot(-this.getYRot() * ((float) Math.PI / 180F));
     }
 
-    protected Vec3 rotateWorldPointIntoVehicleSpace(Vec3 worldPoint) {
-        Vec3 relative = worldPoint.subtract(this.position());
-        return relative.yRot(this.getYRot() * ((float) Math.PI / 180F));
-    }
-
-    protected AABB getVehiclePartLocalBox(VehicleHitboxPart part) {
-        double halfWidth = part.width() / 2.0D;
-        double halfDepth = part.depth() / 2.0D;
-
-        return new AABB(
-                part.offset().x - halfWidth,
-                part.offset().y,
-                part.offset().z - halfDepth,
-                part.offset().x + halfWidth,
-                part.offset().y + part.height(),
-                part.offset().z + halfDepth
-        );
-    }
-
-    protected AABB getVehiclePartBox(VehicleHitboxPart part) {
-        Vec3 rotatedOffset = this.rotateVehicleOffset(part.offset());
-
-        double centerX = this.getX() + rotatedOffset.x;
-        double centerY = this.getY() + rotatedOffset.y;
-        double centerZ = this.getZ() + rotatedOffset.z;
-
-        double halfWidth = part.width() / 2.0D;
-        double halfDepth = part.depth() / 2.0D;
-
-        return new AABB(
-                centerX - halfWidth,
-                centerY,
-                centerZ - halfDepth,
-                centerX + halfWidth,
-                centerY + part.height(),
-                centerZ + halfDepth
-        );
-    }
-
-    public Vec3[] getDebugVehiclePartCorners(VehicleHitboxPart part) {
-        AABB localBox = this.getVehiclePartLocalBox(part);
-
-        Vec3[] localCorners = new Vec3[] {
-                new Vec3(localBox.minX, localBox.minY, localBox.minZ),
-                new Vec3(localBox.maxX, localBox.minY, localBox.minZ),
-                new Vec3(localBox.maxX, localBox.minY, localBox.maxZ),
-                new Vec3(localBox.minX, localBox.minY, localBox.maxZ),
-                new Vec3(localBox.minX, localBox.maxY, localBox.minZ),
-                new Vec3(localBox.maxX, localBox.maxY, localBox.minZ),
-                new Vec3(localBox.maxX, localBox.maxY, localBox.maxZ),
-                new Vec3(localBox.minX, localBox.maxY, localBox.maxZ)
-        };
-
-        Vec3[] worldCorners = new Vec3[localCorners.length];
-
-        for (int i = 0; i < localCorners.length; i++) {
-            worldCorners[i] = this.position().add(this.rotateVehicleOffset(localCorners[i]));
+    protected void tickVehicleParts() {
+        if (this.vehicleParts.length != this.getVehicleHitboxParts().size()) {
+            this.createVehicleParts();
         }
 
-        return worldCorners;
-    }
+        for (VehiclePartEntity partEntity : this.vehicleParts) {
+            VehicleHitboxPart part = partEntity.getVehiclePart();
+            Vec3 rotatedOffset = this.rotateVehicleOffset(part.offset());
 
-    public List<VehicleHitboxPart> getDebugVehicleHitboxParts() {
-        return this.getVehicleHitboxParts();
-    }
-
-    public AABB getDebugVehiclePartBox(VehicleHitboxPart part) {
-        return this.getVehiclePartBox(part);
-    }
-
-    public List<AABB> getDebugVehiclePartBoxes() {
-        List<AABB> boxes = new ArrayList<>();
-
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            boxes.add(this.getVehiclePartBox(part));
-        }
-
-        return boxes;
-    }
-
-
-    protected Optional<VehicleHitboxPart> getLookedAtVehiclePart(Player player) {
-        double reach = player.isCreative() ? 5.0D : 4.5D;
-
-        Vec3 eyePosition = player.getEyePosition();
-        Vec3 lookDirection = player.getLookAngle();
-        Vec3 endPosition = eyePosition.add(lookDirection.scale(reach));
-
-        Vec3 localEyePosition = this.rotateWorldPointIntoVehicleSpace(eyePosition);
-        Vec3 localEndPosition = this.rotateWorldPointIntoVehicleSpace(endPosition);
-
-        VehicleHitboxPart closestPart = null;
-        double closestDistance = Double.MAX_VALUE;
-
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            AABB box = this.getVehiclePartLocalBox(part);
-            Optional<Vec3> hit = box.clip(localEyePosition, localEndPosition);
-
-            if (hit.isEmpty()) {
-                continue;
-            }
-
-            Vec3 worldHit = this.position().add(this.rotateVehicleOffset(hit.get()));
-            double distance = eyePosition.distanceToSqr(worldHit);
-
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestPart = part;
-            }
-        }
-
-        return Optional.ofNullable(closestPart);
-    }
-
-    protected boolean isAnyVehiclePartColliding(VehicleHitboxPart.VehicleHitboxType type) {
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            if (part.type() != type) {
-                continue;
-            }
-
-            if (!this.level().noCollision(this, this.getVehiclePartBox(part))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    protected boolean isBumperBlockedByTallObstacle(float forwardInput) {
-        if (Math.abs(forwardInput) <= 0.01F) {
-            return false;
-        }
-
-        Vec3 localMovementDirection = forwardInput > 0.0F
-                ? new Vec3(0.0D, 0.0D, 1.0D)
-                : new Vec3(0.0D, 0.0D, -1.0D);
-
-        Vec3 movementDirection = this.rotateVehicleOffset(localMovementDirection).normalize();
-        double probeDistance = Math.max(0.35D, Math.abs(forwardInput) * this.getAttributeValue(Attributes.MOVEMENT_SPEED) + 0.35D);
-        Vec3 probeMovement = movementDirection.scale(probeDistance);
-
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            if (part.type() != VehicleHitboxPart.VehicleHitboxType.BUMPER) {
-                continue;
-            }
-
-            Vec3 localBumperOffset = part.offset();
-
-            if (localBumperOffset.dot(localMovementDirection) <= 0.0D) {
-                continue;
-            }
-
-            AABB bumperBox = this.getVehiclePartBox(part)
-                    .move(probeMovement)
-                    .inflate(0.03D, 0.0D, 0.03D);
-
-            AABB tallObstacleProbe = new AABB(
-                    bumperBox.minX,
-                    this.getY() + this.getVehicleStepHeight() + 0.02D,
-                    bumperBox.minZ,
-                    bumperBox.maxX,
-                    this.getY() + this.getVehicleStepHeight() + 1.5D,
-                    bumperBox.maxZ
+            partEntity.setPos(
+                    this.getX() + rotatedOffset.x,
+                    this.getY() + rotatedOffset.y,
+                    this.getZ() + rotatedOffset.z
             );
-
-            if (!this.level().noCollision(this, tallObstacleProbe)) {
-                return true;
-            }
         }
-
-        return false;
     }
 
-    protected boolean isAnyWheelTouchingGround() {
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            if (part.type() != VehicleHitboxPart.VehicleHitboxType.WHEEL) {
-                continue;
-            }
+    protected List<VehiclePartEntity> getVehiclePartsByType(VehicleHitboxPart.VehicleHitboxType type) {
+        List<VehiclePartEntity> matchingParts = new ArrayList<>();
 
-            AABB groundCheckBox = this.getVehiclePartBox(part).move(0.0D, -0.08D, 0.0D);
-
-            if (!this.level().noCollision(this, groundCheckBox)) {
-                return true;
+        for (VehiclePartEntity part : this.vehicleParts) {
+            if (part.getPartType() == type) {
+                matchingParts.add(part);
             }
         }
 
-        return false;
+        return matchingParts;
+    }
+
+    protected List<VehiclePartEntity> getWheelParts() {
+        return this.getVehiclePartsByType(VehicleHitboxPart.VehicleHitboxType.WHEEL);
+    }
+
+    protected List<VehiclePartEntity> getBumperParts() {
+        return this.getVehiclePartsByType(VehicleHitboxPart.VehicleHitboxType.BUMPER);
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+        return this.vehicleParts;
     }
 
     protected boolean canPassengerRide(Player player) {
         return this.getPassengers().size() < this.getMaxPassengers();
+    }
+
+    public InteractionResult interactVehiclePart(VehiclePartEntity partEntity, Player player, InteractionHand hand) {
+        VehicleHitboxPart part = partEntity.getVehiclePart();
+
+        if (this.hasPassenger(player)) {
+            return InteractionResult.PASS;
+        }
+
+        if (!this.level().isClientSide && this.ownerUUID == null) {
+            this.setOwnerUUID(player.getUUID());
+            player.displayClientMessage(Component.literal("Vehicle claimed."), true);
+        }
+
+        if (part.type() == VehicleHitboxPart.VehicleHitboxType.MENU) {
+            this.openVehicleMenu(player);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        if (part.type() == VehicleHitboxPart.VehicleHitboxType.SEAT) {
+            if (!this.level().isClientSide && this.canPassengerRide(player)) {
+                player.startRiding(this);
+            }
+
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        if (player.isSecondaryUseActive()) {
+            this.openVehicleMenu(player);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
+        }
+
+        if (!this.level().isClientSide && this.canPassengerRide(player)) {
+            player.startRiding(this);
+        }
+
+        return InteractionResult.sidedSuccess(this.level().isClientSide);
     }
 
     @Override
@@ -354,6 +314,7 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         this.entityData.define(HAS_WRECKER_UPGRADE, false);
         this.entityData.define(HAS_CARGO_UPGRADE, false);
         this.entityData.define(HAS_ARMOR_UPGRADE, false);
+        this.entityData.define(FILLED_CARGO_STORAGE_SLOTS, 0);
     }
 
     @Override
@@ -365,25 +326,6 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         if (!this.level().isClientSide && this.ownerUUID == null) {
             this.setOwnerUUID(player.getUUID());
             player.displayClientMessage(Component.literal("Vehicle claimed."), true);
-        }
-
-        Optional<VehicleHitboxPart> lookedAtPart = this.getLookedAtVehiclePart(player);
-
-        if (lookedAtPart.isPresent()) {
-            VehicleHitboxPart part = lookedAtPart.get();
-
-            if (part.type() == VehicleHitboxPart.VehicleHitboxType.MENU) {
-                this.openVehicleMenu(player);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
-
-            if (part.type() == VehicleHitboxPart.VehicleHitboxType.SEAT) {
-                if (!this.level().isClientSide && this.canPassengerRide(player)) {
-                    player.startRiding(this);
-                }
-
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
-            }
         }
 
         if (player.isSecondaryUseActive()) {
@@ -456,6 +398,7 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
             NetworkHooks.openScreen(serverPlayer, this, buffer -> buffer.writeInt(this.getId()));
         }
     }
+
     @Override
     public Component getDisplayName() {
         return this.getName();
@@ -470,7 +413,6 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return this.getControllingPassenger() != null;
     }
 
-
     @Override
     public LivingEntity getControllingPassenger() {
         Entity passenger = this.getFirstPassenger();
@@ -479,11 +421,27 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
     @Override
     public boolean isPickable() {
-        return !this.isVehicle();
+        return false;
+    }
+
+    public boolean hurtVehiclePart(VehiclePartEntity partEntity, DamageSource source, float amount) {
+        if (partEntity.isWheel()) {
+            amount *= 0.75F;
+        }
+
+        if (partEntity.isBumper()) {
+            amount *= 0.5F;
+        }
+
+        return this.hurt(source, amount);
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if (source.is(DamageTypes.IN_WALL)) {
+            return false;
+        }
+
         Entity attacker = source.getEntity();
         Entity directEntity = source.getDirectEntity();
 
@@ -511,43 +469,13 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     @Override
     public void knockback(double strength, double x, double z) {
     }
+
     @Override
-    public void move(MoverType moverType, Vec3 movement) {
-        this.updateVehicleMovementBoundingBox();
-        super.move(moverType, movement);
-        this.updateVehicleMovementBoundingBox();
-    }
+    public boolean shouldRenderAtSqrDistance(double distance) {
+        double size = this.getBoundingBox().getSize();
+        double renderDistance = Math.max(64.0D, size * 64.0D);
 
-    protected void updateVehicleMovementBoundingBox() {
-        this.setBoundingBox(this.getVehicleMovementBoundingBox());
-    }
-
-    protected AABB getVehicleMovementBoundingBox() {
-        AABB box = this.getBaseEntityBoundingBox();
-
-        for (VehicleHitboxPart part : this.getVehicleHitboxParts()) {
-            if (part.type() != VehicleHitboxPart.VehicleHitboxType.WHEEL) {
-                continue;
-            }
-
-            box = box.minmax(this.getVehiclePartBox(part));
-        }
-
-        return box;
-    }
-
-    protected AABB getBaseEntityBoundingBox() {
-        EntityDimensions dimensions = this.getDimensions(this.getPose());
-        double halfWidth = dimensions.width / 2.0D;
-
-        return new AABB(
-                this.getX() - halfWidth,
-                this.getY(),
-                this.getZ() - halfWidth,
-                this.getX() + halfWidth,
-                this.getY() + dimensions.height,
-                this.getZ() + halfWidth
-        );
+        return distance < renderDistance * renderDistance;
     }
 
     @Override
@@ -585,12 +513,13 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     public void tick() {
         super.tick();
 
-        this.updateVehicleMovementBoundingBox();
+        this.tickVehicleParts();
 
         if (this.level().isClientSide) {
             this.updateAnimationStates();
         }
     }
+
 
     protected void updateAnimationStates() {
         LivingEntity driver = this.getControllingPassenger();
@@ -613,79 +542,36 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
     @Override
     public void travel(Vec3 travelVector) {
-        LivingEntity driver = this.getControllingPassenger();
-
-        if (this.isVehicle() && driver != null) {
-            this.setMaxUpStep(this.getVehicleStepHeight());
-
-            float forwardInput = driver.zza;
-            float turnInput = driver.xxa;
-
-            boolean hasGas = Math.abs(forwardInput) > 0.01F;
-            boolean bumperBlocked = this.isBumperBlockedByTallObstacle(forwardInput);
-
-            this.deltaRotation = 0.0F;
-
-            if (bumperBlocked) {
-                forwardInput = 0.0F;
-                hasGas = false;
-                this.setDeltaMovement(
-                        0.0D,
-                        this.getDeltaMovement().y,
-                        0.0D
-                );
-            }
-
-            if (hasGas) {
-                float turnSpeed = this.getTurnSpeed();
-
-                if (forwardInput < 0.0F) {
-                    turnSpeed *= this.getReverseTurnMultiplier();
-                }
-
-                this.deltaRotation = -turnInput * turnSpeed;
-                this.setYRot(this.getYRot() + this.deltaRotation);
-
-                this.yBodyRot = this.getYRot();
-                this.yHeadRot = this.yBodyRot;
-            }
-
-            float speed = (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
-
-            if (forwardInput < 0.0F) {
-                speed *= this.getReverseSpeedMultiplier();
-            }
-
-            this.setSpeed(speed);
-
-            super.travel(new Vec3(0.0D, travelVector.y, forwardInput));
-        } else {
-            this.deltaRotation = 0.0F;
-            this.setMaxUpStep(this.getVehicleStepHeight());
-            super.travel(travelVector);
-        }
+        this.setMaxUpStep(this.getVehicleStepHeight());
+        super.travel(travelVector);
     }
+
     @Override
     public boolean shouldRiderSit() {
         return true;
     }
+
     @Override
     protected void positionRider(Entity passenger, MoveFunction moveFunction) {
         int passengerIndex = this.getPassengers().indexOf(passenger);
         Vec3 seatOffset = this.getSeatOffset(passengerIndex);
-
         Vec3 rotatedOffset = seatOffset.yRot(-this.getYRot() * ((float) Math.PI / 180F));
 
         moveFunction.accept(
                 passenger,
                 this.getX() + rotatedOffset.x,
-                this.getY() + rotatedOffset.y + passenger.getMyRidingOffset(),
+                this.getY() + seatOffset.y,
                 this.getZ() + rotatedOffset.z
         );
 
-        passenger.setYRot(passenger.getYRot() + this.deltaRotation);
-        passenger.setYHeadRot(passenger.getYHeadRot() + this.deltaRotation);
-        passenger.setYBodyRot(passenger.getYRot());
-    }
+        if (passenger instanceof LivingEntity livingPassenger) {
+            livingPassenger.fallDistance = 0.0F;
+        }
 
+        float yawChange = this.getPassengerYawChange();
+
+        passenger.setYRot(passenger.getYRot() + yawChange);
+        passenger.setYHeadRot(passenger.getYHeadRot() + yawChange);
+        passenger.yRotO += yawChange;
+    }
 }
