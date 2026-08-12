@@ -332,7 +332,7 @@ public abstract class LandVehicleEntity extends BaseVehicleEntity {
         this.tickVehicleParts();
         this.applyWheelSupport();
     }
-//todo fix movement not being supported at the wheels when riding
+//todo fix car falling through things when wheel not on block but middle is
     protected void tickDrivenMovement(LivingEntity driver) {
         this.setMaxUpStep(this.getVehicleStepHeight());
 

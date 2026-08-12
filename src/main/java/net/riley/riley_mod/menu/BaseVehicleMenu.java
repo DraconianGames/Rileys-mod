@@ -9,7 +9,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.riley.riley_mod.entity.custom.BaseVehicleEntity;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class BaseVehicleMenu extends AbstractContainerMenu {
     public static final int UPGRADE_SLOT_INDEX = 0;
@@ -74,7 +79,21 @@ public class BaseVehicleMenu extends AbstractContainerMenu {
                 int x = VEHICLE_INV_X + col * 18;
                 int y = VEHICLE_INV_Y + row * 18;
 
-                this.addSlot(new Slot(this.vehicleInventory, slotIndex, x, y));
+                this.addSlot(new Slot(this.vehicleInventory, slotIndex, x, y) {
+                    @Override
+                    public int getMaxStackSize(ItemStack stack) {
+                        int maxStackSize = super.getMaxStackSize(stack);
+
+                        if (!(vehicleEntity instanceof BaseVehicleEntity baseVehicle)
+                                || !baseVehicle.hasCargoUpgrade()
+                                || stack.getMaxStackSize() <= 1
+                                || stack.isDamageableItem()) {
+                            return maxStackSize;
+                        }
+
+                        return maxStackSize * 2;
+                    }
+                });
             }
         }
     }
@@ -137,7 +156,7 @@ public class BaseVehicleMenu extends AbstractContainerMenu {
             if (!this.moveItemStackTo(stack, UPGRADE_SLOT_INDEX, UPGRADE_SLOT_INDEX + 1, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (!this.moveItemStackTo(stack, 1, vehicleInventoryEnd, false)) {
+        } else if (!this.moveItemStackToVehicleStorage(stack)) {
             return ItemStack.EMPTY;
         }
 
@@ -148,6 +167,87 @@ public class BaseVehicleMenu extends AbstractContainerMenu {
         }
 
         return result;
+    }
+
+    private boolean moveItemStackToVehicleStorage(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return false;
+        }
+
+        boolean movedAny = false;
+
+
+        if (stack.isStackable()) {
+            for (int i = 1; i < VEHICLE_SLOT_COUNT && !stack.isEmpty(); i++) {
+                Slot slot = this.slots.get(i);
+                ItemStack slotStack = slot.getItem();
+
+                if (slotStack.isEmpty()
+                        || !ItemStack.isSameItemSameTags(stack, slotStack)
+                        || !slot.mayPlace(stack)) {
+                    continue;
+                }
+
+                int maxStackSize = slot.getMaxStackSize(slotStack);
+                int space = maxStackSize - slotStack.getCount();
+
+                if (space <= 0) {
+                    continue;
+                }
+
+                int moveCount = Math.min(space, stack.getCount());
+                slotStack.grow(moveCount);
+                stack.shrink(moveCount);
+                slot.setChanged();
+                movedAny = true;
+            }
+        }
+
+        for (int i = 1; i < VEHICLE_SLOT_COUNT && !stack.isEmpty(); i++) {
+            Slot slot = this.slots.get(i);
+
+            if (slot.hasItem() || !slot.mayPlace(stack)) {
+                continue;
+            }
+
+            int moveCount = Math.min(slot.getMaxStackSize(stack), stack.getCount());
+            ItemStack movedStack = stack.copy();
+            movedStack.setCount(moveCount);
+
+            slot.set(movedStack);
+            stack.shrink(moveCount);
+            slot.setChanged();
+            movedAny = true;
+        }
+
+        return movedAny;
+    }
+    public void sortVehicleInventory() {
+        List<ItemStack> stacks = new ArrayList<>();
+
+        for (int i = 1; i < VEHICLE_SLOT_COUNT; i++) {
+            ItemStack stack = this.vehicleInventory.getItem(i);
+
+            if (!stack.isEmpty()) {
+                stacks.add(stack.copy());
+                this.vehicleInventory.setItem(i, ItemStack.EMPTY);
+            }
+        }
+
+        stacks.sort(Comparator
+                .comparing((ItemStack stack) -> ForgeRegistries.ITEMS.getKey(stack.getItem()).toString())
+                .thenComparing(ItemStack::getCount));
+
+        for (ItemStack stack : stacks) {
+            this.moveItemStackToVehicleStorage(stack);
+
+            if (!stack.isEmpty() && this.vehicleEntity instanceof BaseVehicleEntity baseVehicle) {
+                baseVehicle.spawnAtLocation(stack);
+            }
+        }
+
+        this.vehicleInventory.setChanged();
+        this.broadcastChanges();
     }
 
     @Override

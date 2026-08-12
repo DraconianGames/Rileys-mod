@@ -2,12 +2,15 @@ package net.riley.riley_mod.entity.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.menu.BaseVehicleMenu;
+import net.riley.riley_mod.network.RileyModPackets;
+import net.riley.riley_mod.network.SortVehicleInventoryPacket;
 
 public class BaseVehicleScreen extends AbstractContainerScreen<BaseVehicleMenu> {
     private static final ResourceLocation VEHICLE_MENU_LOCATION =
@@ -22,12 +25,33 @@ public class BaseVehicleScreen extends AbstractContainerScreen<BaseVehicleMenu> 
     private static final int UPGRADE_SLOT_X = 234;
     private static final int UPGRADE_SLOT_Y = 238;
     private static final int SLOT_SIZE = 18;
+    private static final int SORT_BUTTON_X = 2;
+    private static final int SORT_BUTTON_Y = 112;
+    private static final int SORT_BUTTON_WIDTH = 60;
+    private static final int SORT_BUTTON_HEIGHT = 20;
 
     public BaseVehicleScreen(BaseVehicleMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
         this.imageWidth = 256;
         this.imageHeight = 256;
     }
+    @Override
+    protected void init() {
+        super.init();
+
+        this.addRenderableWidget(Button.builder(
+                        Component.literal("Sort"),
+                        button -> RileyModPackets.sendToServer(new SortVehicleInventoryPacket())
+                )
+                .bounds(
+                        this.leftPos + SORT_BUTTON_X,
+                        this.topPos + SORT_BUTTON_Y,
+                        SORT_BUTTON_WIDTH,
+                        SORT_BUTTON_HEIGHT
+                )
+                .build());
+    }
+
 
     @Override
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {

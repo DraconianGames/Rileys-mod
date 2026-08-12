@@ -78,6 +78,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.AUGMENTATION_STATION.get());
                         output.accept(RileyModBlocks.ENCHANTER.get());
                         output.accept(RileyModBlocks.TROPHY_READER.get());
+                        output.accept(RileyModBlocks.TOGGLE_SWITCH.get());
+                        output.accept(RileyModBlocks.SHUT_OFF.get());
                     })
                     .build());
     public static final RegistryObject<CreativeModeTab> CREATURES = CREATIVE_MODE_TABS.register("creatures",

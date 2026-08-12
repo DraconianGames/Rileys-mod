@@ -101,6 +101,11 @@ public class RileyModPackets {
                 .decoder(WingFlapPacket::decode)
                 .consumerMainThread(WingFlapPacket::handle)
                 .add();
+        net.messageBuilder(SortVehicleInventoryPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SortVehicleInventoryPacket::new)
+                .encoder(SortVehicleInventoryPacket::toBytes)
+                .consumerMainThread(SortVehicleInventoryPacket::handle)
+                .add();
  
     }
 

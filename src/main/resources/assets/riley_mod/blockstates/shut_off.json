@@ -1,0 +1,84 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "powered": "false",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_deactivated",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "powered": "false",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_deactivated",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "powered": "false",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_deactivated",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "powered": "false",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_deactivated",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "powered": "true",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_activated",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "powered": "true",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_activated",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "powered": "true",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_activated",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "powered": "true",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "riley_mod:block/shut_off_activated",
+        "y": 270
+      }
+    }
+  ]
+}

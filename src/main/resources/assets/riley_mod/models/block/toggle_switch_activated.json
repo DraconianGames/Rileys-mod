@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "riley_mod:block/toggle_switch_activated"
+  }
+}

@@ -22,6 +22,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -38,7 +40,7 @@ import net.riley.riley_mod.menu.BaseVehicleMenu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
+//todo make wrecker upgrade function
 public abstract class BaseVehicleEntity extends Mob implements MenuProvider, OwnableEntity {
     private static final EntityDataAccessor<Boolean> HAS_WRECKER_UPGRADE =
             SynchedEntityData.defineId(BaseVehicleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -53,6 +55,11 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
     private UUID ownerUUID;
     private VehiclePartEntity[] vehicleParts = new VehiclePartEntity[0];
 
+    private boolean hadCargoUpgradeLastInventoryChange = false;
+    private boolean hadArmorUpgradeLastInventoryChange = false;
+    private boolean handlingCargoUpgradeOverflow = false;
+    private double baseVehicleMaxHealth = -1.0D;
+
     public final AnimationState parkAnimationState = new AnimationState();
     public final AnimationState forwardAnimationState = new AnimationState();
     public final AnimationState backwardAnimationState = new AnimationState();
@@ -63,8 +70,30 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         @Override
         public void setChanged() {
             super.setChanged();
+
+            if (BaseVehicleEntity.this.handlingCargoUpgradeOverflow) {
+                BaseVehicleEntity.this.syncCargoStorageFillState();
+                return;
+            }
+
+            boolean hadCargoUpgrade = BaseVehicleEntity.this.hadCargoUpgradeLastInventoryChange;
+            boolean hadArmorUpgrade = BaseVehicleEntity.this.hadArmorUpgradeLastInventoryChange;
+
             BaseVehicleEntity.this.syncVehicleUpgradeState();
+
+            if (hadCargoUpgrade && !BaseVehicleEntity.this.hasCargoUpgrade()) {
+                BaseVehicleEntity.this.dropCargoUpgradeOverflow();
+            }
+
+            BaseVehicleEntity.this.handleArmorUpgradeHealthChange(hadArmorUpgrade);
+
+            BaseVehicleEntity.this.hadCargoUpgradeLastInventoryChange = BaseVehicleEntity.this.hasCargoUpgrade();
+            BaseVehicleEntity.this.hadArmorUpgradeLastInventoryChange = BaseVehicleEntity.this.hasArmorUpgrade();
             BaseVehicleEntity.this.syncCargoStorageFillState();
+        }
+        @Override
+        public int getMaxStackSize() {
+            return BaseVehicleEntity.this.hasCargoUpgrade() ? 128 : 64;
         }
     };
 
@@ -133,6 +162,47 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         return this.entityData.get(HAS_ARMOR_UPGRADE);
     }
 
+
+    private double getBaseVehicleMaxHealth() {
+        AttributeInstance maxHealthAttribute = this.getAttribute(Attributes.MAX_HEALTH);
+
+        if (maxHealthAttribute == null) {
+            return this.getMaxHealth();
+        }
+
+        if (this.baseVehicleMaxHealth < 0.0D) {
+            this.baseVehicleMaxHealth = maxHealthAttribute.getBaseValue();
+        }
+
+        return this.baseVehicleMaxHealth;
+    }
+
+    private void handleArmorUpgradeHealthChange(boolean hadArmorUpgrade) {
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        AttributeInstance maxHealthAttribute = this.getAttribute(Attributes.MAX_HEALTH);
+
+        if (maxHealthAttribute == null) {
+            return;
+        }
+
+        boolean hasArmorUpgrade = this.hasArmorUpgrade();
+        double baseMaxHealth = this.getBaseVehicleMaxHealth();
+        double newMaxHealth = hasArmorUpgrade ? baseMaxHealth * 2.0D : baseMaxHealth;
+
+        maxHealthAttribute.setBaseValue(newMaxHealth);
+
+        if (!hadArmorUpgrade && hasArmorUpgrade) {
+            this.setHealth(Math.min(this.getHealth() + (float) baseMaxHealth, this.getMaxHealth()));
+        }
+
+        if (hadArmorUpgrade && !hasArmorUpgrade && this.getHealth() > this.getMaxHealth()) {
+            this.setHealth(this.getMaxHealth());
+        }
+    }
+
     public int getFilledCargoStorageSlots() {
         return this.entityData.get(FILLED_CARGO_STORAGE_SLOTS);
     }
@@ -169,6 +239,92 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
         }
 
         this.entityData.set(FILLED_CARGO_STORAGE_SLOTS, filledSlots);
+    }
+
+    private void dropCargoUpgradeOverflow() {
+        if (this.level().isClientSide) {
+            return;
+        }
+
+        this.handlingCargoUpgradeOverflow = true;
+
+        try {
+            for (int i = 1; i < this.vehicleInventory.getContainerSize(); i++) {
+                ItemStack stack = this.vehicleInventory.getItem(i);
+
+                if (stack.isEmpty()) {
+                    continue;
+                }
+
+                int normalMaxStackSize = stack.getMaxStackSize();
+
+                if (stack.getCount() <= normalMaxStackSize) {
+                    continue;
+                }
+
+                int excessCount = stack.getCount() - normalMaxStackSize;
+                ItemStack excessStack = stack.copy();
+                excessStack.setCount(excessCount);
+
+                stack.setCount(normalMaxStackSize);
+
+                ItemStack remainingStack = this.tryMoveCargoOverflowIntoVehicleInventory(excessStack);
+
+                if (!remainingStack.isEmpty()) {
+                    this.spawnAtLocation(remainingStack);
+                }
+            }
+        } finally {
+            this.handlingCargoUpgradeOverflow = false;
+        }
+
+        this.syncCargoStorageFillState();
+    }
+    private ItemStack tryMoveCargoOverflowIntoVehicleInventory(ItemStack stack) {
+        if (stack.isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+
+        ItemStack remainingStack = stack.copy();
+
+        if (remainingStack.isStackable()) {
+            for (int i = 1; i < this.vehicleInventory.getContainerSize() && !remainingStack.isEmpty(); i++) {
+                ItemStack slotStack = this.vehicleInventory.getItem(i);
+
+                if (slotStack.isEmpty()
+                        || !ItemStack.isSameItemSameTags(remainingStack, slotStack)) {
+                    continue;
+                }
+
+                int maxStackSize = slotStack.getMaxStackSize();
+                int space = maxStackSize - slotStack.getCount();
+
+                if (space <= 0) {
+                    continue;
+                }
+
+                int moveCount = Math.min(space, remainingStack.getCount());
+                slotStack.grow(moveCount);
+                remainingStack.shrink(moveCount);
+            }
+        }
+
+        for (int i = 1; i < this.vehicleInventory.getContainerSize() && !remainingStack.isEmpty(); i++) {
+            ItemStack slotStack = this.vehicleInventory.getItem(i);
+
+            if (!slotStack.isEmpty()) {
+                continue;
+            }
+
+            int moveCount = Math.min(remainingStack.getMaxStackSize(), remainingStack.getCount());
+            ItemStack movedStack = remainingStack.copy();
+            movedStack.setCount(moveCount);
+
+            this.vehicleInventory.setItem(i, movedStack);
+            remainingStack.shrink(moveCount);
+        }
+
+        return remainingStack;
     }
 
     @Override
@@ -391,7 +547,10 @@ public abstract class BaseVehicleEntity extends Mob implements MenuProvider, Own
 
         this.vehicleInventory.setChanged();
         this.syncVehicleUpgradeState();
+        this.hadCargoUpgradeLastInventoryChange = this.hasCargoUpgrade();
+        this.hadArmorUpgradeLastInventoryChange = this.hasArmorUpgrade();
     }
+
 
     protected void openVehicleMenu(Player player) {
         if (!this.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
