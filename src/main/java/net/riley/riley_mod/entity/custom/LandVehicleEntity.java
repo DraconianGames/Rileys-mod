@@ -9,7 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class LandVehicleEntity extends BaseVehicleEntity {
     private float deltaRotation;
-
+//todo allow partial block variation for step height
     protected LandVehicleEntity(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }

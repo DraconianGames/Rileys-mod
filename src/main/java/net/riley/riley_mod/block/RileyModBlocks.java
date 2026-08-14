@@ -58,7 +58,7 @@ public class RileyModBlocks {
 public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("whale_hunter_trophy",
         () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
 public static final RegistryObject<Block> SPAWN_EGG_TROPHY = registerBlock("spawn_egg_trophy",
-        () -> new Block(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noOcclusion()));
+        () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak()));
 //Machines
     public static final RegistryObject<Block> CABLE = registerBlock("cable",
             () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));

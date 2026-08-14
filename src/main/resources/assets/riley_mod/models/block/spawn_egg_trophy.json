@@ -1,13 +1,14 @@
 {
 	"format_version": "1.21.11",
 	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
 	"texture_size": [64, 64],
 	"textures": {
 		"layer0": "riley_mod:block/spawn_egg_trophy",
 		"layer1": "riley_mod:block/spawn_egg_trophy_overlay"
 	},
+	"render_type": "cutout",
 	"elements": [
+
 		{
 			"from": [6, 0, 6],
 			"to": [10, 1, 10],
@@ -113,8 +114,8 @@
 			}
 		},
 		{
-			"from": [5.99, -0.01, 5.99],
-			"to": [10.01, 1.01, 10.01],
+			"from": [6, 0, 6],
+			"to": [10, 1, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 0, 7]},
 			"faces": {
 				"north": {"uv": [2, 7, 3, 7.25], "texture": "layer1"},
@@ -126,8 +127,8 @@
 			}
 		},
 		{
-			"from": [3.99, 0.99, 3.99],
-			"to": [12.01, 2.01, 12.01],
+			"from": [4, 1, 4],
+			"to": [12, 2, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 1, 7]},
 			"faces": {
 				"north": {"uv": [0, 8, 2, 8.25], "texture": "layer1"},
@@ -139,8 +140,8 @@
 			}
 		},
 		{
-			"from": [2.99, 1.99, 2.99],
-			"to": [13.01, 4.01, 13.01],
+			"from": [3, 2, 3],
+			"to": [13, 4, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 7]},
 			"faces": {
 				"north": {"uv": [7.5, 7.75, 10, 8.25], "texture": "layer1"},
@@ -152,8 +153,8 @@
 			}
 		},
 		{
-			"from": [1.99, 3.99, 1.99],
-			"to": [14.01, 7.01, 14.01],
+			"from": [2, 4, 2],
+			"to": [14, 7, 14],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 4, 7]},
 			"faces": {
 				"north": {"uv": [2, 7.5, 5, 8.25], "texture": "layer1"},
@@ -165,8 +166,8 @@
 			}
 		},
 		{
-			"from": [2.99, 6.99, 2.99],
-			"to": [13.01, 9.01, 13.01],
+			"from": [3, 7, 3],
+			"to": [13, 9, 13],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 7, 7]},
 			"faces": {
 				"north": {"uv": [8, 1.5, 10.5, 2], "texture": "layer1"},
@@ -178,8 +179,8 @@
 			}
 		},
 		{
-			"from": [3.99, 8.99, 3.99],
-			"to": [12.01, 11.01, 12.01],
+			"from": [4, 9, 4],
+			"to": [12, 11, 12],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 9, 7]},
 			"faces": {
 				"north": {"uv": [5, 8.5, 7, 9], "texture": "layer1"},
@@ -191,8 +192,8 @@
 			}
 		},
 		{
-			"from": [4.99, 10.99, 4.99],
-			"to": [11.01, 12.01, 11.01],
+			"from": [5, 11, 5],
+			"to": [11, 12, 11],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 7]},
 			"faces": {
 				"north": {"uv": [9, 5, 10.5, 5.25], "texture": "layer1"},
@@ -204,8 +205,8 @@
 			}
 		},
 		{
-			"from": [6.99, 11.99, 6.99],
-			"to": [8.99, 12.99, 8.99],
+			"from": [7, 12, 7],
+			"to": [9, 13, 9],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
 			"faces": {
 				"north": {"uv": [7, 8.5, 7.5, 8.75], "texture": "layer1"},
