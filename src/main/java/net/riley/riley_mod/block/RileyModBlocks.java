@@ -84,8 +84,8 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> TOGGLE_SWITCH = registerBlock("toggle_switch",
             () -> new ToggleSwitchBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<Block> SHUT_OFF = registerBlock("shut_off",
-            () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.STONE)));
-//todo make models/textuers for toggle switch and shut off
+            () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
+    //TODO move trophy reader png location
 //individual parts
     public static final RegistryObject<Block> MACHINE_CORE = registerBlock("machine_core",
             () -> new MachineCorePartBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));

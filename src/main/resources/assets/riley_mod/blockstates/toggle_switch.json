@@ -1,16 +1,16 @@
 {
   "variants": {
     "activated=false,powered=false": {
-      "model": "riley_mod:block/toggle_switch_deactivated"
+      "model": "riley_mod:block/toggle_switch/toggle_switch_deactivated"
     },
     "activated=false,powered=true": {
-      "model": "riley_mod:block/toggle_switch_deactivated"
+      "model": "riley_mod:block/toggle_switch/toggle_switch_deactivated_powered"
     },
     "activated=true,powered=false": {
-      "model": "riley_mod:block/toggle_switch_activated"
+      "model": "riley_mod:block/toggle_switch/toggle_switch_activated"
     },
     "activated=true,powered=true": {
-      "model": "riley_mod:block/toggle_switch_activated"
+      "model": "riley_mod:block/toggle_switch/toggle_switch_activated_powered"
     }
   }
 }
