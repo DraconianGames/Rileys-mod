@@ -1,4 +1,4 @@
-// 1.20.1	2026-06-11T19:21:59.0603697	Loot Tables
+// 1.20.1	2026-08-13T22:13:22.0377263	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -30,6 +30,7 @@ c2ecd9401e5f3f86875f8b781fa9fb6d9b91d510 data/riley_mod/loot_tables/blocks/machi
 a4ad20c5fbf3a5c805e36297c4543d6c1911dd9d data/riley_mod/loot_tables/blocks/machine_core_screen.json
 262b652c47a903ec87a569ea4c73de732f9f0e22 data/riley_mod/loot_tables/blocks/muscle_crop.json
 d94e11374a18e0c9b9b0c75393ceb2ba5d055a1c data/riley_mod/loot_tables/blocks/night_star.json
+345e29e2ee271d285961ad56204c0cc03e6d6e55 data/riley_mod/loot_tables/blocks/shut_off.json
 4ee072b3a1e0438516c1b87d650d5c60aa7c0823 data/riley_mod/loot_tables/blocks/special_spawner.json
 7f65ec048b7906f1f0203412f0e07fc6b8bea2b4 data/riley_mod/loot_tables/blocks/stripped_abyss_log.json
 2b98809870df78dcb3ab6fd31d9c271aab832162 data/riley_mod/loot_tables/blocks/stripped_abyss_wood.json
@@ -39,6 +40,7 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 95315fbf246c49d70ae74cb167e46f58045a3630 data/riley_mod/loot_tables/blocks/structure_brick_slab.json
 63ca2f45ec18017c187090ca08536a99f3627ecf data/riley_mod/loot_tables/blocks/structure_brick_stairs.json
 563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json
+3947c0129406c950ecf7ec4b028671b228362f05 data/riley_mod/loot_tables/blocks/toggle_switch.json
 6afbf8b9d7391023a77426655b08c7d529bb2bd2 data/riley_mod/loot_tables/blocks/trophy_reader.json
 7dd6bf04282b93dd2be2b0519776f4b21f633b1d data/riley_mod/loot_tables/blocks/whale_hunter_trophy.json
 f23f442de8e3c70e0ed45eef7346ec7f092bd9dd data/riley_mod/loot_tables/chests/arena.json
