@@ -2,6 +2,7 @@ package net.riley.riley_mod.item;
 
 
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -90,6 +91,10 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SYNTHETIC_MUSCLE = ITEMS.register("synthetic_muscle",
             () -> new ItemNameBlockItem(RileyModBlocks.MUSCLE_CROP.get(), (new Item.Properties())));
+
+    public static final RegistryObject<Item> BLUESTONE = ITEMS.register("bluestone",
+            () -> new ItemNameBlockItem(RileyModBlocks.BLUESTONE_WIRE.get(), (new Item.Properties())));
+
     public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TORSO = ITEMS.register("unassembled_mecharex_torso",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TAIL = ITEMS.register("unassembled_mecharex_tail",

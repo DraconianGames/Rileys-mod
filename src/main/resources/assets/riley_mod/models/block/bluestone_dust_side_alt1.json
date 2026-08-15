@@ -1,0 +1,6 @@
+{
+  "parent": "block/bluestone_dust_side_alt",
+  "textures": {
+    "line": "block/bluestone_dust_line1"
+  }
+}

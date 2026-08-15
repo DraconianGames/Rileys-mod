@@ -80,6 +80,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModBlocks.TROPHY_READER.get());
                         output.accept(RileyModBlocks.TOGGLE_SWITCH.get());
                         output.accept(RileyModBlocks.SHUT_OFF.get());
+                        output.accept(RileyModItems.BLUESTONE.get());
                     })
                     .build());
     public static final RegistryObject<CreativeModeTab> CREATURES = CREATIVE_MODE_TABS.register("creatures",

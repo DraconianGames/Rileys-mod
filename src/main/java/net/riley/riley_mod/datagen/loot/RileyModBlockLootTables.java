@@ -57,7 +57,8 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.TROPHY_BAT.get());
         this.dropSelf(RileyModBlocks.TROPHY_ENDER_DRAGON.get());
 
-
+        this.add(RileyModBlocks.BLUESTONE_WIRE.get(),
+                block -> createSingleItemTableWithSilkTouch(block, RileyModItems.BLUESTONE.get()));
 
 
         this.add(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(),
@@ -69,6 +70,7 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
 
         this.add(RileyModBlocks.ABYSSAL_GRASS.get(),
                 block -> createSingleItemTableWithSilkTouch(block, RileyModBlocks.ABYSSAL_DIRT.get()));
+
         this.add(RileyModBlocks.ABYSSAL_STONE.get(), block ->
                 createSingleItemTableWithSilkTouch(block, RileyModBlocks.ABYSSAL_COBBLESTONE.get()));
 
