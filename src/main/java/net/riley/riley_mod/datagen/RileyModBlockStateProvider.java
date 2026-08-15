@@ -90,7 +90,20 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
         machineCoreTopBottomPartBlock(RileyModBlocks.MACHINE_CORE_SCREEN, "machine_core_screen", "machine_core");
 
         makeMuscleCrop((CropBlock) RileyModBlocks.MUSCLE_CROP.get(), "muscle_crop_stage", "muscle_crop_stage");
+
+        trophyBlock(RileyModBlocks.TROPHY_BAT);
+        trophyBlock(RileyModBlocks.TROPHY_ENDER_DRAGON);
     }
+    private void trophyBlock(RegistryObject<Block> blockRegistryObject) {
+        String blockName = blockRegistryObject.getId().getPath();
+
+        // Create the block model that inherits from spawn_egg_trophy
+        ModelFile trophyModel = models().withExistingParent(blockName, modLoc("block/spawn_egg_trophy"));
+
+        // Set the blockstate variant
+        simpleBlock(blockRegistryObject.get(), trophyModel);
+    }
+
     public void makeMuscleCrop(CropBlock block, String modelName, String textureName) {
         Function<BlockState, ConfiguredModel[]> function = state -> strawberryStates(state, block, modelName, textureName);
 

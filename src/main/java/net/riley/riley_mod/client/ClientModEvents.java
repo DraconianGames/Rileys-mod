@@ -61,7 +61,9 @@ public class ClientModEvents {
                     return -1;
                 },
                 // add all trophy blocks here
-                RileyModBlocks.TROPHY_BAT.get(),RileyModBlocks.TROPHY_ENDER_DRAGON.get() /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
+                RileyModBlocks.TROPHY_BAT.get(),
+                RileyModBlocks.TROPHY_ENDER_DRAGON.get()
+                /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
 
         itemColors.register((stack, tintIndex) -> {
                     if (stack.getItem() instanceof BlockItem bi) {
@@ -73,6 +75,8 @@ public class ClientModEvents {
                     return -1;
                 },
                 // corresponding BlockItem(s)
-                RileyModBlocks.TROPHY_BAT.get().asItem(), RileyModBlocks.TROPHY_ENDER_DRAGON.get().asItem() /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
+                RileyModBlocks.TROPHY_BAT.get().asItem(),
+                RileyModBlocks.TROPHY_ENDER_DRAGON.get().asItem()
+                /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
     }
 }

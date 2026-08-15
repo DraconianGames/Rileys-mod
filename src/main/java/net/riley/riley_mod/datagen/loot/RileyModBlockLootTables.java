@@ -54,6 +54,8 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(RileyModBlocks.MACHINE_CORE_SCREEN.get());
         this.dropSelf(RileyModBlocks.SHUT_OFF.get());
         this.dropSelf(RileyModBlocks.TOGGLE_SWITCH.get());
+        this.dropSelf(RileyModBlocks.TROPHY_BAT.get());
+        this.dropSelf(RileyModBlocks.TROPHY_ENDER_DRAGON.get());
 
 
 

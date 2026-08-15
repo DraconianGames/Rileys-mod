@@ -132,6 +132,15 @@ public class RileyModItemModelProvider extends ItemModelProvider {
 
         evenSimplerBlockItem2(RileyModBlocks.ENCHANTER);
         evenSimplerBlockItem2(RileyModBlocks.AUGMENTATION_STATION);
+
+        trophyItem(RileyModBlocks.TROPHY_BAT);
+        trophyItem(RileyModBlocks.TROPHY_ENDER_DRAGON);
+    }
+    private ItemModelBuilder trophyItem(RegistryObject<Block> block) {
+        String blockName = block.getId().getPath();
+
+        // Item parents the block model which parents spawn_egg_trophy
+        return withExistingParent(blockName, modLoc("block/" + blockName));
     }
     private ItemModelBuilder flatBlockItem(RegistryObject<Block> block) {
         return withExistingParent(block.getId().getPath(),

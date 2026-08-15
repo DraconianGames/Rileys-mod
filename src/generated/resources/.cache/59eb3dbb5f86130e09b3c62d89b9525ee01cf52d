@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-13T22:13:22.0377263	Loot Tables
+// 1.20.1	2026-08-15T08:36:22.0322316	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -41,6 +41,8 @@ c8e20d654c6dc33ddff979a2dec3bd8bb51e243b data/riley_mod/loot_tables/blocks/struc
 63ca2f45ec18017c187090ca08536a99f3627ecf data/riley_mod/loot_tables/blocks/structure_brick_stairs.json
 563892ebff96e40a772e26b7515c2c355a0d983e data/riley_mod/loot_tables/blocks/structure_brick_wall.json
 3947c0129406c950ecf7ec4b028671b228362f05 data/riley_mod/loot_tables/blocks/toggle_switch.json
+f9f5652dc9ffaba0125721bc66dc0e6d932d789e data/riley_mod/loot_tables/blocks/trophy_bat.json
+b0f3bd378a021b81e11ae9b4f0291a47679484a3 data/riley_mod/loot_tables/blocks/trophy_ender_dragon.json
 6afbf8b9d7391023a77426655b08c7d529bb2bd2 data/riley_mod/loot_tables/blocks/trophy_reader.json
 7dd6bf04282b93dd2be2b0519776f4b21f633b1d data/riley_mod/loot_tables/blocks/whale_hunter_trophy.json
 f23f442de8e3c70e0ed45eef7346ec7f092bd9dd data/riley_mod/loot_tables/chests/arena.json
