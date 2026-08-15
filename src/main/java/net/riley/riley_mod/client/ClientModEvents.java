@@ -47,42 +47,32 @@ public class ClientModEvents {
             renderer.addLayer(new PlayerWingsLayer(renderer, wingRoot));
         }
     }
-    public class ClientEventHandler {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            Minecraft mc = Minecraft.getInstance();
-            BlockColors blockColors = mc.getBlockColors();
-            ItemColors itemColors = mc.getItemColors();
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+        Minecraft mc = Minecraft.getInstance();
+        BlockColors blockColors = mc.getBlockColors();
+        ItemColors itemColors = mc.getItemColors();
 
-            // register block color provider for each trophy block you made:
-            blockColors.register((state, world, pos, tintIndex) -> {
-                        Block block = state.getBlock();
-                        if (block instanceof SpawnEggTrophy) {
-                            SpawnEggTrophy trophy = (SpawnEggTrophy) block;
+        blockColors.register((state, world, pos, tintIndex) -> {
+                    Block block = state.getBlock();
+                    if (block instanceof SpawnEggTrophy trophy) {
+                        return tintIndex == 0 ? trophy.getPrimaryColor() : trophy.getSecondaryColor();
+                    }
+                    return -1;
+                },
+                // add all trophy blocks here
+                RileyModBlocks.TROPHY_BAT.get() /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
+
+        itemColors.register((stack, tintIndex) -> {
+                    if (stack.getItem() instanceof BlockItem bi) {
+                        Block block = bi.getBlock();
+                        if (block instanceof SpawnEggTrophy trophy) {
                             return tintIndex == 0 ? trophy.getPrimaryColor() : trophy.getSecondaryColor();
                         }
-                        return -1;
-                    },
-                    // list trophy blocks here:
-                    RileyModBlocks.TROPHY_BAT.get()
-                    // add more: , RileyModBlocks.TROPHY_SOME_OTHER.get(), ...
-            );
-
-            // register item color provider for the corresponding BlockItem(s):
-            itemColors.register((stack, tintIndex) -> {
-                        if (stack.getItem() instanceof BlockItem) {
-                            Block block = ((BlockItem) stack.getItem()).getBlock();
-                            if (block instanceof SpawnEggTrophy) {
-                                SpawnEggTrophy trophy = (SpawnEggTrophy) block;
-                                return tintIndex == 0 ? trophy.getPrimaryColor() : trophy.getSecondaryColor();
-                            }
-                        }
-                        return -1;
-                    },
-                    // same list of BlockItem targets: pass the block(s) used to create the BlockItem registry entries
-                    RileyModBlocks.TROPHY_BAT.get()
-                    // add more trophies here
-            );
-        }
+                    }
+                    return -1;
+                },
+                // corresponding BlockItem(s)
+                RileyModBlocks.TROPHY_BAT.get().asItem() /*, RileyModBlocks.TROPHY_CREEPER.get(), ... */);
     }
 }
