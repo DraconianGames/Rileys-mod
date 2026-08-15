@@ -60,8 +60,9 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
         () -> new WhaleHunterTrophyBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion()));
 
 
-    public static final RegistryObject<Block> TROPHY_BAT = registerBlock("trophy_bat",
-            () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak(), EntityType.BAT));
+    public static final RegistryObject<Block> TROPHY_BAT = registerBlock("trophy_bat", () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak(), EntityType.BAT));
+    public static final RegistryObject<Block> TROPHY_ENDER_DRAGON = registerBlock("trophy_ender_dragon", () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak(), EntityType.ENDER_DRAGON));
+    //TODO rest of mob trophies
     //Machines
     public static final RegistryObject<Block> CABLE = registerBlock("cable",
             () -> new CableBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD).noOcclusion()));

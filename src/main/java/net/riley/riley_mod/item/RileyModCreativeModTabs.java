@@ -129,6 +129,7 @@ public class RileyModCreativeModTabs {
 
 
                         output.accept(RileyModBlocks.TROPHY_BAT.get());
+                        output.accept(RileyModBlocks.TROPHY_ENDER_DRAGON.get());
                     })
                     .build());
 
