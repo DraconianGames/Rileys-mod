@@ -9,7 +9,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SpawnEggTrophy extends Block {
     private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 13, 14);
-
+//todo use as base class for every mob trophy. get colors of mob's spawn egg
     public SpawnEggTrophy(Properties pProperties) {
         super(pProperties);
     }

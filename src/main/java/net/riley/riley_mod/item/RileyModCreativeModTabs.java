@@ -128,6 +128,7 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.MECHAREX_HEAD.get());
 
                         output.accept(RileyModBlocks.SPAWN_EGG_TROPHY.get());
+                        output.accept(RileyModBlocks.TROPHY_BAT.get());
                     })
                     .build());
 
