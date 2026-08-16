@@ -1,6 +1,6 @@
 {
-  "parent": "block/bluestone_dust_side",
+  "parent": "riley_mod:block/bluestone_dust_side",
   "textures": {
-    "line": "block/bluestone_dust_line0"
+    "line": "riley_mod:block/bluestone_dust_line0"
   }
 }

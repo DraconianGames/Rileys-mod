@@ -1,8 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "particle": "block/bluestone_dust_dot",
-    "overlay": "block/bluestone_dust_overlay"
+    "particle": "riley_mod:block/bluestone_dust_dot",
+    "overlay": "riley_mod:block/bluestone_dust_overlay"
   },
   "elements": [
     {   "from": [ 0, 0.25, 8 ],

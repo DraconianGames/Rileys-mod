@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "riley_mod:blustone_wire"
+              "name": "riley_mod:bluestone_wire"
             },
             {
               "type": "minecraft:item",
@@ -41,5 +41,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "riley_mod:blocks/blustone_wire"
+  "random_sequence": "riley_mod:blocks/bluestone_wire"
 }

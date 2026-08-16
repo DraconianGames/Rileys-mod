@@ -93,7 +93,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> SHUT_OFF = registerBlock("shut_off",
             () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
 
-    public static final RegistryObject<Block> BLUESTONE_WIRE = registerBlock("blustone_wire",
+    public static final RegistryObject<Block> BLUESTONE_WIRE = registerBlock("bluestone_wire",
             () -> new BlueStoneWireBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
     //todo fix texture issue and make blue
 
