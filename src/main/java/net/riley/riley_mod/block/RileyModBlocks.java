@@ -24,7 +24,7 @@ import net.riley.riley_mod.item.custom.NightStarBlockItem;
 import net.riley.riley_mod.worldgen.tree.AbyssTreeGrower;
 
 import java.util.function.Supplier;
-
+//todo make method of gaining bluestone
 public class RileyModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, RileyMod.MODID);
@@ -61,7 +61,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
 
 
     public static final RegistryObject<Block> TROPHY_BAT = registerBlock("trophy_bat", () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak(), EntityType.BAT));
-    public static final RegistryObject<Block> TROPHY_ENDER_DRAGON = registerBlock("trophy_ender_dragon", () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(Blocks.SNIFFER_EGG).noParticlesOnBreak(), EntityType.ENDER_DRAGON));
+    public static final RegistryObject<Block> TROPHY_ENDER_DRAGON = registerBlock("trophy_ender_dragon", () -> new SpawnEggTrophy(BlockBehaviour.Properties.copy(RileyModBlocks.TROPHY_BAT.get()), EntityType.ENDER_DRAGON));
     //TODO rest of mob trophies
     //Machines
     public static final RegistryObject<Block> CABLE = registerBlock("cable",
