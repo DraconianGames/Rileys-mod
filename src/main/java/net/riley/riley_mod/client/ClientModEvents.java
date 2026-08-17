@@ -16,6 +16,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.BlueStoneWireBlock;
 import net.riley.riley_mod.block.custom.SpawnEggTrophy;
 import net.riley.riley_mod.client.model.WingModel;
 import net.riley.riley_mod.client.render.layer.PlayerWingsLayer;
@@ -51,6 +53,19 @@ public class ClientModEvents {
     public static void onClientSetup(FMLClientSetupEvent event) {
         Minecraft mc = Minecraft.getInstance();
         BlockColors blockColors = mc.getBlockColors();
+
+        blockColors.register((state, world, pos, tintIndex) -> {
+            // only tint index 0 (your models use tintindex:0)
+            if (tintIndex != 0) return -1;
+            if (state == null) return -1; // defensive: sometimes called with null
+            try {
+                int power = state.getValue(BlueStoneWireBlock.POWER);
+                return BlueStoneWireBlock.getColorForPower(power);
+            } catch (Exception e) {
+                return -1;
+            }
+        }, RileyModBlocks.BLUESTONE_WIRE.get());
+
         ItemColors itemColors = mc.getItemColors();
 
         blockColors.register((state, world, pos, tintIndex) -> {

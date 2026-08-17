@@ -94,7 +94,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
             () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
 
     public static final RegistryObject<Block> BLUESTONE_WIRE = registerBlock("bluestone_wire",
-            () -> new BlueStoneWireBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new BlueStoneWireBlock(BlockBehaviour.Properties.copy(Blocks.STONE).noOcclusion().noCollission().instabreak()));
     //todo fix texture issue and make blue
 
     //TODO move trophy reader png location
