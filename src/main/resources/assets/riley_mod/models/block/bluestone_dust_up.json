@@ -5,6 +5,7 @@
     "line": "riley_mod:block/bluestone_dust_line0",
     "overlay": "riley_mod:block/bluestone_dust_overlay"
   },
+  "render_type": "cutout",
   "elements": [
     {   "from": [ 0, 0, 0.25 ],
       "to": [ 16, 16, 0.25 ],
