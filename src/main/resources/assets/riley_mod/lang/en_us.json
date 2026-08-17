@@ -43,6 +43,10 @@
   "item.riley_mod.mecha_parasite_spawn_egg": "Mecha Parasite Spawn Egg",
   "item.riley_mod.parasite_carrier_spawn_egg": "Parasite Carrier Spawn Egg",
   "item.riley_mod.tome": "Tome",
+  "item.riley_mod.wrecker_upgrade": "Wrecker Upgrade",
+  "item.riley_mod.cargo_upgrade": "Cargo Upgrade",
+  "item.riley_mod.armor_upgrade": "Armor Upgrade",
+  "item.riley_mod.bluestone": "Bluestone Dust",
 
   "item.riley_mod.fancy_skull": "Fancy Skull",
   "item.riley_mod.mecha_terror_egg": "Mecha Terror Egg",
@@ -120,6 +124,11 @@
   "block.riley_mod.machine_core_center": "Machine Core Center",
   "block.riley_mod.machine_core_screen": "Machine Core Screen",
   "block.riley_mod.machine_core_port": "Machine Core Port",
+  "block.riley_mod.bluestone_wire": "Bluestone Wire",
+  "block.riley_mod.shut_off": "Shut Off",
+  "block.riley_mod.toggle_switch": "Toggle Switch",
+  "block.riley_mod.trophy_ender_dragon": "Ender Dragon Trophy",
+  "block.riley_mod.trophy_bat": "Bat Trophy",
 
 
   "block.riley_mod.funtium_ore_block": "Funtium Ore Block",
