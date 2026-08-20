@@ -46,6 +46,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CREEPER_SOUL = ITEMS.register("creeper_soul",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
             () -> new RileyModAbyssPortalItem(new Item.Properties()));

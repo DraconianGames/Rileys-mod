@@ -2,14 +2,12 @@ package net.riley.riley_mod.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
 import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.item.RileyModItems;
 import net.riley.riley_mod.loot.AddItemModifier;
 
@@ -35,6 +33,6 @@ public class RileyModGlobalLootModifiersProvider extends GlobalLootModifierProvi
         add("soul_from_creeper", new AddItemModifier(new LootItemCondition[] {
                 new LootTableIdCondition.Builder(new ResourceLocation("entities/creeper")).build(),
                 LootItemRandomChanceCondition.randomChance(0.05f).build()
-        }, RileyModItems.SOUL.get()));
+        }, RileyModItems.CREEPER_SOUL.get()));
     }
 }

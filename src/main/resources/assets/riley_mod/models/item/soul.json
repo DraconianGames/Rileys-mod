@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "riley_mod:item/soul"
+    "layer0": "riley_mod:item/soul",
+    "layer1": "riley_mod:item/soul_overlay"
   }
 }
