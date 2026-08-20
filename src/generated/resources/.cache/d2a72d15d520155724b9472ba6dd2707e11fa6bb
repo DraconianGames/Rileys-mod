@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-17T14:56:46.3108641	Item Models: riley_mod
+// 1.20.1	2026-08-20T16:28:47.7494912	Item Models: riley_mod
 745f864e480f32412a3e77cacfebbc4ae84cb82e assets/riley_mod/models/item/abyss_portal.json
 c4f0d3d9a0750f9a897b98516b60e3146c584bc5 assets/riley_mod/models/item/abyss_sapling.json
 668d0c901baef7583f5b95b0ffcc3477e06b295f assets/riley_mod/models/item/abyss_wood_fence.json
@@ -17,6 +17,7 @@ aeedf97e64a92aa989813272acab0275b7c802a3 assets/riley_mod/models/item/bluestone.
 b7029b59fe453c53bf788076c731898edaff691e assets/riley_mod/models/item/cannon_sheild.json
 49a8843ffe7d4604740fc75d7f98b20e0069d71e assets/riley_mod/models/item/cargo_upgrade.json
 7ca673f8fb552755581f62e5923e850be7951802 assets/riley_mod/models/item/claw.json
+220402c4ccc078c1d97f00fd4f7bc2f4a39893ea assets/riley_mod/models/item/creeper_soul.json
 6a9699eaf0dbd822f158b83708f6ad4ba5b736f4 assets/riley_mod/models/item/enchanter.json
 2dfcec25e31ff4079cdc85f5cc78cc9eb0f01aa8 assets/riley_mod/models/item/eye.json
 be4b49bad7f93f1075ded56900d70089cf39908d assets/riley_mod/models/item/fallow_portal.json

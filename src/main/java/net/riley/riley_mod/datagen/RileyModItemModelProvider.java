@@ -211,6 +211,9 @@ public class RileyModItemModelProvider extends ItemModelProvider {
         trophyItem(RileyModBlocks.TROPHY_ZOMBIE_VILLAGER);
         trophyItem(RileyModBlocks.TROPHY_ZOMBIFIED_PIGLIN);
         trophyItem(RileyModBlocks.TROPHY_ENDER_DRAGON);
+
+        soulItem(RileyModItems.CREEPER_SOUL, modLoc("item/soul"));
+
     }
     private ItemModelBuilder trophyItem(RegistryObject<Block> block) {
         String blockName = block.getId().getPath();
@@ -291,6 +294,9 @@ public class RileyModItemModelProvider extends ItemModelProvider {
     public void wallItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
         this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall",  new ResourceLocation(RileyMod.MODID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+    private ItemModelBuilder soulItem(RegistryObject<Item> item, ResourceLocation parent) {
+        return withExistingParent(item.getId().getPath(), parent);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
