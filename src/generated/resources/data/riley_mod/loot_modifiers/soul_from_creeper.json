@@ -3,7 +3,11 @@
   "conditions": [
     {
       "condition": "forge:loot_table_id",
-      "loot_table_id": "minecraft:entites/creeper"
+      "loot_table_id": "minecraft:entities/creeper"
+    },
+    {
+      "chance": 0.05,
+      "condition": "minecraft:random_chance"
     }
   ],
   "item": "riley_mod:soul"

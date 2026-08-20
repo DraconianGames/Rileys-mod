@@ -33,6 +33,8 @@ public class RileyModGlobalLootModifiersProvider extends GlobalLootModifierProvi
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/jungle_temple")).build() }, RileyModItems.SYNTHETIC_MUSCLE.get()));
         */
         add("soul_from_creeper", new AddItemModifier(new LootItemCondition[] {
-                new LootTableIdCondition.Builder(new ResourceLocation("entites/creeper")).build()}, RileyModItems.SOUL.get()));
+                new LootTableIdCondition.Builder(new ResourceLocation("entities/creeper")).build(),
+                LootItemRandomChanceCondition.randomChance(0.05f).build()
+        }, RileyModItems.SOUL.get()));
     }
 }
