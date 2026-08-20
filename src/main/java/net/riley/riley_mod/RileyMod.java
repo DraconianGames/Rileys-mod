@@ -25,6 +25,7 @@ import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.client.*;
 import net.riley.riley_mod.item.RileyModCreativeModTabs;
 import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.loot.ModLootModifiers;
 import net.riley.riley_mod.menu.RileyModMenuTypes;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.particle.RileyModParticles;
@@ -66,6 +67,7 @@ public class RileyMod
         RileyModItems.register(modEventBus);
         RileyModEntities.register(modEventBus);
         RileyModBlocks.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
         RileyModMenuTypes.register(modEventBus);
         RileyModBlockEntities.register(modEventBus);
         RileyModEffects.register(modEventBus);

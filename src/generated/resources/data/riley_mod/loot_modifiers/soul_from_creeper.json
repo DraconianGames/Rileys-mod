@@ -1,0 +1,10 @@
+{
+  "type": "riley_mod:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entites/creeper"
+    }
+  ],
+  "item": "riley_mod:soul"
+}

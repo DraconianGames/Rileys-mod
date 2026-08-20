@@ -44,6 +44,8 @@ public class RileyModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ARMOR_UPGRADE = ITEMS.register("armor_upgrade",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
+            () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
             () -> new RileyModAbyssPortalItem(new Item.Properties()));
@@ -94,6 +96,7 @@ public class RileyModItems {
 
     public static final RegistryObject<Item> BLUESTONE = ITEMS.register("bluestone",
             () -> new ItemNameBlockItem(RileyModBlocks.BLUESTONE_WIRE.get(), (new Item.Properties())));
+    //TODO fix not turning off when connected to redstone. fix middle mouse click getting block instead of the item
 
     public static final RegistryObject<Item> UNASSEMBLED_MECHAREX_TORSO = ITEMS.register("unassembled_mecharex_torso",
             () -> new Item(new Item.Properties()));

@@ -35,6 +35,7 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new RileyModItemTagGenerator(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper));
 
         generator.addProvider(event.includeServer(), new RileyModWorldGenProvider(packOutput, lookupProvider));
+        generator.addProvider(event.includeServer(), new RileyModGlobalLootModifiersProvider(packOutput));
 
 
     }

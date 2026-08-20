@@ -103,6 +103,8 @@ public class RileyModCreativeModTabs {
                         output.accept(RileyModItems.MECHA_PARASITE_SPAWN_EGG.get());
                         output.accept(RileyModItems.PARASITE_CARRIER_SPAWN_EGG.get());
 
+                        output.accept(RileyModItems.SOUL.get());
+
                         output.accept(RileyModItems.CLAW.get());
                         output.accept(RileyModItems.TOOTH.get());
 

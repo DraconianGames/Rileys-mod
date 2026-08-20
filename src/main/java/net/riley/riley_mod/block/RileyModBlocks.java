@@ -162,7 +162,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
                     .noOcclusion()));
     //redstone components
     public static final RegistryObject<Block> TOGGLE_SWITCH = registerBlock("toggle_switch",
-            () -> new ToggleSwitchBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new ToggleSwitchBlock(BlockBehaviour.Properties.copy(Blocks.STONE).lightLevel(state -> state.getValue(ToggleSwitchBlock.ACTIVATED) ? 15 : 0)));
 
     public static final RegistryObject<Block> SHUT_OFF = registerBlock("shut_off",
             () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
