@@ -47,7 +47,7 @@ public class RileyModItems {
     public static final RegistryObject<Item> SOUL = ITEMS.register("soul",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CREEPER_SOUL = ITEMS.register("creeper_soul",
-            () -> new Item(new Item.Properties()));
+            () -> new SoulItem(net.minecraft.world.entity.EntityType.CREEPER, new Item.Properties()));
 
     public static final RegistryObject<Item> EYE = ITEMS.register("eye",
             () -> new RileyModAbyssPortalItem(new Item.Properties()));

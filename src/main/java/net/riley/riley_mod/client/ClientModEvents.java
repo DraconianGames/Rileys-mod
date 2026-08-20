@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -30,6 +31,8 @@ import net.riley.riley_mod.block.custom.BlueStoneWireBlock;
 import net.riley.riley_mod.block.custom.SpawnEggTrophy;
 import net.riley.riley_mod.client.model.WingModel;
 import net.riley.riley_mod.client.render.layer.PlayerWingsLayer;
+import net.riley.riley_mod.item.RileyModItems;
+import net.riley.riley_mod.item.custom.SoulItem;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.network.WingSneakPacket;
 
@@ -54,6 +57,8 @@ public class ClientModEvents {
         Minecraft mc = Minecraft.getInstance();
         BlockColors blockColors = mc.getBlockColors();
 
+
+
         blockColors.register((state, world, pos, tintIndex) -> {
             // only tint index 0 (your models use tintindex:0)
             if (tintIndex != 0) return -1;
@@ -68,6 +73,21 @@ public class ClientModEvents {
 
         ItemColors itemColors = mc.getItemColors();
 
+        //SOUL_COLOR_REGISTER
+        itemColors.register((stack, tintIndex) -> {
+                    Item item = stack.getItem();
+                    if (item instanceof SoulItem soul) {
+                        // match block trophy logic: tintIndex 0 -> primary, else -> secondary
+                        return tintIndex == 0 ? soul.getPrimaryColor(stack) : soul.getSecondaryColor(stack);
+                    }
+                    return -1;
+                },
+// register the specific soul items that use SoulItem:
+                RileyModItems.CREEPER_SOUL.get()
+                /* add other soul items here if created with SoulItem */
+        );
+
+        //TROPHY_COLORS_REGISTER
         blockColors.register((state, world, pos, tintIndex) -> {
                     Block block = state.getBlock();
                     if (block instanceof SpawnEggTrophy trophy) {
