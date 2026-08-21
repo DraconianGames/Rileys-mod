@@ -186,6 +186,8 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> DEEPSLATE_FUNTIUM_ORE = registerBlock("deepslate_funtium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
+    public static final RegistryObject<Block> BLUESTONE_ORE = registerBlock("bluestone_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 //grass
 public static final RegistryObject<Block> ABYSSAL_GRASS = registerBlock("abyssal_grass",
             () -> new AbyssalGrassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).randomTicks()));

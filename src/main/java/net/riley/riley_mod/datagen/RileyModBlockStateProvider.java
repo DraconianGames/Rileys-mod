@@ -31,6 +31,7 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         blockWithItem(RileyModBlocks.FUNTIUM_ORE_BLOCK);
+        blockWithItem(RileyModBlocks.BLUESTONE_ORE);
         blockWithItem(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE);
         blockWithItem(RileyModBlocks.FUNTIUM_BLOCK);
         blockWithItem(RileyModBlocks.ACTIVACTED_FUNTIUM);

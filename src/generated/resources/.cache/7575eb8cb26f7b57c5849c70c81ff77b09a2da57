@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-17T14:46:20.3266917	Block States: riley_mod
+// 1.20.1	2026-08-21T16:30:50.0992664	Block States: riley_mod
 892275efd6c4a5886593bc3447e00c207d022c1a assets/riley_mod/blockstates/abyssal_cobblestone.json
 f5931e86b557cc362c6df94e0bf443776b70303f assets/riley_mod/blockstates/abyssal_dirt.json
 9d9b958fe14afe3504a6dbbbed5273045560e72c assets/riley_mod/blockstates/abyssal_grass.json
@@ -16,6 +16,7 @@ a7dd8dd66cc4f15b842dd3f1ff271aedfd2458bd assets/riley_mod/blockstates/abyss_wood
 f2f04e09c9cef427177179ef0e732d71cd8eeee0 assets/riley_mod/blockstates/abyss_wood_wall.json
 898ebe6e949c352bb806a5d13b37164a4e19d87b assets/riley_mod/blockstates/activacted_funtium.json
 9b0714c2f5c7f45e0130b44352ddef05837f37d3 assets/riley_mod/blockstates/black_sand.json
+5ce73bfd5864dcc713d51360c5956ba951c87cbd assets/riley_mod/blockstates/bluestone_ore.json
 9576a524ccddeaed282b78cd3189f9507750a5ae assets/riley_mod/blockstates/deepslate_funtium_ore.json
 84d503b5639790fddda0f47dab3746cae966061a assets/riley_mod/blockstates/fallow_earth.json
 8fb5d2cb4878ab7ac4505e9bf14f863cb9f1da20 assets/riley_mod/blockstates/fallow_ground.json
@@ -144,6 +145,7 @@ db3a67060738c2b82279d2c6833a3963cc32d32c assets/riley_mod/models/block/abyss_woo
 67d8b2645ea8af940925b961ba418eb76be92465 assets/riley_mod/models/block/abyss_wood_wall_side_tall.json
 5f2e3f1cb45a6e5cead35e9a30bca4f974ce933f assets/riley_mod/models/block/activacted_funtium.json
 b201fa83b5eb7498d6c72de1b5eae68e4918da74 assets/riley_mod/models/block/black_sand.json
+d8c59d1f9cceaa43f601594804ccf28e1fe4aafc assets/riley_mod/models/block/bluestone_ore.json
 a4f8d0ac005a1205b8a3ba0d62ad5bc78b18717f assets/riley_mod/models/block/deepslate_funtium_ore.json
 1f388cb7dadcf5e3904448ffcc3760c6f2b58bc9 assets/riley_mod/models/block/fallow_earth.json
 b6526c377a6f70cc4db3a4012bee1c70ef7911b8 assets/riley_mod/models/block/fallow_ground.json
@@ -271,6 +273,7 @@ e91cb2e693044739bf77343714e4d2b0593091c9 assets/riley_mod/models/item/abyssal_co
 4be03be2c8d18cf0a2b628f7a5cbfc168ae8003a assets/riley_mod/models/item/abyss_wood.json
 78baee09c5ed17356bc515ebf54dccb1b14d0b37 assets/riley_mod/models/item/activacted_funtium.json
 35602725a63c8f3cad3732eb747b801155f63f62 assets/riley_mod/models/item/black_sand.json
+28671f2ba482a09443c63914af4fb6207a7a777a assets/riley_mod/models/item/bluestone_ore.json
 363e2b50f0945891c7de2a22b63687ce8ef5010f assets/riley_mod/models/item/deepslate_funtium_ore.json
 d0349c6bd0de7c6b800130761d8c2cd8be150a3d assets/riley_mod/models/item/fallow_earth.json
 22f807e9a2f64499063bb374ef647ab7d2431b1b assets/riley_mod/models/item/fallow_ground.json

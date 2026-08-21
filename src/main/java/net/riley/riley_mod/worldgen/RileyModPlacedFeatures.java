@@ -20,6 +20,7 @@ import java.util.List;
 
 public class RileyModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> FUNTIUM_ORE_PLACED_KEY = registerKey("funtium_ore_placed");
+    public static final ResourceKey<PlacedFeature> BLUESTONE_ORE_PLACED_KEY = registerKey("bluestone_ore_placed");
     public static final ResourceKey<PlacedFeature> ABYSS_PLACED_KEY = registerKey("abyss_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
@@ -28,7 +29,9 @@ public class RileyModPlacedFeatures {
         register(context, FUNTIUM_ORE_PLACED_KEY, configuredFeatures.getOrThrow(RileyModConfiguredFeatures.OVERWORLD_FUNTIUM_ORE_KEY),
                 RileyModOrePlacement.commonOrePlacement(12,
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(24))));
-
+        register(context, BLUESTONE_ORE_PLACED_KEY, configuredFeatures.getOrThrow(RileyModConfiguredFeatures.FALLOW_BLUESTONE_ORE_KEY),
+                RileyModOrePlacement.commonOrePlacement(12,
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(60))));
         register(context, ABYSS_PLACED_KEY, configuredFeatures.getOrThrow(RileyModConfiguredFeatures.ABYSS_KEY),
                 VegetationPlacements.treePlacement(PlacementUtils.countExtra(9, 0.1f, 3),
                         RileyModBlocks.ABYSS_SAPLING.get()));

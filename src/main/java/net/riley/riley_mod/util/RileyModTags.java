@@ -22,6 +22,7 @@ public class RileyModTags {
 
     public static class Blocks {
         public static final TagKey<Block>Needs_Funtium_TOOL = tag("needs_funtium_tool");
+        public static final TagKey<Block>FALLOW_REPLACABLES = tag("fallow_replacables");
         public static final TagKey<Block> ABYSS_SPAWNABLE_ON = tag("abyss_spawnable_on");
 
     private static TagKey<Block> tag(String name) {

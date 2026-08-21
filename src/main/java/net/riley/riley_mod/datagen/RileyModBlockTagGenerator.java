@@ -35,7 +35,8 @@ public class RileyModBlockTagGenerator extends BlockTagsProvider {
                 .add(RileyModBlocks.STRUCTURE_BRICK_STAIRS.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK_SLAB.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK_FENCE_GATE.get());
-
+this.tag(RileyModTags.Blocks.FALLOW_REPLACABLES)
+        .add(RileyModBlocks.FALLOW_EARTH.get());
         this.tag(BlockTags.FENCES)
                 .add(RileyModBlocks.ABYSS_WOOD_FENCE.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK_FENCE.get());
@@ -75,8 +76,10 @@ public class RileyModBlockTagGenerator extends BlockTagsProvider {
                 .add(RileyModBlocks.ABYSSAL_GRASS.get())
                 .add(RileyModBlocks.ABYSSAL_DIRT.get())
                 .add(RileyModBlocks.BLACK_SAND.get());
-
+        this.tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(RileyModBlocks.BLUESTONE_ORE.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(RileyModBlocks.ABYSSAL_GRASS.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK.get())
                 .add(RileyModBlocks.ABYSSAL_STONE.get())
                 .add(RileyModBlocks.ABYSSAL_COBBLESTONE.get());

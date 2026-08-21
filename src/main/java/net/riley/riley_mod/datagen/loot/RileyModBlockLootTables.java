@@ -140,6 +140,8 @@ public class RileyModBlockLootTables extends BlockLootSubProvider {
                 block -> createCopperLikeOreDrops(RileyModBlocks.FUNTIUM_ORE_BLOCK.get(), RileyModItems.FUNTIUM_ORE.get()));
         this.add(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(),
                 block -> createCopperLikeOreDrops(RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get(), RileyModItems.FUNTIUM_ORE.get()));
+        this.add(RileyModBlocks.BLUESTONE_ORE.get(),
+                block -> createCopperLikeOreDrops(RileyModBlocks.BLUESTONE_ORE.get(), RileyModItems.BLUESTONE.get()));
         this.add(RileyModBlocks.ABYSS_LEAVES.get(), block ->
                 createLeavesDrops(block, RileyModBlocks.ABYSS_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 

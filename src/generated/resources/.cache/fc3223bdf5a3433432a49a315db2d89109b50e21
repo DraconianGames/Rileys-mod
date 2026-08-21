@@ -1,13 +1,15 @@
-// 1.20.1	2026-01-16T14:27:44.3392227	Tags for minecraft:block mod id riley_mod
+// 1.20.1	2026-08-21T17:01:41.7428622	Tags for minecraft:block mod id riley_mod
 bcc8df4fe2fad15e7f2c59aeeefead97e1e878e2 data/minecraft/tags/blocks/animals_spawnable_on.json
 fb510fb139741dfe2c9bf39e107bfcfc1471ac64 data/minecraft/tags/blocks/dirt.json
 3458633a1ed0a555a04bf5356b0038601920b294 data/minecraft/tags/blocks/fences.json
 a3fa2f55d656a32fa680d5cf104e1b5f8c055463 data/minecraft/tags/blocks/fence_gates.json
 fecdd646039d74d3e3ee3c1b86cf47018fd598f3 data/minecraft/tags/blocks/logs_that_burn.json
-669d225df5d5f806c2ca157d4f5af7921fc77695 data/minecraft/tags/blocks/mineable/pickaxe.json
+65d3695b8d79ae13a92b9dfc75640904815c4f7f data/minecraft/tags/blocks/mineable/pickaxe.json
 d9032bf1493a75cdc235cc84e39ba144c5530a16 data/minecraft/tags/blocks/mineable/shovel.json
+66a92c6040a2b6ac824d667663ee0eabd4a1718f data/minecraft/tags/blocks/needs_iron_tool.json
 656c6985b5dbb34a76b26bd0fb2cec4e626d89ab data/minecraft/tags/blocks/planks.json
 e16efe7479a47b10edc0c2bcb5aa00fcc6897347 data/minecraft/tags/blocks/sand.json
 88cb7a7475a040e4a7bd485ba06ad26797007298 data/minecraft/tags/blocks/walls.json
 d3db6fbbffc59e5a18b31d7e15f4fa788d41be4a data/riley_mod/tags/blocks/abyss_spawnable_on.json
+61ec4bcc30c515b1c6287e01c8f657575556b9b9 data/riley_mod/tags/blocks/fallow_replacables.json
 b7e5195e46b78f2044f950244f9743cd98bfb94d data/riley_mod/tags/blocks/needs_funtium_tool.json

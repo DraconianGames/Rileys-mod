@@ -19,12 +19,14 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.util.RileyModTags;
 
 import java.util.List;
 
 public class RileyModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ABYSS_KEY = registerKey("abyss");
     public static final ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_FUNTIUM_ORE_KEY = registerKey("funtium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLOW_BLUESTONE_ORE_KEY = registerKey("bluestone_ore");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 
@@ -41,13 +43,19 @@ public class RileyModConfiguredFeatures {
 
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-
+        RuleTest fallowReplacables = new TagMatchTest(RileyModTags.Blocks.FALLOW_REPLACABLES);
 
         List<OreConfiguration.TargetBlockState> overworldSapphireOres = List.of(OreConfiguration.target(stoneReplaceable,
                         RileyModBlocks.FUNTIUM_ORE_BLOCK.get().defaultBlockState()),
                 OreConfiguration.target(deepslateReplaceables, RileyModBlocks.DEEPSLATE_FUNTIUM_ORE.get().defaultBlockState()));
 
+        List<OreConfiguration.TargetBlockState> fallowBluestoneOres = List.of(OreConfiguration.target(fallowReplacables,
+                RileyModBlocks.BLUESTONE_ORE.get().defaultBlockState()),
+                OreConfiguration.target(fallowReplacables, RileyModBlocks.BLUESTONE_ORE.get().defaultBlockState()));
+
+
         register(context, OVERWORLD_FUNTIUM_ORE_KEY, Feature.ORE, new OreConfiguration(overworldSapphireOres, 9));
+        register(context, FALLOW_BLUESTONE_ORE_KEY, Feature.ORE, new OreConfiguration(fallowBluestoneOres, 8));
 
     }
 

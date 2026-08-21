@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "discard_chance_on_air_exposure": 0.0,
+    "size": 8,
+    "targets": [
+      {
+        "state": {
+          "Name": "riley_mod:bluestone_ore",
+          "Properties": {
+            "lit": "false"
+          }
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "riley_mod:fallow_replacables"
+        }
+      },
+      {
+        "state": {
+          "Name": "riley_mod:bluestone_ore",
+          "Properties": {
+            "lit": "false"
+          }
+        },
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "riley_mod:fallow_replacables"
+        }
+      }
+    ]
+  }
+}

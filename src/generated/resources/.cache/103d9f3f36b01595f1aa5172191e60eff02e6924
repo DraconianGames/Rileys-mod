@@ -1,8 +1,9 @@
-// 1.20.1	2026-02-14T14:07:20.359765	Registries
+// 1.20.1	2026-08-21T16:56:35.6291399	Registries
 70089b6ea8cb8b4ced1f6d5a936c768efe80c0fc data/riley_mod/dimension/abyss_dim.json
 3eac67c8f0df6915634c86e0cc541cbd5c43b28d data/riley_mod/dimension/fallow_dim.json
 e3c413374610d8d5c51f7bb1e61d474b79ae5b1d data/riley_mod/dimension_type/abyss_dim_type.json
 3c92ce0e0f23106e3b42271675caf4fbdfb3f7e5 data/riley_mod/dimension_type/fallow_dim_type.json
+2b3414dfafbe8a5f2d2e7ee3e580bc1fce89a9c9 data/riley_mod/forge/biome_modifier/add_bluestone_ore.json
 44846c510b534d90ff90dd0bfbc13d64e327e80d data/riley_mod/forge/biome_modifier/add_funtium_ore.json
 067d652287541dd7a81e953bf36c06f4ab4f399d data/riley_mod/forge/biome_modifier/add_tree_abyss.json
 fd1efaf597a233068ab32afa2f161200d8ba1249 data/riley_mod/worldgen/biome/abyssal_trench.json
@@ -13,8 +14,10 @@ f099c58bebb99cf15e774289ebed79baa69f57b3 data/riley_mod/worldgen/biome/abyss_for
 d097cc5092e4c70419d9beab7081f5ed394563c4 data/riley_mod/worldgen/biome/fallow_lands.json
 a92ad28559bc8a8b64dfd281c3e860e5a78880ce data/riley_mod/worldgen/biome/obsidian_peaks.json
 9c2bb2605bcf54c2f40fa8b20a6016cf151fb856 data/riley_mod/worldgen/configured_feature/abyss.json
+1357302c47d8159ae32d6f9939082dd255aec178 data/riley_mod/worldgen/configured_feature/bluestone_ore.json
 889a1866649729cddbedb72e8ca344bc53c64835 data/riley_mod/worldgen/configured_feature/funtium_ore.json
 3a3dc6c98c2492e31939883c09042a31437915a0 data/riley_mod/worldgen/noise_settings/abyss_noise_settings.json
 3f80cb2f1f024a0420119d28494c7cbcf820f608 data/riley_mod/worldgen/noise_settings/fallow_noise_settings.json
 bcb2971c74407cb6415a46e50d03aceeee469a92 data/riley_mod/worldgen/placed_feature/abyss_placed.json
+c6182390052482cde51ca1cf99cbe0a5d1ac41dc data/riley_mod/worldgen/placed_feature/bluestone_ore_placed.json
 773a606e66b206e21e5ecafa3048242a4f962ef2 data/riley_mod/worldgen/placed_feature/funtium_ore_placed.json
