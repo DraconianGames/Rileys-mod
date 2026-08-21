@@ -14,7 +14,7 @@
       "element": {
 
 
-        "location": "riley_mod:dungeon_entrance",
+        "location": "riley_mod:dungeon_center_room",
 
 
         "processors": "minecraft:empty",
