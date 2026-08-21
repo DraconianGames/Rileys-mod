@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "riley_mod:souls"
+    },
+    "B": {
+      "item": "riley_mod:ice_chunk"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BAB",
+    "BBB"
+  ],
+  "result": {
+    "item": "riley_mod:soul"
+  },
+  "show_notification": true
+}

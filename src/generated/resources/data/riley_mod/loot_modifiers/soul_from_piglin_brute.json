@@ -1,0 +1,14 @@
+{
+  "type": "riley_mod:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/piglin_brute"
+    },
+    {
+      "chance": 0.05,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "riley_mod:piglin_brute_soul"
+}

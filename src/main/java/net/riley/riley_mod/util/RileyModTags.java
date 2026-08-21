@@ -30,6 +30,7 @@ public class RileyModTags {
 }
     public static class Items {
         public static final TagKey<Item>MEAT = tag("meat");
+        public static final TagKey<Item>SOULS = tag("souls");
 
         public static TagKey<Item> tag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, name));
