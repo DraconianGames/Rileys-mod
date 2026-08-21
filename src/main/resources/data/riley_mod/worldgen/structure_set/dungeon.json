@@ -1,0 +1,21 @@
+{
+
+  "structures": [
+    {
+      "structure": "riley_mod:dungeon",
+      "weight": 1
+    }
+  ],
+  "placement": {
+
+    "salt": 6549721537,
+
+    "spacing": 20,
+
+
+    "separation": 6,
+
+
+    "type": "minecraft:random_spread"
+  }
+}
