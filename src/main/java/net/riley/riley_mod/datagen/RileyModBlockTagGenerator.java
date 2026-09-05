@@ -80,8 +80,10 @@ this.tag(RileyModTags.Blocks.FALLOW_REPLACABLES)
                 .add(RileyModBlocks.BLUESTONE_ORE.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(RileyModBlocks.ABYSSAL_GRASS.get())
+                .add(RileyModBlocks.BLUESTONE_ORE.get())
                 .add(RileyModBlocks.STRUCTURE_BRICK.get())
                 .add(RileyModBlocks.ABYSSAL_STONE.get())
                 .add(RileyModBlocks.ABYSSAL_COBBLESTONE.get());
+        //TODO game does not use this tag in the generated section, but works for the manual section.
     }
 }

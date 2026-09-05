@@ -167,10 +167,10 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
     public static final RegistryObject<Block> SHUT_OFF = registerBlock("shut_off",
             () -> new ShutOff(BlockBehaviour.Properties.copy(Blocks.REPEATER)));
 
-    public static final RegistryObject<Block> BLUESTONE_WIRE = registerBlock("bluestone_wire",
+    public static final RegistryObject<Block> BLUESTONE_WIRE = BLOCKS.register("bluestone_wire",
             () -> new BlueStoneWireBlock(BlockBehaviour.Properties.copy(Blocks.REDSTONE_WIRE).noOcclusion().noCollission().instabreak().pushReaction(PushReaction.IGNORE)));
 
-//individual parts
+    //individual parts
     public static final RegistryObject<Block> MACHINE_CORE = registerBlock("machine_core",
             () -> new MachineCorePartBlock(BlockBehaviour.Properties.copy(Blocks.DIRT).noOcclusion()));
     public static final RegistryObject<Block> MACHINE_CORE_CENTER = registerBlock("machine_core_center",
@@ -187,7 +187,7 @@ public static final RegistryObject<Block> WHALE_HUNTER_TROPHY = registerBlock("w
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(60).explosionResistance(9000).requiresCorrectToolForDrops(), UniformInt.of(7,9)));
     public static final RegistryObject<Block> BLUESTONE_ORE = registerBlock("bluestone_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops(), UniformInt.of(1, 3)));
 //grass
 public static final RegistryObject<Block> ABYSSAL_GRASS = registerBlock("abyssal_grass",
             () -> new AbyssalGrassBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK).randomTicks()));
