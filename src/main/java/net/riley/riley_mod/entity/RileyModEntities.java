@@ -84,6 +84,18 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
     public static final RegistryObject<EntityType<TrisonEntity>> TRISON =
             ENTITY_TYPES.register("trison",()-> EntityType.Builder.of(TrisonEntity::new,MobCategory.CREATURE)
                     .sized(2f,2.3f).build("trison"));
+    public static final RegistryObject<EntityType<EndTrisonEntity>> END_TRISON =
+            ENTITY_TYPES.register("end_trison",()-> EntityType.Builder.of(EndTrisonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
+    public static final RegistryObject<EntityType<MountainTrisonEntity>> MOUNTAIN_TRISON =
+            ENTITY_TYPES.register("mountain_trison",()-> EntityType.Builder.of(MountainTrisonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
+    public static final RegistryObject<EntityType<AbyssTrisonEntity>> ABYSS_TRISON =
+            ENTITY_TYPES.register("abyss_trison",()-> EntityType.Builder.of(AbyssTrisonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
+    public static final RegistryObject<EntityType<FallowTrisonEntity>> FALLOW_TRISON =
+            ENTITY_TYPES.register("fallow_trison",()-> EntityType.Builder.of(FallowTrisonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
 
     public static final RegistryObject<EntityType<TrisonCartEntity>> TRISON_CART =
             ENTITY_TYPES.register("trison_cart",()-> EntityType.Builder.of(TrisonCartEntity::new,MobCategory.CREATURE)

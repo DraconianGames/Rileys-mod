@@ -240,7 +240,7 @@ public class TrisonEntity extends AbstractInventoryMountEntity {
         super.registerGoals();
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(Items.CARROT)));
+        this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, TrisonEntity.class, Ingredient.of(Items.CARROT)));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1D, Ingredient.of(Items.CARROT), false));
     }
 

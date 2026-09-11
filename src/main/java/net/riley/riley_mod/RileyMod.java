@@ -124,6 +124,10 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.FROST_HOPPER.get(), FrostHopperRenderer::new);
             EntityRenderers.register(RileyModEntities.WHALE_HUNTER.get(), WhaleHunterRenderer::new);
             EntityRenderers.register(RileyModEntities.NETHER_TRISON.get(), NetherTrisonRenderer::new);
+            EntityRenderers.register(RileyModEntities.MOUNTAIN_TRISON.get(), MountianTrisonRenderer::new);
+            EntityRenderers.register(RileyModEntities.FALLOW_TRISON.get(), FallowTrisonRenderer::new);
+            EntityRenderers.register(RileyModEntities.ABYSS_TRISON.get(), AbyssTrisonRenderer::new);
+            EntityRenderers.register(RileyModEntities.END_TRISON.get(), EndTrisonRenderer::new);
             EntityRenderers.register(RileyModEntities.BISON.get(), BisonRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRexBombRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHA_TERROR_SHOT.get(), MechaTerrorShotRenderer::new);

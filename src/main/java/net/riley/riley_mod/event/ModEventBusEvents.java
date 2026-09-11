@@ -35,6 +35,10 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.PARASITE_CARRIER.get(), ParasiteCarrierEntity.createAttributes().build());
         event.put(RileyModEntities.TRUCK.get(), TruckEntity.createAttributes().build());
         event.put(RileyModEntities.NETHER_TRISON.get(), NetherTrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.MOUNTAIN_TRISON.get(), MountainTrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.END_TRISON.get(), EndTrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.ABYSS_TRISON.get(), AbyssTrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.FALLOW_TRISON.get(), FallowTrisonEntity.createAttributes().build());
     }
     @SubscribeEvent
     public static void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
