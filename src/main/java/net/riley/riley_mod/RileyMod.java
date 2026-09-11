@@ -55,7 +55,7 @@ public class RileyMod
 
         RileyModCreativeModTabs.register(modEventBus);
 
-//TODO infected potion effect. spawns a parasite killing the host. Make it have more than the default growth stages.
+
 //TODO Update model animations. Specifically the crab, my first one. Stinger attack for night stalker.
 //TODO bane of the abyss, bane of the fallow, bane of the crystalic
 
@@ -128,6 +128,7 @@ public class RileyMod
             EntityRenderers.register(RileyModEntities.BISON.get(), BisonRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREXBOMB.get(), MechaRexBombRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHA_TERROR_SHOT.get(), MechaTerrorShotRenderer::new);
+            EntityRenderers.register(RileyModEntities.SUMMONING_CIRCLE_ENTITY.get(), SummoningCircleRenderer::new);
             EntityRenderers.register(RileyModEntities.MECHAREX.get(), MechaRexRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON.get(), TrisonRenderer::new);
             EntityRenderers.register(RileyModEntities.TRISON_CART.get(), TrisonCartRenderer::new);

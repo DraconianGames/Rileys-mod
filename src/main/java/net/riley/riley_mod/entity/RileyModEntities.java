@@ -61,6 +61,14 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
                             .updateInterval(1)
                             .build("mecha_terror_shot")
             );
+    public static final RegistryObject<EntityType<SummoningCircleEntity>> SUMMONING_CIRCLE_ENTITY =
+            ENTITY_TYPES.register("summoning_circle_entity", () ->
+                    EntityType.Builder.of(SummoningCircleEntity::new, MobCategory.MISC)
+                            .sized(2F,.5F)
+                            .clientTrackingRange(9)
+                            .updateInterval(1)
+                            .build("summoning_circle_entity")
+            );
     public static final RegistryObject<EntityType<MechaRexEntity>> MECHAREX =
             ENTITY_TYPES.register("mecharex", ()-> EntityType.Builder.of(MechaRexEntity::new,MobCategory.CREATURE)
                     .sized(4f,3.5f).build("mecharex"));

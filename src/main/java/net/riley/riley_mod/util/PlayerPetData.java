@@ -14,15 +14,27 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.custom.BaseVehicleEntity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
+@Mod.EventBusSubscriber(modid = RileyMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class PlayerPetData {
     private static final String ROOT_TAG = Player.PERSISTED_NBT_TAG;
     private static final String PETS_TAG = "RileyModStoredPets";
     private static final String MOUNTS_TAG = "RileyModStoredMounts";
     private static final String VEHICLES_TAG = "RileyModStoredVehicles";
+    private static final int SUMMON_ANIMATION_TICKS = 70;
+
+    private static final List<ScheduledSummon> SCHEDULED_SUMMONS = new ArrayList<>();
 
     public static ListTag getPets(ServerPlayer player) {
         CompoundTag persisted = getPersistedData(player);
@@ -84,7 +96,7 @@ public class PlayerPetData {
         }
 
         storeCompanion(player, entity, PETS_TAG, "Pet stored.");
-        spawnMagicCircle(level, entity.getX(), entity.getY(), entity.getZ());
+        spawnSmokeScreen(level, entity.getX(), entity.getY(), entity.getZ(), entity);
         entity.discard();
     }
 
@@ -133,9 +145,20 @@ public class PlayerPetData {
         Entity existing = level.getEntity(uuid);
 
         if (existing instanceof LivingEntity living && living.isAlive()) {
-            living.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
-            spawnMagicCircle(level, player.getX(), player.getY(), player.getZ());
-            player.displayClientMessage(Component.literal("Pet recalled."), true);
+            double x = player.getX();
+            double y = player.getY();
+            double z = player.getZ();
+            float yRot = player.getYRot();
+            float xRot = player.getXRot();
+
+            spawnSummoningCircle(level, x, y, z);
+
+            SCHEDULED_SUMMONS.add(new ScheduledSummon(level, SUMMON_ANIMATION_TICKS, () -> {
+                living.moveTo(x, y, z, yRot, xRot);
+                spawnSmokeScreen(level, x, y, z, living);
+                player.displayClientMessage(Component.literal("Pet recalled."), true);
+            }));
+
             return;
         }
 
@@ -152,21 +175,31 @@ public class PlayerPetData {
                 existing.discard();
             }
 
-            Entity newEntity = EntityType.loadEntityRecursive(petData, level, entity -> {
-                entity.moveTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
+            double x = player.getX();
+            double y = player.getY();
+            double z = player.getZ();
+            float yRot = player.getYRot();
+            float xRot = player.getXRot();
 
-                if (entity instanceof LivingEntity livingEntity) {
-                    livingEntity.setHealth(livingEntity.getMaxHealth());
+            spawnSummoningCircle(level, x, y, z);
+
+            SCHEDULED_SUMMONS.add(new ScheduledSummon(level, SUMMON_ANIMATION_TICKS, () -> {
+                Entity newEntity = EntityType.loadEntityRecursive(petData, level, entity -> {
+                    entity.moveTo(x, y, z, yRot, xRot);
+
+                    if (entity instanceof LivingEntity livingEntity) {
+                        livingEntity.setHealth(livingEntity.getMaxHealth());
+                    }
+
+                    return entity;
+                });
+
+                if (newEntity != null) {
+                    spawnSmokeScreen(level, x, y, z, newEntity);
+                    level.addFreshEntity(newEntity);
+                    player.displayClientMessage(Component.literal("Summoned " + newEntity.getDisplayName().getString()), true);
                 }
-
-                return entity;
-            });
-
-            if (newEntity != null) {
-                level.addFreshEntity(newEntity);
-                spawnMagicCircle(level, player.getX(), player.getY(), player.getZ());
-                player.displayClientMessage(Component.literal("Summoned " + newEntity.getDisplayName().getString()), true);
-            }
+            }));
 
             return;
         }
@@ -222,38 +255,117 @@ public class PlayerPetData {
         return null;
     }
 
-    private static void spawnMagicCircle(ServerLevel level, double x, double y, double z) {
-        double radius = 1.0;
-        int particles = 30;
-
-        for (int i = 0; i < particles; i++) {
-            double angle = 2 * Math.PI * i / particles;
-            double offsetX = Math.cos(angle) * radius;
-            double offsetZ = Math.sin(angle) * radius;
-
-            level.sendParticles(
-                    ParticleTypes.SOUL_FIRE_FLAME,
-                    x + offsetX,
-                    y + 0.1,
-                    z + offsetZ,
-                    1,
-                    0,
-                    0,
-                    0,
-                    0.02
-            );
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.ServerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) {
+            return;
         }
+
+        Iterator<ScheduledSummon> iterator = SCHEDULED_SUMMONS.iterator();
+
+        while (iterator.hasNext()) {
+            ScheduledSummon summon = iterator.next();
+
+            if (summon.level.isClientSide()) {
+                iterator.remove();
+                continue;
+            }
+
+            summon.ticksLeft--;
+
+            if (summon.ticksLeft <= 0) {
+                summon.action.run();
+                iterator.remove();
+            }
+        }
+    }
+
+    private static void spawnSummoningCircle(ServerLevel level, double x, double y, double z) {
+        Entity circle = RileyModEntities.SUMMONING_CIRCLE_ENTITY.get().create(level);
+
+        if (circle == null) {
+            return;
+        }
+
+        circle.moveTo(x, y + 0.02D, z, 0.0F, 0.0F);
+        level.addFreshEntity(circle);
+    }
+
+    private static void spawnSmokeScreen(ServerLevel level, double x, double y, double z, Entity entity) {
+        double width = entity == null ? 3.0D : Math.max(3.0D, entity.getBbWidth() + 2.0D);
+        double height = entity == null ? 2.0D : Math.max(2.5D, entity.getBbHeight() + 0.75D);
+        double radius = width * 0.6D;
+
+        level.sendParticles(
+                ParticleTypes.FLAME,
+                x,
+                y + 0.35D,
+                z,
+                140,
+                radius,
+                0.35D,
+                radius,
+                0.1D
+        );
+
+        level.sendParticles(
+                ParticleTypes.SMOKE,
+                x,
+                y + height * 0.35D,
+                z,
+                180,
+                radius,
+                height * 0.3D,
+                radius,
+                0.06D
+        );
 
         level.sendParticles(
                 ParticleTypes.LARGE_SMOKE,
                 x,
-                y + 0.5,
+                y + height * 0.55D,
                 z,
-                5,
-                0.2,
-                0.2,
-                0.2,
-                0.05
+                220,
+                radius,
+                height * 0.45D,
+                radius,
+                0.07D
         );
+
+        level.sendParticles(
+                ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                x,
+                y + height * 0.45D,
+                z,
+                80,
+                radius * 0.85D,
+                height * 0.35D,
+                radius * 0.85D,
+                0.04D
+        );
+
+        level.sendParticles(
+                ParticleTypes.SOUL_FIRE_FLAME,
+                x,
+                y + 0.3D,
+                z,
+                70,
+                radius * 0.75D,
+                0.25D,
+                radius * 0.75D,
+                0.08D
+        );
+    }
+
+    private static class ScheduledSummon {
+        private final ServerLevel level;
+        private int ticksLeft;
+        private final Runnable action;
+
+        private ScheduledSummon(ServerLevel level, int ticksLeft, Runnable action) {
+            this.level = level;
+            this.ticksLeft = ticksLeft;
+            this.action = action;
+        }
     }
 }

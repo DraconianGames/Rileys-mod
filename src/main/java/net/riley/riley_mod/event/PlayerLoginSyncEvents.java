@@ -7,8 +7,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.network.RileyModPackets;
 import net.riley.riley_mod.network.SyncAugmentsPacket;
+import net.riley.riley_mod.network.SyncPetDataPacket;
 import net.riley.riley_mod.util.AugmentData;
 import net.minecraft.resources.ResourceLocation;
+import net.riley.riley_mod.util.PlayerPetData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class PlayerLoginSyncEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
         syncAugments(player);
+        syncCompanions(player);
     }
 
     @SubscribeEvent
@@ -28,6 +31,7 @@ public class PlayerLoginSyncEvents {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
         syncAugments(player);
+        syncCompanions(player);
     }
 
     private static void syncAugments(ServerPlayer player) {
@@ -40,5 +44,12 @@ public class PlayerLoginSyncEvents {
         }
 
         RileyModPackets.sendToPlayer(player, new SyncAugmentsPacket(unlocked, active, levels));
+    }
+    private static void syncCompanions(ServerPlayer player) {
+        RileyModPackets.sendToPlayer(player, new SyncPetDataPacket(
+                PlayerPetData.getPets(player),
+                PlayerPetData.getMounts(player),
+                PlayerPetData.getVehicles(player)
+        ));
     }
 }

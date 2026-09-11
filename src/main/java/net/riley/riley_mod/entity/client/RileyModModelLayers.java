@@ -30,6 +30,8 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
 
     public static final ModelLayerLocation MECHAREXBOMB_LAYER =new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_bomb"), "main");
+    public static final ModelLayerLocation SUMMONING_CIRCLE_LAYER =new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "summoning_circle_layer"), "main");
 
     public static final ModelLayerLocation MECHAREX_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "mecharex_layer"),"main");

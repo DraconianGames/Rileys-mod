@@ -30,10 +30,14 @@ public class PetScreen extends Screen {
     private static net.minecraft.nbt.ListTag syncedStoredMounts = new net.minecraft.nbt.ListTag();
     private static net.minecraft.nbt.ListTag syncedStoredVehicles = new net.minecraft.nbt.ListTag();
 
+    private static PetScreen openInstance;
+
     private final List<JournalEntry> petEntries = new ArrayList<>();
 
+    private CompanionCategory expandedCategory = null;
     private JournalEntry selectedPet;
     private PetEntryList petList;
+
 
     private Button summonButton;
     private Button storeButton;
@@ -55,9 +59,14 @@ public class PetScreen extends Screen {
         syncedStoredPets = pets.copy();
         syncedStoredMounts = mounts.copy();
         syncedStoredVehicles = vehicles.copy();
+
+        if (openInstance != null) {
+            openInstance.rebuildAfterSync();
+        }
     }
     @Override
     protected void init() {
+        openInstance = this;
         RileyModPackets.sendToServer(new RequestPetDataPacket());
         int x = (this.width - 256) / 2;
         int y = (this.height - 180) / 2;
@@ -69,17 +78,22 @@ public class PetScreen extends Screen {
         this.petList.updateSize(115, 135, y + 35, y + 165);
         this.petList.setLeftPos(x + 15);
 
-        this.petList.addHeader(Component.literal("> Pets"));
-        for (JournalEntry entry : this.petEntries) {
-            this.petList.addPet(Component.literal(" - " + entry.title()), () -> this.selectedPet = entry);
+        this.petList.addHeader(Component.literal(categoryPrefix(CompanionCategory.PETS) + " Pets"), () -> toggleCategory(CompanionCategory.PETS));
+        if (this.expandedCategory == CompanionCategory.PETS) {
+            for (JournalEntry entry : this.petEntries) {
+                this.petList.addPet(Component.literal(" - " + entry.title()), () -> this.selectedPet = entry);
+            }
         }
 
-        this.petList.addHeader(Component.literal("> Mounts"));
-        addStoredCompanionEntries(this.syncedStoredMounts, "Mount");
+        this.petList.addHeader(Component.literal(categoryPrefix(CompanionCategory.MOUNTS) + " Mounts"), () -> toggleCategory(CompanionCategory.MOUNTS));
+        if (this.expandedCategory == CompanionCategory.MOUNTS) {
+            addStoredCompanionEntries(this.syncedStoredMounts, "Mount");
+        }
 
-        this.petList.addHeader(Component.literal("> Vehicles"));
-        addStoredCompanionEntries(this.syncedStoredVehicles, "Vehicle");
-
+        this.petList.addHeader(Component.literal(categoryPrefix(CompanionCategory.VEHICLES) + " Vehicles"), () -> toggleCategory(CompanionCategory.VEHICLES));
+        if (this.expandedCategory == CompanionCategory.VEHICLES) {
+            addStoredCompanionEntries(this.syncedStoredVehicles, "Vehicle");
+        }
         this.addRenderableWidget(this.petList);
 
         this.summonButton = Button.builder(Component.literal("Summon"), b -> this.handlePetAction())
@@ -97,6 +111,16 @@ public class PetScreen extends Screen {
         this.addRenderableWidget(this.summonButton);
         this.addRenderableWidget(this.storeButton);
         this.addRenderableWidget(this.releaseButton);
+    }
+
+    private void toggleCategory(CompanionCategory category) {
+        this.expandedCategory = this.expandedCategory == category ? null : category;
+        this.selectedPet = null;
+        this.init();
+    }
+
+    private String categoryPrefix(CompanionCategory category) {
+        return this.expandedCategory == category ? "v" : ">";
     }
 
     private void refreshPetEntries() {
@@ -380,11 +404,33 @@ public class PetScreen extends Screen {
         }
     }
 
+    private void rebuildAfterSync() {
+        if (this.minecraft == null || this.minecraft.screen != this) {
+            return;
+        }
+
+        this.init();
+    }
+
+    @Override
+    public void removed() {
+        if (openInstance == this) {
+            openInstance = null;
+        }
+
+        super.removed();
+    }
+
     @Override
     public boolean isPauseScreen() {
         return false;
     }
 
+    private enum CompanionCategory {
+        PETS,
+        MOUNTS,
+        VEHICLES
+    }
     static class PetEntryList extends ContainerObjectSelectionList<PetEntryList.Entry> {
         public PetEntryList(Minecraft minecraft, int width, int height, int top, int bottom, int itemHeight) {
             super(minecraft, width, height, top, bottom, itemHeight);
@@ -395,14 +441,29 @@ public class PetScreen extends Screen {
         public void addPet(Component title, Runnable onPress) {
             this.addEntry(new Entry(new PetTextButton(10, 0, 90, 10, title, button -> onPress.run())));
         }
-        public void addHeader(Component title) {
-            this.addEntry(new Entry(new PetTextButton(0, 0, 100, 10, title, button -> {
-            })));
+        public void addHeader(Component title, Runnable onPress) {
+            this.addEntry(new Entry(new PetTextButton(0, 0, 100, 10, title, button -> onPress.run())));
         }
+
 
         @Override
         public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
             this.renderList(graphics, mouseX, mouseY, partialTicks);
+
+            if (this.getMaxScroll() > 0) {
+                int scrollbarXLeft = this.getScrollbarPosition();
+                int scrollbarXRight = scrollbarXLeft + 4;
+
+                graphics.fill(scrollbarXLeft, this.y0, scrollbarXRight, this.y1, 0x22000000);
+
+                int listHeight = this.y1 - this.y0;
+                int handleHeight = (int) ((float) (listHeight * listHeight) / (float) this.getMaxPosition());
+                handleHeight = Math.max(10, Math.min(listHeight, handleHeight));
+
+                int handleTop = (int) this.getScrollAmount() * (listHeight - handleHeight) / this.getMaxScroll() + this.y0;
+
+                graphics.fill(scrollbarXLeft, handleTop, scrollbarXRight, handleTop + handleHeight, 0xFF404040);
+            }
         }
 
         @Override
