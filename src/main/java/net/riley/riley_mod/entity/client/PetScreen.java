@@ -1,5 +1,6 @@
 package net.riley.riley_mod.entity.client;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -38,6 +39,7 @@ public class PetScreen extends Screen {
     private CompanionCategory expandedCategory = null;
     private JournalEntry selectedPet;
     private PetEntryList petList;
+    private boolean rebuildingFromSync = false;
 
 
     private Button summonButton;
@@ -68,7 +70,13 @@ public class PetScreen extends Screen {
     @Override
     protected void init() {
         openInstance = this;
-        RileyModPackets.sendToServer(new RequestPetDataPacket());
+
+        if (!this.rebuildingFromSync) {
+            RileyModPackets.sendToServer(new RequestPetDataPacket());
+        }
+
+        this.rebuildingFromSync = false;
+
         int x = (this.width - 256) / 2;
         int y = (this.height - 180) / 2;
 
@@ -129,6 +137,10 @@ public class PetScreen extends Screen {
 
         SAVED_PETS.clear();
 
+        java.util.Set<UUID> nonPetUuids = new java.util.HashSet<>();
+        collectStoredUuids(syncedStoredMounts, nonPetUuids);
+        collectStoredUuids(syncedStoredVehicles, nonPetUuids);
+
         java.util.Map<UUID, net.minecraft.nbt.CompoundTag> storedMap = new java.util.HashMap<>();
 
         net.minecraft.nbt.ListTag stored = syncedStoredPets;
@@ -138,6 +150,11 @@ public class PetScreen extends Screen {
 
             try {
                 UUID uuid = data.getUUID("UUID");
+
+                if (nonPetUuids.contains(uuid)) {
+                    continue;
+                }
+
                 storedMap.put(uuid, data);
             } catch (Exception ignored) {
             }
@@ -148,6 +165,10 @@ public class PetScreen extends Screen {
         for (net.minecraft.world.entity.Entity entity : this.minecraft.level.entitiesForRendering()) {
             if (!(entity instanceof LivingEntity living)) continue;
             if (entity.isRemoved()) continue;
+
+            UUID entityUUID = living.getUUID();
+
+            if (nonPetUuids.contains(entityUUID) || isMountEntity(living) || isVehicleEntity(living)) continue;
 
             UUID ownerUUID = null;
 
@@ -163,7 +184,6 @@ public class PetScreen extends Screen {
             }
 
             boolean ownedByPlayer = ownerUUID != null && ownerUUID.equals(this.minecraft.player.getUUID());
-            UUID entityUUID = living.getUUID();
 
             if (ownedByPlayer || storedMap.containsKey(entityUUID)) {
                 handled.add(entityUUID);
@@ -187,7 +207,7 @@ public class PetScreen extends Screen {
         for (java.util.Map.Entry<UUID, net.minecraft.nbt.CompoundTag> entry : storedMap.entrySet()) {
             UUID uuid = entry.getKey();
 
-            if (handled.contains(uuid)) continue;
+            if (handled.contains(uuid) || nonPetUuids.contains(uuid)) continue;
 
             net.minecraft.nbt.CompoundTag data = entry.getValue();
             String petId = data.contains("id") ? data.getString("id") : "";
@@ -221,6 +241,25 @@ public class PetScreen extends Screen {
 
         this.petEntries.clear();
         this.petEntries.addAll(SAVED_PETS);
+    }
+
+    private void collectStoredUuids(net.minecraft.nbt.ListTag stored, java.util.Set<UUID> uuids) {
+        for (int i = 0; i < stored.size(); i++) {
+            net.minecraft.nbt.CompoundTag data = stored.getCompound(i);
+
+            try {
+                uuids.add(data.getUUID("UUID"));
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    private boolean isMountEntity(net.minecraft.world.entity.Entity entity) {
+        return entity instanceof net.minecraft.world.entity.animal.horse.AbstractHorse;
+    }
+
+    private boolean isVehicleEntity(net.minecraft.world.entity.Entity entity) {
+        return entity instanceof net.riley.riley_mod.entity.custom.BaseVehicleEntity;
     }
     private void addStoredCompanionEntries(net.minecraft.nbt.ListTag stored, String fallbackName) {
         for (int i = 0; i < stored.size(); i++) {
@@ -348,7 +387,17 @@ public class PetScreen extends Screen {
             graphics.drawString(this.font, this.selectedPet.title(), x + 145, y + 28, 0x303030, false);
             this.renderPetStatusPage(graphics, x + 145, y + 45);
         } else {
-            graphics.drawString(this.font, "Select a pet from the list.", x + 145, y + 45, 0x505050, false);
+            List<net.minecraft.util.FormattedCharSequence> lines = this.font.split(
+                    Component.literal("Select a pet from the list."),
+                    85
+            );
+
+            int currentY = y + 45;
+
+            for (net.minecraft.util.FormattedCharSequence line : lines) {
+                graphics.drawString(this.font, line, x + 145, currentY, 0x505050, false);
+                currentY += 9;
+            }
         }
 
         super.render(graphics, mouseX, mouseY, partialTicks);
@@ -403,14 +452,24 @@ public class PetScreen extends Screen {
             this.storeButton.setY(buttonY);
         }
     }
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+        if (this.petList != null) {
+            return this.petList.mouseScrolled(mouseX, mouseY, scroll);
+        }
+
+        return super.mouseScrolled(mouseX, mouseY, scroll);
+    }
 
     private void rebuildAfterSync() {
         if (this.minecraft == null || this.minecraft.screen != this) {
             return;
         }
 
+        this.rebuildingFromSync = true;
         this.init();
     }
+
 
     @Override
     public void removed() {
@@ -438,14 +497,6 @@ public class PetScreen extends Screen {
             this.setRenderHeader(false, 0);
         }
 
-        public void addPet(Component title, Runnable onPress) {
-            this.addEntry(new Entry(new PetTextButton(10, 0, 90, 10, title, button -> onPress.run())));
-        }
-        public void addHeader(Component title, Runnable onPress) {
-            this.addEntry(new Entry(new PetTextButton(0, 0, 100, 10, title, button -> onPress.run())));
-        }
-
-
         @Override
         public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
             this.renderList(graphics, mouseX, mouseY, partialTicks);
@@ -456,11 +507,11 @@ public class PetScreen extends Screen {
 
                 graphics.fill(scrollbarXLeft, this.y0, scrollbarXRight, this.y1, 0x22000000);
 
-                int listHeight = this.y1 - this.y0;
-                int handleHeight = (int) ((float) (listHeight * listHeight) / (float) this.getMaxPosition());
-                handleHeight = Math.max(10, Math.min(listHeight, handleHeight));
+                int height = this.y1 - this.y0;
+                int handleHeight = (int) ((float) (height * height) / (float) this.getMaxPosition());
+                handleHeight = Math.max(10, handleHeight);
 
-                int handleTop = (int) this.getScrollAmount() * (listHeight - handleHeight) / this.getMaxScroll() + this.y0;
+                int handleTop = (int) this.getScrollAmount() * (height - handleHeight) / this.getMaxScroll() + this.y0;
 
                 graphics.fill(scrollbarXLeft, handleTop, scrollbarXRight, handleTop + handleHeight, 0xFF404040);
             }
@@ -470,6 +521,14 @@ public class PetScreen extends Screen {
         public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
             this.setScrollAmount(this.getScrollAmount() - scroll * (double) this.itemHeight / 2.0D);
             return true;
+        }
+
+        public void addPet(Component title, Runnable onPress) {
+            this.addEntry(new Entry(new PetTextButton(10, 0, 90, 10, title, button -> onPress.run())));
+        }
+
+        public void addHeader(Component title, Runnable onPress) {
+            this.addEntry(new Entry(new PetTextButton(0, 0, 100, 10, title, button -> onPress.run())));
         }
 
         @Override
@@ -498,12 +557,12 @@ public class PetScreen extends Screen {
 
             @Override
             public List<? extends GuiEventListener> children() {
-                return List.of(this.button);
+                return ImmutableList.of(this.button);
             }
 
             @Override
             public List<? extends NarratableEntry> narratables() {
-                return List.of(this.button);
+                return ImmutableList.of(this.button);
             }
         }
     }
