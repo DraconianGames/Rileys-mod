@@ -20,10 +20,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.custom.BaseVehicleEntity;
+import net.riley.riley_mod.network.PetSummonChargeParticlePacket;
+import net.riley.riley_mod.network.RileyModPackets;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = RileyMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -35,6 +39,7 @@ public class PlayerPetData {
     private static final int SUMMON_ANIMATION_TICKS = 70;
 
     private static final List<ScheduledSummon> SCHEDULED_SUMMONS = new ArrayList<>();
+    private static final Set<UUID> PET_SUMMON_CHARGING_PLAYERS = new HashSet<>();
 
     public static ListTag getPets(ServerPlayer player) {
         CompoundTag persisted = getPersistedData(player);
@@ -140,14 +145,18 @@ public class PlayerPetData {
     }
 
     public static void summonPet(ServerPlayer player, UUID uuid) {
+        summonPetAt(player, uuid, player.getX(), player.getY(), player.getZ());
+    }
+
+    public static void summonPetAt(ServerPlayer player, UUID uuid, double summonX, double summonY, double summonZ) {
         ServerLevel level = player.serverLevel();
 
         Entity existing = level.getEntity(uuid);
 
         if (existing instanceof LivingEntity living && living.isAlive()) {
-            double x = player.getX();
-            double y = player.getY();
-            double z = player.getZ();
+            double x = summonX;
+            double y = summonY;
+            double z = summonZ;
             float yRot = player.getYRot();
             float xRot = player.getXRot();
 
@@ -175,9 +184,9 @@ public class PlayerPetData {
                 existing.discard();
             }
 
-            double x = player.getX();
-            double y = player.getY();
-            double z = player.getZ();
+            double x = summonX;
+            double y = summonY;
+            double z = summonZ;
             float yRot = player.getYRot();
             float xRot = player.getXRot();
 
@@ -206,6 +215,7 @@ public class PlayerPetData {
 
         player.displayClientMessage(Component.literal("No saved data found for that pet."), true);
     }
+
 
     public static void deletePet(ServerPlayer player, UUID uuid) {
         CompoundTag persisted = getPersistedData(player);
@@ -255,11 +265,21 @@ public class PlayerPetData {
         return null;
     }
 
+    public static void setPetSummonCharging(ServerPlayer player, boolean charging) {
+        if (charging) {
+            PET_SUMMON_CHARGING_PLAYERS.add(player.getUUID());
+        } else {
+            PET_SUMMON_CHARGING_PLAYERS.remove(player.getUUID());
+        }
+    }
+
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) {
             return;
         }
+
+        spawnPetSummonChargeParticles();
 
         Iterator<ScheduledSummon> iterator = SCHEDULED_SUMMONS.iterator();
 
@@ -279,7 +299,61 @@ public class PlayerPetData {
             }
         }
     }
+    private static void spawnPetSummonChargeParticles() {
+        Iterator<UUID> iterator = PET_SUMMON_CHARGING_PLAYERS.iterator();
 
+        while (iterator.hasNext()) {
+            UUID playerUUID = iterator.next();
+            ServerPlayer player = null;
+
+            for (ServerPlayer onlinePlayer : net.minecraftforge.server.ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+                if (onlinePlayer.getUUID().equals(playerUUID)) {
+                    player = onlinePlayer;
+                    break;
+                }
+            }
+
+            if (player == null || player.isRemoved()) {
+                iterator.remove();
+                continue;
+            }
+
+            spawnModelRightHandSoulFlame(player);
+        }
+    }
+
+
+    private static void spawnModelRightHandSoulFlame(ServerPlayer player) {
+        double yawRadians = Math.toRadians(player.yBodyRot);
+
+        double forwardX = -Math.sin(yawRadians);
+        double forwardZ = Math.cos(yawRadians);
+
+        double rightX = -Math.cos(yawRadians);
+        double rightZ = -Math.sin(yawRadians);
+
+        double x = player.getX() + forwardX * 0.18D + rightX * 0.42D;
+        double y = player.getY() + (player.isCrouching() ? 0.85D : 1.05D);
+        double z = player.getZ() + forwardZ * 0.18D + rightZ * 0.42D;
+
+        sendChargeParticleToNearbyPlayersExceptCaster(player, x, y, z);
+    }
+
+    private static void sendChargeParticleToNearbyPlayersExceptCaster(ServerPlayer caster, double x, double y, double z) {
+        double maxDistanceSqr = 64.0D * 64.0D;
+
+        for (ServerPlayer viewer : caster.serverLevel().players()) {
+            if (viewer.getUUID().equals(caster.getUUID())) {
+                continue;
+            }
+
+            if (viewer.distanceToSqr(caster) > maxDistanceSqr) {
+                continue;
+            }
+
+            RileyModPackets.sendToPlayer(viewer, new PetSummonChargeParticlePacket(x, y, z));
+        }
+    }
     private static void spawnSummoningCircle(ServerLevel level, double x, double y, double z) {
         Entity circle = RileyModEntities.SUMMONING_CIRCLE_ENTITY.get().create(level);
 

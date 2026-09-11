@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.client.ClientTickEvents;
 import net.riley.riley_mod.network.PetActionPacket;
 import net.riley.riley_mod.network.RequestPetDataPacket;
 import net.riley.riley_mod.network.RileyModPackets;
@@ -272,8 +273,7 @@ public class PetScreen extends Screen {
     }
     private void handlePetAction() {
         if (this.selectedPet != null && this.selectedPet.entityUUID() != null) {
-            RileyModPackets.sendToServer(new PetActionPacket(this.selectedPet.entityUUID(), 0));
-            RileyModPackets.sendToServer(new RequestPetDataPacket());
+            ClientTickEvents.beginPetSummonTargeting(this.selectedPet.entityUUID());
             this.onClose();
         }
     }
