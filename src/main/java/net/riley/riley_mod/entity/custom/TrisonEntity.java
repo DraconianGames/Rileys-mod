@@ -5,12 +5,10 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,11 +16,11 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.riley.riley_mod.entity.RileyModEntities;
@@ -37,7 +35,7 @@ public class TrisonEntity extends AbstractInventoryMountEntity {
     private static final int STORAGE_COLUMNS = 5;
     private static final int STORAGE_ROWS = 3;
     private static final double RIDER_FORWARD_OFFSET = 0.125D;
-    private static final double NORMAL_SPEED = 0.3D;
+    public static final double NORMAL_SPEED = 0.3D;
     private static final double HOOKED_SPEED = 0.18D;
     private static final double CART_HOOK_RADIUS = 6.0D;
 
@@ -49,6 +47,12 @@ public class TrisonEntity extends AbstractInventoryMountEntity {
 
     public TrisonEntity(EntityType<? extends TrisonEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+    }
+    @Override
+    protected void randomizeAttributes(RandomSource random) {
+        // Do nothing.
+        // This prevents vanilla horse-style random health/speed/jump rolls
+        // from replacing the values from createAttributes().
     }
 
     @Override

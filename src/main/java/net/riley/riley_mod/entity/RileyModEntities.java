@@ -75,10 +75,16 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
     public static final RegistryObject<EntityType<MechaTerrorEntity>> MECHA_TERROR =
             ENTITY_TYPES.register("mecha_terror", ()-> EntityType.Builder.of(MechaTerrorEntity::new,MobCategory.CREATURE)
                     .sized(2.5f,2.5f).build("mecha_terror"));
-
+    public static final RegistryObject<EntityType<NetherTrisonEntity>> NETHER_TRISON =
+            ENTITY_TYPES.register("nether_trison",
+                    () -> EntityType.Builder.of(NetherTrisonEntity::new, MobCategory.CREATURE)
+                            .sized(2.5f,2.5f)
+                            .fireImmune()
+                            .build("nether_trison"));
     public static final RegistryObject<EntityType<TrisonEntity>> TRISON =
             ENTITY_TYPES.register("trison",()-> EntityType.Builder.of(TrisonEntity::new,MobCategory.CREATURE)
                     .sized(2f,2.3f).build("trison"));
+
     public static final RegistryObject<EntityType<TrisonCartEntity>> TRISON_CART =
             ENTITY_TYPES.register("trison_cart",()-> EntityType.Builder.of(TrisonCartEntity::new,MobCategory.CREATURE)
                     .sized(4f,3f).build("trison_cart"));

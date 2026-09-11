@@ -219,22 +219,31 @@ public class PlayerPetData {
 
     public static void deletePet(ServerPlayer player, UUID uuid) {
         CompoundTag persisted = getPersistedData(player);
-        ListTag pets = persisted.getList(PETS_TAG, Tag.TAG_COMPOUND);
 
-        for (int i = 0; i < pets.size(); i++) {
-            CompoundTag petData = pets.getCompound(i);
+        boolean removedPet = removeCompanionFromList(persisted, PETS_TAG, uuid);
+        boolean removedMount = removeCompanionFromList(persisted, MOUNTS_TAG, uuid);
+        boolean removedVehicle = removeCompanionFromList(persisted, VEHICLES_TAG, uuid);
 
-            if (petData.contains("UUID") && petData.getUUID("UUID").equals(uuid)) {
-                pets.remove(i);
-                persisted.put(PETS_TAG, pets);
-                savePersistedData(player, persisted);
-
-                player.displayClientMessage(Component.literal("Pet data released."), true);
-                return;
-            }
+        if (removedPet || removedMount || removedVehicle) {
+            savePersistedData(player, persisted);
+            player.displayClientMessage(Component.literal("Companion data released."), true);
         }
     }
+    private static boolean removeCompanionFromList(CompoundTag persisted, String listTag, UUID uuid) {
+        ListTag companions = persisted.getList(listTag, Tag.TAG_COMPOUND);
 
+        for (int i = 0; i < companions.size(); i++) {
+            CompoundTag companionData = companions.getCompound(i);
+
+            if (companionData.contains("UUID") && companionData.getUUID("UUID").equals(uuid)) {
+                companions.remove(i);
+                persisted.put(listTag, companions);
+                return true;
+            }
+        }
+
+        return false;
+    }
     private static CompoundTag getPersistedData(ServerPlayer player) {
         CompoundTag playerData = player.getPersistentData();
 
