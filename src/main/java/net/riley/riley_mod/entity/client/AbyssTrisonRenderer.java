@@ -1,11 +1,13 @@
 package net.riley.riley_mod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.custom.AbyssTrisonEntity;
+import net.riley.riley_mod.entity.custom.TrisonEntity;
 
 public class AbyssTrisonRenderer extends MobRenderer<AbyssTrisonEntity, TrisonModel<AbyssTrisonEntity>> {
     private static final ResourceLocation TEXTURE =
@@ -21,8 +23,10 @@ public class AbyssTrisonRenderer extends MobRenderer<AbyssTrisonEntity, TrisonMo
     }
 
     @Override
-    public void render(AbyssTrisonEntity entity, float entityYaw, float partialTicks,
-                       PoseStack poseStack, net.minecraft.client.renderer.MultiBufferSource buffer, int packedLight) {
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    public void render(AbyssTrisonEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        if(pEntity.isBaby()) {
+            pMatrixStack.scale(0.3f, 0.3f, 0.3f);
+        }
+        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 }

@@ -17,9 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
+
 public class BisonEntity extends AbstractInventoryMountEntity {
 
     public BisonEntity(EntityType<? extends BisonEntity> pEntityType, Level pLevel) {
@@ -101,6 +105,49 @@ public class BisonEntity extends AbstractInventoryMountEntity {
     public boolean canEquipMountArmor(ItemStack stack) {
         return false;
     }
+    /**
+     * Determines which Trison variant to transform into based on the current biome.
+     */
+    private EntityType<?> getTrisonTypeForBiome() {
+        var biomeKey = this.level().getBiome(this.blockPosition()).unwrapKey();
+
+        if (biomeKey.isEmpty()) {
+            return RileyModEntities.TRISON.get();
+        }
+
+        String biomePath = biomeKey.get().location().toString();
+
+        // Check for Nether biomes - all nether biomes contain these keywords
+        if (biomePath.contains("crimson") || biomePath.contains("warped") ||
+                biomePath.contains("nether_wastes") || biomePath.contains("soul_sand") ||
+                biomePath.contains("basalt")) {
+            return RileyModEntities.NETHER_TRISON.get();
+        }
+
+        // Check for End biomes (all vanilla end biomes)
+        if (biomePath.contains("end_barrens") || biomePath.contains("the_end") ||
+                biomePath.contains("end_midlands") || biomePath.contains("end_highlands") ||
+                biomePath.contains("small_end_islands")) {
+            return RileyModEntities.END_TRISON.get();
+        }
+
+        // Check for mountain
+        if (biomePath.contains("frozen_peaks") || biomePath.contains("jagged_peaks") || biomePath.contains("stony_peaks")) {
+            return RileyModEntities.MOUNTAIN_TRISON.get();
+        }
+
+        // Check for abyss biomes (your custom abyss biomes)
+        if (biomePath.contains("abyss") || biomePath.contains("deep_dark")) {
+            return RileyModEntities.ABYSS_TRISON.get();
+        }
+
+        // Check for fallow/dead/barren biomes (your custom fallow biomes)
+        if (biomePath.contains("fallow")) {
+            return RileyModEntities.FALLOW_TRISON.get();
+        }
+
+        return RileyModEntities.TRISON.get();
+    }
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -116,7 +163,7 @@ public class BisonEntity extends AbstractInventoryMountEntity {
             return InteractionResult.sidedSuccess(this.level().isClientSide);
         }
 
-        // Transform into Trison when fed a Golden Apple
+// Transform into appropriate Trison variant when fed a Golden Apple
         if (itemstack.is(Items.GOLDEN_APPLE) && this.isTamed() && !this.isBaby()) {
             if (!pPlayer.getAbilities().instabuild) {
                 itemstack.shrink(1);
@@ -125,10 +172,16 @@ public class BisonEntity extends AbstractInventoryMountEntity {
             if (!this.level().isClientSide) {
                 this.dropMountInventoryOnGround();
 
-                TrisonEntity trisonEntity = this.convertTo(RileyModEntities.TRISON.get(), true);
-                if (trisonEntity != null) {
-                    trisonEntity.setAge(-24000); // make the new Trison a baby
+                // Get the appropriate Trison type based on current biome
+                EntityType<?> trisonType = getTrisonTypeForBiome();
+                net.minecraft.world.entity.Entity trisonEntity = trisonType.create((ServerLevel) this.level());
+
+                if (trisonEntity instanceof AgeableMob ageableMob) {
+                    ageableMob.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
+                    ageableMob.setAge(-24000); // make the new Trison a baby
+                    this.level().addFreshEntity(trisonEntity);
                     this.level().broadcastEntityEvent(trisonEntity, (byte) 7);
+                    this.discard();
                 }
             }
 
