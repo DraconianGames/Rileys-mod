@@ -29,7 +29,23 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     private static final double RIDER_FORWARD_OFFSET = 0.125D;
 
     public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAminationTimeout = 0;
+    public final AnimationState walkAnimationState = new AnimationState();
+
+    private void setupAnimationStates() {
+        // Use isInSittingPose() which is more reliable for renderers
+        if (this.walkAnimation.isMoving()) {
+            stopAllExcept(walkAnimationState);
+            walkAnimationState.startIfStopped(this.tickCount);
+        } else {
+            stopAllExcept(idleAnimationState);
+            idleAnimationState.startIfStopped(this.tickCount);
+        }
+    }
+    private void stopAllExcept(AnimationState activeState) {
+        if (activeState != walkAnimationState) walkAnimationState.stop();
+        if (activeState != idleAnimationState) idleAnimationState.stop();
+
+    }
 
     public SkyQuadsonEntity(EntityType<? extends AbstractChestedHorse> entityType, Level level) {
         super(entityType, level);
@@ -95,30 +111,11 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     @Override
     public void tick() {
         super.tick();
-
         if (this.level().isClientSide()) {
-            setupAminationStates();
+            setupAnimationStates();
         }
     }
 
-    private void setupAminationStates() {
-        if (this.idleAminationTimeout < -0) {
-            this.idleAminationTimeout = this.random.nextInt(20) + 80;
-            this.idleAnimationState.start(this.tickCount);
-        } else {
-            --this.idleAminationTimeout;
-        }
-    }
-    @Override
-    protected void updateWalkAnimation(float pPartialTick) {
-        float f;
-        if (this.getPose() == Pose.STANDING) {
-            f = Math.min(pPartialTick * 6f, 1f);
-        } else {
-            f = 0f;
-        }
-        this.walkAnimation.update(f, .2f);
-    }
     @Override
     protected void registerGoals() {
         super.registerGoals();
