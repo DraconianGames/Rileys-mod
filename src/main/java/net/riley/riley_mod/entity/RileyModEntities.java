@@ -96,6 +96,9 @@ public static final RegistryObject<EntityType<BisonEntity>> BISON =
     public static final RegistryObject<EntityType<FallowTrisonEntity>> FALLOW_TRISON =
             ENTITY_TYPES.register("fallow_trison",()-> EntityType.Builder.of(FallowTrisonEntity::new,MobCategory.CREATURE)
                     .sized(2f,2.3f).build("trison"));
+    public static final RegistryObject<EntityType<SkyQuadsonEntity>> SKY_QUADSON =
+            ENTITY_TYPES.register("sky_quadson",()-> EntityType.Builder.of(SkyQuadsonEntity::new,MobCategory.CREATURE)
+                    .sized(2f,2.3f).build("trison"));
 
     public static final RegistryObject<EntityType<TrisonCartEntity>> TRISON_CART =
             ENTITY_TYPES.register("trison_cart",()-> EntityType.Builder.of(TrisonCartEntity::new,MobCategory.CREATURE)

@@ -36,6 +36,7 @@ public class ModEventBusClientEvents {
         event.registerLayerDefinition(RileyModModelLayers.TRUCK_CARGO_UPGRADE_LAYER, TruckCargoUpgrade::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.TRUCK_ARMOR_UPGRADE_LAYER, TruckArmorUpgrade::createBodyLayer);
         event.registerLayerDefinition(RileyModModelLayers.SUMMONING_CIRCLE_LAYER, SummoningCircleModel::createBodyLayer);
+        event.registerLayerDefinition(RileyModModelLayers.SKY_QUADSON_LAYER, SkyQuadsonModel::createBodyLayer);
 
 
     }

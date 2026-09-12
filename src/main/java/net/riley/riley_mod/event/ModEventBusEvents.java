@@ -36,6 +36,7 @@ public class ModEventBusEvents {
         event.put(RileyModEntities.TRUCK.get(), TruckEntity.createAttributes().build());
         event.put(RileyModEntities.NETHER_TRISON.get(), NetherTrisonEntity.createAttributes().build());
         event.put(RileyModEntities.MOUNTAIN_TRISON.get(), MountainTrisonEntity.createAttributes().build());
+        event.put(RileyModEntities.SKY_QUADSON.get(), SkyQuadsonEntity.createAttributes().build());
         event.put(RileyModEntities.END_TRISON.get(), EndTrisonEntity.createAttributes().build());
         event.put(RileyModEntities.ABYSS_TRISON.get(), AbyssTrisonEntity.createAttributes().build());
         event.put(RileyModEntities.FALLOW_TRISON.get(), FallowTrisonEntity.createAttributes().build());

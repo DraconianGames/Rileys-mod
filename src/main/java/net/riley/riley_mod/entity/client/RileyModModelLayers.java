@@ -40,6 +40,8 @@ public static final ModelLayerLocation BISON_LAYER = new ModelLayerLocation(
 
     public static final ModelLayerLocation TRISON_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "trison_layer"),"main");
+    public static final ModelLayerLocation SKY_QUADSON_LAYER = new ModelLayerLocation(
+            ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "sky_quadson_layer"),"main");
     public static final ModelLayerLocation TRISON_CART_LAYER = new ModelLayerLocation(
             ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "trison_cart_layer"),"main");
 

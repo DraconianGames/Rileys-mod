@@ -17,9 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.Biome;
 import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
@@ -105,10 +102,7 @@ public class BisonEntity extends AbstractInventoryMountEntity {
     public boolean canEquipMountArmor(ItemStack stack) {
         return false;
     }
-    /**
-     * Determines which Trison variant to transform into based on the current biome.
-     */
-    //todo fix transformation deleating entries in the pet screen again
+
     private EntityType<?> getTrisonTypeForBiome() {
         var biomeKey = this.level().getBiome(this.blockPosition()).unwrapKey();
 
