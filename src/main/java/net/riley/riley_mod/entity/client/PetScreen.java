@@ -29,7 +29,7 @@ public class PetScreen extends Screen {
 
     private static final List<JournalEntry> SAVED_PETS = new ArrayList<>();
     private static net.minecraft.nbt.ListTag syncedStoredPets = new net.minecraft.nbt.ListTag();
-    private static net.minecraft.nbt.ListTag syncedStoredMounts = new net.minecraft.nbt.ListTag();
+    public static net.minecraft.nbt.ListTag syncedStoredMounts = new net.minecraft.nbt.ListTag();
     private static net.minecraft.nbt.ListTag syncedStoredVehicles = new net.minecraft.nbt.ListTag();
 
     private static PetScreen openInstance;
@@ -341,6 +341,23 @@ public class PetScreen extends Screen {
 
     public static void forgetPet(UUID uuid) {
         SAVED_PETS.removeIf(entry -> uuid.equals(entry.entityUUID()));
+    }
+    public static void forgetMount(UUID uuid) {
+        SAVED_PETS.removeIf(entry -> uuid.equals(entry.entityUUID()));
+
+        // Also remove from synced mounts
+        net.minecraft.nbt.ListTag updatedMounts = new net.minecraft.nbt.ListTag();
+        for (int i = 0; i < syncedStoredMounts.size(); i++) {
+            net.minecraft.nbt.CompoundTag data = syncedStoredMounts.getCompound(i);
+            try {
+                UUID storedUuid = data.getUUID("UUID");
+                if (!storedUuid.equals(uuid)) {
+                    updatedMounts.add(data.copy());
+                }
+            } catch (Exception ignored) {
+            }
+        }
+        syncedStoredMounts = updatedMounts;
     }
 
     private boolean isSelectedPetDead() {

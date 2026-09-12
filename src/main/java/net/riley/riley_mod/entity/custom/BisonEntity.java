@@ -108,6 +108,7 @@ public class BisonEntity extends AbstractInventoryMountEntity {
     /**
      * Determines which Trison variant to transform into based on the current biome.
      */
+    //todo fix transformation deleating entries in the pet screen again
     private EntityType<?> getTrisonTypeForBiome() {
         var biomeKey = this.level().getBiome(this.blockPosition()).unwrapKey();
 
@@ -171,6 +172,8 @@ public class BisonEntity extends AbstractInventoryMountEntity {
 
             if (!this.level().isClientSide) {
                 this.dropMountInventoryOnGround();
+                // Delete the mount entry BEFORE transformation
+                net.riley.riley_mod.entity.client.PetScreen.forgetMount(this.getUUID());
 
                 // Get the appropriate Trison type based on current biome
                 EntityType<?> trisonType = getTrisonTypeForBiome();
