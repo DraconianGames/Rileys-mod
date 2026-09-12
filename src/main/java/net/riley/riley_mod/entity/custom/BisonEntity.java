@@ -172,9 +172,10 @@ public class BisonEntity extends AbstractInventoryMountEntity {
 
             if (!this.level().isClientSide) {
                 this.dropMountInventoryOnGround();
-                // Delete the mount entry BEFORE transformation
-                net.riley.riley_mod.entity.client.PetScreen.forgetMount(this.getUUID());
-
+                // Send packet to server to delete the mount from PlayerPetData
+                net.riley.riley_mod.network.RileyModPackets.sendToServer(
+                        new net.riley.riley_mod.network.PetActionPacket(this.getUUID(), 2)
+                );
                 // Get the appropriate Trison type based on current biome
                 EntityType<?> trisonType = getTrisonTypeForBiome();
                 net.minecraft.world.entity.Entity trisonEntity = trisonType.create((ServerLevel) this.level());
