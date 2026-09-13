@@ -22,7 +22,10 @@ import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-
+//todo make it able to fly while riding it.
+// ctrl and space seem like good options for up and down.
+// tap tab to switch between flight and walk.
+// will land if dismounted.
 public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     private static final int STORAGE_COLUMNS = 5;
     private static final int STORAGE_ROWS = 3;

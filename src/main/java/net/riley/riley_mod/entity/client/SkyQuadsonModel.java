@@ -119,15 +119,15 @@ public class SkyQuadsonModel<T extends Entity> extends HierarchicalModel<T> {
 		PartDefinition body = quadson.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition torso = body.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 121).addBox(-9.0F, -8.0F, -22.0F, 18.0F, 19.0F, 29.0F, new CubeDeformation(0.0F))
-		.texOffs(156, 0).addBox(-9.0F, -7.0F, 7.0F, 18.0F, 17.0F, 25.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+				.texOffs(156, 0).addBox(-9.0F, -7.0F, 7.0F, 18.0F, 17.0F, 25.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
 		PartDefinition tail_base = torso.addOrReplaceChild("tail_base", CubeListBuilder.create().texOffs(202, 121).addBox(-6.0F, -4.0F, 0.0F, 12.0F, 8.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 32.0F));
 
 		PartDefinition tail_mid = tail_base.addOrReplaceChild("tail_mid", CubeListBuilder.create().texOffs(66, 217).addBox(-5.0F, -4.0F, 0.0F, 10.0F, 8.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 24.0F));
 
 		PartDefinition tail_end = tail_mid.addOrReplaceChild("tail_end", CubeListBuilder.create().texOffs(80, 179).addBox(-3.0F, -4.0F, 0.0F, 6.0F, 8.0F, 30.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(3.0F, 0.0F, 14.0F, 33.0F, 0.0F, 45.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 45).addBox(-36.0F, 0.0F, 14.0F, 33.0F, 0.0F, 45.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 24.0F));
+				.texOffs(0, 0).addBox(3.0F, 0.0F, 14.0F, 33.0F, 0.0F, 45.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 45).addBox(-36.0F, 0.0F, 14.0F, 33.0F, 0.0F, 45.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 24.0F));
 
 		PartDefinition head = torso.addOrReplaceChild("head", CubeListBuilder.create().texOffs(218, 201).addBox(-5.0F, -6.0F, -12.0F, 10.0F, 13.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -22.0F));
 
@@ -146,18 +146,18 @@ public class SkyQuadsonModel<T extends Entity> extends HierarchicalModel<T> {
 		PartDefinition left_horn_end = left_horn_mid.addOrReplaceChild("left_horn_end", CubeListBuilder.create().texOffs(184, 86).addBox(0.0F, -0.5F, -2.0F, 12.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(16.0F, 0.0F, 0.0F, 0.0F, 0.2618F, 0.0F));
 
 		PartDefinition bridle = head.addOrReplaceChild("bridle", CubeListBuilder.create().texOffs(212, 86).addBox(5.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(134, 217).addBox(-7.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 5.0F, -10.0F));
+				.texOffs(134, 217).addBox(-7.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 5.0F, -10.0F));
 
 		PartDefinition rein = bridle.addOrReplaceChild("rein", CubeListBuilder.create().texOffs(152, 179).addBox(6.0F, -8.0F, -1.0F, 0.0F, 9.0F, 33.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 200).addBox(-6.0F, -8.0F, -1.0F, 0.0F, 9.0F, 33.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.7F, 0.0F, 0.6109F, 0.0F, 0.0F));
+				.texOffs(0, 200).addBox(-6.0F, -8.0F, -1.0F, 0.0F, 9.0F, 33.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.7F, 0.0F, 0.6109F, 0.0F, 0.0F));
 
 		PartDefinition saddle = torso.addOrReplaceChild("saddle", CubeListBuilder.create().texOffs(202, 153).addBox(-6.0F, -2.0F, -9.0F, 12.0F, 2.0F, 18.0F, new CubeDeformation(0.0F))
-		.texOffs(142, 217).addBox(-1.0F, -4.0F, -9.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(132, 256).addBox(-5.0F, -8.0F, 7.0F, 10.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, -6.0F));
+				.texOffs(142, 217).addBox(-1.0F, -4.0F, -9.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(132, 256).addBox(-5.0F, -8.0F, 7.0F, 10.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -8.0F, -6.0F));
 
 		PartDefinition chest = torso.addOrReplaceChild("chest", CubeListBuilder.create().texOffs(228, 86).addBox(-9.5F, -0.5F, -6.0F, 19.0F, 18.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(134, 228).addBox(-9.5F, -0.5F, 5.0F, 19.0F, 18.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 169).addBox(-8.0F, -7.0F, -10.0F, 16.0F, 7.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 13.0F));
+				.texOffs(134, 228).addBox(-9.5F, -0.5F, 5.0F, 19.0F, 18.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 169).addBox(-8.0F, -7.0F, -10.0F, 16.0F, 7.0F, 24.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -7.0F, 13.0F));
 
 		PartDefinition f1_left_leg = body.addOrReplaceChild("f1_left_leg", CubeListBuilder.create().texOffs(208, 249).addBox(-1.5F, -3.0F, -3.0F, 5.0F, 11.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, 11.0F, -17.0F, 0.6109F, 0.0F, 0.0F));
 
@@ -224,22 +224,22 @@ public class SkyQuadsonModel<T extends Entity> extends HierarchicalModel<T> {
 		PartDefinition cube_r12 = r_right_hoof.addOrReplaceChild("cube_r12", CubeListBuilder.create().texOffs(194, 221).mirror().addBox(0.0F, 0.0F, -1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 1.0F, 0.0F, 0.0F, -0.0436F));
 
 		PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(218, 183).addBox(0.0F, -2.0F, -4.0F, 26.0F, 4.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 90).addBox(0.0F, 0.0F, 1.0F, 26.0F, 0.0F, 31.0F, new CubeDeformation(0.0F)), PartPose.offset(9.0F, -1.0F, -15.0F));
+				.texOffs(0, 90).addBox(0.0F, 0.0F, 1.0F, 26.0F, 0.0F, 31.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(9.0F, -1.0F, -15.0F, 0.0F, 0.0F, 1.2217F));
 
 		PartDefinition left_wing_mid = left_wing.addOrReplaceChild("left_wing_mid", CubeListBuilder.create().texOffs(134, 221).addBox(-1.0F, -1.5F, -1.5F, 26.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(94, 121).addBox(0.0F, 0.0F, 2.0F, 25.0F, 0.0F, 29.0F, new CubeDeformation(0.0F)), PartPose.offset(26.0F, 0.0F, -2.0F));
+				.texOffs(94, 121).addBox(0.0F, 0.0F, 2.0F, 25.0F, 0.0F, 29.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(26.0F, 0.0F, -2.0F, 0.0F, 0.0F, -3.0543F));
 
 		PartDefinition left_wing_end = left_wing_mid.addOrReplaceChild("left_wing_end", CubeListBuilder.create().texOffs(202, 173).addBox(-1.0F, -1.0F, -1.0F, 31.0F, 2.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(156, 42).addBox(0.0F, 0.0F, 2.0F, 30.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(25.0F, 0.0F, 0.0F));
+				.texOffs(156, 42).addBox(0.0F, 0.0F, 2.0F, 30.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(25.0F, 0.0F, 0.0F, 0.0F, 0.0F, 3.0543F));
 
 		PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(218, 192).addBox(-26.0F, -2.0F, -4.0F, 26.0F, 4.0F, 5.0F, new CubeDeformation(0.0F))
-		.texOffs(114, 90).addBox(-26.0F, 0.0F, 1.0F, 26.0F, 0.0F, 31.0F, new CubeDeformation(0.0F)), PartPose.offset(-9.0F, -1.0F, -15.0F));
+				.texOffs(114, 90).addBox(-26.0F, 0.0F, 1.0F, 26.0F, 0.0F, 31.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-9.0F, -1.0F, -15.0F, 0.0F, 0.0F, -1.2217F));
 
 		PartDefinition right_wing_mid = right_wing.addOrReplaceChild("right_wing_mid", CubeListBuilder.create().texOffs(194, 226).addBox(-25.0F, -1.5F, -1.5F, 26.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(94, 150).addBox(-25.0F, 0.0F, 2.0F, 25.0F, 0.0F, 29.0F, new CubeDeformation(0.0F)), PartPose.offset(-26.0F, 0.0F, -2.0F));
+				.texOffs(94, 150).addBox(-25.0F, 0.0F, 2.0F, 25.0F, 0.0F, 29.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-26.0F, 0.0F, -2.0F, 0.0F, 0.0F, 3.0543F));
 
 		PartDefinition right_wing_end = right_wing_mid.addOrReplaceChild("right_wing_end", CubeListBuilder.create().texOffs(218, 178).addBox(-30.0F, -1.0F, -1.0F, 31.0F, 2.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(156, 64).addBox(-30.0F, 0.0F, 2.0F, 30.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offset(-25.0F, 0.0F, 0.0F));
+				.texOffs(156, 64).addBox(-30.0F, 0.0F, 2.0F, 30.0F, 0.0F, 22.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-25.0F, 0.0F, 0.0F, 0.0F, 0.0F, -3.0543F));
 
 		return LayerDefinition.create(meshdefinition, 512, 512);
 	}
