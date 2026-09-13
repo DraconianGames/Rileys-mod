@@ -122,53 +122,37 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
             if (cooldown > 0) {
                 this.getPersistentData().putInt("BreedCooldown", cooldown - 1);
             }
-
-            // Handle flight mechanics on server side
-            handleFlightPhysics();
         }
     }
+//todo make up and down arrow keys be up and down for flight. also make movement work in flight mode
+    @Override
+    public void travel(Vec3 travelVector) {
+        if (isFlying) {
+            // Handle flight mode movement
+            Vec3 currentMotion = this.getDeltaMovement();
 
-    private void handleFlightPhysics() {
-        Entity rider = this.getFirstPassenger();
+            // Dampen horizontal movement to hover
+            double newX = currentMotion.x * 0.8D;
+            double newZ = currentMotion.z * 0.8D;
 
-        if (rider != null) {
-            if (isFlying) {
-                // Hover in place during flight
-                Vec3 currentMotion = this.getDeltaMovement();
+            // Handle vertical flight input from rider
+            double verticalInput = 0;
 
-                // Dampen horizontal movement to hover
-                this.setDeltaMovement(currentMotion.x * 0.8D, currentMotion.y, currentMotion.z * 0.8D);
-
-                // Handle vertical flight input from rider
-                double verticalInput = 0;
-
-                // Space key for up
-                if (currentJumpInput) {
-                    verticalInput = VERTICAL_SPEED;
-                }
-
-                // Ctrl key (sneak) for down
-                if (currentSneakInput) {
-                    verticalInput = -VERTICAL_SPEED;
-                }
-
-                Vec3 motion = this.getDeltaMovement();
-                this.setDeltaMovement(motion.x, verticalInput, motion.z);
-
-                // Prevent falling
-                this.setNoGravity(true);
-            } else {
-                // Walking mode - normal gravity
-                this.setNoGravity(false);
+            // Space key for up
+            if (currentJumpInput) {
+                verticalInput = VERTICAL_SPEED;
             }
+
+            // Ctrl key (sneak) for down
+            if (currentSneakInput) {
+                verticalInput = -VERTICAL_SPEED;
+            }
+
+            this.setDeltaMovement(newX, verticalInput, newZ);
+            this.move(MoverType.SELF, this.getDeltaMovement());
         } else {
-            // No rider - hover in place if flying
-            if (isFlying) {
-                this.setNoGravity(true);
-                this.setDeltaMovement(this.getDeltaMovement().x * 0.8D, 0, this.getDeltaMovement().z * 0.8D);
-            } else {
-                this.setNoGravity(false);
-            }
+            // Normal movement/walking
+            super.travel(travelVector);
         }
     }
 
