@@ -250,6 +250,7 @@ public class SkyQuadsonModel<T extends Entity> extends HierarchicalModel<T> {
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 		this.animateWalk(SkyQuadsonAnimationDefinitions.QUADSON_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
 		this.animate(((SkyQuadsonEntity) entity).idleAnimationState,SkyQuadsonAnimationDefinitions.QUADSON_IDLE,ageInTicks,1f);
+		this.animate(((SkyQuadsonEntity) entity).flyAnimationState,SkyQuadsonAnimationDefinitions.QUADSON_FLY,ageInTicks,1f);
 
 		SkyQuadsonEntity QuadsonEntity = (SkyQuadsonEntity) entity;
 

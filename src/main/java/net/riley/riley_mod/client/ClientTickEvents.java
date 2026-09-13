@@ -16,6 +16,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.entity.custom.SkyQuadsonEntity;
 import net.riley.riley_mod.network.*;
 
 import java.util.UUID;
@@ -27,6 +28,10 @@ public class ClientTickEvents {
     private static boolean lastUseState = false;
     private static int wingFlapTicks = 0;
     private static boolean sneaking = false;
+
+    private static boolean lastSkyQuadsonJumpState = false;
+    private static boolean lastSkyQuadsonSneakState = false;
+    private static boolean lastSkyQuadsonFlightToggleState = false;
 
     private static UUID pendingPetSummonUUID = null;
 
@@ -65,6 +70,12 @@ public class ClientTickEvents {
             pendingPetSummonUUID = null;
             return;
         }
+
+        // Handle SkyQuadson flight controls
+        if (player.getVehicle() instanceof SkyQuadsonEntity skyQuadson) {
+            handleSkyQuadsonFlightInput(player, skyQuadson);
+        }
+
         if (isPetSummonTargeting()) {
             spawnRightHandSoulFlame(player);
             handlePetSummonPlacement(player);
@@ -94,6 +105,29 @@ public class ClientTickEvents {
 
         lastJumpState = jumping;
     }
+
+    private static void handleSkyQuadsonFlightInput(LocalPlayer player, SkyQuadsonEntity skyQuadson) {
+        boolean jumping = Minecraft.getInstance().options.keyJump.isDown();
+        boolean sneaking = player.isShiftKeyDown();
+
+        // Send packet if input state changed
+        if (jumping != lastSkyQuadsonJumpState || sneaking != lastSkyQuadsonSneakState) {
+            RileyModPackets.sendToServer(new SkyQuadsonFlightInputPacket(jumping, sneaking));
+            lastSkyQuadsonJumpState = jumping;
+            lastSkyQuadsonSneakState = sneaking;
+        }
+
+        // Handle Tab key for flight mode toggle
+        boolean flightTogglePressed = RileyModKeyMappings.SKYQUADSON_FLIGHT_TOGGLE.isDown();
+        if (flightTogglePressed && !lastSkyQuadsonFlightToggleState) {
+            skyQuadson.toggleFlight();
+            lastSkyQuadsonFlightToggleState = true;
+        }
+        if (!flightTogglePressed) {
+            lastSkyQuadsonFlightToggleState = false;
+        }
+    }
+
     private static void spawnRightHandSoulFlame(LocalPlayer player) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.level == null) return;

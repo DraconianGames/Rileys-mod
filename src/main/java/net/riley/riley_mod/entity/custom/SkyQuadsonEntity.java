@@ -22,21 +22,31 @@ import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-//todo make it able to fly while riding it.
-// ctrl and space seem like good options for up and down.
-// tap tab to switch between flight and walk.
-// will land if dismounted.
+
 public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     private static final int STORAGE_COLUMNS = 5;
     private static final int STORAGE_ROWS = 3;
     private static final double RIDER_FORWARD_OFFSET = 0.125D;
+    private static final double FLIGHT_SPEED = 0.15D;
+    private static final double VERTICAL_SPEED = 0.1D;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();
+    public final AnimationState flyAnimationState = new AnimationState();
+
+    private boolean isFlying = false;
+    private int lastTabPressTime = 0;
+    private static final int TAB_COOLDOWN = 10; // ticks between tab presses
+
+    // Flight input state
+    private boolean currentJumpInput = false;
+    private boolean currentSneakInput = false;
 
     private void setupAnimationStates() {
-        // Use isInSittingPose() which is more reliable for renderers
-        if (this.walkAnimation.isMoving()) {
+        if (isFlying) {
+            stopAllExcept(flyAnimationState);
+            flyAnimationState.startIfStopped(this.tickCount);
+        } else if (this.walkAnimation.isMoving()) {
             stopAllExcept(walkAnimationState);
             walkAnimationState.startIfStopped(this.tickCount);
         } else {
@@ -44,15 +54,17 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
             idleAnimationState.startIfStopped(this.tickCount);
         }
     }
+
     private void stopAllExcept(AnimationState activeState) {
         if (activeState != walkAnimationState) walkAnimationState.stop();
         if (activeState != idleAnimationState) idleAnimationState.stop();
-
+        if (activeState != flyAnimationState) flyAnimationState.stop();
     }
 
     public SkyQuadsonEntity(EntityType<? extends AbstractChestedHorse> entityType, Level level) {
         super(entityType, level);
     }
+
     @Override
     protected void randomizeAttributes(RandomSource random) {}
 
@@ -70,6 +82,7 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     public boolean canEquipMountArmor(ItemStack stack) {
         return false;
     }
+
     @Override
     protected @Nullable Vec3 getCustomPassengerOffset(Entity passenger, int passengerIndex) {
         if (passengerIndex == 0) {
@@ -109,8 +122,56 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
             if (cooldown > 0) {
                 this.getPersistentData().putInt("BreedCooldown", cooldown - 1);
             }
+
+            // Handle flight mechanics on server side
+            handleFlightPhysics();
         }
     }
+
+    private void handleFlightPhysics() {
+        Entity rider = this.getFirstPassenger();
+
+        if (rider != null) {
+            if (isFlying) {
+                // Hover in place during flight
+                Vec3 currentMotion = this.getDeltaMovement();
+
+                // Dampen horizontal movement to hover
+                this.setDeltaMovement(currentMotion.x * 0.8D, currentMotion.y, currentMotion.z * 0.8D);
+
+                // Handle vertical flight input from rider
+                double verticalInput = 0;
+
+                // Space key for up
+                if (currentJumpInput) {
+                    verticalInput = VERTICAL_SPEED;
+                }
+
+                // Ctrl key (sneak) for down
+                if (currentSneakInput) {
+                    verticalInput = -VERTICAL_SPEED;
+                }
+
+                Vec3 motion = this.getDeltaMovement();
+                this.setDeltaMovement(motion.x, verticalInput, motion.z);
+
+                // Prevent falling
+                this.setNoGravity(true);
+            } else {
+                // Walking mode - normal gravity
+                this.setNoGravity(false);
+            }
+        } else {
+            // No rider - hover in place if flying
+            if (isFlying) {
+                this.setNoGravity(true);
+                this.setDeltaMovement(this.getDeltaMovement().x * 0.8D, 0, this.getDeltaMovement().z * 0.8D);
+            } else {
+                this.setNoGravity(false);
+            }
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -127,6 +188,7 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
         this.goalSelector.addGoal(1, new AbyssBreedGoal(this, 1.0D, Ingredient.of(Items.APPLE)));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1D, Ingredient.of(Items.CARROT), false));
     }
+
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
@@ -157,6 +219,7 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     public boolean isFood(ItemStack pStack) {
         return pStack.is(Items.APPLE);
     }
+
     @Override
     public double getPassengersRidingOffset() {
         return super.getPassengersRidingOffset() + 0.7D;
@@ -165,5 +228,25 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.BISON.get().create(pLevel);
+    }
+
+    public boolean isFlying() {
+        return isFlying;
+    }
+
+    public void setFlying(boolean flying) {
+        this.isFlying = flying;
+    }
+
+    public void toggleFlight() {
+        if (this.tickCount - lastTabPressTime > TAB_COOLDOWN) {
+            this.isFlying = !this.isFlying;
+            this.lastTabPressTime = this.tickCount;
+        }
+    }
+
+    public void setFlightInput(boolean jumping, boolean sneaking) {
+        this.currentJumpInput = jumping;
+        this.currentSneakInput = sneaking;
     }
 }

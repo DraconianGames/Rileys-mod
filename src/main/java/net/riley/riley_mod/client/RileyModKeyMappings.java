@@ -25,10 +25,17 @@ public class RileyModKeyMappings {
             GLFW.GLFW_KEY_U,
             CATEGORY
     );
+    public static final KeyMapping SKYQUADSON_FLIGHT_TOGGLE = new KeyMapping(
+            "key.riley_mod.skyquadson_flight_toggle",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_TAB,
+            CATEGORY
+    );
 
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(DOMAIN_EXPANSION);
         event.register(PET_MENU);
+        event.register(SKYQUADSON_FLIGHT_TOGGLE);
     }
 }

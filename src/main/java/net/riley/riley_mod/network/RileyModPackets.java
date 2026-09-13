@@ -121,7 +121,12 @@ public class RileyModPackets {
                 .encoder(SortVehicleInventoryPacket::toBytes)
                 .consumerMainThread(SortVehicleInventoryPacket::handle)
                 .add();
- 
+        net.messageBuilder(SkyQuadsonFlightInputPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(SkyQuadsonFlightInputPacket::encode)
+                .decoder(SkyQuadsonFlightInputPacket::decode)
+                .consumerMainThread(SkyQuadsonFlightInputPacket::handle)
+                .add();
+
     }
 
     private static void handleSyncAugmentsClientSafe(SyncAugmentsPacket msg, Supplier<NetworkEvent.Context> ctxSup) {
