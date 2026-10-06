@@ -296,12 +296,12 @@ public class NightTerrorEntity extends TamableAnimal{
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 300D)
+                .add(Attributes.MAX_HEALTH, 40D)
                 .add(Attributes.FOLLOW_RANGE,100D)
                 .add(Attributes.FLYING_SPEED, .3D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
-                .add(Attributes.ATTACK_DAMAGE,60f)
+                .add(Attributes.ATTACK_DAMAGE,10f)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D);
     }
     @Override

@@ -337,7 +337,7 @@ public class MechaRexEntity extends TamableAnimal {
                 .add(Attributes.MOVEMENT_SPEED, 0.5D)
                 .add(Attributes.ARMOR_TOUGHNESS, .7f)
                 .add(Attributes.ATTACK_KNOCKBACK, 10f)
-                .add(Attributes.ATTACK_DAMAGE, 20f);
+                .add(Attributes.ATTACK_DAMAGE, 30f);
 
     }
    @Override

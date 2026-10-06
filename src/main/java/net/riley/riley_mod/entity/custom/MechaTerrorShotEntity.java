@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.UUID;
 
 public class MechaTerrorShotEntity extends AbstractHurtingProjectile {
-    private static final float DAMAGE = 14.0F;
+    private static final float DAMAGE = 5.0F;
 
     public MechaTerrorShotEntity(EntityType<? extends MechaTerrorShotEntity> entityType, Level level) {
         super(entityType, level);

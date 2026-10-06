@@ -195,7 +195,7 @@ public class MechaRexBombEntity extends LargeFireball {
         if (this.level().isClientSide) return;
 
         float radius = 3.5F;
-        float maxDamage = 50.0F;
+        float maxDamage = 60.0F;
 
         BlockPos pos = this.blockPosition();
         this.level().playSound(null, pos, SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.0F, 1.0F);

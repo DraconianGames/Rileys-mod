@@ -257,12 +257,10 @@ public class WhaleHunterEntity extends WaterAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 300D)
-                .add(Attributes.FOLLOW_RANGE, 64D) // Increased range so they find targets easier
+                .add(Attributes.MAX_HEALTH, 150D)
+                .add(Attributes.FOLLOW_RANGE, 64D)
                 .add(Attributes.MOVEMENT_SPEED, 1.2D)
-                .add(Attributes.ATTACK_DAMAGE, 60f)
+                .add(Attributes.ATTACK_DAMAGE, 30f)
                 .add(Attributes.ATTACK_KNOCKBACK, 3f);
     }
-
-
 }

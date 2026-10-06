@@ -185,12 +185,12 @@ setupAminationStates();
     }
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 200D)
+                .add(Attributes.MAX_HEALTH, 20D)
                 .add(Attributes.FOLLOW_RANGE,30D)
                 .add(Attributes.MOVEMENT_SPEED, .2D)
                 .add(Attributes.ARMOR_TOUGHNESS, .3f)
                 .add(Attributes.ATTACK_KNOCKBACK,3f)
-                .add(Attributes.ATTACK_DAMAGE,20f);
+                .add(Attributes.ATTACK_DAMAGE,8f);
     }
     public static boolean checkSunlessCrabSpawnRules(EntityType<SunlessCrabEntity> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
         // Check for any solid block below and air where the crab will be
