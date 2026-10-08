@@ -142,6 +142,60 @@ public class RileyModEntityLootTables extends EntityLootSubProvider {
                         .add(LootItem.lootTableItem(Items.BEEF)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
                                 .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.NETHER_TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.END_TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.FALLOW_TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.MOUNTAIN_TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.ABYSS_TRISON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 8.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
+        this.add(RileyModEntities.SKY_QUADSON.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.LEATHER)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 4.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 4.0F))))
+                        .add(LootItem.lootTableItem(Items.BEEF)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 10.0F)))
+                                .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(1.0F, 3.0F))))));
         this.add(RileyModEntities.TRISON_CART.get(),
                 LootTable.lootTable().withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))

@@ -15,7 +15,7 @@ public final class JournalEntries {
     public static List<JournalEntry> create() {
         return List.of(
                 //Creaturse
-          new JournalEntry("Bison","A new animal spawing only in the plains biome. Tame it like a horse.", JournalEntry.Category.CREATURES,RileyModEntities.BISON.get(),  Items.CARROT,
+          new JournalEntry("Bison","A new animal spawing only in the plains biome. Tame it like a horse. How about you make them apples fancy", JournalEntry.Category.CREATURES,RileyModEntities.BISON.get(),  Items.CARROT,
                   java.util.List.of(),null),
         new JournalEntry("Sunless Crab", " They do like amethyst shards, and are neutral.", JournalEntry.Category.CREATURES, RileyModEntities.SUNLESS_CRAB.get(), Items.AMETHYST_SHARD
                 ,java.util.List.of(),null),
@@ -39,11 +39,21 @@ public final class JournalEntries {
                 java.util.List.of(),null),
         new JournalEntry("Mecha Terror", "These are harder to fight than their boss, the Mecha Rex ", JournalEntry.Category.CREATURES, RileyModEntities.MECHA_TERROR.get(),  null,
                 java.util.List.of(),null),
+        new JournalEntry("Mecha Parasite", "It will randomly grow up into a mechanical abomination", JournalEntry.Category.CREATURES, RileyModEntities.MECHA_PARASITE.get(), null,
+                java.util.List.of(),null),
+        new JournalEntry("Parasite Carrier","Only tamable through when hatched. Tame mecha parasites by allowing this big boy to pick them up. Will infect everything if given the chance.", JournalEntry.Category.CREATURES, RileyModEntities.PARASITE_CARRIER.get(), null,
+                java.util.List.of(new MobEffectInstance(RileyModEffects.MECHANICAL_PARASITE.get(),20000,0)),null),
+        new JournalEntry("Trison", "The evolution of the Bison. Shift right click a trison near a trison cart to attach the cart. Do the same to unattach the cart. New variants can be created with a bison in the mountains, nether, abyss, end, and fallow", JournalEntry.Category.CREATURES, RileyModEntities.TRISON.get(), Items.CARROT,
+                java.util.List.of(),null),
+        new JournalEntry("Quadson", "The highly adaptable trison grew another set of libs. Why? We don't know. What we do know, is these libs are unique to the climate they evolved for.", JournalEntry.Category.CREATURES,RileyModEntities.SKY_QUADSON.get(), Items.CARROT,
+                java.util.List.of(),null),
         //Blocks
         new JournalEntry("Abyss Log", "Wood harvested from the trees of the abyss.", JournalEntry.Category.BLOCKS),
         new JournalEntry("Black Sand","Much like soul sand, this stuff will slow you down. It caught me by surprise while exploring the beach for the first time." , JournalEntry.Category.BLOCKS),
         new JournalEntry("Activated Funtium", "To get this, you mest first get a blast furnace. smelt funtium ore into funtium plate, combine 9 into one funtium block, then blast smelt it again into activated funtium.", JournalEntry.Category.BLOCKS),
         new JournalEntry("Special Spawner","When one gets close enough, the selected mob will spawn. If you got close enough to one without this happening, I probably forgot to set the mob for said block. You too can set the spawn in Creative mode, just right click on the block.", JournalEntry.Category.BLOCKS),
+        new JournalEntry("Machine core", "This multiblock powers the augmentation station. Built using machine core(18), screen(4), port(4), and center(1) blocks. 3 by 3 by 3 cube. ports go in bottom 4 corners. Center is in the center. Screens goes in the middle at eye level on all 4 sides. the rest is all machine core.", JournalEntry.Category.BLOCKS),
+        new JournalEntry("Augmentation Station", "Powered by the core. some augments are locked behind trophies. Place trophies on top of trophies readers and connect everything to the core to unlock the augment.", JournalEntry.Category.BLOCKS),
         //Items
         new JournalEntry("Eye", "To craft the eye, you need 4 obsidian, 1 activated funtium, and 4 glowstone dust. Activated funtium in the middle, glowstone dust in the corners, an the obsidian fills the rest.", JournalEntry.Category.ITEMS),
         new JournalEntry("Caged Fairy","A baby Tooth fairy is held within. Right click on any surface to release it. Make sure to tame it before it wanders off.", JournalEntry.Category.ITEMS),
@@ -60,7 +70,8 @@ public final class JournalEntries {
         new JournalEntry("The Arena", "It has good loot but only spawn in the abyss", JournalEntry.Category.STRUCTURES),
         new JournalEntry("The Avalon", "A place where the weary traveler can shelter out the storms. Spawns in the overworld. Designed by Avalon herself", JournalEntry.Category.STRUCTURES),
         new JournalEntry("Wither Skeleton","A room with wither skeleton spawner and good loot", JournalEntry.Category.STRUCTURES),
-        new JournalEntry("Mecha Arena", "An arena found within the Fallow Dimension. You are safe on the outside, but within, the mecharex sleeps.", JournalEntry.Category.STRUCTURES)
+        new JournalEntry("Mecha Arena", "An arena found within the Fallow Dimension. You are safe on the outside, but within, the mecharex sleeps.", JournalEntry.Category.STRUCTURES),
+        new JournalEntry("The Lighthouse", "A tall building found in the Fallow. Has some goot loot", JournalEntry.Category.STRUCTURES)
    
         );
     }

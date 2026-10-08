@@ -166,7 +166,6 @@ public class MachineCoreMultiblock {
 
         Set<BlockPos> cables = new HashSet<>();
         Set<BlockPos> trophyReaders = new HashSet<>();
-        Set<BlockPos> morphStations = new HashSet<>();
         Set<BlockPos> enchanters = new HashSet<>();
         Set<BlockPos> augmentationStations = new HashSet<>();
 
@@ -176,17 +175,16 @@ public class MachineCoreMultiblock {
 
                 if (CableConnections.isCable(level, neighborPos)
                         && CableConnections.isConnectableDevice(level, portPos, direction.getOpposite())) {
-                    scanCableNetwork(level, neighborPos, cables, trophyReaders, morphStations, enchanters, augmentationStations);
+                    scanCableNetwork(level, neighborPos, cables, trophyReaders, enchanters, augmentationStations);
                 }
             }
         }
 
-        int specialScreenCount = morphStations.size() + enchanters.size() + augmentationStations.size();
+        int specialScreenCount =  enchanters.size() + augmentationStations.size();
 
         lines.add(Component.literal("Machine Core: Formed"));
         lines.add(Component.literal("Cables: " + cables.size()));
         lines.add(Component.literal("Special Screens: " + specialScreenCount));
-        lines.add(Component.literal(" - Morph Stations: " + morphStations.size()));
         lines.add(Component.literal(" - Enchanters: " + enchanters.size()));
         lines.add(Component.literal(" - Augmentation Stations: " + augmentationStations.size()));
         lines.add(Component.literal("Trophy Readers: " + trophyReaders.size()));
@@ -235,7 +233,6 @@ public class MachineCoreMultiblock {
             BlockPos startCablePos,
             Set<BlockPos> cables,
             Set<BlockPos> trophyReaders,
-            Set<BlockPos> morphStations,
             Set<BlockPos> enchanters,
             Set<BlockPos> augmentationStations
     ) {
@@ -291,7 +288,6 @@ public class MachineCoreMultiblock {
 
         Set<BlockPos> cables = new HashSet<>();
         Set<BlockPos> trophyReaders = new HashSet<>();
-        Set<BlockPos> morphStations = new HashSet<>();
         Set<BlockPos> enchanters = new HashSet<>();
         Set<BlockPos> augmentationStations = new HashSet<>();
 
@@ -301,7 +297,7 @@ public class MachineCoreMultiblock {
 
                 if (CableConnections.isCable(level, neighborPos)
                         && CableConnections.isConnectableDevice(level, portPos, direction.getOpposite())) {
-                    scanCableNetwork(level, neighborPos, cables, trophyReaders, morphStations, enchanters, augmentationStations);
+                    scanCableNetwork(level, neighborPos, cables, trophyReaders, enchanters, augmentationStations);
                 }
             }
         }

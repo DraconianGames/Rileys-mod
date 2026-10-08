@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-20T20:49:04.1778696	Recipes
+// 1.20.1	2026-10-08T17:23:05.243036	Recipes
 d9b0003c2a8f174e031f319dcd1c76faf6161691 data/riley_mod/advancements/recipes/misc/armor_plating_from_blasting_iron_ingot.json
 c24d9782d7703b799206a93e114d2c91c3fdd9d2 data/riley_mod/advancements/recipes/misc/armor_plating_from_smelting_iron_ingot.json
 152ee8e27c2606d702d73bd3abd2d6d99255de4e data/riley_mod/advancements/recipes/misc/artificial_organ.json
@@ -74,6 +74,7 @@ d03815ee9709fe10128d29d568e65a60ac4ba9d0 data/riley_mod/advancements/recipes/mis
 34845a7a3a4d56928d936dcd8b4d545c6d455bf2 data/riley_mod/advancements/recipes/misc/trophy_pufferfish.json
 dc59b0f66c33169d1de4909058d8a475663a7b1f data/riley_mod/advancements/recipes/misc/trophy_rabbit.json
 1a54595b0006ee555bd742fb07df081439c7b2f1 data/riley_mod/advancements/recipes/misc/trophy_ravager.json
+edb6510ef453181cfb02a3bab02d9a5cfc4ba46f data/riley_mod/advancements/recipes/misc/trophy_reader.json
 f1b749be404ccf4d143b1fd4e68cd7d09d05bfc3 data/riley_mod/advancements/recipes/misc/trophy_salmon.json
 8e4f54af0f83099224361ffab232efc1bb68b073 data/riley_mod/advancements/recipes/misc/trophy_sheep.json
 29883dbd450dd7d327478a218c14dfd3e41bef74 data/riley_mod/advancements/recipes/misc/trophy_shulker.json
@@ -185,6 +186,7 @@ eda87c26a0663acb337bae793f51ca9dbbdd4aea data/riley_mod/recipes/trophy_phantom.j
 3bdc0bd366d9d248d25fc643a16666803400b423 data/riley_mod/recipes/trophy_pufferfish.json
 b4e132c7e16bedddc8cfc6ad3909a81717eaa4e4 data/riley_mod/recipes/trophy_rabbit.json
 7f0247cd0518b2be14082c8c20ba247b9e4f6273 data/riley_mod/recipes/trophy_ravager.json
+32024632e7b4a66b2cb40659bee6774deb5b5cdd data/riley_mod/recipes/trophy_reader.json
 ede9a6f9b2595c50e9bb1f10d21dc4aca09d1cd9 data/riley_mod/recipes/trophy_salmon.json
 e6763953f8893749b3ed68d559bcbe876476a752 data/riley_mod/recipes/trophy_sheep.json
 9645405f6285c6fc19999804f206fc70324fc7f0 data/riley_mod/recipes/trophy_shulker.json
