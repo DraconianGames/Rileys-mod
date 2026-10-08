@@ -31,11 +31,25 @@ public class RileyModKeyMappings {
             GLFW.GLFW_KEY_TAB,
             CATEGORY
     );
+    public static final KeyMapping SKYQUADSON_FLIGHT_UP = new KeyMapping(
+            "key.riley_mod.skyquadson_flight_up",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_UP,
+            CATEGORY
+    );
+    public static final KeyMapping SKYQUADSON_FLIGHT_DOWN = new KeyMapping(
+            "key.riley_mod.skyquadson_flight_down",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_DOWN,
+            CATEGORY
+    );
 
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(DOMAIN_EXPANSION);
         event.register(PET_MENU);
         event.register(SKYQUADSON_FLIGHT_TOGGLE);
+        event.register(SKYQUADSON_FLIGHT_UP);
+        event.register(SKYQUADSON_FLIGHT_DOWN);
     }
 }

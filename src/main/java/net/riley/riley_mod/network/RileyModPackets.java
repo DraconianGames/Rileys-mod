@@ -9,10 +9,6 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
 import net.riley.riley_mod.RileyMod;
 
 import java.util.function.Supplier;
@@ -121,10 +117,15 @@ public class RileyModPackets {
                 .encoder(SortVehicleInventoryPacket::toBytes)
                 .consumerMainThread(SortVehicleInventoryPacket::handle)
                 .add();
-        net.messageBuilder(SkyQuadsonFlightInputPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(SkyQuadsonFlightInputPacket::encode)
-                .decoder(SkyQuadsonFlightInputPacket::decode)
-                .consumerMainThread(SkyQuadsonFlightInputPacket::handle)
+        net.messageBuilder(MountFlightInputPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(MountFlightInputPacket::encode)
+                .decoder(MountFlightInputPacket::decode)
+                .consumerMainThread(MountFlightInputPacket::handle)
+                .add();
+        net.messageBuilder(MountFlightTogglePacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(MountFlightTogglePacket::encode)
+                .decoder(MountFlightTogglePacket::decode)
+                .consumerMainThread(MountFlightTogglePacket::handle)
                 .add();
 
     }

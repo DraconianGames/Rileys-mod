@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.entity.custom.SkyQuadsonEntity;
 import net.riley.riley_mod.network.*;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.UUID;
 
@@ -107,26 +108,34 @@ public class ClientTickEvents {
     }
 
     private static void handleSkyQuadsonFlightInput(LocalPlayer player, SkyQuadsonEntity skyQuadson) {
-        boolean jumping = Minecraft.getInstance().options.keyJump.isDown();
-        boolean sneaking = player.isShiftKeyDown();
+        long window = Minecraft.getInstance().getWindow().getWindow();
 
-        // Send packet if input state changed
-        if (jumping != lastSkyQuadsonJumpState || sneaking != lastSkyQuadsonSneakState) {
-            RileyModPackets.sendToServer(new SkyQuadsonFlightInputPacket(jumping, sneaking));
-            lastSkyQuadsonJumpState = jumping;
-            lastSkyQuadsonSneakState = sneaking;
-        }
+        boolean upArrow =
+                RileyModKeyMappings.SKYQUADSON_FLIGHT_UP.isDown()
+                        || GLFW.glfwGetKey(window, GLFW.GLFW_KEY_UP) == GLFW.GLFW_PRESS;
+
+        boolean downArrow =
+                RileyModKeyMappings.SKYQUADSON_FLIGHT_DOWN.isDown()
+                        || GLFW.glfwGetKey(window, GLFW.GLFW_KEY_DOWN) == GLFW.GLFW_PRESS;
+
+        skyQuadson.setFlightInput(upArrow, downArrow);
+        RileyModPackets.sendToServer(new MountFlightInputPacket(upArrow, downArrow));
+
+        lastSkyQuadsonJumpState = upArrow;
+        lastSkyQuadsonSneakState = downArrow;
 
         // Handle Tab key for flight mode toggle
         boolean flightTogglePressed = RileyModKeyMappings.SKYQUADSON_FLIGHT_TOGGLE.isDown();
         if (flightTogglePressed && !lastSkyQuadsonFlightToggleState) {
             skyQuadson.toggleFlight();
+            RileyModPackets.sendToServer(new MountFlightTogglePacket());
             lastSkyQuadsonFlightToggleState = true;
         }
         if (!flightTogglePressed) {
             lastSkyQuadsonFlightToggleState = false;
         }
     }
+
 
     private static void spawnRightHandSoulFlame(LocalPlayer player) {
         Minecraft minecraft = Minecraft.getInstance();

@@ -21,29 +21,17 @@ import net.riley.riley_mod.entity.RileyModEntities;
 import net.riley.riley_mod.entity.ai.AbyssBreedGoal;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.UUID;
-
-public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
+public class SkyQuadsonEntity extends AbstractFlyingMountEntity {
     private static final int STORAGE_COLUMNS = 5;
     private static final int STORAGE_ROWS = 3;
     private static final double RIDER_FORWARD_OFFSET = 0.125D;
-    private static final double FLIGHT_SPEED = 0.15D;
-    private static final double VERTICAL_SPEED = 0.1D;
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState walkAnimationState = new AnimationState();
     public final AnimationState flyAnimationState = new AnimationState();
 
-    private boolean isFlying = false;
-    private int lastTabPressTime = 0;
-    private static final int TAB_COOLDOWN = 10; // ticks between tab presses
-
-    // Flight input state
-    private boolean currentJumpInput = false;
-    private boolean currentSneakInput = false;
-
     private void setupAnimationStates() {
-        if (isFlying) {
+        if (this.isFlying()) {
             stopAllExcept(flyAnimationState);
             flyAnimationState.startIfStopped(this.tickCount);
         } else if (this.walkAnimation.isMoving()) {
@@ -124,37 +112,7 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
             }
         }
     }
-//todo make up and down arrow keys be up and down for flight. also make movement work in flight mode
-    @Override
-    public void travel(Vec3 travelVector) {
-        if (isFlying) {
-            // Handle flight mode movement
-            Vec3 currentMotion = this.getDeltaMovement();
 
-            // Dampen horizontal movement to hover
-            double newX = currentMotion.x * 0.8D;
-            double newZ = currentMotion.z * 0.8D;
-
-            // Handle vertical flight input from rider
-            double verticalInput = 0;
-
-            // Space key for up
-            if (currentJumpInput) {
-                verticalInput = VERTICAL_SPEED;
-            }
-
-            // Ctrl key (sneak) for down
-            if (currentSneakInput) {
-                verticalInput = -VERTICAL_SPEED;
-            }
-
-            this.setDeltaMovement(newX, verticalInput, newZ);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-        } else {
-            // Normal movement/walking
-            super.travel(travelVector);
-        }
-    }
 
     @Override
     public void tick() {
@@ -212,25 +170,5 @@ public class SkyQuadsonEntity extends AbstractInventoryMountEntity{
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return RileyModEntities.BISON.get().create(pLevel);
-    }
-
-    public boolean isFlying() {
-        return isFlying;
-    }
-
-    public void setFlying(boolean flying) {
-        this.isFlying = flying;
-    }
-
-    public void toggleFlight() {
-        if (this.tickCount - lastTabPressTime > TAB_COOLDOWN) {
-            this.isFlying = !this.isFlying;
-            this.lastTabPressTime = this.tickCount;
-        }
-    }
-
-    public void setFlightInput(boolean jumping, boolean sneaking) {
-        this.currentJumpInput = jumping;
-        this.currentSneakInput = sneaking;
     }
 }
