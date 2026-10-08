@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.riley.riley_mod.entity.animations.TrisonAnimationDefinitions;
+import net.riley.riley_mod.entity.custom.BaseTrisonEntity;
 import net.riley.riley_mod.entity.custom.TrisonEntity;
 
 public class TrisonModel<T extends Entity> extends HierarchicalModel<T> {
@@ -212,18 +213,18 @@ public class TrisonModel<T extends Entity> extends HierarchicalModel<T> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
 		this.animateWalk(TrisonAnimationDefinitions.TRISON_WALK, limbSwing, limbSwingAmount, 2f, 2.25f);
-		this.animate(((TrisonEntity) entity).idleAnimationState,TrisonAnimationDefinitions.TRISON_IDLE,ageInTicks,1f);
+		this.animate(((BaseTrisonEntity) entity).idleAnimationState,TrisonAnimationDefinitions.TRISON_IDLE,ageInTicks,1f);
 
-		TrisonEntity TrisonEntity = (TrisonEntity) entity;
+		BaseTrisonEntity BaseTrisonEntity = (BaseTrisonEntity) entity;
 
 		// Mule-like visuals:
-		this.saddle.visible = TrisonEntity.isSaddled();
-		this.chest.visible = TrisonEntity.hasChest();
+		this.saddle.visible = BaseTrisonEntity.isSaddled();
+		this.chest.visible = BaseTrisonEntity.hasChest();
 
 		// "Reins" usually only show when saddled AND being ridden/controlled.
 		// If you want them visible whenever saddled, drop the isVehicle() check.
-		this.rein.visible = TrisonEntity.isSaddled() && TrisonEntity.isVehicle();
-		this.bridle.visible = TrisonEntity.isSaddled() && TrisonEntity.isVehicle();
+		this.rein.visible = BaseTrisonEntity.isSaddled() && BaseTrisonEntity.isVehicle();
+		this.bridle.visible = BaseTrisonEntity.isSaddled() && BaseTrisonEntity.isVehicle();
 	}
 	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
 		pNetHeadYaw = Mth.clamp(pNetHeadYaw, -30.0F, 30.0F);

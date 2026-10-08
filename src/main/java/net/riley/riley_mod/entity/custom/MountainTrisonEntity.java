@@ -6,8 +6,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 
-public class MountainTrisonEntity extends TrisonEntity{
-    public MountainTrisonEntity(EntityType<? extends TrisonEntity> pEntityType, Level pLevel) {
+public class MountainTrisonEntity extends BaseTrisonEntity{
+    public MountainTrisonEntity(EntityType<? extends BaseTrisonEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
     @Override

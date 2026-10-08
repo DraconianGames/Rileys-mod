@@ -8,8 +8,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 
-public class NetherTrisonEntity extends TrisonEntity {
-    public NetherTrisonEntity(EntityType<? extends TrisonEntity> entityType, Level level) {
+public class NetherTrisonEntity extends BaseTrisonEntity {
+    public NetherTrisonEntity(EntityType<? extends BaseTrisonEntity> entityType, Level level) {
         super(entityType, level);
     }
 

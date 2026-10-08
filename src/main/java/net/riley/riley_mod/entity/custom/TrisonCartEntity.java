@@ -83,12 +83,13 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         }
 
         Entity trison = this.getAttachedTrisonEntity();
-        if (trison == null) {
-            this.detachFromTrison();
+        if (!(trison instanceof BaseTrisonEntity baseTrison)) {
+            this.setAttachedTrison(null);
+            this.lockedHitchTarget = null;
             return;
         }
 
-        Vec3 target = this.createTrailerTarget(trison);
+        Vec3 target = this.createTrailerTarget(baseTrison);
         double distanceToTargetSqr = this.position().distanceToSqr(target);
 
         if (distanceToTargetSqr > SNAP_DISTANCE * SNAP_DISTANCE) {
@@ -176,7 +177,7 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         this.getNavigation().stop();
     }
 
-    public boolean attachToTrison(TrisonEntity trison) {
+    public boolean attachToTrison(BaseTrisonEntity trison) {
         if (trison == null || !trison.isAlive()) {
             return false;
         }
@@ -217,7 +218,7 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         return fromCartToTrison.normalize();
     }
 
-    private Vec3 createTrailerTarget(Entity trison) {
+    private Vec3 createTrailerTarget(BaseTrisonEntity trison) {
         Vec3 behindDirection = getCartToTrisonDirection(trison).scale(-1.0D);
         this.lastPullDirection = behindDirection;
 
@@ -267,7 +268,7 @@ public class TrisonCartEntity extends PathfinderMob implements MenuProvider {
         this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
-    public void snapBehindTrison(Entity trison) {
+    public void snapBehindTrison(BaseTrisonEntity trison) {
         if (trison == null) {
             return;
         }

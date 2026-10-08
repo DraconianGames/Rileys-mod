@@ -6,8 +6,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 
-public class AbyssTrisonEntity extends TrisonEntity{
-    public AbyssTrisonEntity(EntityType<? extends TrisonEntity> pEntityType, Level pLevel) {
+public class AbyssTrisonEntity extends BaseTrisonEntity{
+    public AbyssTrisonEntity(EntityType<? extends BaseTrisonEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
     public static AttributeSupplier.Builder createAttributes() {
