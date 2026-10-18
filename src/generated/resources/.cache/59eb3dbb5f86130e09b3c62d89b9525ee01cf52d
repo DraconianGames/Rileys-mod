@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-08T17:23:05.2273044	Loot Tables
+// 1.20.1	2026-10-18T19:11:15.3899177	Loot Tables
 fc9c7cb88982a1c3298adb885cabd3a0e7aa54bb data/riley_mod/loot_tables/blocks/abyssal_cobblestone.json
 50b04a5eff2d65c1d4547421a8a1164d10685958 data/riley_mod/loot_tables/blocks/abyssal_dirt.json
 ba7da4f15268ee2a958f0668e95ceff43de36458 data/riley_mod/loot_tables/blocks/abyssal_grass.json
@@ -140,7 +140,7 @@ a854d2400b23e20ef4ecc7bdae9ec99762b98e23 data/riley_mod/loot_tables/entities/par
 008abd2e736fd2140f524dbb0db2fc2b83b4337a data/riley_mod/loot_tables/entities/rapter.json
 713c3f42a41d0043d68e2e682049e82b6af36dcd data/riley_mod/loot_tables/entities/skeletonfairy.json
 b5a707040f595325000bc0b754b68883175c4eae data/riley_mod/loot_tables/entities/skull_fairy.json
-c958db1bf16dbee791dd4c39b1ee97a1ee9abef2 data/riley_mod/loot_tables/entities/sky_quadson.json
+0c1bd938a15a602e69296e94718329c15e7db59c data/riley_mod/loot_tables/entities/sky_quadson.json
 187f60e96f4c49e8b453b797d74b870f8560c41f data/riley_mod/loot_tables/entities/sunless_crab.json
 59a85b9942d7da23cbcd93874c9336e028e2e231 data/riley_mod/loot_tables/entities/test.json
 3301eab73994b8b8121e21919ab4b56208ec04c0 data/riley_mod/loot_tables/entities/toothfairy.json

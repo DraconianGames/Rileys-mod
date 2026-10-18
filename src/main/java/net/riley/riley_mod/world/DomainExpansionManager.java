@@ -7,14 +7,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.block.RileyModBlocks;
+import net.riley.riley_mod.block.custom.DomainBlockWrapper;
 import net.riley.riley_mod.util.AugmentData;
 import net.riley.riley_mod.world.domain.DomainRegistry;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -76,7 +81,10 @@ public class DomainExpansionManager {
         // Per-instance duration = baseDuration * level
         long expiresAt = now + (long) DURATION_TICKS * augmentLevel;
 
-        DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, expiresAt, now);
+        int radius = 12 + (augmentLevel * 4);
+        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphere(level, center, radius);
+
+        DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, expiresAt, now, wrappedBlocks);
         ACTIVE.computeIfAbsent(ownerId, k -> new ConcurrentLinkedDeque<>()).add(inst);
 
         pulse(level, owner, inst);
@@ -94,6 +102,11 @@ public class DomainExpansionManager {
 
             ServerPlayer owner = event.getServer().getPlayerList().getPlayer(ownerId);
             if (owner == null || !(owner.level() instanceof ServerLevel level)) {
+                for (DomainInstance inst : instances) {
+                    ServerLevel cleanupLevel = event.getServer().overworld();
+                    DomainBlockWrapper.removeWrappedBlocks(cleanupLevel, inst.wrappedBlocks);
+                }
+
                 itOwners.remove();
                 continue;
             }
@@ -105,6 +118,7 @@ public class DomainExpansionManager {
                 DomainInstance inst = it.next();
 
                 if (now >= inst.expiresAtTick) {
+                    DomainBlockWrapper.removeWrappedBlocks(level, inst.wrappedBlocks);
                     it.remove();
                     continue;
                 }
@@ -133,15 +147,35 @@ public class DomainExpansionManager {
         final int augmentLevel;
         final BlockPos center;
         final long expiresAtTick;
+        final Set<BlockPos> wrappedBlocks;
         long lastPulseTick;
 
-        private DomainInstance(ResourceLocation domainId, int augmentLevel, BlockPos center, long expiresAtTick, long lastPulseTick) {
+        private DomainInstance(
+                ResourceLocation domainId,
+                int augmentLevel,
+                BlockPos center,
+                long expiresAtTick,
+                long lastPulseTick,
+                Set<BlockPos> wrappedBlocks
+        ) {
             this.domainId = domainId;
             this.augmentLevel = augmentLevel;
             this.center = center;
             this.expiresAtTick = expiresAtTick;
             this.lastPulseTick = lastPulseTick;
+            this.wrappedBlocks = wrappedBlocks;
         }
+    }
+    private static Block visualBlockForDomain(ResourceLocation domainId) {
+        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "blizzard_domain"))) {
+            return RileyModBlocks.BLIZZARD_DOMAIN_BLOCK.get();
+        }
+
+        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "hurican_domain"))) {
+            return RileyModBlocks.HURICAN_DOMAIN_BLOCK.get();
+        }
+
+        return RileyModBlocks.DOMAIN_BLOCK.get();
     }
 }
 /*

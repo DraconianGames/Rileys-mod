@@ -52,7 +52,16 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE)));
     public static final RegistryObject<Block> FALLOW_PORTAL_FRAME = registerBlock("fallow_portal_frame",
             () -> new Block(BlockBehaviour.Properties.copy(RileyModBlocks.ACTIVACTED_FUNTIUM.get())));
-//SPAWNER
+//domain block
+public static final RegistryObject<Block> BLIZZARD_DOMAIN_BLOCK = registerBlock("blizzard_domain_block",
+        () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noParticlesOnBreak().noOcclusion().noLootTable()));
+
+    public static final RegistryObject<Block> HURICAN_DOMAIN_BLOCK = registerBlock("hurican_domain_block",
+            () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noParticlesOnBreak().noOcclusion().noLootTable()));
+    // Keep this as an alias/default if other code still references DOMAIN_BLOCK.
+    public static final RegistryObject<Block> DOMAIN_BLOCK = BLIZZARD_DOMAIN_BLOCK;
+
+    //SPAWNER
     public static final RegistryObject<Block> SPECIAL_SPAWNER = registerBlock("special_spawner",
             () -> new SpecialSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.BRICKS)));
     //trophies

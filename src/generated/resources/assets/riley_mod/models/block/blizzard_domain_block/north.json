@@ -1,0 +1,7 @@
+{
+  "parent": "riley_mod:block/domain_block/north",
+  "textures": {
+    "0": "riley_mod:block/blizzard_domain_texture",
+    "particle": "riley_mod:block/blizzard_domain_texture"
+  }
+}

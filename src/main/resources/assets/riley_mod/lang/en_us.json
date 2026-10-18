@@ -328,5 +328,11 @@
 
   "key.categories.riley_mod": "Riley Mod",
   "key.riley_mod.domain_expansion": "Domain Expansion",
-  "key.riley_mod.pet_menu": "Open Pet Menu"
+  "key.riley_mod.pet_menu": "Open Pet Menu",
+
+  "augment.riley_mod.reinforced_musculature": "Reinforced M...",
+  "augment.riley_mod.wings": "Wings",
+  "augment.riley_mod.frost_domain": "Blizzard Domain",
+  "augment.riley_mod.huricane_domain": "Hurricane Domain"
+
 }

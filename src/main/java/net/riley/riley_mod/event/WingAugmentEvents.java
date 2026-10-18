@@ -4,6 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,26 +30,47 @@ public class WingAugmentEvents {
 
         int level = AugmentData.getLevel(player, WINGS_ID);
         if (level < 1) {
+            player.fallDistance = 0.0F;
             WingGlideState.clear(player);
             return;
         }
 
-        if (player.onGround() || player.isInWater() || player.isInLava()) {
-            WingGlideState.clear(player);
-            return;
-        }
+        boolean actuallyLanded = isActuallyCloseToGround(player);
 
-        // Level 1: hold sneak for feather-fall behavior
-        if (player.isShiftKeyDown()) {
-            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 5, 0, false, false, false));
+        if ((player.onGround() && actuallyLanded) || player.isInWater() || player.isInLava()) {
+            player.fallDistance = 0.0F;
+            WingGlideState.clear(player);
             return;
         }
 
         // If glide was requested, keep it active until landing
         if (level >= 2 && WingGlideState.isGliding(player)) {
+            player.fallDistance = 0.0F;
+
             if (!player.isFallFlying()) {
                 player.startFallFlying();
             }
+
+            return;
         }
+
+        // Level 1: hold sneak for feather-fall behavior
+        if (player.isShiftKeyDown()) {
+            player.fallDistance = 0.0F;
+            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 5, 0, false, false, false));
+            return;
+        }
+    }
+    private static boolean isActuallyCloseToGround(ServerPlayer player) {
+        Vec3 start = player.position();
+        Vec3 end = start.add(0.0D, -0.15D, 0.0D);
+
+        return player.level().clip(new ClipContext(
+                start,
+                end,
+                ClipContext.Block.COLLIDER,
+                ClipContext.Fluid.NONE,
+                player
+        )).getType() == HitResult.Type.BLOCK;
     }
 }

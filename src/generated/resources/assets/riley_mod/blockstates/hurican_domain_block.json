@@ -1,0 +1,52 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/down"
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/up"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/north"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/south"
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/east"
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "riley_mod:block/hurican_domain_block/west"
+      },
+      "when": {
+        "west": "true"
+      }
+    }
+  ]
+}

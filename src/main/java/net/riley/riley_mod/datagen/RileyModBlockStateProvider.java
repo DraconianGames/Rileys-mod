@@ -6,6 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -14,10 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
-import net.riley.riley_mod.block.custom.MachineCorePartBlock;
-import net.riley.riley_mod.block.custom.MuscleCropBlock;
-import net.riley.riley_mod.block.custom.RileyModAbyssPortalBlock;
-import net.riley.riley_mod.block.custom.RileyModFallowPortalBlock;
+import net.riley.riley_mod.block.custom.*;
 
 import java.util.function.Function;
 
@@ -53,6 +51,8 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
                 "machine_core_formed"
         );
 
+        domainOverlayBlock(RileyModBlocks.BLIZZARD_DOMAIN_BLOCK, "blizzard_domain_texture");
+        domainOverlayBlock(RileyModBlocks.HURICAN_DOMAIN_BLOCK, "hurican_domain_texture");
 
         abyssalGrassBlock(RileyModBlocks.ABYSSAL_GRASS);
 
@@ -334,6 +334,62 @@ public class RileyModBlockStateProvider extends BlockStateProvider {
                 .addModel();
 
         simpleBlockItem(blockRegistryObject.get(), normalModel);
+    }
+    private void domainOverlayBlock(RegistryObject<Block> blockRegistryObject, String textureName) {
+        String blockName = blockRegistryObject.getId().getPath();
+        String modelFolder = "block/" + blockName;
+        String texture = "block/" + textureName;
+
+        ModelFile down = domainOverlayPart(modelFolder + "/down", "block/domain_block/down", texture);
+        ModelFile up = domainOverlayPart(modelFolder + "/up", "block/domain_block/up", texture);
+        ModelFile north = domainOverlayPart(modelFolder + "/north", "block/domain_block/north", texture);
+        ModelFile south = domainOverlayPart(modelFolder + "/south", "block/domain_block/south", texture);
+        ModelFile east = domainOverlayPart(modelFolder + "/east", "block/domain_block/east", texture);
+        ModelFile west = domainOverlayPart(modelFolder + "/west", "block/domain_block/west", texture);
+
+        getMultipartBuilder(blockRegistryObject.get())
+                .part()
+                .modelFile(down)
+                .addModel()
+                .condition(DomainBlock.DOWN, true)
+                .end()
+                .part()
+                .modelFile(up)
+                .addModel()
+                .condition(DomainBlock.UP, true)
+                .end()
+                .part()
+                .modelFile(north)
+                .addModel()
+                .condition(DomainBlock.NORTH, true)
+                .end()
+                .part()
+                .modelFile(south)
+                .addModel()
+                .condition(DomainBlock.SOUTH, true)
+                .end()
+                .part()
+                .modelFile(east)
+                .addModel()
+                .condition(DomainBlock.EAST, true)
+                .end()
+                .part()
+                .modelFile(west)
+                .addModel()
+                .condition(DomainBlock.WEST, true)
+                .end();
+
+        itemModels()
+                .withExistingParent(blockName, modLoc("block/domain_block/down"))
+                .texture("0", modLoc(texture))
+                .texture("particle", modLoc(texture));
+    }
+
+    private ModelFile domainOverlayPart(String childModelPath, String parentModelPath, String texturePath) {
+        return models()
+                .withExistingParent(childModelPath, modLoc(parentModelPath))
+                .texture("0", modLoc(texturePath))
+                .texture("particle", modLoc(texturePath));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {

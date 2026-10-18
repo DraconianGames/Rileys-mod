@@ -28,6 +28,7 @@ public class ClientTickEvents {
     private static boolean lastJumpState = false;
     private static boolean lastUseState = false;
     private static int wingFlapTicks = 0;
+    private static int wingGroundLaunchRequestTicks = 0;
     private static boolean sneaking = false;
 
     private static boolean lastSkyQuadsonJumpState = false;
@@ -67,6 +68,7 @@ public class ClientTickEvents {
             lastJumpState = false;
             lastUseState = false;
             wingFlapTicks = 0;
+            wingGroundLaunchRequestTicks = 0;
             sneaking = false;
             pendingPetSummonUUID = null;
             return;
@@ -92,16 +94,31 @@ public class ClientTickEvents {
         boolean jumping = Minecraft.getInstance().options.keyJump.isDown();
         boolean jumpPressed = jumping && !lastJumpState;
 
-        if (jumpPressed && !player.onGround() && !player.isInWater() && !player.isInLava()) {
+        if (!player.isInWater() && !player.isInLava()) {
             ResourceLocation wingsId = ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "wings");
             int level = ClientAugmentState.getLevel(wingsId);
 
-            if (level >= 3 && player.isFallFlying()) {
+            boolean holdingShift = Minecraft.getInstance().options.keyShift.isDown();
+
+            if (jumpPressed && level >= 3 && player.isFallFlying()) {
                 wingFlapTicks = 40;
                 RileyModPackets.sendToServer(new WingFlapPacket());
-            } else if (level >= 2) {
-                RileyModPackets.sendToServer(new WingJumpPacket());
+            } else if (jumpPressed && holdingShift) {
+                wingGroundLaunchRequestTicks = 6;
+            } else if (jumpPressed && level >= 2 && !player.onGround()) {
+                RileyModPackets.sendToServer(new WingJumpPacket(false));
             }
+
+            if (wingGroundLaunchRequestTicks > 0) {
+                if (holdingShift && jumping) {
+                    RileyModPackets.sendToServer(new WingJumpPacket(true));
+                    --wingGroundLaunchRequestTicks;
+                } else {
+                    wingGroundLaunchRequestTicks = 0;
+                }
+            }
+        } else {
+            wingGroundLaunchRequestTicks = 0;
         }
 
         lastJumpState = jumping;
