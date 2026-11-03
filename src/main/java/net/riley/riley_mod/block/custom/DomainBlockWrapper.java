@@ -11,6 +11,7 @@ import net.riley.riley_mod.block.RileyModBlocks;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,6 +44,27 @@ public final class DomainBlockWrapper {
         return wrapSphere(level, center, radius, domainBlocks);
     }
 
+    public static Set<BlockPos> wrapSphereForDomains(ServerLevel level, BlockPos center, Map<ResourceLocation, Integer> domainRadii) {
+        Map<Block, Integer> blockRadii = new LinkedHashMap<>();
+        int maxRadius = 0;
+
+        if (domainRadii != null) {
+            for (Map.Entry<ResourceLocation, Integer> entry : domainRadii.entrySet()) {
+                Block block = visualBlockForDomain(entry.getKey());
+                int radius = Math.max(1, entry.getValue());
+
+                blockRadii.merge(block, radius, Math::max);
+                maxRadius = Math.max(maxRadius, radius);
+            }
+        }
+
+        if (blockRadii.isEmpty()) {
+            blockRadii.put(RileyModBlocks.DOMAIN_BLOCK.get(), 1);
+            maxRadius = 1;
+        }
+
+        return wrapSphere(level, center, maxRadius, blockRadii);
+    }
     public static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int radius, List<Block> domainBlocks) {
         Set<BlockPos> placedPositions = new HashSet<>();
         int radiusSqr = radius * radius;
@@ -71,6 +93,61 @@ public final class DomainBlockWrapper {
                     }
 
                     Block chosenBlock = domainBlocks.get(random.nextInt(domainBlocks.size()));
+                    BlockState wrappingState = DomainBlock.createWrappingState(level, pos, chosenBlock);
+                    if (wrappingState == null) {
+                        continue;
+                    }
+
+                    level.setBlock(pos, wrappingState, 3);
+                    placedPositions.add(pos);
+                }
+            }
+        }
+
+        return placedPositions;
+    }
+
+    private static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int maxRadius, Map<Block, Integer> blockRadii) {
+        Set<BlockPos> placedPositions = new HashSet<>();
+        int maxRadiusSqr = maxRadius * maxRadius;
+
+        placeInvisibleDomainWall(level, center, maxRadius, placedPositions);
+
+        RandomSource random = level.getRandom();
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        for (int x = -maxRadius; x <= maxRadius; x++) {
+            for (int y = -maxRadius; y <= maxRadius; y++) {
+                for (int z = -maxRadius; z <= maxRadius; z++) {
+                    int distanceSqr = x * x + y * y + z * z;
+
+                    if (distanceSqr > maxRadiusSqr) {
+                        continue;
+                    }
+
+                    mutablePos.set(center.getX() + x, center.getY() + y, center.getZ() + z);
+                    BlockPos pos = mutablePos.immutable();
+
+                    if (!canPlaceDomainBlock(level, pos)) {
+                        continue;
+                    }
+
+                    List<Block> candidates = new ArrayList<>();
+
+                    for (Map.Entry<Block, Integer> entry : blockRadii.entrySet()) {
+                        int domainRadius = entry.getValue();
+                        int domainRadiusSqr = domainRadius * domainRadius;
+
+                        if (distanceSqr <= domainRadiusSqr) {
+                            candidates.add(entry.getKey());
+                        }
+                    }
+
+                    if (candidates.isEmpty()) {
+                        continue;
+                    }
+
+                    Block chosenBlock = candidates.get(random.nextInt(candidates.size()));
                     BlockState wrappingState = DomainBlock.createWrappingState(level, pos, chosenBlock);
                     if (wrappingState == null) {
                         continue;

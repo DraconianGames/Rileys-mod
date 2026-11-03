@@ -7,18 +7,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.riley.riley_mod.RileyMod;
-import net.riley.riley_mod.block.RileyModBlocks;
 import net.riley.riley_mod.block.custom.DomainBlockWrapper;
 import net.riley.riley_mod.util.AugmentData;
 import net.riley.riley_mod.world.domain.DomainRegistry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static net.riley.riley_mod.RileyMod.MODID;
-
+//todo make domain expand out in the circle, then climb the walls
+//TODO make deactivated partials remove their corresponding blocks to make room for other domain's blocks
 @Mod.EventBusSubscriber(modid = MODID)
 public class DomainExpansionManager {
 
@@ -64,20 +64,54 @@ public class DomainExpansionManager {
             }
         }
 
+        if (equippedDomainIds.isEmpty()) {
+            return;
+        }
+
         BlockPos center = player.blockPosition();
 
-        boolean any = false;
+        Map<ResourceLocation, Integer> domainRadii = new LinkedHashMap<>();
+        Map<ResourceLocation, Long> domainExpiresAt = new LinkedHashMap<>();
+
         int cooldownMultiplier = 1;
+        long latestExpiresAt = now;
 
         for (ResourceLocation domainId : equippedDomainIds) {
             int augmentLevel = Math.max(1, AugmentData.getLevel(player, domainId));
-            cooldownMultiplier = Math.max(cooldownMultiplier, augmentLevel);
+            int radius = radiusForLevel(augmentLevel);
+            long expiresAt = now + (long) DURATION_TICKS * augmentLevel;
 
-            startInstance(level, player, domainId, augmentLevel, center, now, equippedDomainIds);
-            any = true;
+            domainRadii.put(domainId, radius);
+            domainExpiresAt.put(domainId, expiresAt);
+
+            cooldownMultiplier = Math.max(cooldownMultiplier, augmentLevel);
+            latestExpiresAt = Math.max(latestExpiresAt, expiresAt);
         }
 
-        if (!any) return;
+        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphereForDomains(level, center, domainRadii);
+
+        boolean visualCleanupOwnerAssigned = false;
+
+        for (ResourceLocation domainId : equippedDomainIds) {
+            int augmentLevel = Math.max(1, AugmentData.getLevel(player, domainId));
+            long expiresAt = domainExpiresAt.get(domainId);
+
+            boolean ownsWrappedBlocks = !visualCleanupOwnerAssigned && expiresAt == latestExpiresAt;
+            if (ownsWrappedBlocks) {
+                visualCleanupOwnerAssigned = true;
+            }
+
+            startInstance(
+                    level,
+                    player,
+                    domainId,
+                    augmentLevel,
+                    center,
+                    now,
+                    expiresAt,
+                    ownsWrappedBlocks ? wrappedBlocks : Collections.emptySet()
+            );
+        }
 
         // Shared cooldown = baseCooldown * max(level) among domains in this cast
         COOLDOWN_UNTIL.put(ownerId, now + (long) COOLDOWN_TICKS * cooldownMultiplier);
@@ -90,20 +124,19 @@ public class DomainExpansionManager {
             int augmentLevel,
             BlockPos center,
             long now,
-            List<ResourceLocation> equippedDomainIds
+            long expiresAt,
+            Set<BlockPos> wrappedBlocks
     ) {
         UUID ownerId = owner.getUUID();
-
-        // Per-instance duration = baseDuration * level
-        long expiresAt = now + (long) DURATION_TICKS * augmentLevel;
-
-        int radius = 12 + (augmentLevel * 4);
-        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphereForDomains(level, center, radius, equippedDomainIds);
 
         DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, expiresAt, now, wrappedBlocks);
         ACTIVE.computeIfAbsent(ownerId, k -> new ConcurrentLinkedDeque<>()).add(inst);
 
         pulse(level, owner, inst);
+    }
+
+    private static int radiusForLevel(int augmentLevel) {
+        return 12 + (Math.max(1, augmentLevel) * 4);
     }
 
     @SubscribeEvent
@@ -181,17 +214,6 @@ public class DomainExpansionManager {
             this.lastPulseTick = lastPulseTick;
             this.wrappedBlocks = wrappedBlocks;
         }
-    }
-    private static Block visualBlockForDomain(ResourceLocation domainId) {
-        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "blizzard_domain"))) {
-            return RileyModBlocks.BLIZZARD_DOMAIN_BLOCK.get();
-        }
-
-        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "hurican_domain"))) {
-            return RileyModBlocks.HURICAN_DOMAIN_BLOCK.get();
-        }
-
-        return RileyModBlocks.DOMAIN_BLOCK.get();
     }
 }
 /*
