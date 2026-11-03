@@ -4,17 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.AABB;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.effect.RileyModEffects;
-import net.riley.riley_mod.particle.RileyModParticles;
 
 import java.util.UUID;
 
@@ -25,8 +22,7 @@ public final class BlizzardDomainBehavior implements DomainBehavior {
 
     private static final double BASE_RADIUS = 10.0;
     private static final double BASE_HEIGHT_INFLATE = 4.0;
-    private static final int BASE_PARTICLES_PER_PULSE = 20;
-    private static final int MAX_PARTICLE_MULTIPLIER = 3; // cap at 3x base
+
 
 
     private static final int FREEZE_REFRESH_TICKS = 12;
@@ -49,17 +45,7 @@ public final class BlizzardDomainBehavior implements DomainBehavior {
         double radius = BASE_RADIUS * m;
         double height = BASE_HEIGHT_INFLATE * m;
 
-        int particleCount = scaledParticleCount(BASE_PARTICLES_PER_PULSE, m);
-
-        spawnParticles(level, center, particleCount, radius);
         applyFreeze(level, owner, center, radius, height);
-    }
-
-    private static int scaledParticleCount(int base, int level) {
-        // Sub-linear scaling: base * sqrt(level), capped to avoid particle storms with multiple domains
-        double scaled = base * Math.sqrt(level);
-        int cap = base * MAX_PARTICLE_MULTIPLIER;
-        return Math.max(base, Math.min(cap, (int) Math.round(scaled)));
     }
 
     private static void applyFreeze(ServerLevel level, ServerPlayer owner, BlockPos center, double radius, double heightInflate) {
@@ -93,28 +79,5 @@ public final class BlizzardDomainBehavior implements DomainBehavior {
             return ownable.getOwnerUUID() != null && ownable.getOwnerUUID().equals(ownerId);
         }
         return false;
-    }
-
-    private static void spawnParticles(ServerLevel level, BlockPos center, int count, double radius) {
-        RandomSource rand = level.getRandom();
-
-        for (int i = 0; i < count; i++) {
-            double angle = rand.nextDouble() * (Math.PI * 2.0);
-            double dist = Math.sqrt(rand.nextDouble()) * radius;
-
-            double x = center.getX() + 0.5 + Math.cos(angle) * dist + (rand.nextDouble() - 0.5) * 0.2;
-            double z = center.getZ() + 0.5 + Math.sin(angle) * dist + (rand.nextDouble() - 0.5) * 0.2;
-
-            BlockPos ground = level.getHeightmapPos(
-                    Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    BlockPos.containing(x, center.getY(), z)
-            );
-
-            double y = ground.getY() + 0.2 + rand.nextDouble() * 1.0;
-
-            boolean variant = rand.nextBoolean();
-            var type = variant ? RileyModParticles.BLIZZARD_PARTICLE.get() : RileyModParticles.BLIZZARD_PARTICLE_2.get();
-            level.sendParticles(type, x, y, z, 1, 0.0, 0.0, 0.0, 0.0);
-        }
     }
 }

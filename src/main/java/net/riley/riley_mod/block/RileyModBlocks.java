@@ -54,11 +54,25 @@ public class RileyModBlocks {
             () -> new Block(BlockBehaviour.Properties.copy(RileyModBlocks.ACTIVACTED_FUNTIUM.get())));
 //domain block
 public static final RegistryObject<Block> BLIZZARD_DOMAIN_BLOCK = registerBlock("blizzard_domain_block",
-        () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noParticlesOnBreak().noOcclusion().noLootTable()));
+        () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                .noParticlesOnBreak()
+                .noOcclusion()
+                .noLootTable()
+                .lightLevel(state -> 15)));
 
     public static final RegistryObject<Block> HURICAN_DOMAIN_BLOCK = registerBlock("hurican_domain_block",
-            () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noParticlesOnBreak().noOcclusion().noLootTable()));
-    //todo fix texture issue, somehow uses the blizzard texture
+            () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)
+                    .noParticlesOnBreak()
+                    .noOcclusion()
+                    .noLootTable()
+                    .lightLevel(state -> 15)));
+
+    public static final RegistryObject<Block> INVISIBLE_DOMAIN_WALL = BLOCKS.register("invisible_domain_wall",
+            () -> new InvisibleDomainWallBlock(BlockBehaviour.Properties.copy(Blocks.BARRIER)
+                    .noOcclusion()
+                    .noLootTable()
+                    .noParticlesOnBreak()
+                    .strength(-1.0F, 3600000.0F)));
 
     // Keep this as an alias/default if other code still references DOMAIN_BLOCK.
     public static final RegistryObject<Block> DOMAIN_BLOCK = BLIZZARD_DOMAIN_BLOCK;

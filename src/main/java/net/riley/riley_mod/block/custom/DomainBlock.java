@@ -80,6 +80,10 @@ public class DomainBlock extends Block {
             return false;
         }
 
+        if (neighborState.is(RileyModBlocks.INVISIBLE_DOMAIN_WALL.get())) {
+            return true;
+        }
+
         return neighborState.canOcclude();
     }
 

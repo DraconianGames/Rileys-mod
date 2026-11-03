@@ -51,6 +51,8 @@ public final class DomainBlockWrapper {
             domainBlocks = List.of(RileyModBlocks.DOMAIN_BLOCK.get());
         }
 
+        placeInvisibleDomainWall(level, center, radius, placedPositions);
+
         RandomSource random = level.getRandom();
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
@@ -83,9 +85,42 @@ public final class DomainBlockWrapper {
         return placedPositions;
     }
 
+    private static void placeInvisibleDomainWall(ServerLevel level, BlockPos center, int radius, Set<BlockPos> placedPositions) {
+        int innerRadiusSqr = radius * radius;
+        int outerRadius = radius + 1;
+        int outerRadiusSqr = outerRadius * outerRadius;
+
+        BlockState wallState = RileyModBlocks.INVISIBLE_DOMAIN_WALL.get().defaultBlockState();
+        BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
+
+        for (int x = -outerRadius; x <= outerRadius; x++) {
+            for (int y = -outerRadius; y <= outerRadius; y++) {
+                for (int z = -outerRadius; z <= outerRadius; z++) {
+                    int distanceSqr = x * x + y * y + z * z;
+
+                    if (distanceSqr <= innerRadiusSqr || distanceSqr > outerRadiusSqr) {
+                        continue;
+                    }
+
+                    mutablePos.set(center.getX() + x, center.getY() + y, center.getZ() + z);
+                    BlockPos pos = mutablePos.immutable();
+
+                    if (!canPlaceDomainBlock(level, pos)) {
+                        continue;
+                    }
+
+                    level.setBlock(pos, wallState, 3);
+                    placedPositions.add(pos);
+                }
+            }
+        }
+    }
+
     public static void removeWrappedBlocks(ServerLevel level, Set<BlockPos> placedPositions) {
         for (BlockPos pos : placedPositions) {
-            if (level.getBlockState(pos).getBlock() instanceof DomainBlock) {
+            BlockState state = level.getBlockState(pos);
+
+            if (state.getBlock() instanceof DomainBlock || state.is(RileyModBlocks.INVISIBLE_DOMAIN_WALL.get())) {
                 level.removeBlock(pos, false);
             }
         }
