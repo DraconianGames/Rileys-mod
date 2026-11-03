@@ -111,7 +111,7 @@ public class DomainBlock extends Block {
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockState wrappingState = createWrappingState(context.getLevel(), context.getClickedPos());
+        BlockState wrappingState = createWrappingState(context.getLevel(), context.getClickedPos(), this);
 
         if (wrappingState != null) {
             return wrappingState;

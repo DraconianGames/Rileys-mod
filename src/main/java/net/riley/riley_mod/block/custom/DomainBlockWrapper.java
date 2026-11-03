@@ -6,8 +6,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,26 @@ public final class DomainBlockWrapper {
 
     public static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int radius) {
         return wrapSphere(level, center, radius, List.of(RileyModBlocks.DOMAIN_BLOCK.get()));
+    }
+
+    public static Set<BlockPos> wrapSphereForDomains(ServerLevel level, BlockPos center, int radius, Iterable<ResourceLocation> domainIds) {
+        List<Block> domainBlocks = new ArrayList<>();
+
+        if (domainIds != null) {
+            for (ResourceLocation domainId : domainIds) {
+                Block block = visualBlockForDomain(domainId);
+
+                if (block != null && !domainBlocks.contains(block)) {
+                    domainBlocks.add(block);
+                }
+            }
+        }
+
+        if (domainBlocks.isEmpty()) {
+            domainBlocks.add(RileyModBlocks.DOMAIN_BLOCK.get());
+        }
+
+        return wrapSphere(level, center, radius, domainBlocks);
     }
 
     public static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int radius, List<Block> domainBlocks) {
@@ -74,6 +96,22 @@ public final class DomainBlockWrapper {
 
         return state.isAir() || state.canBeReplaced();
     }
+    private static Block visualBlockForDomain(ResourceLocation domainId) {
+        if (domainId == null) {
+            return RileyModBlocks.DOMAIN_BLOCK.get();
+        }
+
+        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "blizzard_domain_expansion"))) {
+            return RileyModBlocks.BLIZZARD_DOMAIN_BLOCK.get();
+        }
+
+        if (domainId.equals(ResourceLocation.fromNamespaceAndPath(RileyMod.MODID, "huricane_domain_expansion"))) {
+            return RileyModBlocks.HURICAN_DOMAIN_BLOCK.get();
+        }
+
+        return RileyModBlocks.DOMAIN_BLOCK.get();
+    }
+
     public record WrappedDomainBlocks(
             Set<BlockPos> positions,
             Map<BlockPos, ResourceLocation> domainByPos

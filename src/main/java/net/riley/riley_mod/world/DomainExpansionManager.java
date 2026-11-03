@@ -17,7 +17,9 @@ import net.riley.riley_mod.block.custom.DomainBlockWrapper;
 import net.riley.riley_mod.util.AugmentData;
 import net.riley.riley_mod.world.domain.DomainRegistry;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -54,18 +56,24 @@ public class DomainExpansionManager {
             return;
         }
 
+        List<ResourceLocation> equippedDomainIds = new ArrayList<>();
+
+        for (ResourceLocation domainId : domainIds) {
+            if (domainId != null) {
+                equippedDomainIds.add(domainId);
+            }
+        }
+
         BlockPos center = player.blockPosition();
 
         boolean any = false;
         int cooldownMultiplier = 1;
 
-        for (ResourceLocation domainId : domainIds) {
-            if (domainId == null) continue;
-
+        for (ResourceLocation domainId : equippedDomainIds) {
             int augmentLevel = Math.max(1, AugmentData.getLevel(player, domainId));
             cooldownMultiplier = Math.max(cooldownMultiplier, augmentLevel);
 
-            startInstance(level, player, domainId, augmentLevel, center, now);
+            startInstance(level, player, domainId, augmentLevel, center, now, equippedDomainIds);
             any = true;
         }
 
@@ -75,14 +83,22 @@ public class DomainExpansionManager {
         COOLDOWN_UNTIL.put(ownerId, now + (long) COOLDOWN_TICKS * cooldownMultiplier);
     }
 
-    private static void startInstance(ServerLevel level, ServerPlayer owner, ResourceLocation domainId, int augmentLevel, BlockPos center, long now) {
+    private static void startInstance(
+            ServerLevel level,
+            ServerPlayer owner,
+            ResourceLocation domainId,
+            int augmentLevel,
+            BlockPos center,
+            long now,
+            List<ResourceLocation> equippedDomainIds
+    ) {
         UUID ownerId = owner.getUUID();
 
         // Per-instance duration = baseDuration * level
         long expiresAt = now + (long) DURATION_TICKS * augmentLevel;
 
         int radius = 12 + (augmentLevel * 4);
-        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphere(level, center, radius);
+        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphereForDomains(level, center, radius, equippedDomainIds);
 
         DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, expiresAt, now, wrappedBlocks);
         ACTIVE.computeIfAbsent(ownerId, k -> new ConcurrentLinkedDeque<>()).add(inst);

@@ -58,6 +58,8 @@ public static final RegistryObject<Block> BLIZZARD_DOMAIN_BLOCK = registerBlock(
 
     public static final RegistryObject<Block> HURICAN_DOMAIN_BLOCK = registerBlock("hurican_domain_block",
             () -> new DomainBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noParticlesOnBreak().noOcclusion().noLootTable()));
+    //todo fix texture issue, somehow uses the blizzard texture
+
     // Keep this as an alias/default if other code still references DOMAIN_BLOCK.
     public static final RegistryObject<Block> DOMAIN_BLOCK = BLIZZARD_DOMAIN_BLOCK;
 
