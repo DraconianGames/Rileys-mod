@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.riley.riley_mod.RileyMod;
 import net.riley.riley_mod.block.RileyModBlocks;
-
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,31 +20,7 @@ public final class DomainBlockWrapper {
     private DomainBlockWrapper() {
     }
 
-    public static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int radius) {
-        return wrapSphere(level, center, radius, List.of(RileyModBlocks.DOMAIN_BLOCK.get()));
-    }
-
-    public static Set<BlockPos> wrapSphereForDomains(ServerLevel level, BlockPos center, int radius, Iterable<ResourceLocation> domainIds) {
-        List<Block> domainBlocks = new ArrayList<>();
-
-        if (domainIds != null) {
-            for (ResourceLocation domainId : domainIds) {
-                Block block = visualBlockForDomain(domainId);
-
-                if (block != null && !domainBlocks.contains(block)) {
-                    domainBlocks.add(block);
-                }
-            }
-        }
-
-        if (domainBlocks.isEmpty()) {
-            domainBlocks.add(RileyModBlocks.DOMAIN_BLOCK.get());
-        }
-
-        return wrapSphere(level, center, radius, domainBlocks);
-    }
-
-    public static Set<BlockPos> wrapSphereForDomains(ServerLevel level, BlockPos center, Map<ResourceLocation, Integer> domainRadii) {
+    public static BuildPlan createBuildPlanForDomains(ServerLevel level, BlockPos center, Map<ResourceLocation, Integer> domainRadii) {
         Map<Block, Integer> blockRadii = new LinkedHashMap<>();
         int maxRadius = 0;
 
@@ -63,48 +39,75 @@ public final class DomainBlockWrapper {
             maxRadius = 1;
         }
 
-        return wrapSphere(level, center, maxRadius, blockRadii);
-    }
-    public static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int radius, List<Block> domainBlocks) {
         Set<BlockPos> placedPositions = new HashSet<>();
-        int radiusSqr = radius * radius;
+        placeInvisibleDomainWall(level, center, maxRadius, placedPositions);
 
-        if (domainBlocks == null || domainBlocks.isEmpty()) {
-            domainBlocks = List.of(RileyModBlocks.DOMAIN_BLOCK.get());
-        }
+        List<BuildStep> steps = createVisualBuildSteps(level, center, maxRadius, blockRadii);
 
-        placeInvisibleDomainWall(level, center, radius, placedPositions);
+        return new BuildPlan(placedPositions, steps);
+    }
+
+    private static List<BuildStep> createVisualBuildSteps(
+            ServerLevel level,
+            BlockPos center,
+            int maxRadius,
+            Map<Block, Integer> blockRadii
+    ) {
+        List<BuildStep> steps = new ArrayList<>();
+        int maxRadiusSqr = maxRadius * maxRadius;
 
         RandomSource random = level.getRandom();
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    if (x * x + y * y + z * z > radiusSqr) {
+        for (int x = -maxRadius; x <= maxRadius; x++) {
+            for (int y = -maxRadius; y <= maxRadius; y++) {
+                for (int z = -maxRadius; z <= maxRadius; z++) {
+                    int horizontalDistanceSqr = x * x + z * z;
+                    int distanceSqr = horizontalDistanceSqr + y * y;
+
+                    if (distanceSqr > maxRadiusSqr) {
                         continue;
                     }
 
                     mutablePos.set(center.getX() + x, center.getY() + y, center.getZ() + z);
                     BlockPos pos = mutablePos.immutable();
 
-                    if (!canPlaceDomainBlock(level, pos)) {
+                    if (!canPlaceOrReplaceDomainBlock(level, pos)) {
                         continue;
                     }
 
-                    Block chosenBlock = domainBlocks.get(random.nextInt(domainBlocks.size()));
+                    List<Block> candidates = new ArrayList<>();
+
+                    for (Map.Entry<Block, Integer> entry : blockRadii.entrySet()) {
+                        int domainRadius = entry.getValue();
+                        int domainRadiusSqr = domainRadius * domainRadius;
+
+                        if (distanceSqr <= domainRadiusSqr) {
+                            candidates.add(entry.getKey());
+                        }
+                    }
+
+                    if (candidates.isEmpty()) {
+                        continue;
+                    }
+
+                    Block chosenBlock = candidates.get(random.nextInt(candidates.size()));
                     BlockState wrappingState = DomainBlock.createWrappingState(level, pos, chosenBlock);
+
                     if (wrappingState == null) {
                         continue;
                     }
 
-                    level.setBlock(pos, wrappingState, 3);
-                    placedPositions.add(pos);
+                    steps.add(new BuildStep(pos, wrappingState, horizontalDistanceSqr, y));
                 }
             }
         }
 
-        return placedPositions;
+        steps.sort(Comparator
+                .comparingInt(BuildStep::relativeY)
+                .thenComparingInt(BuildStep::horizontalDistanceSqr));
+
+        return steps;
     }
 
     private static Set<BlockPos> wrapSphere(ServerLevel level, BlockPos center, int maxRadius, Map<Block, Integer> blockRadii) {
@@ -203,11 +206,49 @@ public final class DomainBlockWrapper {
         }
     }
 
+    public static int placeBuildSteps(ServerLevel level, BuildPlan buildPlan, int startIndex, int maxBlocks) {
+        int placed = 0;
+
+        while (placed < maxBlocks && startIndex + placed < buildPlan.steps().size()) {
+            BuildStep step = buildPlan.steps().get(startIndex + placed);
+
+            if (canPlaceOrReplaceDomainBlock(level, step.pos())) {
+                level.setBlock(step.pos(), step.state(), 3);
+                buildPlan.placedPositions().add(step.pos());
+            }
+
+            placed++;
+        }
+
+        return placed;
+    }
+
+    public static void refreshVisualBlocksForDomains(
+            ServerLevel level,
+            BlockPos center,
+            Map<ResourceLocation, Integer> domainRadii,
+            Set<BlockPos> trackedPositions
+    ) {
+        BuildPlan buildPlan = createBuildPlanForDomains(level, center, domainRadii);
+
+        placeBuildSteps(level, buildPlan, 0, buildPlan.steps().size());
+        trackedPositions.addAll(buildPlan.placedPositions());
+    }
+
     private static boolean canPlaceDomainBlock(ServerLevel level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
 
         return state.isAir() || state.canBeReplaced();
     }
+
+    private static boolean canPlaceOrReplaceDomainBlock(ServerLevel level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+
+        return state.isAir()
+                || state.canBeReplaced()
+                || state.getBlock() instanceof DomainBlock;
+    }
+
     private static Block visualBlockForDomain(ResourceLocation domainId) {
         if (domainId == null) {
             return RileyModBlocks.DOMAIN_BLOCK.get();
@@ -223,6 +264,18 @@ public final class DomainBlockWrapper {
 
         return RileyModBlocks.DOMAIN_BLOCK.get();
     }
+
+    public record BuildPlan(
+            Set<BlockPos> placedPositions,
+            List<BuildStep> steps
+    ) {}
+
+    public record BuildStep(
+            BlockPos pos,
+            BlockState state,
+            int horizontalDistanceSqr,
+            int relativeY
+    ) {}
 
     public record WrappedDomainBlocks(
             Set<BlockPos> positions,

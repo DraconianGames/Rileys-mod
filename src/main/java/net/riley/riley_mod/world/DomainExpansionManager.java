@@ -27,13 +27,14 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static net.riley.riley_mod.RileyMod.MODID;
 //todo make domain expand out in the circle, then climb the walls
-//TODO make deactivated partials remove their corresponding blocks to make room for other domain's blocks
+//TODO make deactivated domains remove their corresponding blocks to make room for other in sync domain's blocks
 @Mod.EventBusSubscriber(modid = MODID)
 public class DomainExpansionManager {
 
     private static final int DURATION_TICKS = 20 * 30;     // base duration
     private static final int COOLDOWN_TICKS = 20 * 45;     // base cooldown
     private static final int TICK_INTERVAL = 5;
+    private static final int BUILD_BLOCKS_PER_TICK = 10;  //speed of build
 
     private static final Map<UUID, ConcurrentLinkedDeque<DomainInstance>> ACTIVE = new ConcurrentHashMap<>();
     private static final Map<UUID, Long> COOLDOWN_UNTIL = new ConcurrentHashMap<>();
@@ -88,15 +89,15 @@ public class DomainExpansionManager {
             latestExpiresAt = Math.max(latestExpiresAt, expiresAt);
         }
 
-        Set<BlockPos> wrappedBlocks = DomainBlockWrapper.wrapSphereForDomains(level, center, domainRadii);
+        DomainBlockWrapper.BuildPlan buildPlan = DomainBlockWrapper.createBuildPlanForDomains(level, center, domainRadii);
 
         boolean visualCleanupOwnerAssigned = false;
 
         for (ResourceLocation domainId : equippedDomainIds) {
             int augmentLevel = Math.max(1, AugmentData.getLevel(player, domainId));
-            long expiresAt = domainExpiresAt.get(domainId);
+            long durationTicks = (long) DURATION_TICKS * augmentLevel;
 
-            boolean ownsWrappedBlocks = !visualCleanupOwnerAssigned && expiresAt == latestExpiresAt;
+            boolean ownsWrappedBlocks = !visualCleanupOwnerAssigned;
             if (ownsWrappedBlocks) {
                 visualCleanupOwnerAssigned = true;
             }
@@ -108,8 +109,8 @@ public class DomainExpansionManager {
                     augmentLevel,
                     center,
                     now,
-                    expiresAt,
-                    ownsWrappedBlocks ? wrappedBlocks : Collections.emptySet()
+                    durationTicks,
+                    ownsWrappedBlocks ? buildPlan : null
             );
         }
 
@@ -124,15 +125,13 @@ public class DomainExpansionManager {
             int augmentLevel,
             BlockPos center,
             long now,
-            long expiresAt,
-            Set<BlockPos> wrappedBlocks
+            long durationTicks,
+            DomainBlockWrapper.BuildPlan buildPlan
     ) {
         UUID ownerId = owner.getUUID();
 
-        DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, expiresAt, now, wrappedBlocks);
+        DomainInstance inst = new DomainInstance(domainId, augmentLevel, center, now, durationTicks, buildPlan);
         ACTIVE.computeIfAbsent(ownerId, k -> new ConcurrentLinkedDeque<>()).add(inst);
-
-        pulse(level, owner, inst);
     }
 
     private static int radiusForLevel(int augmentLevel) {
@@ -162,13 +161,36 @@ public class DomainExpansionManager {
 
             long now = level.getGameTime();
 
+            boolean sharedBuildInProgress = instances.stream()
+                    .anyMatch(inst -> inst.buildPlan != null && !inst.finishedBuilding);
+
             Iterator<DomainInstance> it = instances.iterator();
             while (it.hasNext()) {
                 DomainInstance inst = it.next();
 
+                if (!inst.finishedBuilding) {
+                    if (inst.buildPlan == null && sharedBuildInProgress) {
+                        continue;
+                    }
+
+                    tickBuild(level, owner, inst, now);
+                    continue;
+                }
+
                 if (now >= inst.expiresAtTick) {
-                    DomainBlockWrapper.removeWrappedBlocks(level, inst.wrappedBlocks);
+                    Set<BlockPos> expiredWrappedBlocks = inst.wrappedBlocks;
+                    boolean expiredOwnedVisuals = !expiredWrappedBlocks.isEmpty();
+
                     it.remove();
+
+                    if (expiredOwnedVisuals) {
+                        if (instances.isEmpty()) {
+                            DomainBlockWrapper.removeWrappedBlocks(level, expiredWrappedBlocks);
+                        } else {
+                            refreshRemainingDomainVisuals(level, inst.center, instances, expiredWrappedBlocks);
+                        }
+                    }
+
                     continue;
                 }
 
@@ -184,6 +206,70 @@ public class DomainExpansionManager {
         }
     }
 
+    private static BlockPos centerOf(DomainInstance inst) {
+        return inst.center;
+    }
+    private static void refreshRemainingDomainVisuals(
+            ServerLevel level,
+            BlockPos center,
+            ConcurrentLinkedDeque<DomainInstance> remainingInstances,
+            Set<BlockPos> trackedPositions
+    ) {
+        Map<ResourceLocation, Integer> remainingDomainRadii = new LinkedHashMap<>();
+
+        for (DomainInstance remaining : remainingInstances) {
+            if (!remaining.finishedBuilding) {
+                continue;
+            }
+
+            remainingDomainRadii.put(
+                    remaining.domainId,
+                    radiusForLevel(remaining.augmentLevel)
+            );
+        }
+
+        if (remainingDomainRadii.isEmpty()) {
+            DomainBlockWrapper.removeWrappedBlocks(level, trackedPositions);
+            trackedPositions.clear();
+            return;
+        }
+
+        DomainBlockWrapper.refreshVisualBlocksForDomains(
+                level,
+                center,
+                remainingDomainRadii,
+                trackedPositions
+        );
+
+        DomainInstance newVisualOwner = remainingInstances.peekFirst();
+
+        if (newVisualOwner != null) {
+            newVisualOwner.wrappedBlocks.addAll(trackedPositions);
+        }
+
+        trackedPositions.clear();
+    }
+
+    private static void tickBuild(ServerLevel level, ServerPlayer owner, DomainInstance inst, long now) {
+        if (inst.buildPlan != null) {
+            int placed = DomainBlockWrapper.placeBuildSteps(level, inst.buildPlan, inst.buildIndex, BUILD_BLOCKS_PER_TICK);
+            inst.buildIndex += placed;
+
+            if (inst.buildIndex < inst.buildPlan.steps().size()) {
+                return;
+            }
+
+            inst.wrappedBlocks.addAll(inst.buildPlan.placedPositions());
+        }
+
+        inst.finishedBuilding = true;
+        inst.startedAtTick = now;
+        inst.expiresAtTick = now + inst.durationTicks;
+        inst.lastPulseTick = now;
+
+        pulse(level, owner, inst);
+    }
+
     private static void pulse(ServerLevel level, ServerPlayer owner, DomainInstance inst) {
         var behavior = DomainRegistry.get(inst.domainId);
         if (behavior == null) return;
@@ -195,27 +281,39 @@ public class DomainExpansionManager {
         final ResourceLocation domainId;
         final int augmentLevel;
         final BlockPos center;
-        final long expiresAtTick;
+        final long durationTicks;
         final Set<BlockPos> wrappedBlocks;
+        final DomainBlockWrapper.BuildPlan buildPlan;
+
+        long startedAtTick;
+        long expiresAtTick;
         long lastPulseTick;
+        int buildIndex;
+        boolean finishedBuilding;
 
         private DomainInstance(
                 ResourceLocation domainId,
                 int augmentLevel,
                 BlockPos center,
-                long expiresAtTick,
-                long lastPulseTick,
-                Set<BlockPos> wrappedBlocks
+                long now,
+                long durationTicks,
+                DomainBlockWrapper.BuildPlan buildPlan
         ) {
             this.domainId = domainId;
             this.augmentLevel = augmentLevel;
             this.center = center;
-            this.expiresAtTick = expiresAtTick;
-            this.lastPulseTick = lastPulseTick;
-            this.wrappedBlocks = wrappedBlocks;
+            this.startedAtTick = now;
+            this.expiresAtTick = Long.MAX_VALUE;
+            this.durationTicks = durationTicks;
+            this.lastPulseTick = now;
+            this.buildPlan = buildPlan;
+            this.wrappedBlocks = ConcurrentHashMap.newKeySet();
+
+            this.finishedBuilding = false;
         }
     }
 }
+
 /*
 Radius: RADIUS
 Duration: DURATION_TICKS
