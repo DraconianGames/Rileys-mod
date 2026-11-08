@@ -43,7 +43,7 @@ public class DomainBlock extends Block {
                 .setValue(DOWN, false));
     }
 
-    //todo add block wrapping logic
+
     public static @Nullable BlockState createWrappingState(BlockGetter level, BlockPos pos) {
         return createWrappingState(level, pos, RileyModBlocks.DOMAIN_BLOCK.get());
     }

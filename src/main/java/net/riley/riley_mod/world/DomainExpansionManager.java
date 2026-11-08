@@ -26,8 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import static net.riley.riley_mod.RileyMod.MODID;
-//todo make domain expand out in the circle, then climb the walls
-//TODO make deactivated domains remove their corresponding blocks to make room for other in sync domain's blocks
+
 @Mod.EventBusSubscriber(modid = MODID)
 public class DomainExpansionManager {
 
