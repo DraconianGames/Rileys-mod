@@ -20,29 +20,38 @@ public final class DomainBlockWrapper {
     private DomainBlockWrapper() {
     }
 
-    public static BuildPlan createBuildPlanForDomains(ServerLevel level, BlockPos center, Map<ResourceLocation, Integer> domainRadii) {
+    public static BuildPlan createBuildPlanForDomains(
+            ServerLevel level,
+            BlockPos center,
+            Map<ResourceLocation, Integer> domainRadii,
+            Map<ResourceLocation, Integer> domainHeights
+    ) {
         Map<Block, Integer> blockRadii = new LinkedHashMap<>();
         int maxRadius = 0;
+        int maxHeight = 1;
 
         if (domainRadii != null) {
             for (Map.Entry<ResourceLocation, Integer> entry : domainRadii.entrySet()) {
                 Block block = visualBlockForDomain(entry.getKey());
                 int radius = Math.max(1, entry.getValue());
+                int height = Math.max(1, domainHeights.getOrDefault(entry.getKey(), 1));
 
                 blockRadii.merge(block, radius, Math::max);
                 maxRadius = Math.max(maxRadius, radius);
+                maxHeight = Math.max(maxHeight, height);
             }
         }
 
         if (blockRadii.isEmpty()) {
             blockRadii.put(RileyModBlocks.DOMAIN_BLOCK.get(), 1);
             maxRadius = 1;
+            maxHeight = 1;
         }
 
         Set<BlockPos> placedPositions = new HashSet<>();
-        placeInvisibleDomainWall(level, center, maxRadius, placedPositions);
+        placeInvisibleDomainWall(level, center, maxRadius, maxHeight, placedPositions);
 
-        List<BuildStep> steps = createVisualBuildSteps(level, center, maxRadius, blockRadii);
+        List<BuildStep> steps = createVisualBuildSteps(level, center, maxRadius, maxHeight, blockRadii);
 
         return new BuildPlan(placedPositions, steps);
     }
@@ -51,6 +60,7 @@ public final class DomainBlockWrapper {
             ServerLevel level,
             BlockPos center,
             int maxRadius,
+            int maxHeight,
             Map<Block, Integer> blockRadii
     ) {
         List<BuildStep> steps = new ArrayList<>();
@@ -60,12 +70,11 @@ public final class DomainBlockWrapper {
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
         for (int x = -maxRadius; x <= maxRadius; x++) {
-            for (int y = -maxRadius; y <= maxRadius; y++) {
+            for (int y = 0; y <= maxHeight + maxRadius; y++) {
                 for (int z = -maxRadius; z <= maxRadius; z++) {
                     int horizontalDistanceSqr = x * x + z * z;
-                    int distanceSqr = horizontalDistanceSqr + y * y;
 
-                    if (distanceSqr > maxRadiusSqr) {
+                    if (!isInsideDomainShape(horizontalDistanceSqr, y, maxRadius, maxHeight)) {
                         continue;
                     }
 
@@ -82,7 +91,7 @@ public final class DomainBlockWrapper {
                         int domainRadius = entry.getValue();
                         int domainRadiusSqr = domainRadius * domainRadius;
 
-                        if (distanceSqr <= domainRadiusSqr) {
+                        if (horizontalDistanceSqr <= domainRadiusSqr) {
                             candidates.add(entry.getKey());
                         }
                     }
@@ -114,7 +123,7 @@ public final class DomainBlockWrapper {
         Set<BlockPos> placedPositions = new HashSet<>();
         int maxRadiusSqr = maxRadius * maxRadius;
 
-        placeInvisibleDomainWall(level, center, maxRadius, placedPositions);
+        placeInvisibleDomainWall(level, center, maxRadius, maxRadius, placedPositions);
 
         RandomSource random = level.getRandom();
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
@@ -165,20 +174,37 @@ public final class DomainBlockWrapper {
         return placedPositions;
     }
 
-    private static void placeInvisibleDomainWall(ServerLevel level, BlockPos center, int radius, Set<BlockPos> placedPositions) {
-        int innerRadiusSqr = radius * radius;
+    private static void placeInvisibleDomainWall(
+            ServerLevel level,
+            BlockPos center,
+            int radius,
+            int height,
+            Set<BlockPos> placedPositions
+    ) {
         int outerRadius = radius + 1;
+        int innerRadiusSqr = radius * radius;
         int outerRadiusSqr = outerRadius * outerRadius;
 
         BlockState wallState = RileyModBlocks.INVISIBLE_DOMAIN_WALL.get().defaultBlockState();
         BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 
         for (int x = -outerRadius; x <= outerRadius; x++) {
-            for (int y = -outerRadius; y <= outerRadius; y++) {
+            for (int y = 0; y <= height + outerRadius; y++) {
                 for (int z = -outerRadius; z <= outerRadius; z++) {
-                    int distanceSqr = x * x + y * y + z * z;
+                    int horizontalDistanceSqr = x * x + z * z;
 
-                    if (distanceSqr <= innerRadiusSqr || distanceSqr > outerRadiusSqr) {
+                    boolean isCylinderWall = y <= height
+                            && horizontalDistanceSqr > innerRadiusSqr
+                            && horizontalDistanceSqr <= outerRadiusSqr;
+
+                    int domeY = y - height;
+                    int domeDistanceSqr = horizontalDistanceSqr + domeY * domeY;
+
+                    boolean isDomeWall = y >= height
+                            && domeDistanceSqr > innerRadiusSqr
+                            && domeDistanceSqr <= outerRadiusSqr;
+
+                    if (!isCylinderWall && !isDomeWall) {
                         continue;
                     }
 
@@ -194,6 +220,17 @@ public final class DomainBlockWrapper {
                 }
             }
         }
+    }
+
+    private static boolean isInsideDomainShape(int horizontalDistanceSqr, int y, int radius, int height) {
+        int radiusSqr = radius * radius;
+
+        if (y <= height) {
+            return horizontalDistanceSqr <= radiusSqr;
+        }
+
+        int domeY = y - height;
+        return horizontalDistanceSqr + domeY * domeY <= radiusSqr;
     }
 
     public static void removeWrappedBlocks(ServerLevel level, Set<BlockPos> placedPositions) {
@@ -227,9 +264,10 @@ public final class DomainBlockWrapper {
             ServerLevel level,
             BlockPos center,
             Map<ResourceLocation, Integer> domainRadii,
+            Map<ResourceLocation, Integer> domainHeights,
             Set<BlockPos> trackedPositions
     ) {
-        BuildPlan buildPlan = createBuildPlanForDomains(level, center, domainRadii);
+        BuildPlan buildPlan = createBuildPlanForDomains(level, center, domainRadii, domainHeights);
 
         placeBuildSteps(level, buildPlan, 0, buildPlan.steps().size());
         trackedPositions.addAll(buildPlan.placedPositions());

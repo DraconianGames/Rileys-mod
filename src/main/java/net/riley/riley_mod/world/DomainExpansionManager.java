@@ -33,7 +33,7 @@ public class DomainExpansionManager {
     private static final int DURATION_TICKS = 20 * 30;     // base duration
     private static final int COOLDOWN_TICKS = 20 * 45;     // base cooldown
     private static final int TICK_INTERVAL = 5;
-    private static final int BUILD_BLOCKS_PER_TICK = 10;  //speed of build
+    private static final int BUILD_BLOCKS_PER_TICK = 30;  //speed of build
 
     private static final Map<UUID, ConcurrentLinkedDeque<DomainInstance>> ACTIVE = new ConcurrentHashMap<>();
     private static final Map<UUID, Long> COOLDOWN_UNTIL = new ConcurrentHashMap<>();
@@ -71,6 +71,7 @@ public class DomainExpansionManager {
         BlockPos center = player.blockPosition();
 
         Map<ResourceLocation, Integer> domainRadii = new LinkedHashMap<>();
+        Map<ResourceLocation, Integer> domainHeights = new LinkedHashMap<>();
         Map<ResourceLocation, Long> domainExpiresAt = new LinkedHashMap<>();
 
         int cooldownMultiplier = 1;
@@ -79,16 +80,18 @@ public class DomainExpansionManager {
         for (ResourceLocation domainId : equippedDomainIds) {
             int augmentLevel = Math.max(1, AugmentData.getLevel(player, domainId));
             int radius = radiusForLevel(augmentLevel);
+            int height = augmentLevel;
             long expiresAt = now + (long) DURATION_TICKS * augmentLevel;
 
             domainRadii.put(domainId, radius);
+            domainHeights.put(domainId, height);
             domainExpiresAt.put(domainId, expiresAt);
 
             cooldownMultiplier = Math.max(cooldownMultiplier, augmentLevel);
             latestExpiresAt = Math.max(latestExpiresAt, expiresAt);
         }
 
-        DomainBlockWrapper.BuildPlan buildPlan = DomainBlockWrapper.createBuildPlanForDomains(level, center, domainRadii);
+        DomainBlockWrapper.BuildPlan buildPlan = DomainBlockWrapper.createBuildPlanForDomains(level, center, domainRadii, domainHeights);
 
         boolean visualCleanupOwnerAssigned = false;
 
@@ -215,6 +218,7 @@ public class DomainExpansionManager {
             Set<BlockPos> trackedPositions
     ) {
         Map<ResourceLocation, Integer> remainingDomainRadii = new LinkedHashMap<>();
+        Map<ResourceLocation, Integer> remainingDomainHeights = new LinkedHashMap<>();
 
         for (DomainInstance remaining : remainingInstances) {
             if (!remaining.finishedBuilding) {
@@ -224,6 +228,10 @@ public class DomainExpansionManager {
             remainingDomainRadii.put(
                     remaining.domainId,
                     radiusForLevel(remaining.augmentLevel)
+            );
+            remainingDomainHeights.put(
+                    remaining.domainId,
+                    remaining.augmentLevel
             );
         }
 
@@ -237,6 +245,7 @@ public class DomainExpansionManager {
                 level,
                 center,
                 remainingDomainRadii,
+                remainingDomainHeights,
                 trackedPositions
         );
 
