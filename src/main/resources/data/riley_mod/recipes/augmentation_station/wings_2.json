@@ -4,8 +4,9 @@
   "augment_id": "riley_mod:wings",
   "level": 2,
   "icon": { "item": "minecraft:elytra" },
-  "description": "Returns elytra capabilities",
+  "description": "Returns elytra capabilities, infinite durability",
   "requirements": [
-    { "item": "riley_mod:synthetic_muscle", "count": 60 }
+    { "item": "riley_mod:synthetic_muscle", "count": 60 },
+    {"Item":  "minecraft:phantom_membrane", "count":  64}
   ]
 }

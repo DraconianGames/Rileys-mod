@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.riley.riley_mod.RileyMod;
+import net.riley.riley_mod.client.AugmentHudOverlay;
 import net.riley.riley_mod.menu.AugmentationStationMenu;
 import net.riley.riley_mod.recipe.AugmentationStationRecipe;
 import net.riley.riley_mod.recipe.AugmentationStationRecipeType;
@@ -37,6 +38,10 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
 
     private static final int BORDER = 9;      // 9px border in the PNG
     private static final int INNER_PAD = 6;   // padding inside the inner content area (keeps text away from edges)
+
+    private static final int AUGMENT_ICON_SIZE = 24;
+    private static final int AUGMENT_ICON_TEXTURE_SIZE = 16;
+    private static final int AUGMENT_ICON_PADDING = 4;
 
     private final List<AugmentEntry> allEntries = new ArrayList<>();
     private Category expandedCategory = null;
@@ -215,6 +220,24 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
         }
         return Optional.empty();
     }
+
+    private Optional<AugmentationStationRecipe> getCurrentLevelRecipe(ResourceLocation augmentId) {
+        if (this.minecraft == null || this.minecraft.level == null) return Optional.empty();
+
+        int currentLevel = getCurrentLevel(augmentId);
+        if (currentLevel <= 0) return getSelectedRecipe();
+
+        List<AugmentationStationRecipe> all = this.minecraft.level.getRecipeManager()
+                .getAllRecipesFor(AugmentationStationRecipeType.INSTANCE);
+
+        for (AugmentationStationRecipe r : all) {
+            if (r.getAugmentId().equals(augmentId) && r.getLevel() == currentLevel) {
+                return Optional.of(r);
+            }
+        }
+
+        return getSelectedRecipe();
+    }
     private int countItemInPlayerInventory(Item item) {
         if (this.minecraft == null || this.minecraft.player == null) return 0;
         Inventory inv = this.minecraft.player.getInventory();
@@ -382,21 +405,66 @@ public class AugmentationStationScreen extends AbstractContainerScreen<Augmentat
             return;
         }
 
+        Optional<AugmentationStationRecipe> recipeOpt = getSelectedRecipe();
+        Optional<AugmentationStationRecipe> currentLevelRecipeOpt = getCurrentLevelRecipe(selectedEntry.augmentId());
+
+        int titleX = textX;
+        int titleMaxWidth = maxWidth;
+
+        ResourceLocation textureIcon = AugmentHudOverlay.getIconForAugment(selectedEntry.augmentId());
+        if (textureIcon != null) {
+            int iconX = textX;
+            int iconY = textY;
+
+            g.fill(
+                    iconX,
+                    iconY,
+                    iconX + AUGMENT_ICON_SIZE,
+                    iconY + AUGMENT_ICON_SIZE,
+                    0x33000000
+            );
+
+            RenderSystem.enableBlend();
+            g.blit(
+                    textureIcon,
+                    iconX + AUGMENT_ICON_PADDING,
+                    iconY + AUGMENT_ICON_PADDING,
+                    0,
+                    0,
+                    AUGMENT_ICON_TEXTURE_SIZE,
+                    AUGMENT_ICON_TEXTURE_SIZE,
+                    AUGMENT_ICON_TEXTURE_SIZE,
+                    AUGMENT_ICON_TEXTURE_SIZE
+            );
+            RenderSystem.disableBlend();
+
+            titleX = textX + AUGMENT_ICON_SIZE + 6;
+            titleMaxWidth = Math.max(0, rightX1 - titleX);
+        } else {
+            currentLevelRecipeOpt
+                    .or(() -> recipeOpt)
+                    .map(AugmentationStationRecipe::getResultIcon)
+                    .filter(stack -> !stack.isEmpty())
+                    .ifPresent(stack -> g.renderItem(stack, textX, textY));
+
+            titleX = textX + 22;
+            titleMaxWidth = Math.max(0, rightX1 - titleX);
+        }
+
         // Title: shrink-to-fit (no truncation)
-        drawScaledString(g, selectedEntry.title(), textX, textY, 0x303030, maxWidth);
+        drawScaledString(g, titleWithLevel(selectedEntry), titleX, textY, 0x303030, titleMaxWidth);
 
         // Body: word-wrapped, then uniformly scaled so the widest wrapped line fits
-        int bodyY = textY + 14;
+        int bodyY = textY + Math.max(28, AUGMENT_ICON_SIZE + 4);
         int bodyMaxHeight = Math.max(0, (rightY1 - bodyY));
 
-        Optional<AugmentationStationRecipe> recipeOpt = getSelectedRecipe();
-        String description = recipeOpt.map(AugmentationStationRecipe::getDescription)
+        String description = currentLevelRecipeOpt.map(AugmentationStationRecipe::getDescription)
                 .filter(s -> !s.isBlank())
                 .orElse(selectedEntry.description());
 
         List<FormattedCharSequence> descLines = this.font.split(Component.literal(description), maxWidth);
         float descScale = computeScaleForLines(descLines, maxWidth);
-
+//
         g.pose().pushPose();
         g.pose().translate(textX, bodyY, 0);
         g.pose().scale(descScale, descScale, 1.0f);

@@ -4,7 +4,7 @@
   "augment_id": "riley_mod:huricane_domain_expansion",
   "level": 8,
   "icon": { "item": "riley_mod:ice_shard" },
-  "description": "Swiftly defeat your enemies",
+  "description": "Swiftly defeat your enemies, area of affect: 44, duration: 240, cooldown after activation: 360",
   "requirements": [
     { "item": "minecraft:nether_star", "count": 1 }
   ]

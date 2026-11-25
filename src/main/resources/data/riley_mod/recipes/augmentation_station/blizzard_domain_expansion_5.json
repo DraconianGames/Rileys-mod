@@ -4,7 +4,7 @@
   "augment_id": "riley_mod:blizzard_domain_expansion",
   "level": 5,
   "icon": { "item": "riley_mod:ice_shard" },
-  "description": "Freeze your enemies in the extreme cold",
+  "description": "Freeze your enemies in the extreme cold, area of affect: 32, duration: 150, cooldown after activation: 225",
   "requirements": [
     { "item": "minecraft:nether_star", "count": 1 }
   ]

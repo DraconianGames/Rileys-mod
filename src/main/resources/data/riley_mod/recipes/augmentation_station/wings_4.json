@@ -4,7 +4,7 @@
   "augment_id": "riley_mod:wings",
   "level": 4,
   "icon": { "item": "minecraft:elytra" },
-  "description": "Launch",
+  "description": "Hold shift and press space to Launch",
   "requirements": [
     { "item": "riley_mod:eye", "count": 6 }
   ]

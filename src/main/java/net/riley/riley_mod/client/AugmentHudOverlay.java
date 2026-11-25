@@ -64,6 +64,9 @@ public final class AugmentHudOverlay {
                 )
         );
     }
+    public static ResourceLocation getIconForAugment(ResourceLocation augmentId) {
+        return AUGMENT_ICONS.get(augmentId);
+    }
 
     private AugmentHudOverlay() {}
 
